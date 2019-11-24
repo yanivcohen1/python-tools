@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## pre run python install
 https://packaging.python.org/tutorials/managing-dependencies/
-first disable comodo firewall
+first disable comodo firewall 
 python -m ensurepip --default-pip
 python -m pip install --upgrade pip setuptools wheel
 pip install --user pipenv
