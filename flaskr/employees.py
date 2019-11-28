@@ -10,16 +10,18 @@ employeess = {'employees': [{'id':1, 'name':'Balram'},{'id':2, 'name':'Tom'}]}
 @bp.route("/") #, methods=("GET", "POST", "PUT", "DELETE")
 def employees():
     """Clear the current session, including the stored user id."""
-    #for GET
-    #user_id = session.get("user_id")
-    #for POST
-    #username = request.form["username"]
-    #for PUT
-    #_json = request.json
-	#_id = _json['id']
-    #for DELETE
-    #@app.route('/delete/<int:id>', methods=['DELETE'])
-    #def delete_user(id):
+    # for GET
+    # user_id = session.get("user_id")
+    # for POST
+    # username = request.form["username"]
+    # for PUT
+    # _json = request.json
+	# _id = _json['id']
+    # for DELETE
+    # @app.route('/delete/<int:id>', methods=['DELETE'])
+    # def delete_user(id):
+    # for HEADER
+    # request.headers.get('your-header-name')
     return employeess
 
 @bp.route("/<employee_id>")
@@ -35,4 +37,3 @@ def get(employee_id):
         # mimetype='application/json'
         # )
         # return response
-        
