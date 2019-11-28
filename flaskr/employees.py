@@ -26,4 +26,12 @@ def employees():
 def get(employee_id):
         print('Employee id:' + employee_id)
         result = employeess["employees"][int(employee_id)-1]["name"] #{'data': {'id':employee_id, 'name':'Balram1'}}
+        #send as mimetype='application/json'
         return jsonify(result) # str(result)
+        # to change the return status 
+        # response = app.response_class(
+        # response=json.dumps(data),
+        # status=200,
+        # mimetype='application/json'
+    )
+    return response
