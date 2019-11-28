@@ -75,6 +75,39 @@ def create_app(test_config=None):
     #end config
     return app
 
+# for seralization use cast-class-json-class.py
+# see for mysql + rest - rest_crud_mysql folder
+# @bp.route("/") #, methods=("GET", "POST", "PUT", "DELETE")
+# def employees():
+#   """Clear the current session, including the stored user id."""
+    # for GET
+    # user_id = session.get("user_id")
+
+    # for POST
+    # username = request.form["username"]
+
+    # for PUT
+    # _json = request.json
+	# _id = _json['id']
+
+    # for DELETE
+    # @app.route('/delete/<int:id>', methods=['DELETE'])
+    # def delete_user(id):
+
+    # for HEADER
+    # request.headers.get('your-header-name')
+
+    # for Costume HEADER Response
+    # resp = flask.make_response()
+    # resp.headers["custom-header"] = "custom"
+    # resp.status = 200 # not mast
+    # resp.mimetype='application/json # not mast
+    # resp.response=json.dumps(data) # not mast
+    # return resp
+
+    # for Error return
+    #return flask.make_response(jsonify(message='Failed to create chain', error=e.message), http_code)
+
 # add by yaniv for angular
 # class Employees(Resource):
 #     def get(self):
