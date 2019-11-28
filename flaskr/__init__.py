@@ -5,7 +5,6 @@ from flask_restful import Resource, Api
 from json import dumps
 from flask_jsonpify import jsonify
 
-app = None
 # request.headers.get('your-header-name') // read from header parameters
 # session.get("user_id") // read from session parameters
 # request.args.get('username') // read from url parameters
@@ -72,16 +71,17 @@ def create_app(test_config=None):
     #for angular
     from flaskr import employees
     app.register_blueprint(employees.bp)
+    #app.register_blueprint(employees.errors)
     #end config
     return app
 
 # add by yaniv for angular
-class Employees(Resource):
-    def get(self):
-        return {'employees': [{'id':1, 'name':'Balram'},{'id':2, 'name':'Tom'}]} 
+# class Employees(Resource):
+#     def get(self):
+#         return {'employees': [{'id':1, 'name':'Balram'},{'id':2, 'name':'Tom'}]} 
 
-class Employees_Name(Resource):
-    def get(self, employee_id):
-        print('Employee id:' + employee_id)
-        result = {'data': {'id':1, 'name':'Balram'}}
-        return jsonify(result) 
+# class Employees_Name(Resource):
+#     def get(self, employee_id):
+#         print('Employee id:' + employee_id)
+#         result = {'data': {'id':1, 'name':'Balram'}}
+#         return jsonify(result) 
