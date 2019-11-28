@@ -10,14 +10,14 @@ employeess = {'employees': [{'id':1, 'name':'Balram'},{'id':2, 'name':'Tom'}]}
 @bp.route("/") #, methods=("GET", "POST", "PUT", "DELETE")
 def employees():
     """Clear the current session, including the stored user id."""
-    #for get
+    #for GET
     #user_id = session.get("user_id")
-    #for post
+    #for POST
     #username = request.form["username"]
-    #for put
+    #for PUT
     #_json = request.json
 	#_id = _json['id']
-    #for delete
+    #for DELETE
     #@app.route('/delete/<int:id>', methods=['DELETE'])
     #def delete_user(id):
     return employeess
@@ -26,4 +26,4 @@ def employees():
 def get(employee_id):
         print('Employee id:' + employee_id)
         result = employeess["employees"][int(employee_id)-1]["name"] #{'data': {'id':employee_id, 'name':'Balram1'}}
-        return str(result) #jsonify(result)
+        return jsonify(result) # str(result)
