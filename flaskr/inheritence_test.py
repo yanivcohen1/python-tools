@@ -8,12 +8,20 @@ class Robot:
 
     def say_hi2(self):
         print("Hi2, I am " + self.name)
-        
+        self.say_hi3()
+    
+    def say_hi3(self):
+        print("Hi3, I am " + self.name)
+        self.say_hi()
+
+    def say_hi4(self):
+        print("Hi4, I am " + self.name)
+
 class PhysicianRobot(Robot):
 
     def say_hi(self):
         print(self.name + " takes care of you!")
-        super().say_hi()
+        super().say_hi4()
 
 robot = Robot("Marvin")
 physicianRobot = PhysicianRobot("James")
