@@ -7,7 +7,9 @@ class Robot:
         print("Hi, I am " + self.name)
         
 class PhysicianRobot(Robot):
-    pass
+
+    def say_hi(self):
+        print(self.name + " takes care of you!")
 
 x = Robot("Marvin")
 y = PhysicianRobot("James")
