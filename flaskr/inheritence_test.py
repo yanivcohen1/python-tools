@@ -5,16 +5,21 @@ class Robot:
         
     def say_hi(self):
         print("Hi, I am " + self.name)
+
+    def say_hi2(self):
+        print("Hi2, I am " + self.name)
         
 class PhysicianRobot(Robot):
 
     def say_hi(self):
         print(self.name + " takes care of you!")
+        super().say_hi()
 
-x = Robot("Marvin")
-y = PhysicianRobot("James")
+robot = Robot("Marvin")
+physicianRobot = PhysicianRobot("James")
 
-print(x, type(x))
-print(y, type(y))
+print(robot, type(robot))
+print(physicianRobot, type(physicianRobot))
 
-y.say_hi()
+physicianRobot.say_hi()
+physicianRobot.say_hi2()
