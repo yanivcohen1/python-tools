@@ -43,3 +43,6 @@ Thumbs.db
 /venv
 /build
 /node_modules
+/flaskr/__pycache__
+/flaskr.egg-info
+/instance/flaskr.sqlite

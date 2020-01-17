@@ -31,6 +31,19 @@ def taylor_sin(angle: float):
         power *= angle * angle
     return(sinus)
 
+def taylor_e(angle: float):
+    i: int
+    sinus: float = 0
+    sign: int = 1
+    factorial: int = 1
+    power: float = angle
+    for i in range(10):
+        sinus += 1/factorial
+        sign = -sign
+        factorial *= i+1
+    return(sinus)
+
 # test taylor serial to sin function
-print("sin 30 degree or pi/6: " + str(taylor_sin(math.pi/6)))
+print("sin 30 degree or pi/6: " + str(taylor_sin(math.pi/3)))
 print("sin 30 form math lib: " + str(math.sin(math.pi/6)))
+print("calc e: " + str(taylor_e(0)))

@@ -19,6 +19,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     # add libs here
-    install_requires=["flask", "marshmallow-dataclass", "marshmallow-enum", "flask-jsonpify", "flask-sqlalchemy", "flask-restful", "flask-cors"],
+    install_requires=["flask", "marshmallow-dataclass", "marshmallow-enum", "flask-jsonpify",
+     "flask-sqlalchemy", "flask-restful", "flask-cors", "Flask-JWT", "itsdangerous"],
     extras_require={"test": ["pytest", "coverage"]},
 )
