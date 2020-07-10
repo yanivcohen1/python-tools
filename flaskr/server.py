@@ -26,7 +26,7 @@ class Employees_Name(Resource):
     def get(self, employee_id):
         print('Employee id:' + employee_id)
         # parse x:
-        # employees_json = json.loads(employees) # for string
+        # employees = json.loads(employees_json) # for convert json string to dictionary
         allEmployees = employees["employees"][0] #{'data': {'id':1, 'name':'Balram'}}
         result = {'data': allEmployees }
         return jsonify(result)       
