@@ -3,6 +3,7 @@ from flask_cors import CORS, cross_origin
 from flask_restful import Resource, Api
 from json import dumps
 from flask_jsonpify import jsonify
+import json
 
 app = Flask(__name__)
 api = Api(app)
@@ -11,6 +12,7 @@ api = Api(app)
     return a
 a : int = test() """
 CORS(app)
+employees = {'employees': [{'id':1, 'name':'Balram'},{'id':2, 'name':'Tom'}]}
 
 @app.route("/")
 def hello():
@@ -18,12 +20,15 @@ def hello():
 
 class Employees(Resource):
     def get(self):
-        return {'employees': [{'id':1, 'name':'Balram'},{'id':2, 'name':'Tom'}]} 
+        return employees 
 
 class Employees_Name(Resource):
     def get(self, employee_id):
         print('Employee id:' + employee_id)
-        result = {'data': {'id':1, 'name':'Balram'}}
+        # parse x:
+        # employees_json = json.loads(employees)
+        allEmployees = employees["employees"][0] #{'data': {'id':1, 'name':'Balram'}}
+        result = {'data': allEmployees }
         return jsonify(result)       
 
 
