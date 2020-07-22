@@ -17,7 +17,9 @@
 </div>
 
 <div>
-  <button (click)="getEmployee()">Employees By ID</button>
+  <button (click)="getEmployee(box.value)">Employees By ID</button>
+  <label for="fname"> Employe ID:</label>
+  <input type="text" #box id="fname" name="fname"><br>
   <span>Employee data: {{employee | json}}</span>
   <br>
   <span>Employee : {{name}}</span>

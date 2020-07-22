@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   employee: JSON;
   name: string;
   name2: string;
+  names;
 
   constructor(private httpClient: HttpClient) {
   }
@@ -31,14 +32,15 @@ export class AppComponent implements OnInit {
 
   getAllEmployees() {
     this.httpClient.get('http://127.0.0.1:5000/employees').subscribe((data: any) => {
-      const names = data.employees.map(x => x.name);
+      this.names = data.employees.map(x => x.name);
       // this.names = data.employees[0].name
       this.employeeData = data as JSON;
       console.log(this.employeeData);
     });
   }
-  getEmployee() {
-    this.httpClient.get('http://127.0.0.1:5000/employees/1').subscribe((data: any) => {
+  getEmployee(val) {
+    console.log(val + ` http://127.0.0.1:5000/employees/${val - 1}`);
+    this.httpClient.get(`http://127.0.0.1:5000/employees/${val - 1}`).subscribe((data: any) => {
       this.name = data.data.name;
       this.employee = data as JSON;
       console.log(this.employee);
