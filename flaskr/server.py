@@ -29,8 +29,14 @@ class Employees_Name(Resource):
         # employees = json.loads(employees_json) # for convert json string to dictionary
         employee = employees["employees"][int(employee_id)] #{'data': {'id':1, 'name':'Balram'}}
         result = {'data': employee }
-        return jsonify(result)       
+        return jsonify(result) 
 
+    def post(self):
+        pass
+    def put(self, id):
+        pass
+    def delete(self, id):
+        pass      
 
 api.add_resource(Employees, '/employees') # Route_1
 api.add_resource(Employees_Name, '/employees/<employee_id>') # Route_3
