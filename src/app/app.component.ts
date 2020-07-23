@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -15,10 +15,11 @@ export class AppComponent implements OnInit {
   employee: JSON;
   name: string;
   name2: string;
-  names;
+  names: any[] = [];
 
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private httpClient: HttpClient,
+              private changeDetectorRef: ChangeDetectorRef // this.changeDetectorRef.detectChanges()) {
+  ) { }
 
   ngOnInit() {
   }
@@ -32,10 +33,14 @@ export class AppComponent implements OnInit {
 
   getAllEmployees() {
     this.httpClient.get('http://127.0.0.1:5000/employees').subscribe((data: any) => {
-      this.names = data.employees.map(x => x.name);
+      this.names = [];
+      data.employees.forEach((x) => {
+        this.names.push(x.name);
+      });
       // this.names = data.employees[0].name
       this.employeeData = data as JSON;
       console.log(this.employeeData);
+      this.changeDetectorRef.detectChanges();
     });
   }
   getEmployee(val) {
