@@ -8,6 +8,15 @@ bp = Blueprint("employees", __name__, url_prefix="/employees")
 employeess = {'employees': [{'id':1, 'name':'Balram'},{'id':2, 'name':'Tom'}]}
 # for seralization use cast-class-json-class.py
 # see for mysql + rest - rest_crud_mysql folder
+import json
+dictionary1 = {"employees": [{"id":1, "name":"Balram"},{"id":2, "name":"Tom"}]}
+# convert dictionary into JSON:
+json1 = json.dumps(dictionary1)
+# the result is a JSON string:
+#print(y)
+# conver JSON to dictionary
+employeess = json.loads(json1)
+
 @bp.route("/") #, methods=("GET", "POST", "PUT", "DELETE")
 def employees():
     """Clear the current session, including the stored user id."""
