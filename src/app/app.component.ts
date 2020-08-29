@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from './../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -19,13 +19,15 @@ export class AppComponent implements OnInit {
 
   constructor(private httpClient: HttpClient,
               private changeDetectorRef: ChangeDetectorRef // this.changeDetectorRef.detectChanges()) {
-  ) { }
+  ) {
+    console.log(environment.production); // Logs false for default environment
+  }
 
   ngOnInit() {
   }
 
   sayHi() {
-    this.httpClient.get('http://127.0.0.1:5000/').subscribe(data => {
+    this.httpClient.get(environment.API_URL).subscribe(data => {
       this.serverData = data as JSON;
       console.log(this.serverData);
     });
