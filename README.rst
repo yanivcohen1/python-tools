@@ -35,6 +35,8 @@ C:\Users\yaniv\anaconda3\Scripts;
 C:\Users\yaniv\anaconda3\Library\bin 
 //install
 pip install virtualenv
+//for anaconda3 open powerShell in admin and type:
+Set-ExecutionPolicy RemoteSigned
 // then "control"+"shift"+"p" and type "reload window"
 
 Or on Windows cmd::
