@@ -29,10 +29,19 @@ Create a virtualenv and activate it::
 
 on linux use pip3 and python3
 
+Add to windows path:
+C:\Users\yaniv\anaconda3
+C:\Users\yaniv\anaconda3\Scripts; 
+C:\Users\yaniv\anaconda3\Library\bin 
+//install
+pip install virtualenv
+// then "control"+"shift"+"p" and type "reload window"
+
 Or on Windows cmd::
 
     $ py -m venv venv
     $ venv\Scripts\activate.bat
+    $ venv\Scripts\activate
 
 Install Flaskr::
 
