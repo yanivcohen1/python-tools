@@ -84,7 +84,7 @@ on PS ::
 
 Or on Windows cmd::
 
-cd .\flaskr\
+    cd .\flaskr\
     > set FLASK_APP=flaskr
     > set FLASK_ENV=development
     > flask init-db
@@ -96,7 +96,7 @@ username: yaniv
 pass: 1234
 
 Debug in vsc
----
+------------
 run in debug window task: 'Python: Flask'
 
 Test
@@ -114,7 +114,7 @@ Run with coverage report::
     $ coverage html  # open htmlcov/index.html in a browser
 
 Deploy
----
+------
 https://flask.palletsprojects.com/en/1.1.x/tutorial/deploy/
 https://github.com/pallets/flask/tree/master/examples/tutorial
 python3 -m ensurepip --default-pip
@@ -125,13 +125,13 @@ python setup.py sdist bdist_wheel
 this creacte a dist directory
 
 Run with a Production machine
----
+-----------------------------
 Create a virtualenv as above describe
 pip install flaskr-1.0.0-py3-none-any.whl
 Run as above describe
 
 Run as production server
----
+------------------------
 pip install waitress
 disable the firewall comodo
 Create a virtualenv as above describe
