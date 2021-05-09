@@ -21,6 +21,6 @@ setup(
     # add libs here
     # to add lib A version 1 and lib B at lest version 2 "'A>=1,<2', 'B>=2'"
     install_requires=["flask", "marshmallow-dataclass", "marshmallow-enum", "flask-jsonpify",
-     "flask-sqlalchemy", "flask-restful", "flask-cors", "Flask-JWT", "itsdangerous"],
+     "flask-sqlalchemy", "flask-restful", "flask-cors", "Flask-JWT", "itsdangerous", "flask-socketio"],
     extras_require={"test": ["pytest", "coverage"]},
 )

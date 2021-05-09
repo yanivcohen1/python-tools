@@ -98,6 +98,9 @@ pass: 1234
 Debug in vsc
 ------------
 run in debug window task: 'Python: Flask'
+or
+python -m debugpy --listen 5678 ./fileName.py
+and run "Python: Attach"
 
 Test
 ----
