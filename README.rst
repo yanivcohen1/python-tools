@@ -125,17 +125,19 @@ python3 -m pip install --upgrade pip setuptools wheel
 pip install wheel
 //python setup.py sdist
 python setup.py sdist bdist_wheel
-this creacte a dist directory
+this creacte a dist directory with two files theSourceCode.tar.gz & libs.whl
 
 Run with a Production machine
 -----------------------------
 Create a virtualenv as above describe
+pip install wheel
 pip install flaskr-1.0.0-py3-none-any.whl
 Run as above describe
 
 Run as production server
 ------------------------
 pip install waitress
+pip install wheel
 disable the firewall comodo
 Create a virtualenv as above describe
 Run as above describe without the development variable
