@@ -13,14 +13,14 @@ class massage:
 
     def setMsg(self, msg):
         self.msg = msg
-        
+
     def getMsg(self) -> any:
         return self.msg
 
 def wait_for_event(e, msg: massage):
     logging.debug('wait_for_event starting')
     event_is_set = e.wait()
-    logging.debug('event set: %s msg: %s' , event_is_set, msg.getMsg())
+    logging.debug('event set: %s, msg: %s' , event_is_set, msg.getMsg())
 
 def wait_for_event_timeout(e, t, msg: massage):
     while not e.isSet():
@@ -28,7 +28,7 @@ def wait_for_event_timeout(e, t, msg: massage):
         event_is_set = e.wait(t)
         logging.debug('event set: %s', event_is_set)
         if event_is_set:
-            logging.debug('processing event msg: %s', msg.getMsg())
+            logging.debug('processing event, msg: %s', msg.getMsg())
         else:
             logging.debug('doing other things')
 
