@@ -18,17 +18,21 @@ class massage:
         return self.msg
 
 def wait_for_event(e, msg: massage):
-    logging.debug('wait_for_event starting')
-    event_is_set = e.wait()
-    logging.debug('event set: %s, msg: %s' , event_is_set, msg.getMsg())
+    for x in range(1, 5, 2):
+        logging.debug('wait_for_event starting')
+        event_is_set = e.wait()
+        e.clear()
+        logging.debug('event set: %s, msg: %s' , event_is_set, msg.getMsg())
 
 def wait_for_event_timeout(e, t, msg: massage):
-    while not e.isSet():
+    for x in range(4):
+        #while not e.isSet():
         logging.debug('wait_for_event_timeout starting')
         event_is_set = e.wait(t)
         logging.debug('event set: %s', event_is_set)
         if event_is_set:
             logging.debug('processing event, msg: %s', msg.getMsg())
+            e.clear()
         else:
             logging.debug('doing other things')
 
@@ -50,3 +54,9 @@ if __name__ == '__main__':
     msg.setMsg("yaniv")
     e.set()
     logging.debug('Event is set')
+    time.sleep(3)
+    msg.setMsg("yaniv1")
+    e.set()
+    logging.debug('Event is set')
+    time.sleep(3)
+    
