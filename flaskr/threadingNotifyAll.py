@@ -30,7 +30,7 @@ def producer(cv, msg: massage):
     logging.debug('Producer thread started ...')
     with cv:
         logging.debug('Making resource available')
-        msg.setMsg("yaniv")
+        msg.setMsg("from producer thread")
         logging.debug('Notifying to all consumers, msg %s', msg.getMsg())
         cv.notifyAll()
 
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     time.sleep(2)
     cs2.start()
     time.sleep(2)
-    msg.setMsg("yaniv1")
+    msg.setMsg("from main thread")
     with condition:
         condition.notify_all()
     time.sleep(2)
