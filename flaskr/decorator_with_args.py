@@ -22,7 +22,7 @@ class decorator_with_arguments(object):
             print("Decorator arguments: ")
             for arg in self.decArgs:
                 print (arg)
-            print("kwargs optional arguments: ")
+            print("Decorator kwargs optional arguments: ")
             for key, value in self.decOptKwargs.items():
                 print("{0} = {1}".format(key, value))
             f(*args, **kwargs) # call back to the function or don't if condition fail
