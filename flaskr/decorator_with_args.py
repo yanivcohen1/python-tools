@@ -46,15 +46,16 @@ class decorator_without_arguments2(object):
             print("After f(*args)2")
         return wrapped_f
 
-@decorator_with_arguments("hello", "world", num=42)
+@decorator_with_arguments("hello", "world", dec_opt="dec-optional")
 @decorator_without_arguments2()
-def sayHello(a1, a2, a3, a4):
-    print('sayHello arguments:', a1, a2, a3, a4)
+def sayHello(a1, a2, a3, a4, fun_opt="fun-optional"):
+    print('sayHello arguments:', a1, a2, a3, a4, fun_opt)
 
 print("After decoration")
 
 print("Preparing to call sayHello()")
-sayHello("say", "hello", "argument", "list")
+sayHello("say", "hello", "argument", "list", fun_opt="fun-optional-call")
 print("after first sayHello() call")
+print()
 sayHello("a", "different", "set of", "arguments")
 print("after second sayHello() call")
