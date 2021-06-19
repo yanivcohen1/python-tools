@@ -17,16 +17,16 @@ class massage:
     def getMsg(self) -> any:
         return self.msg
 
-def consumer(cv ,msg: massage, timeout = None):
+def consumer(cv: threading.Condition ,msg: massage, timeout = None):
     logging.debug('Consumer thread started ...')
-    for x in range(1, 5, 2):
+    for x in range(1, 5, 2): # 1, 3 Loop twice in total
         with cv:
             logging.debug('Consumer waiting ...')
             if timeout == None: cv.wait()
             else: cv.wait(timeout)
             logging.debug('Consumer consumed the resource, timeout: %s, msg %s', timeout, msg.getMsg())
 
-def producer(cv, msg: massage):
+def producer(cv: threading.Condition, msg: massage):
     logging.debug('Producer thread started ...')
     with cv:
         logging.debug('Making resource available')
@@ -38,7 +38,7 @@ if __name__ == '__main__':
     condition = threading.Condition()
     msg = massage()
     cs1 = threading.Thread(name='consumer1', target=consumer, args=(condition, msg))
-    cs2 = threading.Thread(name='consumer2', target=consumer, args=(condition, msg, 3))
+    cs2 = threading.Thread(name='consumer2', target=consumer, args=(condition, msg, 3)) # timeout 3 sec
     pd = threading.Thread(name='producer', target=producer, args=(condition, msg))
 
     cs1.start()
