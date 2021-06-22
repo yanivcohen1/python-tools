@@ -1,4 +1,6 @@
-def func(required_arg, *args, **kwargs):
+# args type Arry, kwargs type dictionery
+# args & kwargs Are optional
+def func(required_arg, *args, **kwargs): 
     # required_arg is a positional-only parameter.
     print(required_arg)
 
