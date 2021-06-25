@@ -1,9 +1,22 @@
+import sys
+import os
+import traceback
+
+def fun(ins):
+    b = 5
+    b/ins
+    print('end fun')
+
 try:
-    ser = 0/5
-except Exception as inst:
-    print("Error: " + inst.args[0])
+    fun(0)
+except Exception as ex :
+    traceback.print_exc()
+
 try:
     ser = 5/0
-except Exception as err:
-    print("Error: " + err.args[0])
-    raise Exception(err.args[0])
+except Exception as ex:
+    print("exceptions module: Error (%s)." % str(ex))
+    exc_type, exc_obj, exc_tb = sys.exc_info()
+    fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+    print(exc_type, fname, exc_tb.tb_lineno)
+    # raise Exception(str(err))
