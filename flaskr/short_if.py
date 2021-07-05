@@ -12,3 +12,9 @@ print(result)
 a=0
 result = a+1 if a > 1 else "is smaller"
 print(result)
+
+# in javascript
+# var timeout = settings !== null ? settings.timeout : 1000;
+
+# in java
+# Object bar = foo.isSelected() ? foo : baz;
