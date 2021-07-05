@@ -11,8 +11,8 @@ if a==2: print("pass")
 
 # in javascript
 # var timeout = settings !== null ? settings.timeout : 1000; // single line if else assignment
-# (a==2) ? alert("please give me a lemonade") : alert("then give me a beer") // single line if statment
-# if (a==2) alert("please give me a lemonade") // single line if else statment
+# (a==2) ? alert("please give me") : alert("then give me a beer") // single line if else statment
+# if (a==2) alert("please give me a lemonade") // single line if statment
 
 # in java
 # Object bar = foo.isSelected() ? foo : baz; // single line if else assignment
