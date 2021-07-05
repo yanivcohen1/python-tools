@@ -1,13 +1,13 @@
 # single line if else assignment
 a=2
 result = a+1 if a > 1 else "is smaller"
-print(result)
+print(result) # print 3
 
 # single line if else statment
-print("pass1") if a==2 else print("pass2")
+print("pass1") if a==2 else print("pass2") # print pass1
 
 # single line if statment
-if a==2: print("pass")
+if a==2: print("pass") # print pass
 
 # in javascript
 # var timeout = settings !== null ? settings.timeout : 1000; // single line if else assignment
