@@ -2,6 +2,7 @@
 a=2
 result = a+1 if a > 1 else "is smaller"
 print(result) # print 3
+print('Alarm is ' + ("ON" if a < 1 else "OFF"))
 
 # single line if else statment
 print("pass1") if a==2 else print("pass2") # print pass1
