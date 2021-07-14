@@ -12,8 +12,13 @@ if a==2: print("pass") # print pass
 
 arry = [1, 2, 3, 4, 5]
 # filter items and return multiply by 2
-filterArry = [2*item for item in arry if item % 2 == 1]
-print(filterArry) # print [2, 6, 10]
+print( [2*item for item in arry if item % 2 == 1] ) # print [2, 6, 10]
+print(list(filter(lambda item: item % 2 == 1, arry))) # same with filter print [1, 3, 5]
+print([2*item for item in arry]) # print [2, 4, 6, 8, 10]
+print(list(map(lambda item: item*2, arry)))# same with map print [2, 4, 6, 8, 10]
+# reduce
+from functools import reduce
+print( reduce((lambda x, y: x * y), [1, 2, 3, 4]) ) # print 24 - 1*2*3*4
 
 # in javascript
 # var timeout = settings !== null ? settings.timeout : 1000; // single line if else assignment
