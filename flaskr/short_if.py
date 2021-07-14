@@ -19,6 +19,8 @@ print(list(zip([1, 2, 3], ['yan', 'tam', 'yar']))) # combine arrays [(1, 'yan'),
 
 from functools import reduce # reduce
 print( reduce((lambda x, y: x * y), [1, 2, 3, 4]) ) # print 24 - 1*2*3*4
+rom = 'yan' 
+print(rom or 'tam') # print 'yan' but if rom = None print 'tam'
 
 # in javascript
 # var timeout = settings !== null ? settings.timeout : 1000; // single line if else assignment
