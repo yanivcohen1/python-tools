@@ -17,15 +17,15 @@ class massage:
     def getMsg(self) -> any:
         return self.msg
 
-def wait_for_event(e, msg: massage):
-    for x in range(1, 5, 2):
+def wait_for_event(e: threading.Event, msg: massage):
+    for x in range(1, 5, 2): # x 1,3 in total loop 2 times
         logging.debug('wait_for_event starting')
         event_is_set = e.wait()
         e.clear()
         logging.debug('event set: %s, msg: %s' , event_is_set, msg.getMsg())
 
-def wait_for_event_timeout(e, t, msg: massage):
-    for x in range(4):
+def wait_for_event_timeout(e: threading.Event, t, msg: massage):
+    for x in range(4): # x from 0 to 3 in total loop 4 times
         #while not e.isSet():
         logging.debug('wait_for_event_timeout starting')
         event_is_set = e.wait(t)
@@ -34,7 +34,7 @@ def wait_for_event_timeout(e, t, msg: massage):
             logging.debug('processing event, msg: %s', msg.getMsg())
             e.clear()
         else:
-            logging.debug('doing other things')
+            logging.debug('Timeout Event doing other things')
 
 if __name__ == '__main__':
     e = threading.Event()
