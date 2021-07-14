@@ -16,5 +16,6 @@ class class1():
         print(self.name + " takes care of you!")
 
 c1 = class1('yanic')
-print(f'\nThe class1 fun and variables: {dir(c1)}')
+print(f'\nThe class1 funcions and variables: {dir(class1)}')
+print(f'\nThe c1 funcions and variables: {dir(c1)}')
 print(f'\nThe c1 type: {type(c1)}')
