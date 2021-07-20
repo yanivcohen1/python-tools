@@ -10,7 +10,9 @@ thislist.sort()
 print(thislist) # ['apple', 'banana', 'cherry']
 list2.pop()
 thislist.extend(list2) # same as zip
-for i in range(len(thislist)): print(thislist[i]) # thislist + list2
+for count, value in enumerate(thislist): print(count, value) # thislist + list2
+for i in range(len(thislist)): print(thislist[i])  # thislist + list2
+# filter
 newlist = [x for x in thislist if "a" in x]
 print(newlist) # ['apple', 'banana', 'banana', 'apple']
 print(newlist[1:-2]) # ['banana'], remove the first and the 2 lasts resoults 
@@ -23,4 +25,7 @@ print(newlist.index('banana')) # 0, the first he find
 print([i for i, x in enumerate(newlist) if x == "banana"]) # [0, 1] find all not only first item
 # reduce
 from functools import reduce 
-print( reduce((lambda x, y: x * y), [1, 2, 3, 4]) ) # print 24 - 1*2*3*4
+print( reduce((lambda x, y: x + y), [1, 2, 3, 4]) ) # print 10 - 1+2+3+4 same as sum[1, 2, 3, 4]
+sum1 = 0
+for x in [1, 2, 3, 4]: sum1 += x
+print(sum1) # print 10 - 1+2+3+4 same as sum[1, 2, 3, 4]
