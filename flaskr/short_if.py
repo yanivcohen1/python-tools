@@ -5,7 +5,7 @@ print(result) # print 3
 print('Alarm is ' + ("ON" if a < 1 else "OFF")) # print off
 
 # single line if else statment
-print("pass1") if a==2 else print("pass2") # print pass1
+print("a=2") if 1 < a < 3 else print("a!=2") # print a=2
 
 # single line if statment
 if a==2: print("pass") # print pass
