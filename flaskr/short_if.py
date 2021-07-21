@@ -21,7 +21,7 @@ from functools import reduce # reduce
 print( reduce((lambda x, y: x * y), [1, 2, 3, 4]) ) # print 24 - 1*2*3*4
 rom = 'yan' 
 print(rom or 'tam') # print 'yan' but if rom = None print 'tam'
-print(list(2 * x + y for x in range(10) for y in [4, 2, 1])) # print 10 times (2n + y) n from 0 to 9
+print(list(2 * n + y for n in range(10) for y in [4, 2, 1])) # print total 10*3 times (2n + y) n from 0 to 9
 
 # in javascript
 # var timeout = settings !== null ? settings.timeout : 1000; // single line if else assignment
