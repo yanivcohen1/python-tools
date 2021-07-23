@@ -9,7 +9,11 @@
             "type": "python",
             "request": "launch",
             "program": "${file}",
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "env": {
+				"PYDEVD_LOAD_NATIVE_LIB": "0",
+                "PYDEVD_USE_CYTHON":"0"
+            },
         },
         {
             "name": "Python: Flask",
