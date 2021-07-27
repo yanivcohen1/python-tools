@@ -1,3 +1,17 @@
+thislist = ["0", "1", "2"]
+print(thislist[1:2]) # out: ['1'], start = 1, stop = 2-1=1
+print(thislist[1:]) # out ['1', '2'], start = 1, stop = end
+print(thislist[:2]) # out ['0', '1'] start = 0, stop = 2-1=1
+print(thislist[:-1]) # ['0', '1'] start=0, stop = len-1-1=1
+print(thislist[-2:]) # ['1', '2'], start= len-2 , stop= end
+print(thislist[:]) # ["0", "1", "2"] print all
+print(thislist[-2]) # print 1, two from the last 
+print(thislist[::2]) # ['0', '2'], print in step of 2
+print(thislist[::-1]) # ['2', '1', '0'], print in step of -1, reverse the arry
+print(thislist[1::-1]) # ['1', '0'], first reverse then start=1, stop=end
+print(thislist[:-2:-1]) # ['2'], first reverse then start=0, stop=len-1-2=0
+print(thislist[-2::-1]) # ['0'], first reverse then start=len-1-2=0, stop=end
+
 thislist = ["banana", "cherry", "apple"]
 list2 = thislist.copy()
 list2.append(2)
