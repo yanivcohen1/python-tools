@@ -14,8 +14,8 @@ def myfunc(n):
 the_ret_lambda_fun = myfunc(2)
 # print 14 init the lambda for a=10 the n stay n=2
 print(the_ret_lambda_fun(10))
-# print 10
-print(f"mydoubler(5) = {the_ret_lambda_fun(5)}")
+# print 9
+print(f"the_ret_lambda_fun(5) = {the_ret_lambda_fun(5)}")
 
 # taylor serial to sin function
 def taylor_sin(angle: float):
