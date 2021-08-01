@@ -8,14 +8,14 @@ print(x(1, 2, 3))
 print((lambda x, y: x + y)(2, 3))
 
 def myfunc(n):
-    return lambda a: a * n
+    return lambda a: a + n * 2
 
 # int the function for n param
-mydoubler = myfunc(2)
-# print 20 init the lambda for a param
-print(mydoubler(10))
+the_ret_lambda_fun = myfunc(2)
+# print 14 init the lambda for a=10 the n stay n=2
+print(the_ret_lambda_fun(10))
 # print 10
-print(f"mydoubler(5) = {mydoubler(5)}")
+print(f"mydoubler(5) = {the_ret_lambda_fun(5)}")
 
 # taylor serial to sin function
 def taylor_sin(angle: float):
