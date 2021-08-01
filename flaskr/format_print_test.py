@@ -1,9 +1,10 @@
 import math
 
-hith = 5
-radius = 10
+hith = 5_000 # same as 5000
+radius = 10.543
 volume = int(math.pi * radius * radius * hith)
-print(f'The chlinder hith: {hith} and the radius: {radius} = \
+# print radius in 2 dig after the pont
+print(f'The chlinder hith: {hith} and the radius: {radius:.2} = \
 so the volume is:{int(math.pi * radius * radius * hith)} \n The End resoult need to be {volume}')
 
 class class1():
