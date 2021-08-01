@@ -15,7 +15,7 @@ print(dictionary["first"][0]["name"]) # print yaniv
 print(dictionary["last"]["name"]) # print cohen
 
 # javascript parse JSON string to JSON
-# JsonString = {} // empty json
+# Json = {} // empty json
 # json = JSON.parse(JsonString)
 # javascript pars JSON to JSON string to send it
 # JsonString = JSON.stringify(json)
