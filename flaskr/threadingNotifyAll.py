@@ -23,8 +23,7 @@ def consumer(condition: threading.Condition ,msg: massage, timeout = None):
         logging.debug('Consumer waiting ...')
         is_time_out = False
         with condition:
-            if timeout == None: is_time_out = condition.wait()
-            else: is_time_out = condition.wait(timeout)
+            is_time_out = condition.wait(timeout)
         with lock:
             logging.debug('Consumer consumed the resource, set timeout: %s, msg %s, timeOut %s', 
             timeout, msg.getMsg(), not is_time_out)
