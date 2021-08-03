@@ -31,9 +31,8 @@ def wait_for_event_timeout(event: threading.Event, timeout, msg: massage):
         logging.debug('wait_for_event_timeout starting')
         event_is_set = event.wait(timeout)
         with lock:
-            logging.debug('event set: %s', event_is_set)
             if event_is_set:
-                logging.debug('processing event, msg: %s', msg.getMsg())
+                logging.debug('event with timeout set: %s, msg: %s' , event_is_set, msg.getMsg())
                 event.clear()
             else:
                 logging.debug('Timeout Event doing other things')
