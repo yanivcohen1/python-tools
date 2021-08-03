@@ -4,7 +4,7 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG,
                     format='(%(threadName)-9s) %(message)s',)
-
+lock = threading.Lock()
 class massage:
     msg = None
     # Initializing
@@ -22,19 +22,21 @@ def wait_for_event(e: threading.Event, msg: massage):
         logging.debug('wait_for_event starting')
         event_is_set = e.wait()
         e.clear()
-        logging.debug('event set: %s, msg: %s' , event_is_set, msg.getMsg())
+        with lock:
+            logging.debug('event set: %s, msg: %s' , event_is_set, msg.getMsg())
 
-def wait_for_event_timeout(e: threading.Event, t, msg: massage):
+def wait_for_event_timeout(event: threading.Event, timeout, msg: massage):
     for x in range(4): # x from 0 to 3 in total loop 4 times
         #while not e.isSet():
         logging.debug('wait_for_event_timeout starting')
-        event_is_set = e.wait(t)
-        logging.debug('event set: %s', event_is_set)
-        if event_is_set:
-            logging.debug('processing event, msg: %s', msg.getMsg())
-            e.clear()
-        else:
-            logging.debug('Timeout Event doing other things')
+        event_is_set = event.wait(timeout)
+        with lock:
+            logging.debug('event set: %s', event_is_set)
+            if event_is_set:
+                logging.debug('processing event, msg: %s', msg.getMsg())
+                event.clear()
+            else:
+                logging.debug('Timeout Event doing other things')
 
 if __name__ == '__main__':
     e = threading.Event()

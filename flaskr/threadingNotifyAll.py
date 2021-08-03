@@ -4,7 +4,7 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG,
                     format='(%(threadName)-9s) %(message)s',)
-
+lock = threading.Lock()
 class massage:
     msg = None
     # Initializing
@@ -17,22 +17,23 @@ class massage:
     def getMsg(self) -> any:
         return self.msg
 
-def consumer(cv: threading.Condition ,msg: massage, timeout = None):
+def consumer(condition: threading.Condition ,msg: massage, timeout = None):
     logging.debug('Consumer thread started ...')
     for x in range(1, 5, 2): # 1, 3 Loop twice in total
-        with cv:
+        with condition:
             logging.debug('Consumer waiting ...')
-            if timeout == None: cv.wait()
-            else: cv.wait(timeout)
-            logging.debug('Consumer consumed the resource, timeout: %s, msg %s', timeout, msg.getMsg())
+            if timeout == None: condition.wait()
+            else: condition.wait(timeout)
+            with lock:
+                logging.debug('Consumer consumed the resource, timeout: %s, msg %s', timeout, msg.getMsg())
 
-def producer(cv: threading.Condition, msg: massage):
+def producer(condition: threading.Condition, msg: massage):
     logging.debug('Producer thread started ...')
-    with cv:
+    with condition:
         logging.debug('Making resource available')
         msg.setMsg("from producer thread")
         logging.debug('Notifying to all consumers, msg %s', msg.getMsg())
-        cv.notifyAll()
+        condition.notifyAll()
 
 if __name__ == '__main__':
     condition = threading.Condition()
