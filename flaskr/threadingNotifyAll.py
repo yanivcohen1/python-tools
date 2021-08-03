@@ -49,3 +49,6 @@ if __name__ == '__main__':
         condition.notify_all()
     time.sleep(4)
     pd.start()
+    pd.join() # wait for thread termination
+    cs1.join() # wait for thread termination
+    cs2.join() # wait for thread termination

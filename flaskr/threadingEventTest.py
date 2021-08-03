@@ -60,4 +60,6 @@ if __name__ == '__main__':
     e.set()
     logging.debug('Event is set')
     time.sleep(3)
+    t1.join() # wait for thread termination
+    t2.join() # wait for thread termination
     

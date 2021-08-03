@@ -42,7 +42,7 @@ if __name__ == "__main__":
                         datefmt="%H:%M:%S")
 
     logging.info("Main    : before creating thread")
-    threads = list()
+    threads = list(threading.Thread)
     pipeline = Pipeline()
     pipeline.set_message("init msg")
     x = threading.Thread(target=thread_function, args=(pipeline, ))
@@ -58,7 +58,7 @@ if __name__ == "__main__":
     #x.join()
     for index, thread in enumerate(threads):
         logging.info("Main    : before joining thread %d.", index)
-        thread.join()
+        thread.join() # wait for thread termination
         logging.info("Main    : thread %d done", index)
 
     logging.info("massage read: " + pipeline.get_message())
