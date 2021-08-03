@@ -20,19 +20,21 @@ class massage:
 def consumer(condition: threading.Condition ,msg: massage, timeout = None):
     logging.debug('Consumer thread started ...')
     for x in range(1, 5, 2): # 1, 3 Loop twice in total
+        logging.debug('Consumer waiting ...')
+        is_time_out = False
         with condition:
-            logging.debug('Consumer waiting ...')
-            if timeout == None: condition.wait()
-            else: condition.wait(timeout)
-            with lock:
-                logging.debug('Consumer consumed the resource, timeout: %s, msg %s', timeout, msg.getMsg())
+            if timeout == None: is_time_out = condition.wait()
+            else: is_time_out = condition.wait(timeout)
+        with lock:
+            logging.debug('Consumer consumed the resource, set timeout: %s, msg %s, timeOut %s', 
+            timeout, msg.getMsg(), not is_time_out)
 
 def producer(condition: threading.Condition, msg: massage):
     logging.debug('Producer thread started ...')
+    logging.debug('Making resource available')
+    msg.setMsg("from producer thread")
+    logging.debug('Notifying to all consumers, msg %s', msg.getMsg())
     with condition:
-        logging.debug('Making resource available')
-        msg.setMsg("from producer thread")
-        logging.debug('Notifying to all consumers, msg %s', msg.getMsg())
         condition.notifyAll()
 
 if __name__ == '__main__':
@@ -49,5 +51,5 @@ if __name__ == '__main__':
     msg.setMsg("from main thread")
     with condition:
         condition.notify_all()
-    time.sleep(2)
+    time.sleep(4)
     pd.start()

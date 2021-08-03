@@ -17,11 +17,11 @@ class massage:
     def getMsg(self) -> any:
         return self.msg
 
-def wait_for_event(e: threading.Event, msg: massage):
+def wait_for_event(event: threading.Event, msg: massage):
     for x in range(1, 5, 2): # x 1,3 in total loop 2 times
         logging.debug('wait_for_event starting')
-        event_is_set = e.wait()
-        e.clear()
+        event_is_set = event.wait()
+        event.clear()
         with lock:
             logging.debug('event set: %s, msg: %s' , event_is_set, msg.getMsg())
 
