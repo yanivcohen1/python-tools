@@ -26,9 +26,6 @@ list2.pop()
 thislist.extend(list2) # same as zip
 for count, value in enumerate(thislist): print(count, value) # thislist + list2
 for i in range(len(thislist)): print(thislist[i])  # thislist + list2
-# filter(key>1) and map(val/10) the result is list: [2.0, 3.0]
-dic = {1:10, 2:20, 3:30}
-print([dic[key] / 10 for key in dic if key>1]) # [2.0, 3.0]
 # filter
 newlist = [x for x in thislist if "a" in x] # 'a' char in str(x)
 print(newlist) # ['apple', 'banana', 'banana', 'apple']
