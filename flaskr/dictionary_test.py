@@ -7,12 +7,18 @@ print('first key is:', firstKey, ' first val is:', dic[firstKey]) # first key is
 thisdict =	{
   "brand": "Ford",
   "model": "Mustang",
-  "year": 1964
+  "year": 1964,
+  "nest": {"inner": "innerval"},
+  "arry": [1, 2, 3]
 }
 if 'brand' in thisdict :
     print("brand: ", thisdict["brand"])
+del thisdict['brand'] # del brand
+print("brand deleted: ", not ('brand' in thisdict))
 print("numbers of items: ",len(thisdict.items()))
 print("first of item: "+ list(thisdict.keys())[0] + ': ' +list(thisdict.values())[0] )
+print("the nested items: ", thisdict["nest"]["inner"])
+print("the arry secend item: ", thisdict["arry"][1])
 # loop by order
 for key in thisdict:
   print(key, ':', thisdict[key])
