@@ -20,6 +20,6 @@ def myGenerator(i):
 next = myGenerator(1)
 while (True):
     n = next()
-    if (n > 42):
+    if (n > 5):
         break
     print(n)
