@@ -9,8 +9,8 @@ def rev_str(my_str):
 for char in rev_str("hello"):
     print(char)
 
-def myGenerator(i1):
-    i = 1
+def myGenerator(i):
+    # i = 1
     def next():
         nonlocal i
         i += 1
