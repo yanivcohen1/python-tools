@@ -8,3 +8,18 @@ def rev_str(my_str):
 # For loop to reverse the string
 for char in rev_str("hello"):
     print(char)
+
+def myGenerator(i1):
+    i = 1
+    def next():
+        nonlocal i
+        i += 1
+        return i
+    return next
+
+next = myGenerator(1)
+while (True):
+    n = next()
+    if (n > 42):
+        break
+    print(n)
