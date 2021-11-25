@@ -9,7 +9,7 @@ async def producer(queue):
         # produce a token and send it to a consumer
         token = random.random()
         print(f'produced {token}')
-        if token < .05:
+        if token < .5:
             break
         await queue.put(token)
         await rnd_sleep(.1)
@@ -19,8 +19,8 @@ async def consumer(queue):
         token = await queue.get()
         # process the token received from a producer
         await rnd_sleep(.3)
-        queue.task_done()
         print(f'consumed {token}')
+        queue.task_done()
  
 async def main():
     queue = asyncio.Queue()
