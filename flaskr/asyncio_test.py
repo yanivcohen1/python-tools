@@ -4,17 +4,17 @@ async def rnd_sleep(t):
     # sleep for T seconds on average
     await asyncio.sleep(t * random.random() * 2)
  
-async def producer(queue):
+async def producer(queue: asyncio.Queue):
     while True:
         # produce a token and send it to a consumer
         token = random.random()
-        print(f'produced {token}')
-        if token < .5:
+        if token < .4:
             break
+        print(f'produced {token}')
         await queue.put(token)
         await rnd_sleep(.1)
  
-async def consumer(queue):
+async def consumer(queue: asyncio.Queue):
     while True:
         token = await queue.get()
         # process the token received from a producer
@@ -38,7 +38,7 @@ async def main():
  
     # wait for the remaining tasks to be processed
     await queue.join()
- 
+
     # cancel the consumers, which are now idle
     for c in consumers:
         c.cancel()
