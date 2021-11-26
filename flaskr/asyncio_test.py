@@ -9,6 +9,7 @@ async def producer(queue: asyncio.Queue):
         # produce a token and send it to a consumer
         token = random.random()
         if token < .4:
+            print(f'produced-break {token}')
             break
         print(f'produced {token}')
         await queue.put(token)
