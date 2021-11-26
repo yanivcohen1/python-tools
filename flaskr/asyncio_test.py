@@ -30,7 +30,7 @@ async def main():
     producers = [asyncio.create_task(producer(queue))
                  for _ in range(3)]
     consumers = [asyncio.create_task(consumer(queue))
-                 for _ in range(3)]
+                 for _ in range(4)]
  
     # with both producers and consumers running, wait for
     # the producers to finish
