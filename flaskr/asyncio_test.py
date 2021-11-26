@@ -21,7 +21,7 @@ async def consumer(queue: asyncio.Queue):
         # process the token received from a producer
         await rnd_sleep(.3)
         print(f'consumed {token}')
-        queue.task_done()
+        queue.task_done() # for queue.join() 
  
 async def main():
     queue = asyncio.Queue()
