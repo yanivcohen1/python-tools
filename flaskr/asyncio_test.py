@@ -25,11 +25,11 @@ async def consumer(queue: asyncio.Queue):
 async def main():
     queue = asyncio.Queue()
  
-    # fire up the both producers and consumers
+    # fire up the both producers and consumers in 3 instances
     producers = [asyncio.create_task(producer(queue))
                  for _ in range(3)]
     consumers = [asyncio.create_task(consumer(queue))
-                 for _ in range(10)]
+                 for _ in range(3)]
  
     # with both producers and consumers running, wait for
     # the producers to finish
