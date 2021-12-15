@@ -43,5 +43,5 @@ api.add_resource(Employees_Name, '/employees/<employee_id>') # Route_3
 
 print('server.py')
 if __name__ == '__main__':
-     app.run(port=5002)
+     app.run(debug=True, port=5002) # debug will reload the saved changes
     
