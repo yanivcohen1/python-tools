@@ -26,8 +26,14 @@ default Git version is the master branch. ::
 
 Create a virtualenv and activate it::
 
+    # linux
     $ python3 -m venv venv
     $ . venv/bin/activate
+    
+    # windows
+    $ py -m venv venv
+    $ venv\Scripts\activate.bat
+    $ venv\Scripts\activate
 
 on linux use pip3 and python3
 
@@ -49,8 +55,10 @@ Or on Windows cmd::
 
 Install Flaskr::
 
+    # windows
     $ pip install -e .
-    #linux
+
+    # linux
     $pip install --user pipenv
     $pip install --user -e .
 
@@ -75,6 +83,7 @@ on PS ::
 
     > $env:FLASK_APP = "flaskr"
     > $env:FLASK_ENV = "development"
+    > $env:FLASK_DEBUG = "true" // for flask 2.3
     > flask init-db
     > flask run
 
