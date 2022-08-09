@@ -29,7 +29,7 @@ Create a virtualenv and activate it::
     # linux
     $ python3 -m venv venv
     $ . venv/bin/activate
-    
+
     # windows
     $ py -m venv venv
     $ venv\Scripts\activate.bat
@@ -83,7 +83,7 @@ on PS ::
 
     > $env:FLASK_APP = "flaskr"
     > $env:FLASK_ENV = "development"
-    > $env:FLASK_DEBUG = "true" // for flask 2.3
+    // > $env:FLASK_DEBUG = "true" // for flask 2.3
     > flask init-db
     > flask run
 
