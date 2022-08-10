@@ -1,3 +1,6 @@
 {
-    "restructuredtext.confPath": ""
+    "restructuredtext.confPath": "",
+    "esbonio.sphinx.confDir": "",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
 }

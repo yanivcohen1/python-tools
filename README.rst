@@ -29,7 +29,7 @@ Create a virtualenv and activate it::
     # linux
     $ python3 -m venv venv
     $ . venv/bin/activate
-    
+
     # windows
     $ py -m venv venv
     $ venv\Scripts\activate.bat
@@ -39,8 +39,8 @@ on linux use pip3 and python3
 
 Add to windows path:
 C:\Users\yaniv\anaconda3
-C:\Users\yaniv\anaconda3\Scripts; 
-C:\Users\yaniv\anaconda3\Library\bin 
+C:\Users\yaniv\anaconda3\Scripts;
+C:\Users\yaniv\anaconda3\Library\bin
 //install
 pip install virtualenv
 //for anaconda3 open powerShell in admin and type:
@@ -52,6 +52,8 @@ Or on Windows cmd::
     $ py -m venv venv
     $ venv\Scripts\activate.bat
     $ venv\Scripts\activate
+    // to enable running script.ps1 in "Admin" mode run
+    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 Install Flaskr::
 
@@ -83,7 +85,7 @@ on PS ::
 
     > $env:FLASK_APP = "flaskr"
     > $env:FLASK_ENV = "development"
-    > $env:FLASK_DEBUG = "true" // for flask 2.3
+    // > $env:FLASK_DEBUG = "true" // for flask 2.3
     > flask init-db
     > flask run
 
