@@ -31,7 +31,7 @@ class Robot(ABC):
 
     #@abstractmethod # mast be implemented by the inherted class, can't create this class
     # def say_hi6():
-    #    pass
+    #    raise Exception("this is en error")
 
 class PhysicianRobot(Robot):
 
