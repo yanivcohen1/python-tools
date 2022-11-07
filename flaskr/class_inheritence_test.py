@@ -2,7 +2,7 @@ class Robot:
 
     def __init__(self, name):
         self.name = name
-        self.__privateField = 1 # this is private field "__"
+        self.__privateField = "" # this is private field "__"
 
     def __getitem__(self, __name: str) -> str:
         return __name+"!"
@@ -20,6 +20,7 @@ class Robot:
 
     def say_hi4(self):
         print("Hi4, I am " + self.name)
+        self.__privateField = self.name + "_"
 
 class PhysicianRobot(Robot):
 
@@ -39,5 +40,5 @@ physicianRobot.say_hi2()
 print(robot.__dict__) # display obj as dictionary
 print(type(robot).__name__) # print Robot
 print(robot["yan"])# print yan! from __getItem__
+robot.say_hi4()
 print(robot._Robot__privateField) # how to acsses private fild
-
