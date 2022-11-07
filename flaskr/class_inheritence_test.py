@@ -1,4 +1,7 @@
-class Robot:
+from abc import ABC, abstractmethod
+
+
+class Robot(ABC):
 
     def __init__(self, name):
         self.name = name
@@ -26,11 +29,18 @@ class Robot:
     def say_hi5():
         print("Hi5, I am ")
 
+    #@abstractmethod # mast be implemented by the inherted class, can't create this class
+    # def say_hi6():
+    #    pass
+
 class PhysicianRobot(Robot):
 
     def say_hi(self):
         print(self.name + " takes care of you!")
         super().say_hi4()
+
+    def say_hi6():
+        print("Hi6, I am ")
 
 robot = Robot("Marvin")
 physicianRobot = PhysicianRobot("James")
