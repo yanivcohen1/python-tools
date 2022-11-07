@@ -39,4 +39,5 @@ physicianRobot.say_hi2()
 print(robot.__dict__) # display obj as dictionary
 print(type(robot).__name__) # print Robot
 print(robot["yan"])# print yan! from __getItem__
+print(robot._Robot__privateField) # how to acsses private fild
 
