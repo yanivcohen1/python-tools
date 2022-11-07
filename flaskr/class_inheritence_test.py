@@ -22,6 +22,10 @@ class Robot:
         print("Hi4, I am " + self.name)
         self.__privateField = self.name + "_"
 
+    @staticmethod
+    def say_hi5():
+        print("Hi5, I am ")
+
 class PhysicianRobot(Robot):
 
     def say_hi(self):
@@ -42,3 +46,4 @@ print(type(robot).__name__) # print Robot
 print(robot["yan"])# print yan! from __getItem__
 robot.say_hi4()
 print(robot._Robot__privateField) # how to acsses private fild
+Robot.say_hi5()
