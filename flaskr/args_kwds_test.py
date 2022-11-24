@@ -34,5 +34,5 @@ func("required argument", 1, 2, '3', keyword1=4, keyword2="foo")
 def my_function(**kid):
   print("His last name is " + kid["lname"] + " " + kid["last"])
 
-json1 = {'fname': 'Tobias', 'lname': 'Refsnes'}
+json1 = {'fname': 'Tobias', 'lname': 'Refsnes'} # dictionery
 my_function(**json1, last='last1')
