@@ -1,6 +1,6 @@
 # args type Arry, kwargs type dictionery
 # args & kwargs Are optional
-def func(required_arg, *args, **kwargs): 
+def func(required_arg, *args, **kwargs):
     # required_arg is a positional-only parameter.
     print(required_arg)
 
@@ -30,3 +30,9 @@ func("required argument", 1, 2, '3', keyword1=4, keyword2="foo")
 # required argument
 # (1, 2, '3')
 # {'keyword2': 'foo', 'keyword1': 4}
+
+def my_function(**kid):
+  print("His last name is " + kid["lname"] + " " + kid["last"])
+
+json1 = {'fname': 'Tobias', 'lname': 'Refsnes'}
+my_function(**json1, last='last1')
