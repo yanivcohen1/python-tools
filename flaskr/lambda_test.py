@@ -1,4 +1,22 @@
+from functools import reduce
 import math
+
+# List Comprehensions
+# print the duble of the even number the odd numbers will be filter
+# print [12, 16]
+duble = [i*2 for i in range(10) if i % 2 == 0 and i>4]
+print (duble)
+
+# same as this print [12, 16]
+duble = []
+for i in range(10):
+  if i % 2 == 0 and i>4:
+    duble.append(i*2)
+print (duble)
+
+# sum all the arry print 7
+old_list = [1, 2, 4]
+print(reduce(lambda x, y: x+y, old_list))
 
 def x(a, b, c): return a + b + c
 
