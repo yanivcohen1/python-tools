@@ -1,6 +1,7 @@
 # filter(key>1) and map(val/10) the result is list: [2.0, 3.0]
 dic = {1:10, 2:20, 3:30}
 print([dic[key] / 10 for key in dic if key>1]) # [2.0, 3.0]
+print({key: dic[key] /10 for key in dic if key>1}) # {2: 2.0, 3: 3.0}
 firstKey = next(iter(dic))
 print('first key is:', firstKey, ' first val is:', dic[firstKey]) # first key is: 1  first val is: 10
 
