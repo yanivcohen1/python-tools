@@ -49,7 +49,7 @@ UserSchema = marshmallow_dataclass.class_schema(User)
 
 users = []
 users.append(User("Danilo","50","RedBull",15,OrderStatus.CREATED))
-users.append(User("Danilo1","51","RedBull1",16,OrderStatus.PENDING))
+users.append(User("Danilo1","51","RedBull1",16,OrderStatus.CONFIRMED))
 user_json_str = UserSchema(many=True).dumps(users)
 #user_json_str = user_json.data
 print(user_json_str) #print(user,flush=True)
@@ -61,8 +61,8 @@ json_list.append({"name":"Danilo2", "orderId":"502", "productName":"RedBull2", "
 #user2, err = User.Schema().loads(json_str)
 users_json = json.dumps(json_list)
 json_list = json.loads(users_json)
-user2: List[User] = UserSchema(many=True).load(json_list)
-print(user2,flush=True)
-if user2[1].status == OrderStatus.PENDING:
+users: List[User] = UserSchema(many=True).load(json_list)
+print(users,flush=True)
+if users[1].status == OrderStatus.PENDING:
     print('Pending')
 
