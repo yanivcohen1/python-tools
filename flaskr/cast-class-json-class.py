@@ -47,18 +47,21 @@ class User:
 #From Object to String Json:
 UserSchema = marshmallow_dataclass.class_schema(User)
 
-user = User("Danilo","50","RedBull",15,OrderStatus.CREATED)
-user_json_str = UserSchema().dumps(user)
+user = []
+user.append(User("Danilo","50","RedBull",15,OrderStatus.CREATED))
+user.append(User("Danilo1","51","RedBull1",16,OrderStatus.PENDING))
+user_json_str = UserSchema(many=True).dumps(user)
 #user_json_str = user_json.data
 print(user_json_str) #print(user,flush=True)
 
 #From String Json to Object:
-
-json_str = {"name":"Danilo1", "orderId":"501", "productName":"RedBull1", "quantity":151, "status":"Pending"}
+json_list = []
+json_list.append({"name":"Danilo1", "orderId":"501", "productName":"RedBull1", "quantity":151, "status":"CREATED"})
+json_list.append({"name":"Danilo2", "orderId":"502", "productName":"RedBull2", "quantity":152, "status":"PENDING"})
 #user2, err = User.Schema().loads(json_str)
-user_json = json.loads(user_json_str)
-user2: User = UserSchema().load(user_json)
+users_json = json.dumps(json_list)
+user2: List[User] = UserSchema(many=True).load(json_list)
 print(user2,flush=True)
-if user2.status == OrderStatus.PENDING:
+if user2[1].status == OrderStatus.PENDING:
     print('Pending')
 
