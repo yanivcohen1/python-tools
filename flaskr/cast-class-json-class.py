@@ -47,10 +47,10 @@ class User:
 #From Object to String Json:
 UserSchema = marshmallow_dataclass.class_schema(User)
 
-user = []
-user.append(User("Danilo","50","RedBull",15,OrderStatus.CREATED))
-user.append(User("Danilo1","51","RedBull1",16,OrderStatus.PENDING))
-user_json_str = UserSchema(many=True).dumps(user)
+users = []
+users.append(User("Danilo","50","RedBull",15,OrderStatus.CREATED))
+users.append(User("Danilo1","51","RedBull1",16,OrderStatus.PENDING))
+user_json_str = UserSchema(many=True).dumps(users)
 #user_json_str = user_json.data
 print(user_json_str) #print(user,flush=True)
 
@@ -60,6 +60,7 @@ json_list.append({"name":"Danilo1", "orderId":"501", "productName":"RedBull1", "
 json_list.append({"name":"Danilo2", "orderId":"502", "productName":"RedBull2", "quantity":152, "status":"PENDING"})
 #user2, err = User.Schema().loads(json_str)
 users_json = json.dumps(json_list)
+json_list = json.loads(users_json)
 user2: List[User] = UserSchema(many=True).load(json_list)
 print(user2,flush=True)
 if user2[1].status == OrderStatus.PENDING:
