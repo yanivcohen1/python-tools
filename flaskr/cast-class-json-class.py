@@ -9,7 +9,7 @@ You can transform your class in a string-json and vice-versa:
 #https://pypi.org/project/marshmallow-dataclass/
 # from marshmallow_dataclass import dataclass
 import json
-from marshmallow import Schema  
+from marshmallow import Schema
 # from dataclasses import field
 # import datetime
 from marshmallow_enum import Enum
@@ -54,11 +54,11 @@ print(user_json_str) #print(user,flush=True)
 
 #From String Json to Object:
 
-json_str = {"name":"Danilo1", "orderId":"501", "productName":"RedBull1", "quantity":151, "status":"CREATED"}
+json_str = {"name":"Danilo1", "orderId":"501", "productName":"RedBull1", "quantity":151, "status":"Pending"}
 #user2, err = User.Schema().loads(json_str)
 user_json = json.loads(user_json_str)
 user2: User = UserSchema().load(user_json)
 print(user2,flush=True)
-if user2.status == OrderStatus.CREATED:
-    print('created')
+if user2.status == OrderStatus.PENDING:
+    print('Pending')
 
