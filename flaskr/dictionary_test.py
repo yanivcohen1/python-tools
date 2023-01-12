@@ -32,3 +32,12 @@ for key in thisdict.keys():
 # loop by key value
 for key, val in thisdict.items():
   print(key, ':', val)
+
+# add index by key
+def build_dict(seq, key):
+        return dict((d[key], d) for (index, d) in enumerate(seq))
+
+list_to_be_sorted = [{"name": "yan1", "val": 1}, {"name": "yan", "val": 0}, {"name": "yan2", "val": 2}]
+newlist = build_dict(list_to_be_sorted, "name")
+print(newlist)
+print(newlist["yan"])# find in list by key
