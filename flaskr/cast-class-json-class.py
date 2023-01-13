@@ -38,7 +38,7 @@ class User:
         self.status = status
 
     name: str
-    orderId: str
+    orderId: int
     productName: str
     quantity: List[int]
     status: OrderStatus
@@ -49,16 +49,16 @@ class User:
 UserSchema = marshmallow_dataclass.class_schema(User)
 
 users = []
-users.append(User("Danilo","50","RedBull",[15, 16],OrderStatus.CREATED))
-users.append(User("Danilo1","51","RedBull1",[16, 17],OrderStatus.CONFIRMED))
+users.append(User("Danilo",50,"RedBull",[15, 16],OrderStatus.CREATED))
+users.append(User("Danilo1",51,"RedBull1",[16, 17],OrderStatus.CONFIRMED))
 user_json_str = UserSchema(many=True).dumps(users)
 #user_json_str = user_json.data
 print(user_json_str) #print(user,flush=True)
 
 #From String Json to Object:
 json_list = []
-json_list.append({"name":"Danilo1", "orderId":"501", "productName":"RedBull1", "quantity":[151, 153], "status":"CREATED"})
-json_list.append({"name":"Danilo2", "orderId":"502", "productName":"RedBull2", "quantity":[152, 154], "status":"PENDING"})
+json_list.append({"name":"Danilo1", "orderId":501, "productName":"RedBull1", "quantity":[151, 153], "status":"CREATED"})
+json_list.append({"name":"Danilo2", "orderId":502, "productName":"RedBull2", "quantity":[152, 154], "status":"PENDING"})
 #user2, err = User.Schema().loads(json_str)
 users_json = json.dumps(json_list)
 json_list = json.loads(users_json)
