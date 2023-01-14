@@ -18,3 +18,7 @@ print(isinstance(derive, Derive))
 # True
 print(isinstance(derive, Base))
 # True
+print(isinstance(1, int))
+# True
+print(isinstance("test", str))
+# True
