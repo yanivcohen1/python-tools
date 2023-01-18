@@ -19,13 +19,13 @@ class City:
 
 CitySchema = marshmallow_dataclass.class_schema(City)
 
-city: City = CitySchema().load(
-    {"name": "Paris", "buildings": [{"name": "Eiffel Tower", "height": 324},{"name": "piza", "height": 424}]}
+city: list[City] = CitySchema(many=True).load(
+    [{"name": "Paris", "buildings": [{"name": "Eiffel Tower", "height": 324},{"name": "piza", "height": 424}]}]
 )
 print(city)
 # => City(name='Paris', buildings=[Building(height=324.0, name='Eiffel Tower')])
-print("first building Name: " + city.buildings[0].name)
+print("first building Name: " + city[0].buildings[0].name)
 # => first building Name:Eiffel Tower
-city_dict = CitySchema().dump(city)
+city_dict = CitySchema(many=True).dump(city)
 # => {'name': 'Paris', 'buildings': [{'name': 'Eiffel Tower', 'height': 324.0}]}
 print(city_dict)
