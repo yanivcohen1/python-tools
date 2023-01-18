@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
+import json
 
 import marshmallow
 import marshmallow_dataclass
@@ -20,12 +21,16 @@ class City:
 CitySchema = marshmallow_dataclass.class_schema(City)
 
 city: list[City] = CitySchema(many=True).load(
-    [{"name": "Paris", "buildings": [{"name": "Eiffel Tower", "height": 324.1},{"name": "piza", "height": 424.2}]}]
+    [{"name": "Paris", "buildings":[{"name": "Eiffel Tower", "height": 324.1},
+                                    {"name": "piza", "height": 424.2}]}]
 )
-print(city)
+print(city, '\n')
 # => City(name='Paris', buildings=[Building(height=324.0, name='Eiffel Tower')])
-print("first building Name: " + city[0].buildings[0].name)
+print("first building Name: " + city[0].buildings[0].name +
+      ", and height:", city[0].buildings[0].height, '\n')
 # => first building Name:Eiffel Tower
 city_dict = CitySchema(many=True).dump(city)
 # => {'name': 'Paris', 'buildings': [{'name': 'Eiffel Tower', 'height': 324.0}]}
-print(city_dict)
+print(city_dict, '\n')
+users_json_str: str = json.dumps(city_dict)
+print(users_json_str)
