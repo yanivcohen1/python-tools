@@ -60,9 +60,9 @@ json_list = []
 json_list.append({"name":"Danilo1", "orderId":501, "productName":"RedBull1", "quantity":[151, 153], "status":"CREATED"})
 json_list.append({"name":"Danilo2", "orderId":502, "productName":"RedBull2", "quantity":[152, 154], "status":"PENDING"})
 #user2, err = User.Schema().loads(json_str)
-users_json: str = json.dumps(json_list)
-json_list = json.loads(users_json)
-users: List[User] = UserSchema(many=True).load(json_list)
+users_json_str: str = json.dumps(json_list)
+json_dict_list = json.loads(users_json_str)
+users: List[User] = UserSchema(many=True).load(json_dict_list)
 print(users,flush=True)
 if users[1].status == OrderStatus.PENDING:
     print('Pending')
