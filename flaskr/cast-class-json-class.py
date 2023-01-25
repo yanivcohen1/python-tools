@@ -38,8 +38,8 @@ class User:
         self.status = status
 
     name: str
-    orderId: int
-    productName: str
+    orderId: int | float
+    productName: Any
     quantity: List[int]
     status: OrderStatus
     # all_status: List[OrderStatus] = field(default_factory=list)
