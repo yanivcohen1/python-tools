@@ -15,7 +15,7 @@ from marshmallow import Schema
 from marshmallow_enum import Enum
 # add
 from dataclasses import dataclass, field
-from typing import List, Optional, ClassVar, Type
+from typing import List, Optional, ClassVar, Type, Any
 
 import marshmallow
 import marshmallow_dataclass

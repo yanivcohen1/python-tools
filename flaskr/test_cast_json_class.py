@@ -15,7 +15,7 @@ class Building:
 @dataclass
 class City:
     name: Optional[str]
-    buildings: List[Building] = field(default_factory=list)
+    buildings: List[Building] = field(default_factory=list)# empty list
 
 
 CitySchema = marshmallow_dataclass.class_schema(City)
@@ -29,8 +29,10 @@ print(city, '\n')
 print("first building Name: " + city[0].buildings[0].name +
       ", and height:", city[0].buildings[0].height, '\n')
 # => first building Name:Eiffel Tower
-city_dict = CitySchema(many=True).dump(city)
+city_dict: list[City] = CitySchema(many=True).dump(city)
 # => {'name': 'Paris', 'buildings': [{'name': 'Eiffel Tower', 'height': 324.0}]}
+city_dict1: list[City] = [{"name": "Paris", "buildings":[{"name": "Eiffel Tower", "height": 324.1},
+                                    {"name": "piza", "height": 424.2}]}]
 print(city_dict, '\n')
 users_json_str: str = json.dumps(city_dict)
 print(users_json_str)
