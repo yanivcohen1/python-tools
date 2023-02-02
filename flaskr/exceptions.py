@@ -10,6 +10,8 @@ def fun(ins):
 try:
     fun(0)
 except Exception as ex :
+    print("error desc: ", ex)
+    print("full error path:")
     traceback.print_exc()
 
 print("********************")
