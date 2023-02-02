@@ -33,6 +33,31 @@ for key in thisdict.keys():
 for key, val in thisdict.items():
   print(key, ':', val)
 
+# concatenate dict
+dicts = {1: "2"}
+dicts |= {3: "4"}
+print(dicts)
+
+# concatenate dict in dict
+dicts = {1: "2"}
+dicts["dict"] = {3: "4"}
+print(dicts)
+
+# concatenate tuple
+tupl = (1, "2")
+tupl += (3, "4")
+print(tupl)
+
+# concatanet list
+lists = [1, "2"]
+lists += [3, "4"]
+print(lists)
+
+# concatanet list in list
+lists = [1, "2"]
+lists.append([3, "4"])
+print(lists)
+
 # add index by key
 def build_dict(seq, key):
         return dict((d[key], d) for (index, d) in enumerate(seq))
