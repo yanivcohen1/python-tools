@@ -1,6 +1,7 @@
 import threading
 import time
 import logging
+from typing import Any
 
 logging.basicConfig(level=logging.DEBUG,
                     format='(%(threadName)-9s) %(message)s',)
@@ -14,7 +15,7 @@ class massage:
     def setMsg(self, msg):
         self.msg = msg
 
-    def getMsg(self) -> any:
+    def getMsg(self) -> Any:
         return self.msg
 
 def wait_for_event(event: threading.Event, msg: massage):
@@ -40,13 +41,13 @@ def wait_for_event_timeout(event: threading.Event, timeout, msg: massage):
 if __name__ == '__main__':
     e = threading.Event()
     msg = massage()
-    t1 = threading.Thread(name='blocking', 
+    t1 = threading.Thread(name='blocking',
                       target=wait_for_event,
                       args=(e, msg))
     t1.start()
 
-    t2 = threading.Thread(name='non-blocking', 
-                      target=wait_for_event_timeout, 
+    t2 = threading.Thread(name='non-blocking',
+                      target=wait_for_event_timeout,
                       args=(e, 2, msg))
     t2.start()
 
@@ -62,4 +63,3 @@ if __name__ == '__main__':
     time.sleep(3)
     t1.join() # wait for thread termination
     t2.join() # wait for thread termination
-    
