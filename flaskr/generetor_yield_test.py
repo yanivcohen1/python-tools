@@ -1,7 +1,7 @@
 def rev_str(my_str):
     length = len(my_str)
     # reverse the string  range(start_from_end, to 0 include, in step -1)
-    for i in range(length - 1, -1, -1): 
+    for i in range(length - 1, -1, -1):
         yield my_str[i]
         print('after yield')
 
@@ -33,18 +33,3 @@ while (True):
         break
     print(n)
 
-print('-------------------------------')
-def myGenerator2(i):
-    # i = 1
-    def next():
-        nonlocal i
-        i += 1
-        return i
-    return next
-
-my_next2 = myGenerator2(1)
-while (True):
-    n = next()
-    if (n > 5):
-        break
-    print(n)
