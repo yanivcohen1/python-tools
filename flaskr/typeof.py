@@ -20,5 +20,9 @@ print(isinstance(derive, Base))
 # True
 print(isinstance(1, int))
 # True
+print(type(1) is int)
+# True
 print(isinstance("test", str))
+# True
+print(type("test") is str)
 # True
