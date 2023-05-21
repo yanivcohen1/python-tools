@@ -5,6 +5,7 @@ def factorial_recursive(n):
 
     # Recursive case: n! = n * (n-1)!
     else:
+        print(n)
         return n * factorial_recursive(n-1)
-
-print (factorial_recursive(5)) # 120
+n1 = 5
+print (f"factorial of {n1} is:", factorial_recursive(n1)) # 120
