@@ -31,8 +31,12 @@ print("first building Name: " + city[0].buildings[0].name +
 # => first building Name:Eiffel Tower
 city_dict: list[City] = CitySchema(many=True).dump(city)
 # => {'name': 'Paris', 'buildings': [{'name': 'Eiffel Tower', 'height': 324.0}]}
-city_dict1: list[City] = [{"name": "Paris", "buildings":[{"name": "Eiffel Tower", "height": 324.1},
-                                    {"name": "piza", "height": 424.2}]}]
 print(city_dict, '\n')
 users_json_str: str = json.dumps(city_dict)
 print(users_json_str)
+
+city_dict1: list[City] = [City("Paris", [Building(324.1, "Eiffel Tower"), Building(424.2, "piza")]),
+                          City("Paris2", [Building(324.1, "Eiffel Tower2"), Building(424.2, "piza2")])]
+
+print("first building Name: " + city_dict1[0].buildings[0].name +
+      ", and height:", city_dict1[1].buildings[0].height, '\n')
