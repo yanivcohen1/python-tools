@@ -8,4 +8,4 @@ def factorial_recursive(n):
         print(n)
         return n * factorial_recursive(n-1)
 n1 = 5
-print (f"factorial of {n1} is:", factorial_recursive(n1)) # 120
+print (f"{n1}! =", factorial_recursive(n1)) # 120
