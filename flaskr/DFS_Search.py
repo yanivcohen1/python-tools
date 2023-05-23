@@ -15,7 +15,7 @@ visiteds = set() # Set to keep track of visited nodes of graph.
 
 def dfs(graph, node):
     visited = []
-    stack = []
+    stack = [] # stack insted of recursion
 
     visited.append(node)
     stack.append(node)
