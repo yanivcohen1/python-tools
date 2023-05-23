@@ -11,6 +11,7 @@ graph = {
     'I': [],
 }
 
+visiteds = set() # Set to keep track of visited nodes of graph.
 
 def dfs(graph, node):
     visited = []
@@ -29,9 +30,17 @@ def dfs(graph, node):
                 visited.append(n)
                 stack.append(n)
 
+def dfs_recursive(visited, graph, node):  #function for dfs
+    if node not in visited:
+        print (node, end=" ")
+        visiteds.add(node)
+        for neighbour in graph[node]:
+            dfs_recursive(visiteds, graph, neighbour)
 
 def main():
     dfs(graph, 'A')
+    print("")
+    dfs_recursive(visiteds, graph, 'A')
 
 
 main()
