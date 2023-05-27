@@ -1,8 +1,9 @@
 from functools import wraps
 import random
+from typing import List, Dict
 
-PLUGINS = dict()
-ARGUMENTS = []
+FUNCTIONS = dict()
+ARGUMENTS: List[Dict] = []
 
 
 def register(*args, **kwargs):
@@ -11,7 +12,7 @@ def register(*args, **kwargs):
     ARGUMENTS.append(kwargs)
 
     def actual_decorator(func):
-        PLUGINS[func.__name__] = func
+        FUNCTIONS[func.__name__] = func
 
         @wraps(func)
         def wrapper(*args, **kwargs):
@@ -47,12 +48,12 @@ def be_awesome(name):
 
 
 def randomly_greet(name):
-    greeter, greeter_func = random.choice(list(PLUGINS.items()))
+    greeter, greeter_func = random.choice(list(FUNCTIONS.items()))
     print(f"Using {greeter!r}")
     return greeter_func(name)
 
 
-for keys, value in PLUGINS.items():
+for keys, value in FUNCTIONS.items():
     print(keys + " : ", value)
 
 print("-----------------")
