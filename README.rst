@@ -70,6 +70,8 @@ installing Flaskr::
     $ pip install -e ../..
     $ pip install -e .
 
+// test it
+python -c "import flask; print(flask.__version__)"
 
 Run
 ---
