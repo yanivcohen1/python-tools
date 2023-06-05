@@ -9,6 +9,7 @@ def print_query_name(dns_packet):
 
 def filter_dns(packet):
     """This function filters query DNS"""
+    # [DNS].opcode= Query  and [DNSQR].qtype = 1 - is type A
     if (DNS in packet and packet[DNS].opcode == 0 and packet[DNSQR].qtype == 1):
         # packet.show()
         global googolIP
