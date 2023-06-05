@@ -38,7 +38,7 @@ class User:
         self.status = status
 
     name: str
-    orderId: int | float
+    orderId: int #| float
     productName: Any
     quantity: List[int]
     status: OrderStatus
