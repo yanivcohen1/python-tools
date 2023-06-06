@@ -1,4 +1,4 @@
-#  DNS להדפיס את כל הדומיינים שעבורם מתבצעת שאילתת
+#  https://scapy.readthedocs.io/en/latest/
 from scapy.all import *
 
 googolIP = ""
