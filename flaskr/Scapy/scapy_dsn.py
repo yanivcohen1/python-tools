@@ -9,7 +9,8 @@ def print_query_name(dns_packet):
 
 def filter_dns(packet):
     """This function filters query DNS"""
-    # [DNS].opcode= Query  and [DNSQR].qtype = 1 - is type A
+    # [DNSQR].qtype: https://elementor.com/resources/glossary/what-are-dns-record-types/?utm_source=google&utm_medium=cpc&utm_campaign=13060922353&utm_term=&gclid=CjwKCAjwsvujBhAXEiwA_UXnABmjX08JB4xGEjTM6f1eHXBDguQcNvFasWIY6SrDbzaebmra-JHEABoCEBoQAvD_BwE
+    # [DNS].opcode= Query  and [DNSQR].qtype = 1 - is type A meaaning Address Mapping record
     if (DNS in packet and packet[DNS].opcode == 0 and packet[DNSQR].qtype == 1 and
                     packet.haslayer("DNS Resource Record")):
         # packet.show()
