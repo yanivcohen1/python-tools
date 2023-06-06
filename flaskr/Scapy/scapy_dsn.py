@@ -10,7 +10,8 @@ def print_query_name(dns_packet):
 def filter_dns(packet):
     """This function filters query DNS"""
     # [DNS].opcode= Query  and [DNSQR].qtype = 1 - is type A
-    if (DNS in packet and packet[DNS].opcode == 0 and packet[DNSQR].qtype == 1):
+    if (DNS in packet and packet[DNS].opcode == 0 and packet[DNSQR].qtype == 1 and
+                    packet.haslayer("DNS Resource Record")):
         # packet.show()
         global googolIP
         googolIP = packet[DNS]["DNS Resource Record"].rdata
@@ -26,3 +27,12 @@ send(my_packet)
 sniff(lfilter=filter_dns, prn=print_query_name, timeout=10)
 
 # -----------------------------------------------------------------
+def getIP(domain):
+    SERVER_IP = "8.8.8.8"
+    DPORT = 53
+    fullmsg = IP(dst=SERVER_IP)/UDP(dport=DPORT)/DNS(rd=1,qd=DNSQR(qname=domain))
+    ans = sr1(fullmsg, verbose=0)
+    # print(ans.show())
+    print(domain + " -", ans["DNS"]["DNS Resource Record"].rdata)
+
+getIP("google.co.il")
