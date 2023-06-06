@@ -3,7 +3,7 @@ from scapy.all import *
 SERVER = ""
 def stopfilter(packet):
     if IP in packet and packet[IP].src == SERVER and packet.haslayer(Raw):  # src_ip
-        print(packet.getlayer(Raw).load.decode())
+        # print(packet.getlayer(Raw).load.decode())
         return True
     else:
         return False
@@ -25,10 +25,10 @@ def get_html(url):
     for packet in cap:
       if packet.haslayer(Raw):
         return packet[Raw].load.decode()
-
     return None
 
 html = []
 html.append(get_html("ynet.co.il"))
 html.append(get_html("google.com"))
-print(html)
+for html1 in html:
+    print(html1)
