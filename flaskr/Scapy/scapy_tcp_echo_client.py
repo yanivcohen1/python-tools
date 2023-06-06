@@ -5,7 +5,7 @@ from scapy. all import *
 # url to ip4: https://www.nslookup.io/website-to-ip-lookup/
 
 SERVER = "192.168.1.155" #"142.250.191.46 #google" #  # "manager1: python3 tcp_echo_client.py"
-PORT = 5000 # 80
+PORT = 5000 # 50
 
 def stopfilter(x):
     if IP in x and x[IP].src == SERVER:  # src_ip
@@ -21,19 +21,16 @@ while True:
         break
     if msg == "":
         msg = "TIME"
-    
+
     #SEND SYN
     syn = IP(dst=SERVER) / TCP(sport=random.randint(1025,65500), dport=PORT, flags='S')
     #GET SYNACK
     syn_ack = sr1(syn)
-    #Send ACK
-    out_ack = send(IP(dst=SERVER) / TCP(dport=PORT, sport=syn_ack[TCP].dport,seq=syn_ack[TCP].ack, 
-                                        ack=syn_ack[TCP].seq + 1, flags='A'))
-    #Send the HTTP GET
-    sr1(IP(dst=SERVER) / TCP(dport=PORT, sport=syn_ack[TCP].dport,seq=syn_ack[TCP].ack, 
-                            ack=syn_ack[TCP].seq + 1, flags='P''A') / msg)
+    #Send ACK with the HTTP GET
+    sr1(IP(dst=SERVER) / TCP(dport=PORT, sport=syn_ack[TCP].dport,seq=syn_ack[TCP].ack,
+                                        ack=syn_ack[TCP].seq + 1, flags='A') / msg)
     counter += 1
-    
+
     ans = sniff(filter="tcp port " + str(PORT), stop_filter=stopfilter)
     # a.res[0]["IP"].show()
     # print(a.res[0]["IP"][Raw].load)
@@ -43,4 +40,4 @@ while True:
             rawr = Raw(l)
             # rawr.show()
             print("client rcv payload: " + l.decode())
-    
+
