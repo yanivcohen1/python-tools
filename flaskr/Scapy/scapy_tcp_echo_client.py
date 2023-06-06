@@ -14,7 +14,6 @@ def stopfilter(x):
         return False
 
 getStr = 'GET / HTTP/1.1\r\nHost:' + SERVER + '\r\nAccept-Encoding: gzip, deflate\r\n\r\n'
-counter = 0
 while True:
     msg = input("send server a msg:")
     if msg == "stop":
@@ -29,7 +28,6 @@ while True:
     #Send ACK with the HTTP GET
     sr1(IP(dst=SERVER) / TCP(dport=PORT, sport=syn_ack[TCP].dport,seq=syn_ack[TCP].ack,
                                         ack=syn_ack[TCP].seq + 1, flags='A') / msg)
-    counter += 1
 
     ans = sniff(filter="tcp port " + str(PORT), stop_filter=stopfilter)
     # a.res[0]["IP"].show()
