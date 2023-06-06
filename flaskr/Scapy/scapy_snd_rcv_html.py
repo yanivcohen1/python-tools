@@ -21,8 +21,14 @@ def get_html(url):
     global SERVER
     SERVER = http_response[IP].src
     # http_response.show()
-    sniff(filter="tcp port " + str(80), stop_filter=stopfilter)
-    # return http_response[Raw].load
+    cap = sniff(filter="tcp port " + str(80), stop_filter=stopfilter)
+    for packet in cap:
+      if packet.haslayer(Raw):
+        return packet[Raw].load.decode()
 
-get_html("ynet.co.il")
-get_html("google.com")
+    return None
+
+html = []
+html.append(get_html("ynet.co.il"))
+html.append(get_html("google.com"))
+print(html)
