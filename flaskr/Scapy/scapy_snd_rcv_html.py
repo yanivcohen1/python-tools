@@ -1,44 +1,28 @@
-from scapy. all import *
-# wireshark filter: ip.src == 104.70.125.117 or ip.dst == 104.70.125.117
-# from Week16 tcp_echo_client.py
-# https://gist.github.com/richarddun/1bb11d32cafc394efbcb8f4a8b6cb130
-# url to ip4: https://www.nslookup.io/website-to-ip-lookup/
-
-SERVER = "142.250.191.46" #google web"  # "manager1: python3 tcp_echo_client.py"
-PORT = 80 # 5000 
-
-def stopfilter(x):
-    if IP in x and x[IP].src == SERVER:  # src_ip
+from scapy.all import *
+# ip.src == 104.70.125.117 or ip.dst == 104.70.125.117
+SERVER = ""
+def stopfilter(packet):
+    if IP in packet and packet[IP].src == SERVER and packet.haslayer(Raw):  # src_ip
+        print(packet.getlayer(Raw).load.decode())
         return True
     else:
         return False
 
-getStr = 'GET / HTTP/1.1\r\nHost:' + SERVER + '\r\nAccept-Encoding: gzip, deflate\r\n\r\n'
-counter = 0
-while True:
-    msg = input("send server a msg:")
-    if msg == "stop":
-        break
-    if msg == "":
-        msg = "TIME"
-    
-    #SEND SYN
-    syn = IP(dst=SERVER) / TCP(sport=random.randint(1025,65500), dport=PORT, flags='S')
-    #GET SYNACK
-    syn_ack = sr1(syn)
-    #Send ACK
-    out_ack = send(IP(dst=SERVER) / TCP(dport=PORT, sport=syn_ack[TCP].dport,seq=syn_ack[TCP].ack, ack=syn_ack[TCP].seq + 1, flags='A'))
-    #Send the HTTP GET
-    sr1(IP(dst=SERVER) / TCP(dport=PORT, sport=syn_ack[TCP].dport,seq=syn_ack[TCP].ack, ack=syn_ack[TCP].seq + 1, flags='P''A') / getStr)
-    counter += 1
-    
-    ans = sniff(filter="tcp port " + str(PORT), stop_filter=stopfilter)
-    # a.res[0]["IP"].show()
-    # print(a.res[0]["IP"][Raw].load)
-    for packet in ans:
-        if packet.getlayer(Raw):
-            l = packet.getlayer(Raw).load
-            rawr = Raw(l)
-            # rawr.show()
-            print("client rcv payload: " + l.decode())
-    
+def get_html(url):
+    # create a TCP SYN packet
+    syn_packet = IP(dst=url)/TCP(dport=80, flags="S")
+    # send the SYN packet and receive the SYN-ACK packet
+    syn_ack_packet = sr1(syn_packet)
+    # create an ACK packet
+    ack_packet = IP(dst=url)/TCP(dport=80, flags='A', seq=syn_ack_packet[TCP].ack,
+                                ack=syn_ack_packet[TCP].seq + 1)
+    # send the ACK packet and receive the HTTP response
+    http_response = sr1(ack_packet/Raw(load="GET / HTTP/1.1\r\nHost: %s\r\n\r\n" % url))
+    global SERVER
+    SERVER = http_response[IP].src
+    # http_response.show()
+    sniff(filter="tcp port " + str(80), stop_filter=stopfilter)
+    # return http_response[Raw].load
+
+get_html("ynet.co.il")
+get_html("google.com")
