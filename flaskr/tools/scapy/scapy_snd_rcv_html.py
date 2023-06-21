@@ -1,4 +1,5 @@
 from scapy.all import *
+from scapy.layers.inet import UDP, TCP, IP, Ether
 # ip.src == 104.70.125.117 or ip.dst == 104.70.125.117
 SERVER = ""
 def stopfilter(packet):

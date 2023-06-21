@@ -1,5 +1,7 @@
 #  https://scapy.readthedocs.io/en/latest/
 from scapy.all import *
+from scapy.layers.inet import UDP, TCP, IP, Ether
+from scapy.layers.dns import DNS, DNSQR
 
 googolIP = ""
 

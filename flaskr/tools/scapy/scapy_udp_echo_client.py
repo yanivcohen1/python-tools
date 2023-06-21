@@ -1,4 +1,5 @@
 from scapy. all import *
+from scapy.layers.inet import UDP, TCP, IP, Ether
 # wireshark filter: ip.src == 104.70.125.117 or ip.dst == 104.70.125.117
 # week18 udp_echo_client.py and udp_echo_server.py
 SERVER = "192.168.1.155" # "52.42.3.50"  # "ynet.co.il"

@@ -1,5 +1,7 @@
 #  DNS להדפיס את כל הדומיינים שעבורם מתבצעת שאילתת
 from scapy.all import *
+from scapy.layers.inet import UDP, TCP, IP, Ether
+from scapy.layers.dns import DNS, DNSQR
 
 def getIP(domain):
     SERVER_IP = "8.8.8.8"
