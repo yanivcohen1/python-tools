@@ -1,23 +1,19 @@
-#!/usr/bin/python           # This is client.py file
 import socket               # Import socket module
 import traceback
 
-host = socket.gethostname() # Get local machine name
-port = 12345                # Reserve a port for your service.
+# echo-client.py
+
+import socket
+
+HOST = "127.0.0.1"  # The server's hostname or IP address
+PORT = 65432  # The port used by the server
 
 while True:
-    try:
-        s = socket.socket() # Create a socket object
-        s.connect((host, port))
-        a = input("Enter the msg:")
-        s.send(bytes(a, 'ascii'))
-        recv = s.recv(1024)
-        print("client rcv: ", str(recv.decode()))
-        s.close()
-    except Exception as ex :
-        print("error desc: ", ex)
-        traceback.print_exc()
-        try:
-            s.close()
-        except:
-            pass
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        sock.connect((HOST, PORT))
+        msg = input("enter msg:")
+        if "end" == msg:
+            break
+        sock.sendall(msg.encode())
+        data = str(sock.recv(1024).decode())
+        print("client received: " + data)

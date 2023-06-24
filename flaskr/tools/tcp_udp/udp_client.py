@@ -4,7 +4,7 @@ import json
 import  traceback
 
 # Create a socket object
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 host = socket.gethostname() # Get local machine name
 port = 12345                # Reserve a port for your service.
@@ -16,8 +16,8 @@ while True:
         msg = {"user": "yaniv", "port": 5}
         msg_txt = json.dumps(msg)
         msg_in = input("insert format: " + msg_txt)
-        s.sendto(bytes(msg_in, 'ascii'), server)
-        data, addr = s.recvfrom(1024)
+        sock.sendto(msg_in.encode(), server)
+        data, addr = sock.recvfrom(1024)
         msg = str(data.decode())
         print("client recv:", msg)
         msg_dict: dict = json.loads(msg)
@@ -27,4 +27,4 @@ while True:
         print("error desc: ", ex)
         traceback.print_exc()
 
-s.close()
+sock.close()

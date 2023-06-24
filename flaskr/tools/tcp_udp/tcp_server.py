@@ -1,36 +1,25 @@
-#!/usr/bin/python           # This is server.py file
 import socket  # Import socket module
-import traceback
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # for tcp
-# s= socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # for udp
-
-host = socket.gethostname()  # Get local machine name
-port = 12345  # Reserve a port for your service.
-s.bind((host, port))  # Bind to the port
-
-# only for TCP mode not need for udp
-s.listen(5)  # Now wait for client connection.
-
-# A forever loop until we interrupt it or
-# an error occurs
-while True:
-    try:
-        # Establish connection with client.
-        c, addr = s.accept()
-        # print recv msg
-        msg = str(c.recv(1024).decode())
-        print("server recv : ", msg)
-        # send echo msg
-        c.sendall(bytes(msg, "ascii"))
-        # for udp echo
-        # c.sendto(bytes(msg, "ascii"), addr)
-
-        # Close the connection with this client
-        c.close()
-    except Exception as ex :
+""" import traceback
+except Exception as ex :
         print("error desc: ", ex)
-        traceback.print_exc()
-        try:
-            c.close()
-        except:
-            pass
+        traceback.print_exc() """
+# echo-server.py
+
+import socket
+
+HOST = "127.0.0.1"  # Standard loopback interface address (localhost)
+PORT = 65432  # Port to listen on (non-privileged ports are > 1023)
+
+while True:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        sock.bind((HOST, PORT))
+        sock.listen()
+        conn, addr = sock.accept()
+        with conn:
+            print(f"Connected by {addr}")
+            while True:
+                data = str(conn.recv(1024).decode())
+                if not data:
+                    break
+                print("server recieved: " + data)
+                conn.sendall(data.encode())

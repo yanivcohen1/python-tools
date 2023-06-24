@@ -3,18 +3,18 @@ import socket  # Import socket module
 import json
 import traceback
 # s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # for tcp
-s= socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # for udp
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # for udp
 
 host = socket.gethostname()  # Get local machine name
 port = 12345  # Reserve a port for your service.
-s.bind((host, port))  # Bind to the port
+sock.bind((host, port))  # Bind to the port
 
 # A forever loop until we interrupt it or
 # an error occurs
 while True:
     try:
         # Receive data from the client
-        data, addr = s.recvfrom(1024)
+        data, addr = sock.recvfrom(1024)
         # print recv msg
         msg = str(data.decode())
         print("server recv:", msg)
@@ -23,7 +23,7 @@ while True:
         for key in msg_dict:
             print(key,":", msg_dict[key])
         # for udp echo
-        s.sendto(bytes(msg, "ascii"), addr)
+        sock.sendto(msg.encode(), addr)
     except Exception as ex :
         print("error desc: ", ex)
         traceback.print_exc()
