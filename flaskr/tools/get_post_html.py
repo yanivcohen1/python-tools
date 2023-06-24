@@ -17,7 +17,7 @@ import socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect(("www.google.com", 80))
 # get for url about.html
-sock.send(b"GET /about.html HTTP/1.1\r\nHost:www.example.com\r\n\r\n")
+sock.send(b"GET /about.html HTTP/1.1\r\nHost:www.google.com\r\n\r\n")
 response = sock.recv(4096)
 sock.close()
 print(response.decode())
