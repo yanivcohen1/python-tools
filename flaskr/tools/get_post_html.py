@@ -11,13 +11,18 @@ postdata = {"firstname": "John", "lastname": "Doe"} # params from dict
 resp = requests.post(URL, data=postdata) # post body params
 print('post:', resp.text[:7])
 
-# with socket
-import socket
 # get or post with socket
+import socket
+
+# get http://ip-api.com/json/24.48.0.1
+HOST = "ip-api.com"
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect(("www.google.com", 80))
+sock.connect((HOST, 80))
 # get for url about.html
-sock.send(b"GET /about.html HTTP/1.1\r\nHost:www.google.com\r\n\r\n")
+PATH = "json/24.48.0.1"
+URL = "GET /"+PATH+" HTTP/1.1\r\nHost:"+HOST+"\r\n\r\n"
+# sock.send(b"GET /about.html HTTP/1.1\r\nHost:"+HOST+"\r\n\r\n")
+sock.send(URL.encode())
 response = sock.recv(4096)
-sock.close()
 print(response.decode())
+sock.close()
