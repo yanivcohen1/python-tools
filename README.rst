@@ -27,8 +27,11 @@ default Git version is the master branch. ::
 Create a virtualenv and activate it::
 
     # linux
+    # for linux create virtual envirment
+    sudo apt install python3.8-venv
     $ python3 -m venv venv
     $ . venv/bin/activate
+    sudo sh venv/bin/activate
 
     # windows
     $ py -m venv venv
@@ -73,6 +76,10 @@ installing Flaskr::
 // test it
 python -c "import flask; print(flask.__version__)"
 
+// stop it
+control + c
+#linux
+control + z
 Run
 ---
 
