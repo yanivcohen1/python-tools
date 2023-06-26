@@ -9,7 +9,7 @@ def stopfilter(packet):
     else:
         return False
 
-def get_html(url):
+def get_html(url, path):
     # create a TCP SYN packet
     syn_packet = IP(dst=url)/TCP(dport=80, flags="S")
     # send the SYN packet and receive the SYN-ACK packet
@@ -18,7 +18,7 @@ def get_html(url):
     ack_packet = IP(dst=url)/TCP(dport=80, flags='A', seq=syn_ack_packet[TCP].ack,
                                 ack=syn_ack_packet[TCP].seq + 1)
     # send the ACK packet and receive the HTTP response
-    http_response = sr1(ack_packet/Raw(load="GET / HTTP/1.1\r\nHost: %s\r\n\r\n" % url))
+    http_response = sr1(ack_packet/Raw(load="GET /{0} HTTP/1.1\r\nHost: {1}\r\n\r\n".format(path, url)))
     global SERVER
     SERVER = http_response[IP].src
     # http_response.show()
@@ -29,7 +29,7 @@ def get_html(url):
     return None
 
 html = []
-html.append(get_html("ynet.co.il"))
-html.append(get_html("google.com"))
+html.append(get_html("ynet.co.il", "news/category/184"))
+html.append(get_html("google.com", ""))
 for html1 in html:
     print(html1)
