@@ -30,12 +30,12 @@ class OrderStatus(Enum):
 
 @dataclass
 class User:
-    def __init__(self, name, orderId, productName, quantity, status):
+    """ def __init__(self, name, orderId, productName, quantity, status):
         self.name = name
         self.orderId = orderId
         self.productName = productName
         self.quantity = quantity
-        self.status = status
+        self.status = status """
 
     name: str
     orderId: int #| float
