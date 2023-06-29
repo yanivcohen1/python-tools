@@ -66,4 +66,7 @@ users: List[User] = UserSchema(many=True).loads(users_json_str)
 print(users,flush=True)
 if users[1].status == OrderStatus.PENDING:
     print('Pending')
+# do it dynamicly
+if getattr(users[1], "status") == OrderStatus.PENDING:
+    print('Pending..')
 
