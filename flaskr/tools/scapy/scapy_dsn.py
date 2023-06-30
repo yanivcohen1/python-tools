@@ -11,7 +11,7 @@ def getIP(domain):
     # print(ans.show())
     print(domain + " -", ans["DNS"]["DNS Resource Record"].rdata)
 
-getIP("google.co.il")
+getIP("ynet.co.il")
 # ---------------BY SMIFF--------------------------------------------------
 
 def send_dns(domain):
@@ -39,7 +39,7 @@ def filter_dns(packet):
     else:
         return False
 
-send_dns("ynet.co.il")
+send_dns("google.co.il")
 # print the DNS
 print("start sniff 10 sec")
 sniff(lfilter=filter_dns, prn=print_query_name, timeout=10)
