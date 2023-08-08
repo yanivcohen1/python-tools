@@ -12,7 +12,7 @@ def send_text():
 
 # Use keyboard.add_hotkey to hook a hotkey to the function
 # For example, use ctrl+alt+t as the hotkey
-keyboard.add_hotkey("ctrl+alt+t", send_text)
+keyboard.add_hotkey("ctrl+alt+h", send_text)
 
 # Use keyboard.wait to keep the program running until esc is pressed
 keyboard.wait("esc")
