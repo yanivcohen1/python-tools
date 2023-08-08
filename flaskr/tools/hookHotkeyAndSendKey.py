@@ -1,4 +1,5 @@
 #  https://pypi.org/project/keyboard/
+from time import sleep
 # Import the keyboard module
 import keyboard
 
@@ -7,6 +8,7 @@ def send_text():
     # Use keyboard.write to type the text
     keyboard.write("Hello, this is a text response")
 
+    sleep(0.5)
     # Use keyboard.press_and_release to press the enter key
     keyboard.press_and_release("enter")
 
