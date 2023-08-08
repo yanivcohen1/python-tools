@@ -25,8 +25,8 @@ if __name__ == '__main__':
     # get
     url = "http://ip-api.com/json/24.48.0.1"
     headers_json = {"Content-Type": "application/json; charset=utf-8"}
-    resp = get(url, headers_json)
-    print(resp)
+    resp = get(url, "")
+    print("GET response as text: \n",resp)
     # post
     postData = {
                 "Id": 78912,
@@ -35,7 +35,8 @@ if __name__ == '__main__':
                 "Price": 18.00
                 }
     url = "https://httpbin.org/post"
-    resp = post(url, json.dumps(postData), headers_json)
-    resp = post_json(url, postData, headers_json)
+    resp = post_json(url, postData, "")
     # json1 = json.loads(resp["json"])
-    print(resp)
+    print("\n POST Json and response cast to json: \n",resp)
+    resp = post(url, json.dumps(postData), "")
+    print("\n POST Data and response ad text: \n",resp)
