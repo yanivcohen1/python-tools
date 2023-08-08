@@ -39,4 +39,4 @@ if __name__ == '__main__':
     # json1 = json.loads(resp["json"])
     print("\n POST Json and response cast to json: \n",resp)
     resp = post(url, json.dumps(postData), "")
-    print("\n POST Data and response ad text: \n",resp)
+    print("\n POST text and response ad text: \n",resp)
