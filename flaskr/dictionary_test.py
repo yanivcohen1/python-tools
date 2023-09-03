@@ -75,6 +75,6 @@ print(newlist["yan"])# find in list by key
 myDict = {1: "2", 3: "4", 4: "3", 2: "1", 0: "0"}
 myKeys = list(myDict.keys())
 myKeys.sort()
-sorted_dict = {i: myDict[i] for i in myKeys}
+sorted_dict = {key: myDict[key] for key in myKeys}
 
 print(sorted_dict)
