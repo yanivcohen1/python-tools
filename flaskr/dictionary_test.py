@@ -60,7 +60,7 @@ print(lists)
 
 # concatanet list in list
 lists = [1, "2"]
-lists.append([3, "4"])
+lists.extend([3, "4"])
 print(lists)
 
 # add index by key
@@ -71,3 +71,10 @@ list_to_be_sorted = [{"name": "yan1", "val": 1}, {"name": "yan", "val": 0}, {"na
 newlist = build_dict(list_to_be_sorted, "name")
 print(newlist)
 print(newlist["yan"])# find in list by key
+
+myDict = {1: "2", 3: "4", 4: "3", 2: "1", 0: "0"}
+myKeys = list(myDict.keys())
+myKeys.sort()
+sorted_dict = {i: myDict[i] for i in myKeys}
+
+print(sorted_dict)

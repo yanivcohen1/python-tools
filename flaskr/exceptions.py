@@ -1,6 +1,7 @@
 import sys
 import os
 import traceback
+import random
 
 def fun(ins):
     b = 5
@@ -18,7 +19,7 @@ print("********************")
 
 try:
     ser = 5/0
-    # raise Exception("can't divide by zero")
+    raise Exception("can't divide by zero")
 except Exception as ex:
     print("'exceptions' module: Error (%s)." % str(ex))
     exc_type, exc_obj, exc_tb = sys.exc_info()
