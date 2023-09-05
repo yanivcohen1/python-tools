@@ -1,5 +1,5 @@
 import heapq
-
+# complecity is O(logN) for push or pop element
 h = []
 heapq.heappush(h, (5, 'write code'))
 heapq.heappush(h, (7, 'release product'))
