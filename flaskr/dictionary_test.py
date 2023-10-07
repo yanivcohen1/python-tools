@@ -80,6 +80,6 @@ sorted_dict = {key: myDict[key] for key in myKeys}
 print(sorted_dict)
 
 from sortedcontainers import SortedDict
-sd = SortedDict({'b': 2, 'c': -3, 'a': 1})
+sd = SortedDict({'b': 2, 'd': -3, 'a': 1, "c": 1})
 print("print from the start:", sd.peekitem(0)) #  from the start ('a', 1)
-print("print from the end:", sd.popitem(index=-1))# from the end ('c', -3)
+print("print from the end:", sd.popitem(index=-1))# from the end ('d', -3)
