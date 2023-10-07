@@ -91,7 +91,7 @@ od["b"] = 2
 od["c"] = 3
 od.move_to_end("b")
 lst = list(od.keys())
-print("print from the start:", lst[0])# from the start ('c', 3)
-print("print from the end:", lst[-1])# from the End ('c', 3)
+print("print from the start:", lst[0])# from the start ('a0', 1)
+print("print from the end:", lst[-1])# from the End ('d', 2)
 print("pop from the start:", od.popitem(last=False))# from the start ('c', 3)
 print("pop from the end:", od.popitem(last=True))# from the End ('c', 3)
