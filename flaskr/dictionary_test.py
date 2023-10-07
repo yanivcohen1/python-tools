@@ -83,3 +83,13 @@ from sortedcontainers import SortedDict
 sd = SortedDict({'b': 2, 'd': -3, 'a': 1, "c": 1}) # sort by key
 print("print from the start:", sd.peekitem(0)) #  from the start ('a', 1)
 print("print from the end:", sd.popitem(index=-1))# from the end ('d', -3)
+
+from collections import OrderedDict
+od = OrderedDict()
+od["a"] = 1
+od["b"] = 2
+od["c"] = 3
+od.move_to_end("b")
+# print(od.)# SortedDict({'a': 1, 'b': 2, 'c': -3})
+print("print from the start:", od.popitem(last=False))# from the start ('c', 3)
+print("print from the end:", od.popitem(last=True))# from the End ('c', 3)
