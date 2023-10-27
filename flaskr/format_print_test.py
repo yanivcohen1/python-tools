@@ -26,5 +26,3 @@ print(f'\n Th\\e c\'1 typ\\\'e: {type(c1)}') # Th\e c'1 typ\'e:
 print("can\"t") # can"t
 print("can\\\"t") # can\"t
 print("can\\t") # can\t
-
-
