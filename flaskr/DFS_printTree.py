@@ -1,4 +1,4 @@
-class Node(object):
+class TreeNode(object):
     def __init__(self, value, left=None, right=None):
         self.value = value
         self.left = left
@@ -19,7 +19,7 @@ class ListNode:
     def __init__(self, x, next=None):
         self.val = x
         self.next = next
-        
+
 def printList(list: ListNode):
     while list:
         print(list.val, end=" ")
@@ -27,8 +27,8 @@ def printList(list: ListNode):
     print()
 
 if __name__ == '__main__':
-    tree = Node(1, Node(2, Node(4, Node(7)),   Node(9)),
-            Node(3, Node(5),    Node(6)))
+    tree = TreeNode(1, TreeNode(2, TreeNode(4, TreeNode(7)),   TreeNode(9)),
+            TreeNode(3, TreeNode(5),  TreeNode(6)))
     printTree(tree)
     list = ListNode(1, ListNode(2, ListNode(3, ListNode(4))))
     printList(list)
