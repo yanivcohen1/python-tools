@@ -8,7 +8,7 @@ import platform
 # for multiplatform run cmd.sh that contain #!/bin/bash ls -s"
 # need in linux to "chmod u+x script.sh"
 if  platform.system() != "Windows":
-    result = subprocess.run(['sh ./cmd.sh'], stdout=subprocess.PIPE, shell=True)
+    result = subprocess.run(['sh ./flaskr/cmd.sh'], stdout=subprocess.PIPE, shell=True)
 else :
-    result = subprocess.run(['sh', './cmd.sh'], stdout=subprocess.PIPE, shell=True)
+    result = subprocess.run(['sh', './flaskr/cmd.sh'], stdout=subprocess.PIPE, shell=True)
 print(result.stdout.decode('utf-8'))
