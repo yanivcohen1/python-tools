@@ -21,4 +21,4 @@ def create_zip_file_from_folder(zipName):
 
 
 if __name__ == '__main__':
-  create_zip_file_from_folder("yaniv")
+    create_zip_file_from_folder("yaniv")
