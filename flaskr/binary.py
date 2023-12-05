@@ -18,6 +18,13 @@ print(message_as_base64_bytes.decode())
 message_as_ascii_bytes = base64.b64decode(message_as_base64_bytes.decode())
 print(message_as_ascii_bytes.decode())
 
+num = 1563
+intBytes = num.to_bytes(4, "big")
+base64Str = base64.urlsafe_b64encode(intBytes)
+base64Int = base64.urlsafe_b64decode(base64Str)
+num2 = int.from_bytes(base64Int, "big")
+print(f"convert {num}: to b64 str {base64Str.decode()} and return to: {num2} is pass: {num==num2}")
+
 # for numbers
 print(0x1A)   # Print the decimal value of the hexadecimal number after the “0x”
 print(hex(123)) # Prints the hexadecimal value of the number 123
@@ -30,7 +37,7 @@ print(number)
 print(int(bytes.hex(number_as_bytes), 16))
 
 # open binary file
-file_name = "C:\Temp\Adi\Week25/command1.bin"
+file_name = "C:\\Temp\\Adi\\adi\\first_year\\Week25\\command1.bin"
 file = open(file_name, "rb")
 lines = file.readlines()
 print(lines[0])
