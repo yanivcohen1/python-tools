@@ -4,10 +4,10 @@ import shutil
 DOWNLOAD_DIR =r"C:\Temp\Adi\adi\secend_year\proj2\download\\"
 ZIP_DIR = "C:\\Temp\\Adi\\adi\\secend_year\\proj2\\users\\"
 
-def create_zip_file_from_folder(zipName):
+def create_zip_file_from_folder(zipFileName):
     """  Creating the user pics ZIP file
     """
-    path = ZIP_DIR + zipName
+    path = ZIP_DIR + zipFileName
     archived = shutil.make_archive(path, 'zip', DOWNLOAD_DIR)
 
     if os.path.exists(path+".zip"):
