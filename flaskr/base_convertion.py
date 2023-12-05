@@ -23,7 +23,7 @@ intBytes = num.to_bytes(4, "big")
 base64Str = base64.urlsafe_b64encode(intBytes)
 base64Int = base64.urlsafe_b64decode(base64Str)
 num2 = int.from_bytes(base64Int, "big")
-print(f"convert {num}: to b64 str {base64Str.decode()} and return to: {num2} is pass: {num==num2}")
+print(f"convert {num}: to b64 str {base64Str.decode()[:-2]} and return to: {num2} is pass: {num==num2}")
 
 # for numbers
 print(0x1A)   # Print the decimal value of the hexadecimal number after the “0x”
