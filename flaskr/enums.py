@@ -16,7 +16,7 @@ print(Color(5) == Color.NOT_FOUND) # True
 print(Color(5).name == "NOT_FOUND") # True
 
 enum_list = list(map(str, Color))
-print(enum_list) # prints ['Color.RED', 'Color.GREEN', 'Color.BLUE', 'Color.NOT_FOUND']
+print("All names:", enum_list) # prints ['Color.RED', 'Color.GREEN','Color.BLUE', 'Color.NOT_FOUND']
 
 enum_list = list(map(int, Color))
-print(enum_list) # prints [1, 2, 3, -1]
+print("All values:", enum_list) # prints [1, 2, 3, -1]
