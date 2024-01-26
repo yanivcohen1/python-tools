@@ -18,9 +18,9 @@ psi_imag = np.imag(psi)
 
 # Plot the real part
 plt.plot(t, psi_real, label='Real part')
-plt.xlabel('Time')
-plt.ylabel('Wave function')
-plt.title('Real part of the wave function at x=0')
+# plt.xlabel('Time')
+# plt.ylabel('Wave function')
+# plt.title('Real part of the wave function at x=0')
 # plt.legend()
 # plt.show()
 
