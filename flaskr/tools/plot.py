@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
+# -------- panda for data menipulation -------------------
 csv = {
   'cars': ["BMW", "Volvo", "Ford"],
   'time': [1, 2, 3],
@@ -25,7 +26,7 @@ plt.ylabel('Wave function')
 plt.title('plot for panda data')
 plt.show()
 
-# ------ nupmy ----------------------
+# ------ nupmy for math ----------------------
 
 # Define the parameters
 a = 1 # length scale
