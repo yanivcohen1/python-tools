@@ -22,3 +22,14 @@ fig = px.line(df_stocks, x='date', y=['GOOG','AAPL'], labels={'x':'Date',
        title='Apple Vs. Google')
 
 fig.show()
+
+# -------------- simple line --------
+
+# using the iris dataset
+df = px.data.iris()
+
+# plotting the line chart
+fig = px.line(df, x="species", y="petal_width") # select columes
+
+# showing the plot
+fig.show()
