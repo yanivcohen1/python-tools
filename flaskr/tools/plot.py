@@ -2,14 +2,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-mydataset = {
+csv = {
   'cars': ["BMW", "Volvo", "Ford"],
   'time': [1, 2, 3],
   'passings': [3, 7, 2]
 }
 
-table = pd.DataFrame(mydataset, columns=['time', 'passings'])# option to fillter
-# df = pd.read_csv('data.csv')
+table = pd.DataFrame(csv, columns=['time', 'passings'])# option to fillter
+# table = pd.read_csv('data.csv')
 
 # test Panda print row
 # use a list of indexes:
