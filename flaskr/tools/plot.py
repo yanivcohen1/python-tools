@@ -1,5 +1,29 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
+
+mydataset = {
+  'cars': ["BMW", "Volvo", "Ford"],
+  'time': [1, 2, 3],
+  'passings': [3, 7, 2]
+}
+
+table = pd.DataFrame(mydataset, columns=['time', 'passings'])# option to fuilter
+# df = pd.read_csv('data.csv')
+
+# test Panda print row
+# use a list of indexes:
+print(table.loc[[0, 1]])
+#     cars  passings
+# 0    BMW         3
+# 1  Volvo         7
+
+# panda plot
+table.plot()
+plt.xlabel('Time')
+plt.ylabel('Wave function')
+plt.title('plot for panda data')
+plt.show()
 
 # Define the parameters
 a = 1 # length scale
@@ -28,6 +52,6 @@ plt.plot(t, psi_real, label='Real part')
 plt.plot(t, psi_imag, label='Imaginary part')
 plt.xlabel('Time')
 plt.ylabel('Wave function')
-plt.title('The wave function at x=0')
+plt.title('plot for numpy data')
 plt.legend()
 plt.show()
