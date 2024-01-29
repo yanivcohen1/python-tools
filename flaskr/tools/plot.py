@@ -8,7 +8,7 @@ mydataset = {
   'passings': [3, 7, 2]
 }
 
-table = pd.DataFrame(mydataset, columns=['time', 'passings'])# option to fuilter
+table = pd.DataFrame(mydataset, columns=['time', 'passings'])# option to fillter
 # df = pd.read_csv('data.csv')
 
 # test Panda print row
