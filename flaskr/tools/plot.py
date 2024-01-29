@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
+# https://www.youtube.com/watch?v=xcONCZR6bMo&t=263s
+# https://github.com/derekbanas/Python4Finance/blob/main/Numpy_Pandas.ipynb
 # -------- panda for data menipulation -------------------
 csv = {
   'cars': ["BMW", "Volvo", "Ford"],
