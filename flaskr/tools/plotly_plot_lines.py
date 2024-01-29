@@ -13,13 +13,13 @@ from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
 # Plot the value of a dollar invested over time
 # Use included Google price data to make one plot
 df_stocks = px.data.stocks()
-px.line(df_stocks, x='date', y='GOOG', labels={'x':'Date',
-                                               'y':'Value of Dollar'})
+px.line(df_stocks, x='date', y='GOOG', labels={ 'x':'Date',
+                                                'y':'Value of Dollar1'})
 
 # Make multiple line plots
-fig = px.line(df_stocks, x='date', y=['GOOG','AAPL'], labels={'x':'Date',
-                                                        'y':'Value of Dollar'},
-       title='Apple Vs. Google')
+fig = px.line(df_stocks, x='date', y=['GOOG','AAPL'],
+        labels={'x':'Date', 'y':'Value of Dollar2'},
+        title='Apple Vs. Google')
 
 fig.show()
 
