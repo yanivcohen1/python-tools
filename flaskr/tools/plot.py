@@ -25,6 +25,8 @@ plt.ylabel('Wave function')
 plt.title('plot for panda data')
 plt.show()
 
+# ------ nupmy ----------------------
+
 # Define the parameters
 a = 1 # length scale
 hbar = 1 # reduced Planck constant
