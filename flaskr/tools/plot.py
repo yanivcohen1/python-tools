@@ -11,7 +11,7 @@ csv = {
 table = pd.DataFrame(csv, columns=['time', 'passings'])# option to fillter
 # table = pd.read_csv('data.csv')
 
-# test Panda print row
+# Panda print 2 first rows
 # use a list of indexes:
 print(table.loc[[0, 1]])
 #     cars  passings
