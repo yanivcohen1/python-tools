@@ -5,7 +5,8 @@ import pandas as pd
 # https://matplotlib.org/stable/gallery/
 # https://www.youtube.com/watch?v=xcONCZR6bMo&t=263s
 # https://github.com/derekbanas/Python4Finance/blob/main/Numpy_Pandas.ipynb
-# -------- panda for data menipulation -------------------
+
+# -------- panda for table data menipulation -------------------
 csv = {
   'cars': ["BMW", "Volvo", "Ford"],
   'time': [1, 2, 3],
@@ -29,7 +30,7 @@ plt.ylabel('Wave function')
 plt.title('plot for panda data')
 plt.show()
 
-# ------ nupmy for math ----------------------
+# ------ nupmy for math 2d and 3d ----------------------
 
 # Define the parameters
 a = 1 # length scale
