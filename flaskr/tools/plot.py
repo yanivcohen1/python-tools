@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
+# https://matplotlib.org/stable/gallery/
 # https://www.youtube.com/watch?v=xcONCZR6bMo&t=263s
 # https://github.com/derekbanas/Python4Finance/blob/main/Numpy_Pandas.ipynb
 # -------- panda for data menipulation -------------------
