@@ -15,7 +15,7 @@ Z = np.sin(R)
 
 # Plot the surface.
 surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
-                       linewidth=0, antialiased=False)
+                        linewidth=0, antialiased=False)
 
 # Customize the z axis.
 ax.set_zlim(-1.01, 1.01)
