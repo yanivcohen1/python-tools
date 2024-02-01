@@ -34,12 +34,12 @@ try:
     driver.session_id = session_id
 except:
     driver.session_id = new_session_id
-    driver.get("https://www.neuralnine.com/")
     with open(FILE_NAME, "w") as f:
         f.write(driver.session_id)
 print(driver.session_id)
 
 # testing
+driver.get("https://www.neuralnine.com/")
 driver.maximize_window()
 # driver.find_element(By.CSS_SELECTOR, "a[href='https://www.neuralnine.com/books/']").click()
 # driver.find_element(By.PARTIAL_LINK_TEXT, "Books").click()
