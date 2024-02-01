@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
 import os
 
 # you need first to run the chrome driver in cmd (.\chromedriver.exe)
@@ -40,7 +41,7 @@ print(driver.session_id)
 
 # testing
 driver.maximize_window()
-links = driver.find_elements("xpath", "//a[@href]")
+links = driver.find_elements(By.XPATH, "//a[@href]")
 for link in links:
     if "Books" in link.get_attribute("innerHTML"):
         link.click()

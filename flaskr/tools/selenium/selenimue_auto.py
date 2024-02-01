@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
 
 options = Options()
 options.add_experimental_option("detach", True)
@@ -11,7 +12,7 @@ driver = webdriver.Chrome(
 driver.get("https://www.neuralnine.com/")
 driver.maximize_window()
 
-links = driver.find_elements("xpath", "//a[@href]")
+links = driver.find_elements(By.XPATH, "//a[@href]")
 for link in links:
     if "Books" in link.get_attribute("innerHTML"):
         link.click()
