@@ -24,6 +24,6 @@ setup(
      "flask-sqlalchemy==2.5.1", "flask-restful==0.3.8", "flask-cors==3.0.10", "Flask-JWT==0.3.2", "itsdangerous==1.1.0",
      "flask-socketio==5.0.1", "schedule==1.1.0", "Jinja2==2.11.3", "markupsafe==1.1.1", "werkzeug==1.0.1", "pynput==1.7.6",
      "scapy", "psutil", "keyboard", "sortedcontainers", "numpy", "matplotlib", "pandas", "pandas_datareader",
-     "plotly", "cufflinks", "ipykernel"],
+     "plotly", "cufflinks", "ipykernel", "selenium", "webdriver-manager"],
     extras_require={"test": ["pytest", "coverage"]},
 )
