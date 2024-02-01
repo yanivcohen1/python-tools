@@ -3,6 +3,9 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 import os
+
+# you need first to run the chrome driver in cmd (.\chromedriver.exe)
+
 # 1. open a driver
 # driver = webdriver.Chrome(options=options)
 # 2. extract to session_id and _url from driver object.
