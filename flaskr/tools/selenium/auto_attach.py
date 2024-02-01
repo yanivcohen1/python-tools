@@ -41,8 +41,11 @@ print(driver.session_id)
 
 # testing
 driver.maximize_window()
+# driver.find_element(By.CSS_SELECTOR, "a[href='https://www.neuralnine.com/books/']").click()
 links = driver.find_elements(By.XPATH, "//a[@href]")
 for link in links:
     if "Books" in link.get_attribute("innerHTML"):
         link.click()
         break
+
+By.PARTIAL_LINK_TEXT, "partial link text"
