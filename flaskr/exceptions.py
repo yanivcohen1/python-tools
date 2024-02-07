@@ -25,6 +25,8 @@ except Exception as ex:
     print("********************")
     exc_type, exc_obj, exc_tb = sys.exc_info()
     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-    print(exc_type, fname, exc_tb.tb_lineno)
+    print("exc_type:",exc_type)
+    print("error in file name:",fname)
+    print("error in line num:", exc_tb.tb_lineno)
     # for forword the error
     # raise Exception(str(ex))
