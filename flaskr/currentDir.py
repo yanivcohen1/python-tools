@@ -19,8 +19,9 @@ f = []
 d = []
 mypath = os.getcwd()
 for (dirpath, dirnames, filenames) in walk(mypath):
+    print("In the Directory:", dirpath)
     f.extend(filenames) # all files in this dir
     d.extend(dirnames) # all directoris in this dir
     break # only top level not recorsie - remove this for recorsive
-print("Files:", f)
-print("\nFolders:", d)
+print("\nare Files:", f)
+print("\nare Folders:", d)
