@@ -20,7 +20,7 @@ d = []
 mypath = os.getcwd()
 for (dirpath, dirnames, filenames) in walk(mypath):
     f.extend(filenames) # all files in this dir
-    d.extend(filenames) # all directoris in this dir
+    d.extend(dirnames) # all directoris in this dir
     break # only top level not recorsie - remove this for recorsive
-print("folders", f)
-print("\ndirectories", d)
+print("Files:", f)
+print("\nFolders:", d)
