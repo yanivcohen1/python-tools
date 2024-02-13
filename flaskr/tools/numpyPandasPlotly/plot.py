@@ -28,10 +28,7 @@ print(table.loc[[0, 1]])
 fig, ax = plt.subplots()
 
 # plot a line plot of the Sales column with points
-table.plot.line(x="Month", y="Sales", ax=ax, marker="o") # , markersize=10
-
-# plot a line plot of the Profit column on a secondary y-axis
-table.plot.line(x="Month", y="Profit", ax=ax, secondary_y=True, marker="o")
+table.plot.line(x="Month", y=["Sales", "Profit"], ax=ax, marker="o", title="plot for panda data") # , markersize=10
 
 # show the figure
 plt.show()
