@@ -11,4 +11,6 @@ z = np.cos(x ** 2 + y ** 2)
 # plotting the figure
 fig = go.Figure(data=[go.Surface(x=x, y=y, z=z)])
 
+fig.update_layout(title="Plotted 3D")
+
 fig.show()
