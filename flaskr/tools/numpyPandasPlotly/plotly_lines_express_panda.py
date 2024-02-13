@@ -31,6 +31,8 @@ print(table.loc[[0, 1]])
 # 0   Jan   1000     200
 # 1   Feb   1200     300
 
+# ------------ using plotly express --------
+
 # Make multiple line plots
 fig = px.line(
     table,
