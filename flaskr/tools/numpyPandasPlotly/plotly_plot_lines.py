@@ -27,6 +27,7 @@ print(table.loc[[0, 1]])
 #    Month  Sales  Profit
 # 0   Jan   1000     200
 # 1   Feb   1200     300
+
 # Make multiple line plots
 fig = px.line(table, x='Month', y=['Sales','Profit'], # select two columes for two lines
         # labels={'x':'Date', 'y':'Value of Dollar'}, # not working take it from the colume name
