@@ -42,26 +42,26 @@ fig.show()
 
 # -------------- simple line --------
 
-# Plot the value of a dollar invested over time
-# Use included Google price data to make one plot
-df_stocks = px.data.stocks()
-# px.line(df_stocks, x='date', y='NFLX', labels={ 'x':'Date',
-#                                                'y':'Value of Dollar'})
+# # Plot the value of a dollar invested over time
+# # Use included Google price data to make one plot
+# df_stocks = px.data.stocks()
+# # px.line(df_stocks, x='date', y='NFLX', labels={ 'x':'Date',
+# #                                                'y':'Value of Dollar'})
 
-# Make multiple line plots
-fig = px.line(df_stocks, x='date', y=['GOOG','AAPL'], # select two columes for two lines
-        labels={'x':'Date', 'y':'Value of Dollar'}, # not working take it from the colume name
-        title='Apple Vs. Google')
+# # Make multiple line plots
+# fig = px.line(df_stocks, x='date', y=['GOOG','AAPL'], # select two columes for two lines
+#         labels={'x':'Date', 'y':'Value of Dollar'}, # not working take it from the colume name
+#         title='Apple Vs. Google')
 
-fig.show()
+# fig.show()
 
-# -------------- simple line --------
+# # -------------- simple line --------
 
-# using the iris dataset
-df = px.data.iris()
+# # using the iris dataset
+# df = px.data.iris()
 
-# plotting the line chart
-fig = px.line(df, x="species", y=["petal_width", "petal_length"]) # select columes
+# # plotting the line chart
+# fig = px.line(df, x="species", y=["petal_width", "petal_length"]) # select columes
 
-# showing the plot
-fig.show()
+# # showing the plot
+# fig.show()
