@@ -20,9 +20,9 @@ table = pd.DataFrame(csv, columns=['Month', 'Sales', "Profit"])# option to fillt
 # Panda print 2 first rows
 # use a list of indexes:
 print(table.loc[[0, 1]])
-#     cars  passings
-# 0    BMW         3
-# 1  Volvo         7
+#    Month  Sales  Profit
+# 0   Jan   1000     200
+# 1   Feb   1200     300
 
 # create a figure and an Axes
 fig, ax = plt.subplots()
