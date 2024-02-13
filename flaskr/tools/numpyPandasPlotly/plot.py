@@ -8,12 +8,13 @@ import pandas as pd
 
 # -------- panda for table data menipulation -------------------
 csv = {
-  'cars': ["BMW", "Volvo", "Ford"],
+  "Month": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+  "Sales": [1000, 1200, 1500, 1800, 2000, 2200],
+  "Profit": [200, 300, 400, 500, 600, 700],
   'time': [1, 2, 3],
-  'passings': [3, 7, 2]
 }
 
-table = pd.DataFrame(csv, columns=['time', 'passings'])# option to fillter
+table = pd.DataFrame(csv, columns=['Month', 'Sales', "Profit"])# option to fillter
 # table = pd.read_csv('data.csv')
 
 # Panda print 2 first rows
@@ -23,11 +24,16 @@ print(table.loc[[0, 1]])
 # 0    BMW         3
 # 1  Volvo         7
 
-# panda plot
-table.plot()
-plt.xlabel('Time')
-plt.ylabel('Wave function')
-plt.title('plot for panda data')
+# create a figure and an Axes
+fig, ax = plt.subplots()
+
+# plot a line plot of the Sales column with points
+table.plot.line(x="Month", y="Sales", ax=ax, marker="o", markersize=10)
+
+# plot a line plot of the Profit column on a secondary y-axis
+table.plot.line(x="Month", y="Profit", ax=ax, secondary_y=True, marker="o", markersize=10)
+
+# show the figure
 plt.show()
 
 # ------ nupmy for math 2d and 3d ----------------------
