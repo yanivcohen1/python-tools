@@ -30,6 +30,7 @@ fig, ax = plt.subplots()
 # plot a line plot of the Sales column with points
 table.plot.line(x="Month", y=["Sales", "Profit"], ax=ax, marker="o", title="plot for panda data") # , markersize=10
 
+plt.ylabel('Mony')
 # show the figure
 plt.show()
 
