@@ -14,6 +14,9 @@ import pandas as pd
 
 pd.options.plotting.backend = "plotly"
 
+print(pd.to_datetime(['2018-10-26 12:00 -0530', '2018-10-26 12:00 -0500'],
+                utc=True)[0]) # 2018-10-26 17:30:00+00:00
+
 csv = {
     "Month": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     "Sales": [1000, 1200, 1500, 1800, 2000, 2200],
