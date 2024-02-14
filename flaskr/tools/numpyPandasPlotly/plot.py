@@ -6,6 +6,9 @@ import pandas as pd
 # https://www.youtube.com/watch?v=xcONCZR6bMo&t=263s
 # https://github.com/derekbanas/Python4Finance/blob/main/Numpy_Pandas.ipynb
 
+print(pd.to_datetime(['2018-10-26 12:00 -0530', '2018-10-26 12:00 -0500'],
+                utc=True)[0]) # 2018-10-26 17:30:00+00:00
+
 # -------- panda for table data menipulation -------------------
 csv = {
   "Month": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
