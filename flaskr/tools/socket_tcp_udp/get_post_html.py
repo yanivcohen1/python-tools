@@ -9,7 +9,7 @@ def get(URL_WithParams, headers):
     # print("get:", response.text[:7])
     return response.text
 
-def post(URL_WithParams, postdata, headers):
+def post_data(URL_WithParams, postdata, headers):
     # postdata = {"firstname": "John", "lastname": "Doe"} # params from dict
     resp = requests.post(URL_WithParams, data=postdata, headers=headers) # post body params
     # print('post:', resp.text[:7])
@@ -44,9 +44,8 @@ Connection: close\r
 
     print(response)
     val = response.split('\r\n\r\n',1)[1]
-    json1 = json.loads(val)
-    print("IP From: ==========")
-    print(json1)
+    # json1 = json.loads(val)
+    #print(json1)
     sock.close()
 
 def post_socket():
@@ -54,7 +53,7 @@ def post_socket():
     port = 80
 
     headers = """\r
-    POST /{url} HTTP/1.1\r
+    POST /{route} HTTP/1.1\r
     Content-Type: {content_type}\r
     Content-Length: {content_length}\r
     Host: {host}\r
@@ -74,7 +73,7 @@ def post_socket():
         content_type="application/json; charset=utf-8",
         content_length=len(body_bytes),
         host=str(host) + ":" + str(port),
-        url = "post"
+        route = "/post"
     ).encode('iso-8859-1')
 
     payload = header_bytes + body_bytes
@@ -88,11 +87,13 @@ def post_socket():
 
 if __name__ == '__main__':
     # get
+    print("\n--------- from get --------------")
     url = "http://ip-api.com/json/24.48.0.1"
     headers_json = {"Content-Type": "application/json; charset=utf-8"}
     resp = get(url, headers_json)
     print(resp)
     # post
+    print("\n--------- return post data --------------")
     postData = {
                 "Id": 78912,
                 "Customer": "Jason Sweet",
@@ -100,10 +101,16 @@ if __name__ == '__main__':
                 "Price": 18.00
                 }
     url = "https://httpbin.org/post"
-    resp = post(url, json.dumps(postData), headers_json)
-    resp = post_json(url, postData, headers_json)
+    resp = post_data(url, json.dumps(postData), {})
+    print(resp)
+
+    print("\n--------- return post json --------------")
+    resp = post_json(url, postData, {})
     # json1 = json.loads(resp["json"])
     print(resp)
 
+    print("\n---------get socket --------------")
     get_socket()
+
+    print("\n---------post socket --------------")
     post_socket()
