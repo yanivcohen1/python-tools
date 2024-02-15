@@ -113,4 +113,4 @@ if __name__ == '__main__':
     get_socket()
 
     print("\n---------post socket --------------")
-    post_socket()
+    post_socket() # https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST#example
