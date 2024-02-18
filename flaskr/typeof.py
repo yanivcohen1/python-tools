@@ -45,3 +45,12 @@ print(isinstance(a[0], list))
 a = [[1,2,3], [4, 5, 6], [7, 8, 9]]
 print(isinstance(a[0], list))
 # TRUE
+
+def test(a):
+    try:
+        a[0]
+        print("a is a list")
+    except:
+        print("a is a scalar")
+test(1)
+# "a is a scalar"
