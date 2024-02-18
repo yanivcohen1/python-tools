@@ -44,9 +44,3 @@ sum1 = 0
 for x in [1, 2, 3, 4]: sum1 += x
 print(sum1) # print 10 - 1+2+3+4 same as sum[1, 2, 3, 4]
 for index, num in enumerate([2, 4, 6]): print('index:', index, ' num:', num) # index: 0  num: 2; index: 1  num: 4
-
-# test if is scalar or arry
-N = [1,2]
-print(hasattr(N, "__len__")) # True
-N = 2
-print(hasattr(N, "__len__")) # FALSE

@@ -26,3 +26,15 @@ print(isinstance("test", str))
 # True
 print(type("test") is str)
 # True
+
+# test if is scalar or arry
+N = [1,"2"]
+print(type(N) == list)
+# TRUE
+N = 2
+print(type(N) == int or type(N) == str)
+# TRUE
+rows, cols = (5, 5)
+arry2d = [[0]*cols]*rows
+print(type(arry2d) == list)
+# TRUE
