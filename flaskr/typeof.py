@@ -39,6 +39,7 @@ arry2d = [[0]*cols]*rows
 print(type(arry2d) == list)
 # TRUE
 
+# test the arry dimention
 a = [1, 2, 3, 4]
 print(isinstance(a[0], list))
 # FALSE
