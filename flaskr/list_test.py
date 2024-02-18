@@ -5,7 +5,7 @@ print(thislist[:2]) # out ['0', '1'] start = 0, stop = 2-1=1
 print(thislist[:-1]) # ['0', '1'] start=0, stop = len-1-1=1
 print(thislist[-2:]) # ['1', '2'], start= len-2 , stop= end
 print(thislist[:]) # ["0", "1", "2"] print all
-print(thislist[-2]) # print 1, two from the last 
+print(thislist[-2]) # print 1, two from the last
 print(thislist[::2]) # ['0', '2'], print in step of 2
 print(thislist[::-1]) # ['2', '1', '0'], print in step of -1, reverse the arry
 print(thislist[1::-1]) # ['1', '0'], first reverse then start=1, stop=end
@@ -20,7 +20,7 @@ thislist.insert(len(thislist), "bif") # insert last element
 thislist.append("bif1") # insert last element the same as above
 thislist.pop(-1) # remove last element
 thislist.pop() # remove last element the same as above
-thislist.sort() 
+thislist.sort()
 print(thislist) # ['apple', 'banana', 'cherry']
 list2.pop()
 thislist.extend(list2) # same as zip
@@ -29,7 +29,7 @@ for i in range(len(thislist)): print(thislist[i])  # thislist + list2
 # filter
 newlist = [x for x in thislist if "a" in x] # 'a' char in str(x)
 print(newlist) # ['apple', 'banana', 'banana', 'apple']
-print(newlist[1:-2]) # ['banana'], remove the first and the 2 lasts resoults 
+print(newlist[1:-2]) # ['banana'], remove the first and the 2 lasts resoults
 newlist.remove("apple")
 print(newlist) # ['banana', 'banana', 'apple'] remove the first item he find
 # filter
@@ -38,9 +38,15 @@ print(newlist.index('banana')) # 0, the first he find
 # map
 print([i for i, x in enumerate(newlist) if x == "banana"]) # [0, 1] find all not only first item
 # reduce
-from functools import reduce 
+from functools import reduce
 print( reduce((lambda x, y: x + y), [1, 2, 3, 4]) ) # print 10 - 1+2+3+4 same as sum[1, 2, 3, 4]
 sum1 = 0
 for x in [1, 2, 3, 4]: sum1 += x
 print(sum1) # print 10 - 1+2+3+4 same as sum[1, 2, 3, 4]
 for index, num in enumerate([2, 4, 6]): print('index:', index, ' num:', num) # index: 0  num: 2; index: 1  num: 4
+
+# test if is scalar or arry
+N = [1,2]
+print(hasattr(N, "__len__")) # True
+N = 2
+print(hasattr(N, "__len__")) # FALSE
