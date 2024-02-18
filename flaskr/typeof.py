@@ -38,3 +38,10 @@ rows, cols = (5, 5)
 arry2d = [[0]*cols]*rows
 print(type(arry2d) == list)
 # TRUE
+
+a = [1, 2, 3, 4]
+print(isinstance(a[0], list))
+# FALSE
+a = [[1,2,3], [4, 5, 6], [7, 8, 9]]
+print(isinstance(a[0], list))
+# TRUE
