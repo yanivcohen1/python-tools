@@ -34,6 +34,7 @@ print(table.loc[[0, 1]])
 # 0   Jan   1000     200
 # 1   Feb   1200     300
 
+
 # ------------ using plotly express --------
 
 # Make multiple line plots
@@ -50,6 +51,7 @@ fig.update_layout(yaxis_title="Y Axis Title", legend_title="Legend Title")
 
 fig.show()
 
+
 # -------------- using panda for plot -----------------
 
 # plot a line plot of the Sales column with points
@@ -63,29 +65,17 @@ fig.update_layout(yaxis_title="Y Axis Title", legend_title="Legend Title")
 fig.show()
 
 
+# -------------- using panda and numpy for plot -----------------
 
-# -------------- simple line --------
+import numpy as np
+import pandas as pd
 
-# # Plot the value of a dollar invested over time
-# # Use included Google price data to make one plot
-# df_stocks = px.data.stocks()
-# # px.line(df_stocks, x='date', y='NFLX', labels={ 'x':'Date',
-# #                                                'y':'Value of Dollar'})
+df1 = pd.DataFrame({"X":np.linspace(0,30,10), "Y":np.random.rand(10)})
+df2 = pd.DataFrame({"A":np.linspace(0,40,10), "B":np.random.rand(10)})
 
-# # Make multiple line plots
-# fig = px.line(df_stocks, x='date', y=['GOOG','AAPL'], # select two columes for two lines
-#         labels={'x':'Date', 'y':'Value of Dollar'}, # not working take it from the colume name
-#         title='Apple Vs. Google')
+fig1 = px.line(df1, x='X', y='Y', title="X Vs. Y", markers=True)
+fig2 = px.line(df2, x='A', y='B', title="A Vs. B", markers=True)
 
-# fig.show()
-
-# # -------------- simple line --------
-
-# # using the iris dataset
-# df = px.data.iris()
-
-# # plotting the line chart
-# fig = px.line(df, x="species", y=["petal_width", "petal_length"]) # select columes
-
-# # showing the plot
-# fig.show()
+fig = go.Figure(data = fig1.data + fig2.data)
+# fig.update_traces(line_color='#0000ff')
+fig.show()
