@@ -69,3 +69,20 @@ plt.ylabel('Wave function')
 plt.title('plot for numpy data')
 plt.legend()
 plt.show()
+
+
+# print in subPlot
+plt.figure(figsize=(10, 5))
+plt.subplot(1, 2, 1) # in y are 1 plot, in x are 2 plots, 1 plot
+plt.plot(t, psi_real, label="Real part")
+plt.xlabel("Time")
+plt.ylabel("Wave function")
+plt.title('Real Wave function')
+plt.legend()
+plt.subplot(1, 2, 2) # in y are 1 plot, in x are 2 plots, 2 plot
+plt.plot(t, psi_imag, label="Imaginary part", marker='o')
+plt.xlabel("Time")
+plt.ylabel("Wave function")
+plt.title('Imaginary Wave function')
+plt.legend()
+plt.show()
