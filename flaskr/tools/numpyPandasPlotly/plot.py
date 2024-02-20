@@ -63,7 +63,7 @@ plt.plot(t, psi_real, label='Real part')
 # plt.show()
 
 # Plot the imaginary part
-plt.plot(t, psi_imag, label='Imaginary part')
+plt.plot(t, psi_imag, label='Imaginary part', marker='o')
 plt.xlabel('Time')
 plt.ylabel('Wave function')
 plt.title('plot for numpy data')
