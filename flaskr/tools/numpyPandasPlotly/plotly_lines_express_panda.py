@@ -71,7 +71,7 @@ import numpy as np
 import pandas as pd
 
 df1 = pd.DataFrame({"X":np.linspace(0,30,10), "Y":np.random.rand(10)})
-df2 = pd.DataFrame({"A":np.linspace(0,40,9), "B":np.random.rand(9)})
+df2 = pd.DataFrame({"A":np.linspace(20,40,9), "B":np.random.rand(9)})
 
 fig1 = px.line(df1, x='X', y='Y', title="X Vs. Y", markers=True)
 fig2 = px.line(df2, x='A', y='B', title="A Vs. B", markers=True)
