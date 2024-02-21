@@ -7,7 +7,7 @@ def runMatch():
 
     # match statement starts here .
     match user:
-        case "Om":
+        case "Om" | "pass":
             print(
                 "Om do not have access to the database \
                   only for the api code."
