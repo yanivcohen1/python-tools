@@ -73,7 +73,7 @@ plt.show()
 
 # print in subPlot
 plt.figure(figsize=(10, 5))
-ax1 =plt.subplot(1, 2, 1) # in y are 1 plot, in x are 2 plots, 1 plot
+ax1 = plt.subplot(1, 2, 1) # in y are 1 plot, in x are 2 plots, 1 plot
 ax1.plot(t, psi_real, label="Real part")
 ax1.set_xlabel("Time")
 ax1.set_ylabel("Wave function")
