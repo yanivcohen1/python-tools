@@ -72,7 +72,7 @@ plt.show()
 
 
 # print in subPlot
-plt.figure(figsize=(10, 5))
+fig = plt.figure(figsize=(10, 5))
 ax1 = plt.subplot(1, 2, 1) # in y are 1 plot, in x are 2 plots, 1 plot
 ax1.plot(t, psi_real, label="Real part")
 ax1.set_xlabel("Time")
@@ -86,13 +86,15 @@ ax2.set_xlabel("Time")
 ax2.set_ylabel("Wave function")
 ax2.set_title('Mix Wave function')
 ax2.legend()
+fig.show()
 plt.show()
 
 
 # print subplot [2, 2]
 y = np.real(psi)
 x = t
-fig, axs = plt.subplots(2, 2)
+fig = plt.figure(figsize=(10, 5))
+axs = fig.subplots(2, 2)
 axs[0, 0].plot(x, y)
 axs[0, 0].set_title('Axis [0, 0]')
 axs[0, 1].plot(x, y, 'tab:orange')
@@ -104,6 +106,9 @@ axs[1, 1].set_title('Axis [1, 1]')
 
 for ax in axs.flat:
     ax.set(xlabel='x-label', ylabel='y-label')
+
+axs[1, 1].set_xlabel("Time")
+axs[1, 1].set_ylabel("Wave function")
 
 fig.suptitle("common label")
 fig.tight_layout()
