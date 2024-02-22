@@ -73,17 +73,17 @@ plt.show()
 
 # print in subPlot
 plt.figure(figsize=(10, 5))
-plt.subplot(1, 2, 1) # in y are 1 plot, in x are 2 plots, 1 plot
-plt.plot(t, psi_real, label="Real part")
-plt.xlabel("Time")
-plt.ylabel("Wave function")
-plt.title('Real Wave function')
-plt.legend()
-plt.subplot(1, 2, 2) # in y are 1 plot, in x are 2 plots, 2 plot
-plt.plot(t, psi_imag, label="Imaginary part", marker='o')
-plt.plot(t, psi_real, label="Real part")
-plt.xlabel("Time")
-plt.ylabel("Wave function")
-plt.title('Mix Wave function')
-plt.legend()
+ax1 =plt.subplot(1, 2, 1) # in y are 1 plot, in x are 2 plots, 1 plot
+ax1.plot(t, psi_real, label="Real part")
+ax1.set_xlabel("Time")
+ax1.set_ylabel("Wave function")
+ax1.set_title('Real Wave function')
+ax1.legend()
+ax2 = plt.subplot(1, 2, 2) # in y are 1 plot, in x are 2 plots, 2 plot
+ax2.plot(t, psi_imag, label="Imaginary part", marker='o')
+ax2.plot(t, psi_real, label="Real part")
+ax2.set_xlabel("Time")
+ax2.set_ylabel("Wave function")
+ax2.set_title('Mix Wave function')
+ax2.legend()
 plt.show()
