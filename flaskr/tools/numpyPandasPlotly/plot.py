@@ -31,7 +31,7 @@ print(table.loc[[0, 1]])
 fig, ax = plt.subplots()
 
 # plot a line plot of the Sales column with points
-table.plot.line(x="Month", y=["Sales", "Profit"], ax=ax, marker="o", title="plot for panda data") # , markersize=10
+table.plot.line(x="Month", y=["Sales", "Profit"], ax=ax, marker=".", title="plot for panda data") # , markersize=10
 
 plt.ylabel('Money')
 # show the figure
@@ -63,7 +63,7 @@ plt.plot(t, psi_real, label='Real part')
 # plt.show()
 
 # Plot the imaginary part
-plt.plot(t, psi_imag, label='Imaginary part', marker='o')
+plt.plot(t, psi_imag, label='Imaginary part', marker='.')
 plt.xlabel('Time')
 plt.ylabel('Wave function')
 plt.title('plot for numpy data')
@@ -80,8 +80,8 @@ ax1.set_ylabel("Wave function")
 ax1.set_title('Real Wave function')
 ax1.legend()
 ax2 = plt.subplot(1, 2, 2) # in y are 1 plot, in x are 2 plots, 2 plot
-ax2.plot(t, psi_imag, label="Imaginary part", marker='o')
-ax2.plot(t, psi_real, label="Real part")
+ax2.plot(t, psi_imag, "r.-", label="Imaginary part")
+ax2.plot(t, psi_real, "--", label="Real part")
 ax2.set_xlabel("Time")
 ax2.set_ylabel("Wave function")
 ax2.set_title('Mix Wave function')
