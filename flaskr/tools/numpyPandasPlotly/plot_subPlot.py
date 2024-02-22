@@ -69,3 +69,12 @@ ax2.set_ylabel("Wave function")
 ax2.set_title('Mix Wave function')
 ax2.legend()
 plt.show()
+
+# print in 1 plot from subPlot
+ax1 = plt.subplot(1, 1, 1) # in y are 1 plot, in x are 1 plots, 1 plot
+ax1.plot(t, -psi_real, ".-", label="Real part")
+ax1.set_xlabel("Time")
+ax1.set_ylabel("Wave function")
+ax1.set_title('Real Wave function')
+ax1.legend()
+plt.show()
