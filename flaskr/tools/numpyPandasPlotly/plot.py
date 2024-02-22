@@ -105,7 +105,7 @@ axs[1, 1].set_title('Axis [1, 1]')
 for ax in axs.flat:
     ax.set(xlabel='x-label', ylabel='y-label')
 
-fig.set_label("common label")
+fig.suptitle("common label")
 fig.tight_layout()
 fig.show()
 plt.show()
