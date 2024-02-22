@@ -45,7 +45,7 @@ plt.show()
 y = np.real(psi)
 x = t
 fig = plt.figure(figsize=(10, 5))
-axs = fig.subplots(2, 2)
+axs = fig.subplots(2, 2)# 2 in x and 2 in y
 ax4: Axes = axs[1, 1]
 # ax1: Axes, ax2: Axes, ax3: Axes, ax4: Axes = axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]
 axs[0, 0].plot(x, y)
@@ -54,7 +54,8 @@ axs[0, 1].plot(x, y, 'tab:orange')
 axs[0, 1].set_title('Axis [0, 1]')
 axs[1, 0].plot(x, -y, 'tab:green')
 axs[1, 0].set_title('Axis [1, 0]')
-ax4.plot(x, -y, 'tab:red')
+ax4.plot(x, -y, label="Real part", marker='.')
+ax4.plot(x, y, "--",label="Imaginary part")
 ax4.set_title('Axis [1, 1]')
 
 for ax in axs.flat:
@@ -62,6 +63,7 @@ for ax in axs.flat:
 
 ax4.set_xlabel("Time")
 ax4.set_ylabel("Wave function")
+ax4.legend()
 
 fig.suptitle("common label")
 fig.tight_layout()
