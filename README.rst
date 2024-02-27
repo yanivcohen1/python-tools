@@ -167,3 +167,8 @@ waitress-serve --port=5000 --call 'flaskr:create_app'
 // --call 'module:function'
 // module is the file name.
 // need to import the fileName from mainModule
+
+To upload the dist to pip server
+-------------------------
+pip3 install twine
+twine upload dist/*
