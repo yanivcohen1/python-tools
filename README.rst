@@ -172,3 +172,5 @@ To upload the dist to pip server
 -------------------------
 pip3 install twine
 twine upload dist/*
+// to download and install it from pip
+pip install <projectName>
