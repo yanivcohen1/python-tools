@@ -10,15 +10,15 @@ L = sp.Symbol('L', positive=True)
 
 # Define energy as a symbol
 E = sp.Symbol('E')
-k1 = sp.Symbol('k1')
+k = sp.Symbol('k')
 # Replace with your symbolic solution for energy (assuming k is the wavevector)
-energy_expression = sp.sqrt((2*m*hbar**2*E) / (beta*(1 - sp.exp(-2*k1*L))))
+energy_expression = sp.sqrt((2*m*hbar**2*E) / (beta*(1 - sp.exp(-2*k*L))))
 
 # Function to calculate energy numerically
 def energy(k_value, m_value, hbar_value, beta_value, L_value):
     # Substitute symbolic values with numerical constants
     E_value = E
-    return energy_expression.subs({m: m_value, hbar: hbar_value, beta: beta_value, L: L_value, E:1, k1:k_value}).evalf()
+    return energy_expression.subs({m: m_value, hbar: hbar_value, beta: beta_value, L: L_value, E:1, k:k_value}).evalf()
 
 # Set parameter values
 m_value = 1
@@ -31,8 +31,8 @@ k_vals = np.linspace(0, 10, 100)
 
 # Calculate energy levels numerically
 energy_levels = []
-for k in k_vals:
-    energy_level = energy(k, m_value, hbar_value, beta_value, L_value)
+for k_val in k_vals:
+    energy_level = energy(k_val, m_value, hbar_value, beta_value, L_value)
     energy_levels.append(energy_level)
 
 # Configure the plot
