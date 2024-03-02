@@ -48,10 +48,10 @@ k_vals = np.linspace(-10, 10, 100)
 
 # Calculate energy levels numerically
 energy_levels = []
-for k in k_vals:
-    energy_level_rhs = energy(k, m_value, hbar_value, beta_value, L_value, 0)
+for k_val in k_vals:
+    energy_level_rhs = energy(k_val, m_value, hbar_value, beta_value, L_value, 0)
     energy_levels.append(energy_level_rhs)
-    energy_level_lhs = energy(k, m_value, hbar_value, beta_value, L_value, 1)
+    energy_level_lhs = energy(k_val, m_value, hbar_value, beta_value, L_value, 1)
     energy_levels.append(energy_level_lhs)
 
 energy_levels_real_rhs = []
@@ -85,3 +85,14 @@ plt.grid(True)
 
 # Show the plot
 plt.show()
+
+# Define the equation for E in terms of k and other symbols
+E_eq = sp.Eq(E, -hbar**2*k**2/(2*m))
+
+# Substitute each solution for k into the equation for E and simplify
+E_sol = [sp.simplify(E_eq.subs(k, sol)) for sol in k_sol]
+
+# Print the solutions for E
+print("The solutions for E are:")
+for sol in E_sol:
+    print(sol.rhs) # Print only the right hand side of the equation
