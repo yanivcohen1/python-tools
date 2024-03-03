@@ -76,9 +76,9 @@ for energy_level in energy_levels:
         energy_levels_imag_lhs.append(sp.im(val))
 
 # Plot the real part
-plt.plot(k_vals, energy_levels_real_rhs, label="right hand side")
+plt.plot(k_vals, energy_levels_real_rhs, label="E<0")
 # plt.plot(k_vals, np.imag(energy_levels_imag_rhs), "--" , label='imag part right hand side')
-plt.plot(k_vals, energy_levels_real_lhs, label="left hand side")
+plt.plot(k_vals, energy_levels_real_lhs, label="E>0")
 # plt.plot(k_vals, np.imag(energy_levels_imag_lhs), "--" , label='imag part left hand side')
 # plt.plot(k_vals[1:], energy_levels_imag[1:], label='imag part')
 
