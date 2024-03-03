@@ -36,12 +36,12 @@ def fill_vals(x_value):
 x_vals = np.linspace(-10, 10, 100)
 
 # Calculate energy levels numerically
-energy_levels = []
+y_vals = []
 for x_val in x_vals:
-    sol = fill_vals(x_val)
-    energy_levels.append(sol.args[1])
+    y_val = fill_vals(x_val)
+    y_vals.append(y_val.args[1])
 
-plt.plot(x_vals, energy_levels, label="cos(3*x)")
+plt.plot(x_vals, y_vals, label="cos(3*x)")
 # plt.plot(k_vals, np.imag(energy_levels_imag_rhs), "--" , label='imag part right hand side')
 
 # plt.plot(k_vals, energy_levels, label="Energy Levels")
