@@ -141,8 +141,8 @@ for energy_level in energy_levels:
     energy_level_imag.append(sp.im(energy_level))
 
 # Plot the real part
-plt.plot(E_vals, energy_level_real, label="Real part right hand side")
-plt.plot(E_vals, energy_level_imag, "--", label="imag part right hand side")
+plt.plot(E_vals, energy_level_real, label="Real part")
+plt.plot(E_vals, energy_level_imag, "--", label="imag part")
 
 # plt.plot(k_vals, energy_levels, label="Energy Levels")
 plt.xlabel("position (x)")
