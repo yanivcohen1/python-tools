@@ -68,17 +68,17 @@ for energy_level in energy_levels:
     val = energy_level.args[0][0]
     if str(energy_level.args[0][1]).strip() == "E > 0":
         # Configure the plot for right hand side
-        energy_levels_real_rhs.append(val.args[0])
-        energy_levels_imag_rhs.append(val.args[1])
+        energy_levels_real_rhs.append(sp.re(val))
+        energy_levels_imag_rhs.append(sp.im(val))
     else:
         # Configure the plot for left hand side
-        energy_levels_real_lhs.append(val)
-        # energy_levels_imag_lhs.append(lhs.args[1])
+        energy_levels_real_lhs.append(sp.re(val))
+        energy_levels_imag_lhs.append(sp.im(val))
 
 # Plot the real part
-plt.plot(k_vals, energy_levels_real_rhs, label="Real part right hand side")
+plt.plot(k_vals, energy_levels_real_rhs, label="right hand side")
 # plt.plot(k_vals, np.imag(energy_levels_imag_rhs), "--" , label='imag part right hand side')
-plt.plot(k_vals, energy_levels_real_lhs, label="Real part left hand side")
+plt.plot(k_vals, energy_levels_real_lhs, label="left hand side")
 # plt.plot(k_vals, np.imag(energy_levels_imag_lhs), "--" , label='imag part left hand side')
 # plt.plot(k_vals[1:], energy_levels_imag[1:], label='imag part')
 
@@ -91,6 +91,8 @@ plt.grid(True)
 
 # Show the plot
 plt.show()
+
+
 
 # Define the equation for E in terms of k and other symbols
 E_eq = sp.Eq(E, -(hbar**2) * k**2 / (2 * m))
@@ -135,12 +137,8 @@ for E_val in E_vals:
 energy_level_real = []
 energy_level_imag = []
 for energy_level in energy_levels:
-    if len(energy_level.args) == 2:
-        energy_level_real.append(energy_level.args[0])
-        energy_level_imag.append(float(str(energy_level.args[1])[:-2]))
-    else:
-        energy_level_real.append(energy_level)
-        energy_level_imag.append(0)
+    energy_level_real.append(sp.re(energy_level))
+    energy_level_imag.append(sp.im(energy_level))
 
 # Plot the real part
 plt.plot(E_vals, energy_level_real, label="Real part right hand side")
