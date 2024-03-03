@@ -9,4 +9,4 @@ eq2 = sym.Eq(x**2 + y**2, 17) # x^2 + y^2 = 17
 result = sym.solve([eq1, eq2], (x, y))
 
 # Print the result
-print(result)
+print(result) # print [(1, 4), (4, 1)]
