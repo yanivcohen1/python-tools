@@ -35,21 +35,16 @@ def fill_vals(x_value):
 
 x_vals = np.linspace(-10, 10, 100)
 
-# Calculate energy levels numerically
 y_vals = []
 for x_val in x_vals:
     y_val = fill_vals(x_val)
     y_vals.append(y_val.args[1])
 
 plt.plot(x_vals, y_vals, label="cos(3*x)")
-# plt.plot(k_vals, np.imag(energy_levels_imag_rhs), "--" , label='imag part right hand side')
-
-# plt.plot(k_vals, energy_levels, label="Energy Levels")
-plt.xlabel("position(x)")
+plt.xlabel("x")
 plt.ylabel("Y(x)")
 plt.title("solve y''(x) +9y(x) = 0, let y(0) = 1 and y'(0) = 0")
 plt.legend()
 plt.grid(True)
-
 # Show the plot
 plt.show()
