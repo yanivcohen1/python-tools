@@ -35,6 +35,7 @@ table.plot.line(x="Month", y=["Sales", "Profit"], ax=ax, marker=".", title="plot
 
 plt.ylabel('Money')
 # show the figure
+plt.grid(True)
 plt.show()
 
 # ------ nupmy for math 2d and 3d ----------------------
@@ -56,6 +57,7 @@ psi_imag = np.imag(psi)
 
 # Plot the real part
 plt.plot(t, psi_real, label='Real part')
+plt.grid(True)
 # plt.xlabel('Time')
 # plt.ylabel('Wave function')
 # plt.title('Real part of the wave function at x=0')
@@ -68,6 +70,7 @@ plt.xlabel('Time')
 plt.ylabel('Wave function')
 plt.title('plot for numpy data')
 plt.legend()
+plt.grid(True)
 plt.show()
 
 
@@ -79,6 +82,7 @@ ax1.set_xlabel("Time")
 ax1.set_ylabel("Wave function")
 ax1.set_title('Real Wave function')
 ax1.legend()
+ax1.grid(True)
 ax2 = plt.subplot(1, 2, 2) # in y are 1 plot, in x are 2 plots, 2 plot
 ax2.plot(t, psi_imag, "r.-", label="Imaginary part")
 ax2.plot(t, psi_real, "--", label="Real part")
@@ -86,7 +90,7 @@ ax2.set_xlabel("Time")
 ax2.set_ylabel("Wave function")
 ax2.set_title('Mix Wave function')
 ax2.legend()
-fig.show()
+ax2.grid(True)
 plt.show()
 
 
@@ -106,6 +110,7 @@ axs[1, 1].set_title('Axis [1, 1]')
 
 for ax in axs.flat:
     ax.set(xlabel='x-label', ylabel='y-label')
+    ax.grid(True)
 
 axs[1, 1].set_xlabel("Time")
 axs[1, 1].set_ylabel("Wave function")
