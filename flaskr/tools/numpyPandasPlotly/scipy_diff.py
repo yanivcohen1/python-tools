@@ -1,4 +1,6 @@
-# Import the modules
+# solve eq -> y"(x) +9y(x) = 0, let y(0) = 1 and y'(0) = 0
+# the solution is -> y(x) = cos(3*x)
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint
