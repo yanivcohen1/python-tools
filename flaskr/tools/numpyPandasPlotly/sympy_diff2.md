@@ -49,7 +49,7 @@ Substitute the values of C1 and C2 back into the general solution:
 y(x) = (1/2) * e^(3ix) + (1/2) * e^(-3ix) 
 Using Euler's identity:  
 y(x) = (1/2) * (cos(3x) + i*sin(3x) + cos(3x) - i*sin(3x))
-
-y(x) = cos(3x)
+The final resoult is:
+**y(x) = cos(3x)**
 
 **Note:** Due to the presence of imaginary unit multiples in the exponents, the solution involves complex-valued functions. However, depending on the context of your problem, you might be interested in the real and imaginary parts of this solution separately, or it might be necessary to convert it to a trigonometric form using Euler's formula.
