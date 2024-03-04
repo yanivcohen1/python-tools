@@ -41,7 +41,7 @@ for x_val in x_vals:
     y_val = fill_vals(x_val)
     y_vals.append(y_val.args[1])
 
-plt.plot(x_vals, y_vals, label="cos(3*x)")
+plt.plot(x_vals, y_vals, label=y_sol.rhs)
 plt.xlabel("x")
 plt.ylabel("Y(x)")
 plt.title("solve y''(x) +9y(x) = 0, let y(0) = 1 and y'(0) = 0")
