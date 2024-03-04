@@ -44,7 +44,7 @@ for x_val in x_vals:
 plt.plot(x_vals, y_vals, label=y_sol.rhs)
 plt.xlabel("x")
 plt.ylabel("Y(x)")
-plt.title("solve y''(x) +9y(x) = 0, let y(0) = 1 and y'(0) = 0")
+plt.title("solve y''(x) +9y(x) = 0, y'(0) = 0, y(0) = 1")
 plt.legend()
 plt.grid(True)
 # Show the plot
