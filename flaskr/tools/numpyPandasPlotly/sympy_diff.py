@@ -1,5 +1,6 @@
 # solve eq -> y"(x) +9y(x) = 0, let y(0) = 1 and y'(0) = 0
 # the solution is -> y(x) = cos(3*x)
+# https://reference.wolfram.com/language/ref/Plot.html
 # in wolframalpha -> Plot[y"(x) +9y(x) = 0, y'(0) = 0, y(0) = 1, {x, -3pi, 3Pi}]
 # in wolframalpha -> Plot[{Sin[x], Sin[2 x], Sin[3 x]}, {x, 0, 2 Pi}, PlotLegends -> "Expressions"]
 from sympy import Function, dsolve, symbols, Eq
