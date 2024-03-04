@@ -20,4 +20,5 @@ axes.xaxis.set_major_formatter(formatter)
 plt.setp(axes.get_xticklabels(), rotation = 15)
 
 axes.plot(x, b)
+plt.grid(True)
 plt.show()

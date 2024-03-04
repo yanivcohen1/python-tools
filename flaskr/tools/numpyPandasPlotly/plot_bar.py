@@ -29,4 +29,5 @@ axes.bar(diff.index,
 plt.xlabel('date')
 plt.ylabel('Wave function')
 plt.title('plot for panda data')
+plt.grid(True)
 plt.show()
