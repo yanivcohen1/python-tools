@@ -42,6 +42,7 @@ ax4.set_title('Axis [1, 1]')
 
 for ax in axs.flat:
     ax.set(xlabel='x-label', ylabel='y-label')
+    ax.grid(True)
 
 ax4.set_xlabel("Time")
 ax4.set_ylabel("Wave function")
@@ -68,6 +69,7 @@ ax2.set_xlabel("Time")
 ax2.set_ylabel("Wave function")
 ax2.set_title('Mix Wave function')
 ax2.legend()
+ax2.grid(True)
 plt.show()
 
 # print in 1 plot from subPlot
@@ -77,4 +79,5 @@ ax1.set_xlabel("Time")
 ax1.set_ylabel("Wave function")
 ax1.set_title('Real Wave function')
 ax1.legend()
+ax1.grid(True)
 plt.show()
