@@ -7,7 +7,7 @@ from mpl_toolkits.mplot3d import Axes3D
 # Define the unknown function
 u = Function('u')
 
-# Define the PDE
+# Define the PDE: U"(x, y)xx = U"(x, y)yy
 eq = Eq(D(u(x, y), x, x), D(u(x, y), y, y))
 
 # Perform separation of variables
@@ -28,10 +28,11 @@ Y_sol = dsolve(Y_ode, Y(y), ics={Y(0): initial_conditions[Y(0)]})
 # Assuming a multiplicative constant 'A' for the solutions
 A = symbols('A')
 u_solution = A * X_sol.rhs * Y_sol.rhs
+print(u_solution)
 
 # Convert symbolic expressions to numerical functions
 u_lambdified = lambdify((x, y), u_solution.subs(A, 1).subs('lambda', -1)
-                        .subs('C1', 1).subs('C2', 1))
+                        .subs('C2', 1))
 
 # Create a grid and compute the numerical values of u(x, y)
 x_vals = np.linspace(-5, 5, 100)
