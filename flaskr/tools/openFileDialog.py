@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import filedialog
 
-root = tk.Tk()
-root.withdraw()
+# root = tk.Tk()
+# root.withdraw()
 
 # open file dialog
 def openFile():
@@ -10,5 +10,4 @@ def openFile():
     return file
 
 if __name__ == '__main__':
-    fileName = openFile()
-    print(fileName)
+    print(filedialog.askopenfilename())
