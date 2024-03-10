@@ -1,5 +1,4 @@
-# flask ver 3
-# python debugger: debug python file
+# bebbug run: Python: Flask plotly
 # in terminal run: python -m flask run
 from flask import Flask, request, render_template
 import plotly
