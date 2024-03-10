@@ -30,5 +30,22 @@
             ],
             "jinja": true
         },
+        {
+          "name": "Python: Flask plotly",
+          "type": "debugpy",
+          "request": "launch",
+          "module": "flask",
+          "env": {
+              "FLASK_APP": "flaskr/tools/plotly_web/app.py",
+              "FLASK_DEBUG": "1"
+          },
+          "args": [
+              "run",
+              "--no-debugger",
+              "--no-reload"
+          ],
+          "jinja": true,
+          "justMyCode": true
+      },
     ]
 }
