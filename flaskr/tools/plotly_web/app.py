@@ -27,10 +27,10 @@ def plot():
         y=y_values,
         name="Name of Trace 1"       # this sets its legend entry
     ))
-    x_valuesX2 = [x * 2 for x in x_values]
+    y_valuesX2 = [x * 2 for x in y_values]
     fig.add_trace(go.Scatter(
-    x=x_valuesX2,
-    y=y_values,
+    x=x_values,
+    y=y_valuesX2,
     name="Name of Trace 2"
 ))
     fig.update_layout(
