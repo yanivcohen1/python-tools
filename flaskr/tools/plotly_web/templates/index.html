@@ -21,6 +21,7 @@
     <div id="plot"></div>
 
     <script>
+
         function submitData() {
             var xValues = document.getElementById('x_values').value.split(',').map(Number);
             var yValues = document.getElementById('y_values').value.split(',').map(Number);
@@ -41,8 +42,19 @@
             .then(data => {
                 var plotData = data <!-- JSON.parse(data); -->
                 Plotly.newPlot('plot', plotData.data, plotData.layout);
+                var myPlot = document.getElementById('plot'),
+                    data = plotData.data,
+                    layout = plotData.layout
+                myPlot.on('plotly_click', function(data){
+                    alert(  data.points[0].data.name +
+                            " click point: " +
+                            data.points[0].x+","+
+                            data.points[0].y);
+                    }
+                )
             });
         }
+
     </script>
 </body>
 </html>
