@@ -1,11 +1,12 @@
 # bebbug run: Python: Flask plotly
+# python debugger: debug python file
 # in terminal run: python -m flask run
 from flask import Flask, request, render_template
 import plotly
 import plotly.graph_objs as go
 import json
 
-app = Flask(__name__) # , template_folder='C:\\Temp\\Adi\\yaniv\\plotly_web\\templates'
+app = Flask(__name__ )# , template_folder='yaniv/plotly_web/templates'
 
 @app.route('/')
 def index():
@@ -19,10 +20,31 @@ def plot():
     data_json = json.loads(data)
     x_values = data_json["x_values"] #.getlist('x_values', type=float)
     y_values = data_json["y_values"]# .getlist('y_values', type=float)
-
     # Create a plot using Plotly
-    plot = go.Figure(data=[go.Scatter(x=x_values, y=y_values, mode='lines+markers')])
-    plot_json = json.dumps(plot, cls=plotly.utils.PlotlyJSONEncoder)
+    fig = go.Figure() # data=[go.Scatter(x=x_values, y=y_values, mode='lines+markers')])
+    fig.add_trace(go.Scatter(
+        x=x_values,
+        y=y_values,
+        name="Name of Trace 1"       # this sets its legend entry
+    ))
+    x_valuesX2 = [x * 2 for x in x_values]
+    fig.add_trace(go.Scatter(
+    x=x_valuesX2,
+    y=y_values,
+    name="Name of Trace 2"
+))
+    fig.update_layout(
+    title="Plot Title",
+    xaxis_title="X Axis Title",
+    yaxis_title="Y Axis Title",
+    legend_title="Legend Title",
+    font=dict(
+        family="Courier New, monospace",
+        size=18,
+        color="RebeccaPurple"
+        )
+    )
+    plot_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
     # Return the plot to the web page
     return plot_json
