@@ -43,7 +43,12 @@ def plot():
         family="Courier New, monospace",
         size=18,
         color="RebeccaPurple"
-        )
+        ),
+    # border size optional
+    width=800,  # specify the width
+    height=400,  # specify the height
+    margin=dict(l=50, r=50, b=100, t=100, pad=4),
+    # paper_bgcolor="LightSteelBlue",
     )
     plot_json = fig.to_json() # json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
