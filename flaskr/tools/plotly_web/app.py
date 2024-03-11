@@ -1,3 +1,4 @@
+# https://plotly.com/javascript/
 # bebbug run: Python: Flask plotly
 # python debugger: debug python file
 # in terminal run: python -m flask run
