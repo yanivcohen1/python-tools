@@ -45,7 +45,7 @@ def plot():
         color="RebeccaPurple"
         )
     )
-    plot_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    plot_json = fig.to_json() # json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
     # Return the plot to the web page
     return plot_json
