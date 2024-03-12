@@ -41,13 +41,13 @@ def plot():
     legend_title="Legend Title",
     font=dict(
         family="Courier New, monospace",
-        size=18,
+        size=14,
         color="RebeccaPurple"
         ),
     # border size optional
     width=800,  # specify the width
-    height=400,  # specify the height
-    margin=dict(l=50, r=50, b=100, t=100, pad=4),
+    height=300,  # specify the height
+    margin=dict(l=50, r=50, b=50, t=50, pad=4),
     # paper_bgcolor="LightSteelBlue",
     )
     plot_json = fig.to_json() # json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)

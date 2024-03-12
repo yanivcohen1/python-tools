@@ -8,7 +8,7 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
-    <h1>Plotly Data Plotter</h1>
+    <h2>Plotly Data Plotter</h2>
     <form id="dataForm">
         <label for="x_values">X Values (comma-separated):</label>
         <input type="text" id="x_values" name="x_values">
@@ -18,6 +18,7 @@
         <br><br>
         <button type="button" onclick="submitData()">Plot Data</button>
     </form>
+    <p id="selected"></p>
     <div id="plot"></div>
 
     <script>
@@ -46,10 +47,12 @@
                     data = plotData.data,
                     layout = plotData.layout
                 myPlot.on('plotly_click', function(data){
-                    alert(  data.points[0].data.name +
-                            " click point: " +
-                            data.points[0].x+","+
-                            data.points[0].y);
+                    txt = "<b>Selected:</b> " + data.points[0].data.name +
+                        " <b>click on point:</b> " +
+                        data.points[0].x+","+
+                        data.points[0].y
+                    document.getElementById('selected').innerHTML = txt
+                    // alert( txt );
                     }
                 )
             });
