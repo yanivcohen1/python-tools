@@ -46,7 +46,7 @@ def plot():
         ),
     # border size optional
     width=800,  # specify the width
-    height=300,  # specify the height
+    height=320,  # specify the height
     margin=dict(l=50, r=50, b=50, t=50, pad=4),
     # paper_bgcolor="LightSteelBlue",
     )
