@@ -43,9 +43,9 @@
             .then(data => {
                 var plotData = data <!-- JSON.parse(data); -->
                 Plotly.newPlot('plot', plotData.data, plotData.layout);
-                var myPlot = document.getElementById('plot'),
-                    data = plotData.data,
-                    layout = plotData.layout
+                var myPlot = document.getElementById('plot') //,
+                    // data = plotData.data,
+                    // layout = plotData.layout
                 myPlot.on('plotly_click', function(data){
                     txt = "<b>Selected:</b> " + data.points[0].data.name +
                         " <b>click on point:</b> " +
