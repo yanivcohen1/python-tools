@@ -2,10 +2,11 @@
 # bebbug run: Python: Flask plotly
 # python debugger: debug python file
 # in terminal run: python -m flask run
+import json
 from flask import Flask, request, render_template
 import plotly
 import plotly.graph_objs as go
-import json
+import webbrowser
 
 app = Flask(__name__ )# , template_folder='yaniv/plotly_web/templates'
 
@@ -56,4 +57,7 @@ def plot():
     return plot_json
 
 if __name__ == '__main__':
+    # url = "http://127.0.0.1:5000/"
+    # optional Open the default web browser to the specified URL
+    # webbrowser.open(url)
     app.run(debug=True)
