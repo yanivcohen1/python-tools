@@ -42,7 +42,8 @@
             .then(response => response.json())
             .then(data => {
                 var plotData = data <!-- JSON.parse(data); -->
-                Plotly.newPlot('plot', plotData.data, plotData.layout);
+                var config = {responsive: true}
+                Plotly.newPlot('plot', plotData.data, plotData.layout, config);
                 var myPlot = document.getElementById('plot') //,
                     // data = plotData.data,
                     // layout = plotData.layout

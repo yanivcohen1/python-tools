@@ -46,7 +46,7 @@ def plot():
         color="RebeccaPurple"
         ),
     # border size optional
-    width=800,  # specify the width
+    # width=800,  # specify the width
     height=320,  # specify the height
     margin=dict(l=50, r=50, b=50, t=50, pad=4),
     # paper_bgcolor="LightSteelBlue",
