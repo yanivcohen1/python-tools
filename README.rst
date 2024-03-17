@@ -61,7 +61,10 @@ Or on Windows cmd::
 Install Flaskr::
 
     # windows
-    $ pip install -e .
+    # install pakeges in venv at editable mode (the source)
+    pip install -e .
+    # or install pakeges in venv at standart mode
+    py -m pip install .
 
     # linux
     $pip install --user pipenv
