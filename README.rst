@@ -40,6 +40,8 @@ Create a virtualenv and activate it::
 
     # test it in cmd
     where python
+    # in linux
+    which python
 
     on linux use pip3 and python3
 
