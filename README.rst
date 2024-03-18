@@ -38,7 +38,10 @@ Create a virtualenv and activate it::
     $ venv\Scripts\activate.bat
     $ venv\Scripts\activate
 
-on linux use pip3 and python3
+    # test it in cmd
+    where python
+
+    on linux use pip3 and python3
 
 Add to windows path:
 C:\Users\yaniv\anaconda3
