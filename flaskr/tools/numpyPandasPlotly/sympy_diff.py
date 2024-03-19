@@ -40,9 +40,9 @@ x_vals = np.linspace(-10, 10, 100)
 y_vals = []
 for x_val in x_vals:
     y_val = fill_vals(x_val)
-    y_vals.append(y_val.args[1])
+    y_vals.append(y_val.rhs)
 
-plt.plot(x_vals, y_vals, label=y_sol.rhs)
+plt.plot(x_vals, y_vals, label=f"{y_sol.lhs} = {y_sol.rhs}")
 plt.xlabel("x")
 plt.ylabel("Y(x)")
 plt.title("solve y''(x) +9y(x) = 0, y'(0) = 0, y(0) = 1")
