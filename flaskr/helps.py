@@ -8,7 +8,7 @@ print(help(str.lower)) # gives explanations about the method "lower"
 help('modules')
 import os
 print("-------------str------------------")
-str(os.path)
+help(str(os.path))
 print("-------------fun help------------------")
 help(os.path)
 print("-------------module help------------------")
