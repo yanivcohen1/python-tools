@@ -10,7 +10,7 @@ import numpy as np
 y = Function('y')
 x = symbols('x')
 
-# Define the ODE as an equation
+# Define the ODE as an equation ( y"(x) = y(x).diff(x, x) )
 ode = Eq(y(x).diff(x, x) + 9*y(x), 0)
 
 # Add starting terms to the ODE equation
