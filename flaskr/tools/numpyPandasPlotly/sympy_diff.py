@@ -14,10 +14,10 @@ x = symbols('x')
 ode = Eq(y(x).diff(x, x) + 9*y(x), 0)
 
 # Add starting terms to the ODE equation
-# For example, let y(0) = 1 and y'(0) = 0
-# This means that the initial value of y is 1 and the initial value of y' is 0
+# For example, let y(0) = 1 and y'(0) = 0.0
+# This means that the initial value of y is 1 and the initial value of y' is 0.0
 # To add these starting terms, we use the ics argument of dsolve
-ics = {y(0): 1, y(x).diff(0): 0}
+ics = {y(0): 1, y(x).diff(x).subs(x, 0): 0.0}
 
 # Solve the ODE using dsolve with the ics argument
 y_sol = dsolve(ode, y(x), ics=ics)
