@@ -32,7 +32,7 @@ for i in range(2):
     y_vals = []
     for x_val in x_vals:
         y_val = fill_vals(x_val, i)
-        y_vals.append(y_val.args[1])
+        y_vals.append(y_val.rhs)
     plt.plot(x_vals, y_vals, label=f"{eqs_sol[i].lhs} = {eqs_sol[i].rhs}")
 
 plt.xlabel("x")
