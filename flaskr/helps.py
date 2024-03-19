@@ -1,3 +1,9 @@
+# How to see the list of methods attached to an objects?
+name='Michaela'
+print(dir(name)) # gives the list of methods attached to the variable "name"
+print(help(str)) # gives explanations about all the methods of the object "str" (string)
+print(help(str.lower)) # gives explanations about the method "lower"
+
 # print all evleble models
 help('modules')
 import os
