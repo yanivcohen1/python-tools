@@ -1,8 +1,8 @@
 # dT2t = dT^2/dt = -(3.083e8*np.exp(-56000/(8.314*T0))*dT*0.033)
-# dT/dt = (0.45*-98000*dT2t+5.7431*(273.15-T0))/(2018.94)
+# dTt = dT/dt = (0.45*-98000*dT2t+5.7431*(273.15-T0))/(2018.94)
 # My initial values are:
 # T[0]= T0 = 281.15
-# T'[0]= Td0 = 6.529
+# T'[0]= dT0 = 6.529
 
 import numpy as np
 import matplotlib.pyplot as plt
