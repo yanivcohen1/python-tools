@@ -10,14 +10,14 @@ import matplotlib.pyplot as plt
 from scipy.integrate import odeint
 
 t = np.linspace(0, 1800, 901)    # timeline
-c0 = np.array([281.15, 6.529])  # initial values
+c0 = [281.15, 6.529]  # initial values
 
 def df(c, t):
     Temp = c[0]
     dT = c[1]
     Tdt = -(3.083e8*np.exp(-56000/(8.314*Temp))*dT*0.033)
     dTdt = (0.45*-98000*Tdt + 5.7431*(273.15 - Temp))/(2018.94)
-    return np.array([dTdt, Tdt])
+    return [dTdt, Tdt]
 
 sol = odeint(df, c0, t)
 plt.plot(t, sol[:,0] - 273.15, label='T')
