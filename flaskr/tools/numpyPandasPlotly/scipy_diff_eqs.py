@@ -20,6 +20,7 @@ def df(c, t):
     return [dTdt, Tdt]
 
 sol = odeint(df, c0, t)
+
 plt.plot(t, sol[:,0] - 273.15, label='T')
 plt.plot(t, sol[:,1], label='T\'')
 plt.xlabel('t (sec)')
