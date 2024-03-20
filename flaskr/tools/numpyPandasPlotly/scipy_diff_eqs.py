@@ -1,3 +1,5 @@
+# https://apmonitor.com/pdc/index.php/Main/SolveDifferentialEquations
+
 # T: Tempurter, t: time
 # dT2t = dT^2/dt = -(3.083e8*np.exp(-56000/(8.314*T0))*dTt*0.033)
 # dTt = dT/dt = (0.45*-98000*dT2t+5.7431*(273.15-T0))/(2018.94)
