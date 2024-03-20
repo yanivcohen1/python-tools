@@ -1,4 +1,4 @@
-# T: tempurter, t: time
+# T: Tempurter, t: time
 # dT2t = dT^2/dt = -(3.083e8*np.exp(-56000/(8.314*T0))*dT*0.033)
 # dTt = dT/dt = (0.45*-98000*dT2t+5.7431*(273.15-T0))/(2018.94)
 # My initial values are:
@@ -9,8 +9,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint
 
-t = np.linspace(0, 1800, 901)    # timeline
-c0 = [281.15, 6.529]  # initial values
+t = np.linspace(0, 1800, 901)    # timeline: delta(t)/2 - points
+T0 = [281.15, 6.529]  # initial values
 
 def df(c, t):
     Temp = c[0]
@@ -19,7 +19,7 @@ def df(c, t):
     dTdt = (0.45*-98000*Tdt + 5.7431*(273.15 - Temp))/(2018.94)
     return [dTdt, Tdt]
 
-sol = odeint(df, c0, t)
+sol = odeint(df, T0, t)
 
 plt.plot(t, sol[:,0] - 273.15, label='T')
 plt.plot(t, sol[:,1], label='T\'')
