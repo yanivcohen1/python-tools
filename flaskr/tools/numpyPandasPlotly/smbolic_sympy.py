@@ -109,20 +109,14 @@ for sol in E_sol:
 # Function to calculate energy numerically
 def energy2(E_value, m_value, hbar_value, beta_value, L_value):
     # Substitute symbolic values with numerical constants
+    i = 1
     if E_value > 0:
-        return (
-            E_sol[0]
+        i = 0
+    return  (E_sol[i]
             .rhs
             .subs({m: m_value, hbar: hbar_value, beta: beta_value, L: L_value, E: E_value})
             .evalf()
-        )
-    else:
-        return (
-            E_sol[1]
-            .rhs
-            .subs({m: m_value, hbar: hbar_value, beta: beta_value, L: L_value, E: E_value})
-            .evalf()
-        )
+    )
 
 
 # Range of wavevector values for plotting
