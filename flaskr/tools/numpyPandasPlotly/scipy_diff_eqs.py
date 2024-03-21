@@ -24,7 +24,7 @@ def df(c, t):
 sol = odeint(df, T0, t)
 
 plt.plot(t, sol[:,0] - 273.15, label='T')
-plt.plot(t, sol[:,1], label='T\'')
+# plt.plot(t, sol[:,1], label='T\'')
 plt.xlabel('t (sec)')
 plt.ylabel('T (degrees C)')
 plt.grid()
