@@ -43,7 +43,7 @@ def pid_controller(y, t, Kp, Ki, Kd):
     return output
 
 # Time vector
-t = np.linspace(0, 10, num=1000)
+t = np.linspace(0, 10, num=100)
 
 # Solve ODE
 y = odeint(model, initial_y, t, args=(1.0, 0.1, 0.05))
