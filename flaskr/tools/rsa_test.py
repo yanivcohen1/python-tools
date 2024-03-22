@@ -10,10 +10,14 @@ def load_public_key_openssl_pem(pub_key_string: str):
 def load_public_key_pem(pub_key_string: str):
     return rsa.PublicKey.load_pkcs1(pub_key_string.encode(), "PEM")
 
-pem_rsa_pub_key = public_key.save_pkcs1("PEM")
-print("publicKeyPem:", pem_rsa_pub_key)
-public_key = load_public_key_pem(pem_rsa_pub_key.decode())
+pem_rsa_pub_key_pem = public_key.save_pkcs1("PEM")
+# Convert to OpenSSL-compatible PEM format
+# openssl rsa -pubin -in public_key.pem -RSAPublicKey_out -out rsa_public_key.pem
+
+print("publicKeyPem:", pem_rsa_pub_key_pem)
+public_key = load_public_key_pem(pem_rsa_pub_key_pem.decode())
 print("publicKey:", public_key)
+
 
 # Encrypt a message with the public key
 message = 'This is a secret message.'
