@@ -46,3 +46,4 @@ Thumbs.db
 /flaskr/__pycache__
 /flaskr.egg-info
 /instance/flaskr.sqlite
+*.pyc
