@@ -5,7 +5,7 @@ import base64
 public_key, private_key = rsa.newkeys(2048)
 
 def load_public_key(pub_key_string: str):
-    return rsa.PublicKey._load_pkcs1_pem(pub_key_string.encode())
+    return rsa.PublicKey.load_pkcs1(pub_key_string.encode(), "PEM")
 
 pem_rsa_pub_key = public_key.save_pkcs1("PEM")
 print("publicKeyPem:", pem_rsa_pub_key)
