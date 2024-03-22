@@ -12,7 +12,7 @@ def load_public_key_pem(pub_key_string: str):
 
 pem_rsa_pub_key_pem = public_key.save_pkcs1("PEM")
 # Convert to OpenSSL-compatible PEM format
-# openssl rsa -pubin -in public_key.pem -RSAPublicKey_out -out rsa_public_key.pem
+# openssl rsa -pubin -in rsa_public_key.pem -RSAPublicKey_out -out rsa_openssl_public_key.pem
 
 print("publicKeyPem:", pem_rsa_pub_key_pem)
 public_key = load_public_key_pem(pem_rsa_pub_key_pem.decode())
