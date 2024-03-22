@@ -4,12 +4,15 @@ import base64
 # Generate a new RSA key pair of 2048 bits
 public_key, private_key = rsa.newkeys(2048)
 
-def load_public_key(pub_key_string: str):
+def load_public_key_openssl_pem(pub_key_string: str):
+    return rsa.PublicKey.load_pkcs1_openssl_pem(pub_key_string.encode())
+
+def load_public_key_pem(pub_key_string: str):
     return rsa.PublicKey.load_pkcs1(pub_key_string.encode(), "PEM")
 
 pem_rsa_pub_key = public_key.save_pkcs1("PEM")
 print("publicKeyPem:", pem_rsa_pub_key)
-public_key = load_public_key(pem_rsa_pub_key.decode())
+public_key = load_public_key_pem(pem_rsa_pub_key.decode())
 print("publicKey:", public_key)
 
 # Encrypt a message with the public key
