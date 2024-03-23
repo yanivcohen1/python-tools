@@ -7,12 +7,12 @@ import matplotlib.pyplot as plt
 from scipy.integrate import odeint
 
 # Define the differential equation as a system of first-order equations
-def dydx(y, x, k):
-    y1 = y[0] # y
-    y2 = y[1] # y'
-    dy1dx = y2 # y' = dy/dx
-    dy2dx = -k * y1 # y'' = -9y
-    return [dy1dx, dy2dx]
+def dydx_fun(z, x, k):
+    y = z[0] # y
+    dy = z[1] # y'
+    dydx = dy # y' = dy/dx
+    dy2dx = -k * y # y'' = -9y
+    return [dydx, dy2dx]
 
 # Define the initial conditions
 y0 = [1, 0] # y(0) = 1, y'(0) = 0
@@ -22,11 +22,11 @@ t = np.linspace(-10, 10, 100)
 
 # solve ODEs
 k = 0.1
-y1 = odeint(dydx,y0,t,args=(k,))
+y1 = odeint(dydx_fun,y0,t,args=(k,))
 k = 0.5
-y2 = odeint(dydx,y0,t,args=(k,))
+y2 = odeint(dydx_fun,y0,t,args=(k,))
 k = 0.9
-y3 = odeint(dydx,y0,t,args=(k,))
+y3 = odeint(dydx_fun,y0,t,args=(k,))
 
 # plot results
 plt.plot(t,y1.T[0],'r-',linewidth=2,label='k=0.1')
