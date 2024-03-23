@@ -17,7 +17,7 @@ def pde_system(t, y, N):
     dydt[1:-1] = (y[:-2] - 2*y[1:-1] + y[2:]) / dx**2  # Discretized Laplacian
     return dydt
 
-# Solve the PDE - defalt RK45 Runge-Kutta method
+# Solve the PDE - defalt RK45 Runge-Kutta method of order 5(4)
 solution = solve_ivp(lambda t, y: pde_system(t, y, N), [0, 1], y0, method='RK45')
 
 # Plot the results
