@@ -8,9 +8,8 @@ import matplotlib.pyplot as plt
 # Convert to first-order system
 def second_order_ode(t, z, w):
     y , dy = z
-
-    d2ydt = -(w**2) * y
     dydt = dy
+    d2ydt = -(w**2) * y
     return np.array([dydt, d2ydt])
 
 # Angular frequency
