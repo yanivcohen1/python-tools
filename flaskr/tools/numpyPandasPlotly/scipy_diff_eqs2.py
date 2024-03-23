@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from scipy.integrate import odeint
 
 t = np.linspace(0, 10, 101)    # timeline: delta(t)/2 - points
-y0 = [np.pi - 0.1, 0.0]  # initial values
+y0 = [np.pi - 0.1, 0.0]  # [y0, y'0] initial values
 B = 0.25
 C = 5.0
 
