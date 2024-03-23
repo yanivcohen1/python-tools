@@ -6,8 +6,7 @@
 from scipy.optimize import fsolve
 
 def h(z, k):
-    x = z[0]
-    y = z[1]
+    x, y = z
     f = x**2 + y**2 - 10.0
     g = x + y+ 1*k
     return [f,g]
