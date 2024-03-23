@@ -6,13 +6,15 @@ import matplotlib.pyplot as plt
 # y''(t) = -ω^2 * y(t)
 # solution is: y(t) = cos(2t)
 # Convert to first-order system
-def second_order_ode(t, z):
+def second_order_ode(t, z, w):
     y , dy = z
-    omega = 2 # Angular frequency
-    d2y = -(omega**2) * y
-    dydt = dy
-    return np.array([dydt, d2y])
 
+    d2ydt = -(w**2) * y
+    dydt = dy
+    return np.array([dydt, d2ydt])
+
+# Angular frequency
+W = 2
 
 # Initial conditions
 y0 = np.array([1, 0])  # Initial position (1) and velocity (0)
@@ -21,7 +23,7 @@ y0 = np.array([1, 0])  # Initial position (1) and velocity (0)
 t_span = (0, 10)
 
 # Solve the ODE
-sol = solve_ivp(second_order_ode, t_span, y0, t_eval=np.linspace(0, 10, 101))
+sol = solve_ivp(second_order_ode, t_span, y0, args=(W,), t_eval=np.linspace(0, 10, 101))
 
 # Extract solution components (position and velocity)
 t = sol.t
