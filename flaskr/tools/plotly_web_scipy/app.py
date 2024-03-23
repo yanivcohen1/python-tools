@@ -52,10 +52,14 @@ y = odeint(model, initial_y, t, args=(1.0, 0.1, 0.05))
 fig = go.Figure()
 fig.add_scatter(x=t, y=y.ravel(), mode='lines', name='Output')
 fig.add_scatter(x=t, y=[setpoint]*len(t), mode='lines', name='Setpoint')
-fig.layout.title = 'PID Control System Simulation'
-fig.layout.xaxis.title = 'Time'
-fig.layout.yaxis.title = 'Output'
-fig.layout.height=350
+# fig.layout.title = 'PID Control System Simulation'
+# fig.layout.xaxis.title = 'Time'
+# fig.layout.yaxis.title = 'Output'
+# fig.layout.height=350
+fig.layout = go.Layout( title='PID Control System Simulation',
+                        xaxis = dict(title='Time'),
+                        yaxis = dict(title='Output'),
+                        height=350)
 
 # Interactive function to update the plot
 def update(Kp=1.0, Ki=0.1, Kd=0.05):
