@@ -3,7 +3,7 @@ from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 
 # Second-order ODE (harmonic motion)
-# y''(t) = -ω^2 * y(t)
+# y''(t) = -ω^2 * y(t) ; y(0) = 1 y(0)'= 0
 # solution is: y(t) = cos(2t)
 # Convert to first-order system
 def second_order_ode(t, z, w):
