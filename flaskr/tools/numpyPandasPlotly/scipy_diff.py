@@ -1,6 +1,6 @@
 # solve eq -> y"(x) + k*y(x) = 0, where k: 0 < k < 1
 # let init y(0) = 1 and y'(0) = 0
-# the solution is -> y(x) = cos(3*x)
+# the solution is -> y(x) = cos(3*x) when k=-9
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -23,17 +23,17 @@ t = np.linspace(-10, 10, 100)
 # solve ODEs
 k = 0.1
 y1 = odeint(dydx,y0,t,args=(k,))
-k = 0.2
-y2 = odeint(dydx,y0,t,args=(k,))
 k = 0.5
+y2 = odeint(dydx,y0,t,args=(k,))
+k = 0.9
 y3 = odeint(dydx,y0,t,args=(k,))
 
 # plot results
 plt.plot(t,y1.T[0],'r-',linewidth=2,label='k=0.1')
-plt.plot(t,y2.T[0],'b--',linewidth=2,label='k=0.2')
-plt.plot(t,y3.T[0],'g:',linewidth=2,label='k=0.5')
+plt.plot(t,y2.T[0],'b--',linewidth=2,label='k=0.5')
+plt.plot(t,y3.T[0],'g:',linewidth=2,label='k=0.9')
 plt.xlabel('time')
 plt.ylabel('y(t)')
 plt.legend()
-plt.grid(True)
+plt.grid()
 plt.show()
