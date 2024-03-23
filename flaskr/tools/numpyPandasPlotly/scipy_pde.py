@@ -1,4 +1,4 @@
-# solve Heat Equation: ∂u/∂t ​= κ*∂^2*u/∂x^2​
+# solve PDE Heat Equation: ∂u/∂t ​= κ*∂^2*u/∂x^2 # pylint: disable=E2515
 import numpy as np
 from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
