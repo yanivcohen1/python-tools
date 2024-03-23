@@ -13,7 +13,7 @@ y0 = np.sin(np.pi * x)  # Initial condition
 # Define the PDE as a system of ODEs using the method of lines
 def pde_system(t, y, N):
     dydt = np.zeros_like(y)
-    # Discretized Laplacian | x=x_i: u_{i-1}-2u_i+u_{i+1} / dx^2
+    # Discretized Laplacian | x=x_i: (u_{i-1}-2u_i+u_{i+1}) / dx^2
     dydt[1:-1] = (y[:-2] - 2*y[1:-1] + y[2:]) / dx**2  # Discretized Laplacian
     return dydt
 
