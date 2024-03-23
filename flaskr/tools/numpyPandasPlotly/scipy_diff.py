@@ -1,6 +1,6 @@
 # solve eq -> y"(x) + k*y(x) = 0, where k: 0 < k < 1
 # let init y(0) = 1 and y'(0) = 0
-# the solution is -> y(x) = cos(3*x) when k=-9
+# the solution is -> y(x) = cos(3*x) when k=9
 
 import numpy as np
 import matplotlib.pyplot as plt
