@@ -50,7 +50,7 @@ ax.plot_surface(X, T, u, cmap='viridis')
 ax.set_xlabel('Position')
 ax.set_ylabel('Time')
 ax.set_zlabel('Displacement')
-plt.title("Temperature T(x,t) by solve PDE Wave Equation:\n \
-  ∂^2*T \ ∂t^2 = c^2*∂^2*T \ ∂x^2;  T0 = sin(pi * x)")
+plt.title("Wave y(x,t) by solve PDE Wave Equation:\n \
+  ∂^2*y \ ∂t^2 = c^2*∂^2*y \ ∂x^2;  T0 = sin(pi * x)")
 
 plt.show()
