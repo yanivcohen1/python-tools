@@ -9,8 +9,10 @@ N = 100  # Number of spatial points
 x = np.linspace(0, 1, N)
 dx = x[1] - x[0] # (1-0)/N
 y0 = np.sin(np.pi * x)  # Initial condition
+t_span = [0, 1]
 
 # Define the PDE as a system of ODEs using the method of lines
+# Define the Heat equation as a system of first-order ODEs
 def pde_system(t, y, N):
     dydt = np.zeros_like(y)
     # Discretized Laplacian | x=x_i: (u_{i-1}-2u_i+u_{i+1}) / dx^2
@@ -18,7 +20,7 @@ def pde_system(t, y, N):
     return dydt
 
 # Solve the PDE - defalt RK45 Runge-Kutta method of order 5(4)
-solution = solve_ivp(lambda t, y: pde_system(t, y, N), [0, 1], y0, method='RK45')
+solution = solve_ivp(lambda t, y: pde_system(t, y, N), t_span, y0, method='RK45')
 
 # Plot the results
 fig = plt.figure()
@@ -32,5 +34,6 @@ ax.plot_surface(X, T, solution.y.T, cmap='viridis')
 ax.set_xlabel('Position - Spatial coordinate')
 ax.set_ylabel('Time')
 ax.set_zlabel('Temperature')
-plt.title("Temperature U(x,t) by solve PDE Heat Equation: ∂u/∂t ​= κ*∂^2*u/∂x^2")
+plt.title("Temperature T(x,t) by solve PDE Heat Equation: \n \
+            ∂T/∂t ​= κ*∂^2*T/∂x^2;  T0=sin(pi * x)")
 plt.show()
