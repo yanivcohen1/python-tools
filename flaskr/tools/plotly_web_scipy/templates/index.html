@@ -6,6 +6,7 @@
     <title>PID Control System Simulation</title>
     <!-- Include Plotly.js -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </head>
 <style>
     #dataForm {
@@ -22,13 +23,13 @@
     <h2>PID Control System Simulation</h2>
     <form id="dataForm">
         <label for="pk_values">Pk:</label>
-        <input type="range" min="0.2" max="1.0" step="0.05" value="0.1" class="slider" id="pk" onmouseup="submitData()" 
+        <input type="range" min="0.2" max="1.0" step="0.05" value="0.1" class="slider" id="pk" onmouseup="submitData()"
             ontouchend="submitData()" <p> <span id="pk_val"></span> , </p>
         <label for="pd_values">Pd:</label>
-        <input type="range" min="0.0" max="1.0" step="0.1" value="0.0" class="slider" id="pd" onmouseup="submitData()" 
+        <input type="range" min="0.0" max="1.0" step="0.1" value="0.0" class="slider" id="pd" onmouseup="submitData()"
         ontouchend="submitData()" <p><span id="pd_val"></span> ,</p>
         <label for="pi_values">Pi:</label>
-        <input type="range" min="0.01" max="5" step="0.1" value="4.0" class="slider" id="pi" onmouseup="submitData()" 
+        <input type="range" min="0.01" max="5" step="0.1" value="4.0" class="slider" id="pi" onmouseup="submitData()"
         ontouchend="submitData()" <p> <span id="pi_val"></span>, </p>
         <!--<button type="button" onclick="submitData()">Plot Data</button>-->
     </form>
@@ -56,7 +57,7 @@
             var pd_val = document.getElementById('pd').value
             var pi_val = Number(document.getElementById('pi').value)
 
-            
+
 
             var data = {
                 pk: pk_val,
@@ -82,7 +83,7 @@
                 myPlot.on('plotly_click', function(data){
                     txt = "<b>Selected:</b> " + data.points[0].data.name +
                         " <b>click on point:</b> " +
-                        data.points[0].x+","+
+                        data.points[0].x+",  "+
                         data.points[0].y
                     document.getElementById('selected').innerHTML = txt
                     // alert( txt );
