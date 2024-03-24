@@ -35,6 +35,7 @@ def plot():
     y=y_valuesX2,
     name="Name of Trace 2"
 ))
+    # leyout = go.Layout() # for all Layout options
     fig.update_layout(
     title="Plot Title",
     xaxis_title="X Axis Title",
