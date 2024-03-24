@@ -30,7 +30,7 @@ initial_state = np.concatenate([y0, v0])
 t_span = (0, 10)
 
 # Solve the wave equation
-sol = solve_ivp(lambda t, y: wave_eq(t, y, c, N), t_span, initial_state, method='RK45')
+sol = solve_ivp(wave_eq, t_span, initial_state, args=(c, N) , method='RK45')
 
 # Extract the solution
 u = sol.y[:N, :]  # Displacement
@@ -50,7 +50,7 @@ ax.plot_surface(X, T, u, cmap='viridis')
 ax.set_xlabel('Position')
 ax.set_ylabel('Time')
 ax.set_zlabel('Displacement')
-plt.title("Temperature T(x,t) by solve PDE Wave Equation: \n \
-            ∂^2y \ ∂t^2 = c^2*∂^2*y \ ∂x^2;  T0 = sin(pi * x)")
+plt.title("Temperature T(x,t) by solve PDE Wave Equation:\n \
+  ∂^2*T \ ∂t^2 = c^2*∂^2*T \ ∂x^2;  T0 = sin(pi * x)")
 
 plt.show()
