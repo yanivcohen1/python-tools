@@ -8,26 +8,29 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <style>
-    #pk {display:inline-block;margin-right:10px;}
-    #pd {display:inline-block;margin-right:10px;}
-    #pi {display:inline-block;margin-right:10px;}
-    #pk_Val {display:inline-block;margin-right:10px;}
-    #pd_Val {display:inline-block;margin-right:10px;}
-    #pi_Val {display:inline-block;margin-right:10px;}
+    #dataForm {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    #dataForm label, #dataForm .slider, #dataForm p {
+        margin-right: 10px; /* Adjust the space between form elements */
+    }
 </style>
+
 <body onload="submitData()">
     <h2>PID Control System Simulation</h2>
     <form id="dataForm">
         <label for="pk_values">Pk:</label>
-        <input type="range" min="0" max="5" step="0.1" value="1.0" class="slider" id="pk" onmouseup="submitData()"
-            ontouchend="submitData()" <p>Val: <span id="pk_val"></span></p>
+        <input type="range" min="0.2" max="1.0" step="0.05" value="0.1" class="slider" id="pk" onmouseup="submitData()" 
+            ontouchend="submitData()" <p> <span id="pk_val"></span> , </p>
         <label for="pd_values">Pd:</label>
-        <input type="range" min="0" max="5" step="0.01" value="0.05" class="slider" id="pd" onmouseup="submitData()"
-        ontouchend="submitData()" <p>Val: <span id="pd_val"></span></p>
+        <input type="range" min="0.0" max="1.0" step="0.1" value="0.0" class="slider" id="pd" onmouseup="submitData()" 
+        ontouchend="submitData()" <p><span id="pd_val"></span> ,</p>
         <label for="pi_values">Pi:</label>
-        <input type="range" min="0" max="5" step="0.01" value="0.01" class="slider" id="pi" onmouseup="submitData()"
-        ontouchend="submitData()" <p>Val: <span id="pi_val"></span></p>
-        <button type="button" onclick="submitData()">Plot Data</button>
+        <input type="range" min="0.01" max="5" step="0.1" value="4.0" class="slider" id="pi" onmouseup="submitData()" 
+        ontouchend="submitData()" <p> <span id="pi_val"></span>, </p>
+        <!--<button type="button" onclick="submitData()">Plot Data</button>-->
     </form>
     <p id="selected"></p>
     <div id="plot"></div>
@@ -53,7 +56,7 @@
             var pd_val = document.getElementById('pd').value
             var pi_val = Number(document.getElementById('pi').value)
 
-
+            
 
             var data = {
                 pk: pk_val,
