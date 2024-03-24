@@ -2,6 +2,15 @@
 # bebbug run: Python: Flask plotly
 # python debugger: debug python file
 # in terminal run: python -m flask run
+
+# u(t) = K_{p} * e(t) + K_{i} \integral (e(t)) dt + K_{p} * de/dt
+# u(t)	=	PID control variable
+# K_{p}	=	proportional gain
+# e(t)	=	error value
+# K_{i}	=	integral gain
+# {de}	=	change in error value
+# {dt}	=	change in time
+
 import json
 from flask import Flask, request, render_template
 import numpy as np
@@ -32,22 +41,22 @@ t = np.linspace(0,tf,n) # create time vector
 
 # plot PID response
 # plot 1,1
-fig.add_trace(row=1, col=1, trace=go.Scatter(x=t, name="Setpoint (SP)", 
+fig.add_trace(row=1, col=1, trace=go.Scatter(x=t, name="Setpoint (SP)",
               line=dict(color="black",width=2)))
-fig.add_trace(row=1, col=1, trace=go.Scatter(x=t, name="Process Variable (PV)", 
+fig.add_trace(row=1, col=1, trace=go.Scatter(x=t, name="Process Variable (PV)",
               line=dict(color="red",width=2,dash="dot")))
 # plot 1,2
-fig.add_trace(row=1, col=2, trace=go.Scatter(x=t, name=r'Proportional = $K_c \; e(t)$', 
+fig.add_trace(row=1, col=2, trace=go.Scatter(x=t, name=r'Proportional = $K_c \; e(t)$',
               line=dict(color="green",width=2,dash="dashdot",)))
-fig.add_trace(row=1, col=2, trace=go.Scatter(x=t, name=r'Integral = $\frac{K_c}{\tau_I} \int_{i=0}^{n_t} e(t) \; dt$', 
+fig.add_trace(row=1, col=2, trace=go.Scatter(x=t, name=r'Integral = $\frac{K_c}{\tau_I} \int_{i=0}^{n_t} e(t) \; dt$',
               line=dict(color="blue",width=2)))
-fig.add_trace(row=1, col=2, trace=go.Scatter(x=t, name=r'Derivative = $-K_c \tau_D \frac{d(PV)}{dt}$', 
+fig.add_trace(row=1, col=2, trace=go.Scatter(x=t, name=r'Derivative = $-K_c \tau_D \frac{d(PV)}{dt}$',
               line=dict(color="red",width=2,dash="dash")))
 # plot 2,1
-fig.add_trace(row=2, col=1, trace=go.Scatter(x=t, name=r'Error (e=SP-PV)',  
+fig.add_trace(row=2, col=1, trace=go.Scatter(x=t, name=r'Error (e=SP-PV)',
               line=dict(color="red",width=2,dash="dash")))
 # plot 2,2
-fig.add_trace(row=2, col=2, trace=go.Scatter(x=t, name=r'Controller Output (OP)', 
+fig.add_trace(row=2, col=2, trace=go.Scatter(x=t, name=r'Controller Output (OP)',
               line=dict(color="black",width=2,dash="dash")))
 
 # Convert to FigureWidget
@@ -99,7 +108,7 @@ def pidPlot(Kc,tauI,tauD):
         I[i] = I[i-1] + (Kc/tauI) * e[i] * dt  # calculate integral term
         D[i] = -Kc * tauD * (PV[i]-PV[i-1])/dt # calculate derivative term
         OP[i] = P[i] + I[i] + D[i] # calculate new controller output
-    
+
     fig.data[0].y = SP
     fig.data[1].y = PV
     fig.data[2].y = P
