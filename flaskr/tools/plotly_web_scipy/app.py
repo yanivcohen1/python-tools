@@ -3,13 +3,14 @@
 # python debugger: debug python file
 # in terminal run: python -m flask run
 
-# u(t) = K_{p} * e(t) + K_{i} \integral (e(t)) dt + K_{p} * de/dt
+# u(t) = K_{p} * e(t) + K_{i} * integral(e(t)) dt + K_{d} * d(e(t)) / dt
 # u(t)	=	PID control variable
 # K_{p}	=	proportional gain
 # e(t)	=	error value
 # K_{i}	=	integral gain
-# {de}	=	change in error value
-# {dt}	=	change in time
+# de(t)	=	change in error value
+# dt	=	change in time
+# K_{d}	=	Derivative gain
 
 import json
 from flask import Flask, request, render_template
@@ -18,7 +19,7 @@ import plotly.graph_objs as go
 from scipy.integrate import odeint
 from plotly.subplots import make_subplots
 
-app = Flask(__name__ )# , template_folder='yaniv/plotly_web/templates'
+app = Flask(__name__ )
 
 @app.route('/')
 def index():
