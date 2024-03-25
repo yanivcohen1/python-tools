@@ -19,7 +19,7 @@ import plotly.graph_objs as go
 from scipy.integrate import odeint
 from plotly.subplots import make_subplots
 
-app = Flask(__name__ )
+app = Flask(__name__ )# , template_folder='yaniv/plotly_web/templates'
 
 @app.route('/')
 def index():
@@ -43,22 +43,22 @@ t = np.linspace(0,tf,n) # create time vector
 # plot PID response
 # plot 1,1
 fig.add_trace(row=1, col=1, trace=go.Scatter(x=t, name="Setpoint (SP)",
-              line=dict(color="black",width=2)))
+            line=dict(color="black",width=2)))
 fig.add_trace(row=1, col=1, trace=go.Scatter(x=t, name="Process Variable (PV)",
-              line=dict(color="red",width=2,dash="dot")))
+            line=dict(color="red",width=2,dash="dot")))
 # plot 1,2
 fig.add_trace(row=1, col=2, trace=go.Scatter(x=t, name=r'Proportional = $K_c \; e(t)$',
-              line=dict(color="green",width=2,dash="dashdot",)))
+            line=dict(color="green",width=2,dash="dashdot",)))
 fig.add_trace(row=1, col=2, trace=go.Scatter(x=t, name=r'Integral = $\frac{K_c}{\tau_I} \int_{i=0}^{n_t} e(t) \; dt$',
-              line=dict(color="blue",width=2)))
+            line=dict(color="blue",width=2)))
 fig.add_trace(row=1, col=2, trace=go.Scatter(x=t, name=r'Derivative = $-K_c \tau_D \frac{d(PV)}{dt}$',
-              line=dict(color="red",width=2,dash="dash")))
+            line=dict(color="red",width=2,dash="dash")))
 # plot 2,1
 fig.add_trace(row=2, col=1, trace=go.Scatter(x=t, name=r'Error (e=SP-PV)',
-              line=dict(color="red",width=2,dash="dash")))
+            line=dict(color="red",width=2,dash="dash")))
 # plot 2,2
 fig.add_trace(row=2, col=2, trace=go.Scatter(x=t, name=r'Controller Output (OP)',
-              line=dict(color="black",width=2,dash="dash")))
+            line=dict(color="black",width=2,dash="dash")))
 
 # Convert to FigureWidget
 # fig_widget = go.FigureWidget(fig)
@@ -66,8 +66,8 @@ fig.add_trace(row=2, col=2, trace=go.Scatter(x=t, name=r'Controller Output (OP)'
 
 # fig_widget.layout = go.Layout() # for all Layout options
 fig.update_layout(
-  margin=dict(l=50, r=50, b=50, t=50, pad=4),
-  height=400
+    margin=dict(l=50, r=50, b=50, t=50, pad=4),
+    height=400
 )
 
 def process(y,t,u):
@@ -136,7 +136,7 @@ def plot():
     return plot_json
 
 if __name__ == '__main__':
-    url = "http://127.0.0.1:5000/"
+    # URL = "http://127.0.0.1:5000/"
     # Open the default web browser to the specified URL
     # webbrowser.open(url)
     app.run(debug=True)
