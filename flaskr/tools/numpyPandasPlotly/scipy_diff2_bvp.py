@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 # solve eq with missing y'(0)
 # y(x)'' + k**2 * y(x) = 0
 # y(0) = y(1) = 0
-# the solution in y = sin(kx)
+# the solution in y = A * sin(kx) for A=1, k = y(0)'
 # one cycle: x==0 to x==1, one cycle = 1 Δx is evry 2pi
 
 # Define the differential equation as a system of first-order ODEs
