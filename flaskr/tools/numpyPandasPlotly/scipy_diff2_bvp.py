@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 # solve eq with missing y'(0)
 # y(x)'' + k**2 * y(x) = 0
 # y(0) = y(1) = 0
-# the solution in y = A * sin(kx) for A=1, k = y(0)'
-# one cycle: x==0 to x==1, one cycle = 1 Δx is evry 2pi
+# the solution in y = A * sin(kx), y'(x) = Akcos(kx), for x=0, A=1 => y(0)'= k
+# one cycle 2pi: x==0 to x==1, one cycle = 2 Δx
 
 # Define the differential equation as a system of first-order ODEs
 def ode_system(x, y, p):
@@ -15,7 +15,7 @@ def ode_system(x, y, p):
     return np.vstack((y[1], -(k**2) * y[0])) # [y', y''], y'' = -k**2 * y
 
 
-# Boundary conditions: y'(0) = k
+# Boundary conditions: y'(0) = k for A=1, x=0 see above
 def bc(ya, yb, p):
     k = p[0]
     return np.array([ya[0], yb[0], ya[1] - k]) # [sol1, sol2, error = sol1'-k]
