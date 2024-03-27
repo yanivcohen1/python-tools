@@ -18,7 +18,10 @@ def ode_system(x, y, p):
 # Boundary conditions: y'(0) = k for A=1, x=0 see above
 def bc(ya, yb, p):
     k = p[0]
-    return np.array([ya[0], yb[0], ya[1] - k]) # [sol1, sol2, error = sol1'-k]
+    y_0 = ya[0]
+    y_1 = yb[0]
+    y1_0 = ya[1]
+    return np.array([y_0-0, y_1-0, y1_0 - k]) # [sol1, sol2, error = sol1'-k]
 
 
 # Initial mesh
