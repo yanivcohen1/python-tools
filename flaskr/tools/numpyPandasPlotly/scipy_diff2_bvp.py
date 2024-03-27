@@ -44,7 +44,7 @@ for k in range(1, 10):
 
     # Verify if the solution was successful
     if sol.success:
-      # shooting backwards to the origin
+      # shooting backwards to the origin (hw6_ex2)
         errors.append(np.abs(k - sol.p[0]))
         k_guess.append(k)
     else:
