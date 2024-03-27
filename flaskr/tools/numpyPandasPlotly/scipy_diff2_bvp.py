@@ -66,7 +66,8 @@ x_plot = np.linspace(0, 1, 100)
 k = k_guess[np.argmin(errors)]
 sol = solve_bvp(ode_system, bc, x, y_guess, p=[k])
 y_plot = sol.sol(x_plot)[0]
-plt.plot(x_plot, y_plot, label="y = sin(k * x)")
+plt.plot(x_plot, sol.sol(x_plot)[0], label="y = sin(k * x)")
+plt.plot(x_plot, sol.sol(x_plot)[1], label="y' = k*cos(k * x)")
 plt.title(f"Solution at k={k} where minimum Error in Guess")
 plt.xlabel("x")
 plt.ylabel("y")
