@@ -4,9 +4,10 @@ import matplotlib.pyplot as plt
 
 # https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_bvp.html
 # solve eq with missing y'(0)
-# y'' + k**2 * y = 0
+# y(x)'' + k**2 * y(x) = 0
 # y(0) = y(1) = 0
-# y'(0) = k
+# the solution in y = sin(kx)
+# one cycle: x==0 to x==1, one cycle = 1 Δx
 
 # Define the differential equation as a system of first-order ODEs
 def ode_system(x, y, p):
@@ -17,16 +18,20 @@ def ode_system(x, y, p):
 # Boundary conditions: y'(0) = k
 def bc(ya, yb, p):
     k = p[0]
-    return np.array([ya[0], yb[0], ya[1] - k])
+    return np.array([ya[0], yb[0], ya[1] - k]) # [sol1, sol2, error = sol1'-k]
 
 
 # Initial mesh
-x = np.linspace(0, 1, 5)
+x = np.linspace(0, 1, 5) # dt=0.25
 
 # Initial guess for the solution and parameter k
 y_guess = np.zeros((2, x.size))
-y_guess[0, 1] = 1
-y_guess[0, 3] = -1
+# y(0) = y(1) = 0
+# the solution in y = sin(kx)
+# one cycle => k=2*pi => sin(2 * pi * x)
+# y_guess[y_index, x_index]
+y_guess[0, 1] = 1 # y1_max(x=(1-0)*dt = 0.25) x_index = 0.25/0.25 = 1
+y_guess[0, 3] = -1 # y2_min(x=(3*(1-0)*dt) = 0.75) x_index = 0.75/0.25 = 3
 
 k_guess = []
 errors = []
@@ -39,6 +44,7 @@ for k in range(1, 10):
 
     # Verify if the solution was successful
     if sol.success:
+      # shooting backwards to the origin
         errors.append(np.abs(k - sol.p[0]))
         k_guess.append(k)
     else:
