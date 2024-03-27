@@ -21,7 +21,7 @@ def bc(ya, yb, p):
     y_0 = ya[0]
     y_1 = yb[0]
     y1_0 = ya[1]
-    return np.array([y_0-0, y_1-0, y1_0 - k]) # [sol1, sol2, error = sol1'-k]
+    return np.array([y_0-0, y_1-0, y1_0 - k]) # errors = [ya[0]-y0, yb[0]-y1, ya[1]-y(0)']
 
 
 # Initial mesh
