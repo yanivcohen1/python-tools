@@ -10,12 +10,13 @@ import matplotlib.pyplot as plt
 # Define the differential equation as a system of first-order ODEs
 def ode_system(x, y, p):
     k = p[0]
-    return np.vstack((y[1], -(k**2) * y[0]))
+    return np.vstack((y[1], -(k**2) * y[0])) # [y', y''], y'' = -k**2 * y
 
 
-# Boundary conditions
+# Boundary conditions: y'(0) = k
 def bc(ya, yb, p):
-    return np.array([ya[0], yb[0], ya[1] - p[0]])
+    k = p[0]
+    return np.array([ya[0], yb[0], ya[1] - k])
 
 
 # Initial mesh
