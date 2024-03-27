@@ -2,6 +2,10 @@ import numpy as np
 from scipy.integrate import solve_bvp
 import matplotlib.pyplot as plt
 
+# https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_bvp.html
+# solve eq
+# y'' + k**2 * y = 0
+# y(0) = y(1) = 0
 
 # Define the differential equation as a system of first-order ODEs
 def ode_system(x, y, p):
