@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 # y(x)'' + k**2 * y(x) = 0
 # y(0) = y(1) = 0
 # the solution in y = sin(kx)
-# one cycle: x==0 to x==1, one cycle = 1 Δx
+# one cycle: x==0 to x==1, one cycle = 1 Δx is evry 2pi
 
 # Define the differential equation as a system of first-order ODEs
 def ode_system(x, y, p):
