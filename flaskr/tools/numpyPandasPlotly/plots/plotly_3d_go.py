@@ -8,10 +8,11 @@ import numpy as np
 # y = x.copy().T
 # z = np.cos(x ** 2 + y ** 2)
 
-x = np.linspace(-5, 5, 50)
-y = np.linspace(-5, 5, 40)
+x = np.linspace(-2, 2, 50)
+y = np.linspace(-2, 2, 40)
 y1 = y[:, np.newaxis]
 z = np.sin(x) * np.cos(y1)
+z = np.cos(x ** 2 + y1 ** 2)
 # array([0, 1, 2])
 # x[:, newaxis]
 # array([[0], [1], [2]])
