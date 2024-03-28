@@ -10,7 +10,11 @@ import numpy as np
 
 x = np.linspace(-5, 5, 50)
 y = np.linspace(-5, 5, 40)
-z = np.sin(x) * np.cos(y[:, np.newaxis])
+y1 = y[:, np.newaxis]
+z = np.sin(x) * np.cos(y1)
+# array([0, 1, 2])
+# x[:, newaxis]
+# array([[0], [1], [2]])
 
 # plotting the figure
 fig = go.Figure(data=[go.Surface(x=x, y=y, z=z)])
