@@ -115,7 +115,7 @@ for ax in axs.flat:
 axs[1, 1].set_xlabel("Time")
 axs[1, 1].set_ylabel("Wave function")
 
-fig.suptitle("common label")
+fig.suptitle("common label latex syntax $\psi=0$")
 fig.tight_layout()
 fig.show()
 plt.show()
