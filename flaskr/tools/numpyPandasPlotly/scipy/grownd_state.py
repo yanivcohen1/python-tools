@@ -2,6 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 
+# for g for 1 to 5 inside loop E from 0 to 10 and find E_val where psi == 0 and return it
+# and plot g vs E where psi == 0
+
 # Define the Schrödinger equation
 def schroedinger_eqn(x, y, E, g):
     psi, phi = y
@@ -39,8 +42,6 @@ for g in g_values:
         ground_state_energies.append(E_ground)
         g_vals.append(g)
 
-# for g for 1 to 5 inside loop E from 0 to 10 and find E_val where psi == 0 and return it
-# and plot g vs E where psi == 0
 plt.plot(g_vals, ground_state_energies, marker='o')
 plt.xlabel('g')
 plt.ylabel('Ground State Energy E')
