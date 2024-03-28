@@ -17,12 +17,13 @@ z = np.cos(x ** 2 + y1 ** 2)
 # x[:, newaxis]
 # array([[0], [1], [2]])
 
-# plotting the figure
+# plotting the figure 3D
 fig = go.Figure(data=[go.Surface(x=x, y=y, z=z)])
 
 fig.update_layout(title="Plotted 3D")
 
 fig.show()
+
 
 # Create the heatmap
 fig = go.Figure(data=go.Heatmap(
