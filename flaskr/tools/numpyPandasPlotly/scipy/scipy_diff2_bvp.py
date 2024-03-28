@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 # y(x)'' + k**2 * y(x) = 0
 # y(0) = y(1) = 0
 # the solution in y = A * sin(kx), y'(x) = Akcos(kx), for x=0, A=1 => y(0)'= k
-# one cycle 2pi: x==0 to x==1, one cycle = 2 Δx
+# y(1) = cos(k*1) = 0 => k = pi*n
 
 # Define the differential equation as a system of first-order ODEs
 def ode_system(x, y, p):
@@ -33,8 +33,9 @@ y_guess = np.zeros((2, x.size))
 # the solution in y = sin(kx)
 # one cycle => k=2*pi => sin(2 * pi * x)
 # y_guess[y_index, x_index]
-y_guess[0, 1] = 1 # y1_max(x=(1-0)*dt = 0.25) x_index = 0.25/0.25 = 1
-y_guess[0, 3] = -1 # y2_min(x=(3*(1-0)*dt) = 0.75) x_index = 0.75/0.25 = 3
+# dt = 0.25
+y_guess[0, 1] = 1 # y1_max(x=2*((1-0)/2) = 0.25) x_index = 0.25/dt = 1
+y_guess[0, 3] = -1 # y2_min(x=(3*2*((1-0)/2)) = 0.75) x_index = 0.75/dt = 3
 
 k_guess = []
 errors = []
