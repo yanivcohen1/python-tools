@@ -27,3 +27,13 @@ ax.zaxis.set_major_formatter('{x:.02f}')
 fig.colorbar(surf, shrink=0.5, aspect=5)
 plt.grid(True)
 plt.show()
+
+
+# plot in color map
+plt.figure(figsize=(10, 8))
+plt.pcolormesh(X, Y, Z, cmap='plasma')
+plt.xlabel('x')
+plt.ylabel('t')
+plt.title('Solution psi(x,t)')
+plt.colorbar()
+plt.show()
