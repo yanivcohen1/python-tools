@@ -17,6 +17,12 @@ z = np.cos(x ** 2 + y1 ** 2)
 # x[:, newaxis]
 # array([[0], [1], [2]])
 
+X = np.arange(-5, 5, 0.25)
+Y = np.arange(-5, 5, 0.25)
+x, y = np.meshgrid(X, Y)
+R = np.sqrt(x**2 + y**2)
+z = np.sin(R)
+
 # plotting the figure 3D
 fig = go.Figure(data=[go.Surface(x=x, y=y, z=z)])
 
@@ -28,8 +34,8 @@ fig.show()
 # Create the heatmap
 fig = go.Figure(data=go.Heatmap(
     z=z,
-    x=x,
-    y=y
+    x=X,
+    y=Y
 ))
 
 # Show the figure
