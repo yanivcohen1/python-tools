@@ -1,4 +1,5 @@
 from Crypto.Hash import SHA256
+import hashlib # python bultin lib
 
 msg = 'First'
 hash256 = SHA256.new(msg.encode())
@@ -6,6 +7,9 @@ hash256 = SHA256.new(msg.encode())
 digest = hash256.digest()
 print("bin digest:", digest)
 print("hex digest:", hash256.hexdigest())
+
+print("is both libs hexdigest equal:",
+      hash256.hexdigest() == hashlib.sha256(msg.encode()).hexdigest())
 
 hash256_2 = SHA256.new(msg.encode())
 print("is msg not change: ", digest == hash256_2.digest())
