@@ -1,5 +1,6 @@
 import rsa
 import base64
+import pickle
 
 # Generate a new RSA key pair of 2048 bits
 public_key, private_key = rsa.newkeys(2048)
@@ -21,11 +22,12 @@ print("publicKey:", public_key)
 
 # Encrypt a message with the public key
 message = 'This is a secret message.'
-encrypted_message = rsa.encrypt(message.encode(), public_key)
+serialize_msg = pickle.dumps(message)
+encrypted_message = rsa.encrypt(serialize_msg, public_key)
 
 # Decrypt the message with the private key
-decrypted_message = rsa.decrypt(encrypted_message, private_key).decode()
+decrypted_message = rsa.decrypt(encrypted_message, private_key)
 
 print(f'Original message: {message}')
 print(f'Encrypted message: {base64.b64encode(encrypted_message)}')
-print(f'Decrypted message: {decrypted_message}')
+print(f'Decrypted message: {pickle.loads(decrypted_message)}')
