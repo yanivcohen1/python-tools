@@ -12,8 +12,7 @@ PRIVET_KEY = b'-----BEGIN RSA PRIVATE KEY-----MIIEoQIBAAKCAQBWJn5mmYyn4Fa210991w
 print("msg to encrapt:", message)
 
 mykey = RSA.generate(2048)
-public_key = mykey.e
-privet_key = mykey.d
+privete_key_str = mykey.exportKey()
 pub_key_str = mykey.public_key().export_key()
 
 pub_key = RSA.importKey(pub_key_str)
@@ -22,7 +21,7 @@ ciphertext = cipher.encrypt(pickle.dumps(message))
 print("encripted msg:", ciphertext)
 # At the receiver side, decryption can be done using the private part of the RSA key:
 
-# privet_key = RSA.importKey(pub_key)
-cipher = PKCS1_OAEP.new(mykey)
+privete_key = RSA.importKey(privete_key_str)
+cipher = PKCS1_OAEP.new(privete_key)
 message = cipher.decrypt(ciphertext)
 print("decrypt msg:", pickle.loads(message))
