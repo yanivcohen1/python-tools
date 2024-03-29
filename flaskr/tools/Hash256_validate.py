@@ -1,7 +1,7 @@
 from Crypto.Hash import SHA256
 
 msg = 'First'
-hash256 = SHA256.new(data=msg.encode())
+hash256 = SHA256.new(msg.encode())
 # hash256.update('message')
 digest = hash256.digest()
 print("bin digest:", digest)
