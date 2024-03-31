@@ -56,12 +56,15 @@ plt.show()
 
 # print in subPlot
 plt.figure(figsize=(10, 5))
+# print in plot 1 from subPlot
 ax1 = plt.subplot(1, 2, 1) # in y are 1 plot, in x are 2 plots, 1 plot
 ax1.plot(t, psi_real, label="Real part")
 ax1.set_xlabel("Time")
 ax1.set_ylabel("Wave function")
 ax1.set_title('Real Wave function')
+ax1.grid()
 ax1.legend()
+# print in plot 2 from subPlot
 ax2 = plt.subplot(1, 2, 2) # in y are 1 plot, in x are 2 plots, 2 plot
 ax2.plot(t, psi_imag, "r.-", label="Imaginary part")
 ax2.plot(t, psi_real, "--", label="Real part")
@@ -69,12 +72,13 @@ ax2.set_xlabel("Time")
 ax2.set_ylabel("Wave function")
 ax2.set_title('Mix Wave function')
 ax2.legend()
-ax2.grid(True)
+ax2.grid()
 plt.show()
 
-# print in 1 plot from subPlot
+
+# print in plot 1 of 1 from subPlot
 ax1 = plt.subplot(1, 1, 1) # in y are 1 plot, in x are 1 plots, 1 plot
-ax1.plot(t, -psi_real, ".-", label="Real part")
+ax1.plot(t, -psi_real, label="Real part", marker=".")
 ax1.set_xlabel("Time")
 ax1.set_ylabel("Wave function")
 ax1.set_title('Real Wave function')
