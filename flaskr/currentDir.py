@@ -3,8 +3,15 @@ from pathlib import Path
 
 cwd_module = os.getcwd()
 print(cwd_module) # C:\Users\yaniv\OneDrive\python-flask
-cwd_file = str(Path(__file__).parent.resolve()) + "\\"
-print(cwd_file) # C:\Users\yaniv\OneDrive\python-flask\flaskr\
+
+cwd_file = str(Path(__file__).parent.resolve())
+print(cwd_file) # C:\Users\yaniv\OneDrive\python-flask\flaskr
+
+# for win add path
+print(Path(cwd_file + "\\cmd.sh").is_file())
+# for multi win and linux add path
+path = os.path.join(cwd_file, "", "cmd.sh")# join(str_absolute_path, str_intrnal_path_add, str_file_name)
+print(Path(path).is_file())
 
 path = Path('./')
 print(path.resolve()) # C:\Users\yaniv\OneDrive\python-flask
