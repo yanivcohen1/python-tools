@@ -9,6 +9,8 @@ print(cwd_file) # C:\Users\yaniv\OneDrive\python-flask\flaskr
 
 # for multi win and linux add path
 print(Path(cwd_file + "/cmd.sh").is_file())
+reletive_path = 'flaskr/cmd.sh'
+print(Path(reletive_path).is_file())
 
 path = Path('./')
 print(path.resolve()) # C:\Users\yaniv\OneDrive\python-flask
