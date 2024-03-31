@@ -1,8 +1,10 @@
 import os
 from pathlib import Path
 
-cwd = os.getcwd()
-print(cwd) # C:\Users\yaniv\OneDrive\python-flask
+cwd_module = os.getcwd()
+print(cwd_module) # C:\Users\yaniv\OneDrive\python-flask
+cwd_file = str(Path(__file__).parent.resolve()) + "\\"
+print(cwd_file)
 
 path = Path('./')
 print(path.resolve()) # C:\Users\yaniv\OneDrive\python-flask
