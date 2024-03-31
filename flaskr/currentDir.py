@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+print(os.__file__) # tells you where the os module is for current python path
+
 cwd_module = os.getcwd()
 print(cwd_module) # C:\Users\yaniv\OneDrive\python-flask
 
