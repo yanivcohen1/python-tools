@@ -4,7 +4,7 @@ from pathlib import Path
 cwd_module = os.getcwd()
 print(cwd_module) # C:\Users\yaniv\OneDrive\python-flask
 cwd_file = str(Path(__file__).parent.resolve()) + "\\"
-print(cwd_file) # C:\Users\yaniv\OneDrive\python-flask\flaskr
+print(cwd_file) # C:\Users\yaniv\OneDrive\python-flask\flaskr\
 
 path = Path('./')
 print(path.resolve()) # C:\Users\yaniv\OneDrive\python-flask
