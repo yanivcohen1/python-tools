@@ -7,10 +7,10 @@ import matplotlib.pyplot as plt
 # solution is: y(t) = cos(2t)
 # Convert to first-order system
 def second_order_ode(t, z, w):
-    y , dy = z
+    y , dy = z # same order as init vals
     dydt = dy
     d2ydt = -(w**2) * y
-    return np.array([dydt, d2ydt])
+    return np.array([dydt, d2ydt]) # same order as init vals
 
 # Angular frequency
 W = 2
