@@ -15,11 +15,11 @@ t = np.linspace(0, 1800, 901)    # timeline: delta(t)/2 - points
 T0 = [281.15, 6.529]  # initial values
 
 def df(c, t):
-    Temp = c[0]
-    dT = c[1]
+    Temp = c[0] # same order as init vals
+    dT = c[1] # same order as init vals
     Tdt = -(3.083e8*np.exp(-56000/(8.314*Temp))*dT*0.033)
     dTdt = (0.45*-98000*Tdt + 5.7431*(273.15 - Temp))/(2018.94)
-    return [dTdt, Tdt]
+    return [dTdt, Tdt] # same order as init vals
 
 sol = odeint(df, T0, t)
 

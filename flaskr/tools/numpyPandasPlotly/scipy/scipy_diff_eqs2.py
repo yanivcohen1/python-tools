@@ -15,10 +15,10 @@ B = 0.25
 C = 5.0
 
 def dydt_fun(z, t, b, c):
-    y, dy = z
+    y, dy = z # same order as init vals
     dydt = dy
     dy2dt = -b*dydt - c*np.sin(y)
-    return [dydt, dy2dt]
+    return [dydt, dy2dt] # same order as init vals
 
 sol = odeint(dydt_fun, y0, t, args=(B, C))
 

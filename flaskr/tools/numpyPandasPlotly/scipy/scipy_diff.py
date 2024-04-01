@@ -8,11 +8,11 @@ from scipy.integrate import odeint
 
 # Define the differential equation as a system of first-order equations
 def dydx_fun(z, x, k):
-    y = z[0] # y
-    dy = z[1] # y'
+    y = z[0] # y  # same order as init vals
+    dy = z[1] # y' # same order as init vals
     dydx = dy # y' = dy/dx
     dy2dx = -k * y # y'' = -9y
-    return [dydx, dy2dx]
+    return [dydx, dy2dx] # same order as init vals
 
 # Define the initial conditions
 y0 = [1, 0] # y(0) = 1, y'(0) = 0
