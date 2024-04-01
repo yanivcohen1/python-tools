@@ -43,7 +43,7 @@ def system(y, t):
     h, i = y # folow the init vals format
     dh_dt = i + 4 * h + 1
     di_dt = 2 * i + h + 1
-    return [dh_dt, di_dt]
+    return [dh_dt, di_dt] # folow the init vals format
 
 initial_conditions = [h0, i0]
 # Solve the system
