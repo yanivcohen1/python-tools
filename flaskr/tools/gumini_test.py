@@ -38,11 +38,11 @@ for m in genai.list_models():
         print(m.name)
 
 model = genai.GenerativeModel('gemini-pro')
-response = model.generate_content("What is the meaning of life?")
-print(response.text)
-# print(response.candidates)
+# response = model.generate_content("What is the meaning of life?")
+# print(response.text)
+# # print(response.candidates)
 
-print("test pass")
+# print("test pass")
 while True:
     query = input("enter query:")
     response = model.generate_content(query)
