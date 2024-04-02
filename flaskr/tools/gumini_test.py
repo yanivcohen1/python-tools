@@ -1,14 +1,17 @@
 # https://ai.google.dev/tutorials/python_quickstart
 import pathlib
 import textwrap
+import os
 import configparser
+import google.generativeai as genai
 
 config = configparser.ConfigParser()
 secsecss = config.read('flaskr/tools/env_local.ini')
-GEMINI_API_KEY = config['DEFAULT']['GEMINI_API_KEY']
-# GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
-
-import google.generativeai as genai
+# GEMINI_API_KEY = config['DEFAULT']['GEMINI_API_KEY']
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+if GEMINI_API_KEY is None:
+    print("set GEMINI_API_KEY in environment variable")
+    raise Exception("set GEMINI_API_KEY in environment variable")
 
 # for jupiter
 # from IPython.display import display
@@ -20,7 +23,6 @@ import google.generativeai as genai
 
 genai.configure(api_key=GEMINI_API_KEY)
 
-
 for m in genai.list_models():
     if 'generateContent' in m.supported_generation_methods:
         print(m.name)
@@ -28,7 +30,7 @@ for m in genai.list_models():
 model = genai.GenerativeModel('gemini-pro')
 # response = model.generate_content("What is the meaning of life?")
 # print(response.text)
-# # print(response.candidates)
+# print(response.candidates)
 
 while True:
     query = input("enter query:")
