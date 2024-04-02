@@ -41,3 +41,9 @@ model = genai.GenerativeModel('gemini-pro')
 response = model.generate_content("What is the meaning of life?")
 print(response.text)
 # print(response.candidates)
+
+print("test pass")
+while True:
+    query = input("enter query:")
+    response = model.generate_content(query)
+    print(response.text)
