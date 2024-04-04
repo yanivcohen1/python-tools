@@ -1,6 +1,9 @@
 # https://jupyterbook.org/en/stable/intro.html
 # https://www.youtube.com/watch?v=wuP54pQpK00
 
+# install Jupyter-book
+pip install Jupyter-book
+
 # init the book
 Jupyter-book create book
 
