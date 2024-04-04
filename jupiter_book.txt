@@ -1,0 +1,32 @@
+# https://jupyterbook.org/en/stable/intro.html
+# https://www.youtube.com/watch?v=wuP54pQpK00
+
+# init the book
+Jupyter-book create book
+# update intro.md 
+# update _toc.yml
+# build the book
+Jupyter-book build book
+
+# Build PDF Book
+jupyter-book pdf <path_to_your_book>
+
+# Build HTML Book
+jupyter-book build <path_to_your_book>
+jupyter-book build "C:\pyProj\yaniv\gumini_test.ipynb"
+
+# To build all pages Table of Contents (TOC) this will creating _toc.yml file 
+jupyter-book toc from-project .
+# edit _toc.yml and run this again
+jupyter-book build .
+
+# to add pic
+<img src="control_jupiter.jpg" alt="My Image">
+
+# to publish
+pip install ghp-import
+# From the main branch of your book’s root directory (where the _build/html folder is located), run:
+ghp-import _build/html
+
+# This command copies the contents of your built book to a branch called gh-pages and pushes it to GitHub.
+# The gh-pages branch will be created automatically for you.
