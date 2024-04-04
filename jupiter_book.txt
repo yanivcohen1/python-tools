@@ -3,8 +3,11 @@
 
 # init the book
 Jupyter-book create book
-# update intro.md 
-# update _toc.yml
+
+# update intro.md // the main page
+# update _toc.yml // the left side menu
+# the first markdown in page.ipynb is the name of the page
+
 # build the book
 Jupyter-book build book
 
@@ -15,7 +18,7 @@ jupyter-book pdf <path_to_your_book>
 jupyter-book build <path_to_your_book>
 jupyter-book build "C:\pyProj\yaniv\gumini_test.ipynb"
 
-# To build all pages Table of Contents (TOC) this will creating _toc.yml file 
+# To build all pages Table of Contents (TOC) this will creating _toc.yml file
 jupyter-book toc from-project .
 # edit _toc.yml and run this again
 jupyter-book build .
