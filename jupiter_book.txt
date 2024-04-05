@@ -29,6 +29,16 @@ jupyter-book build .
 # to add pic
 <img src="control_jupiter.jpg" alt="My Image">
 
+# convert from word to html
+
+# to add existing html page to left side menu
+# In your _config.yml file
+navbar:
+  left:
+    - text: "My Custom Page"
+      href: "path/to/your/page.html"
+
+
 # to publish
 pip install ghp-import
 # From the main branch of your book’s root directory (where the _build/html folder is located), run:
