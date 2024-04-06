@@ -14,6 +14,9 @@ Jupyter-book create book
 # build the book
 Jupyter-book build book
 
+# build all not just changes
+Jupyter-book build book --all
+
 # Build PDF Book
 jupyter-book pdf <path_to_your_book>
 
@@ -38,6 +41,15 @@ navbar:
     - text: "My Custom Page"
       href: "path/to/your/page.html"
 
+# convert wor to rst to add to md file
+https://jupyterbook.org/en/stable/file-types/restructuredtext.html
+```{eval-rst}
+.. note::
+
+   A note written in reStructuredText.
+
+.. include:: ./include-rst.rst
+```
 
 # to publish
 pip install ghp-import
