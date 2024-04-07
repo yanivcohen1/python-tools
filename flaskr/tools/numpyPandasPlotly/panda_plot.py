@@ -4,7 +4,7 @@ import numpy as np
 from numpy.fft import fft, ifft
 
 df = pd.read_csv('flaskr/tools/numpyPandasPlotly/930-data-export.csv',
-                 delimiter=',', parse_dates=[1])
+                 delimiter=',', parse_dates=[2])
 df.rename(columns={'Selected Hour Timestamp (Hour Ending)':'hour',
                    'Selected Hour Demand (MWh)':'demand'},
           inplace=True)
