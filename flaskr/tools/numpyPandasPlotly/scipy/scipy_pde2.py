@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 # solve wave equation: ∂^2y \ ∂t^2 = c^2*∂^2*y \ ∂x^2
 def wave_eq(t, y, c, N):
     d2ydt2 = np.zeros_like(y)
+    # Discretized Laplacian base on "Central difference Approximating Derivatives"
     # Discretized Laplacian | x=x_i: (y_{i-1}-2y_i+y_{i+1}) / dx^2
     d2ydt2[1:-1] = c**2 * (y[:-2] - 2*y[1:-1] + y[2:]) / dx**2
     return d2ydt2

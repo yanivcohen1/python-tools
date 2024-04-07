@@ -15,6 +15,7 @@ t_span = [0, 1]
 # Define the Heat equation as a system of first-order ODEs
 def pde_system(t, y, N):
     dydt = np.zeros_like(y)
+    # Discretized Laplacian base on "Central difference Approximating Derivatives"
     # Discretized Laplacian | x=x_i: (u_{i-1}-2u_i+u_{i+1}) / dx^2
     dydt[1:-1] = (y[:-2] - 2*y[1:-1] + y[2:]) / dx**2  # Discretized Laplacian
     return dydt
