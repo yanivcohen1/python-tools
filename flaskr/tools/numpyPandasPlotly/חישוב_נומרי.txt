@@ -1,7 +1,7 @@
 # אתר ללימוד חישוב נומרי בפייטון
 https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/Index.html
 
-to run some exmple
+to run some example
 download from the top page the .ipynb
 and change:
 plt.style.use('seaborn-poster')
