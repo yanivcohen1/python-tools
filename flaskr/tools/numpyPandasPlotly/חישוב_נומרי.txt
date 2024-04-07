@@ -1,2 +1,14 @@
 # אתר ללימוד חישוב נומרי בפייטון
 https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/Index.html
+
+to run some exmple
+download from the top page the .ipynb
+and change:
+plt.style.use('seaborn-poster')
+with:
+plt.style.use('seaborn-v0_8-poster')
+# for all aveleble styles
+print(plt.style.available)
+plt.style.use("dark_background") # not mast
+
+
