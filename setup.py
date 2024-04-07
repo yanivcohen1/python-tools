@@ -25,6 +25,8 @@ setup(
       "flask-socketio==5.0.1", "schedule==1.1.0", "Jinja2==2.11.3", "markupsafe==1.1.1", "werkzeug==1.0.1", "pynput==1.7.6",
       "scapy", "psutil", "keyboard", "sortedcontainers", "numpy", "matplotlib", "pandas", "pandas_datareader",
       "plotly", "cufflinks", "ipykernel", "selenium", "webdriver-manager", "sympy", "scipy", "pycryptodome",
-      "ipywidgets", "IPython", "seaborn", "nbformat", "openpyxl", "jupyterlab-mathjax3", "google-generativeai"],
+      "ipywidgets", "IPython", "seaborn", "nbformat", "openpyxl", "jupyterlab-mathjax3", "google-generativeai",
+      "pint"
+      ],
     extras_require={"test": ["pytest", "coverage"]},
 )
