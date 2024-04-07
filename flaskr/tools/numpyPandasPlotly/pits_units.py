@@ -2,6 +2,8 @@ import pint
 import numpy as np
 
 ureg = pint.UnitRegistry()
+
+# works with scalar
 mix_units = 3 * ureg.meter + 4 * ureg.cm
 print(mix_units) # 3.04 meter
 print(mix_units.units) # meter
