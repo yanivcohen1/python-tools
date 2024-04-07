@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from numpy.fft import fft, ifft
-# from scipy.fftpack import fft, ifft
+# from numpy.fft import fft, ifft
+from scipy.fftpack import fft, ifft
 
 sr = 2000
 # sampling interval
