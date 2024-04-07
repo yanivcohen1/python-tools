@@ -47,7 +47,7 @@ plt.legend()
 plt.show()
 
 # plot the FFT amplitude before and after
-plt.figure(figsize = (12, 6))
+plt.figure(figsize = (10, 5))
 plt.subplot(121)
 plt.stem(freq, np.abs(sig_fft), 'b', \
          markerfmt=" ", basefmt="-b")
