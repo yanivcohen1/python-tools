@@ -1,0 +1,2 @@
+# אתר ללימוד חישוב נומרי בפייטון
+https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/Index.html
