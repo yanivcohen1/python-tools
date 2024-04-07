@@ -39,3 +39,9 @@ plt.xlabel('Time (s)')
 plt.ylabel('Amplitude')
 plt.tight_layout()
 plt.show()
+
+# comparing running time:
+# Implemented DFT: ~120 ms
+# Implemented FFT: ~16 ms
+# Numpy FFT: ~40 µs
+# Scipy FFT: ~12 µs
