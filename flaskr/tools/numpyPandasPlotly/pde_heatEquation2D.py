@@ -57,7 +57,7 @@ while counter < time :
             dd_uy = (u[i, j+1] - 2*u[i, j] + u[i, j-1]) / dy**2
 
             # [∂u(t+1) - ∂u(t)]/∂t ​= ∂²𝑢/∂x² + ∂²𝑢/∂y²
-            # dx = dy;
+            # dx = dy; dt = min( dx**2 / (4 * k) )
             u_new[i, j] = u[i, j] + dt * k * (dd_ux + dd_uy)
 
     u = u_new.copy()
