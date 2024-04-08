@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# solve PDE Heat Equation in 2D u(t, x): ∂u/∂t ​= κ*∂^2*u/∂x^2 # pylint: disable=E2515
+# solve PDE Heat Equation in 2D u(t, x): ∂u/∂t ​= κ*∂²𝑢/∂x² # pylint: disable=E2515
 
 # Defining our problem
 
