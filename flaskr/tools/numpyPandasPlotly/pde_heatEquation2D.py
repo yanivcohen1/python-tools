@@ -67,16 +67,3 @@ while counter < time :
 
 
 plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
