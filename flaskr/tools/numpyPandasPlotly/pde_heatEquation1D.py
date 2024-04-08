@@ -28,7 +28,7 @@ u[-1] = 100
 
 fig, axis = plt.subplots()
 
-pcm = axis.pcolormesh([u], cmap=plt.cm.jet, vmin=0, vmax=100)
+pcm = axis.pcolormesh([u], cmap='jet', vmin=0, vmax=100) # cmap=plt.cm.jet
 plt.colorbar(pcm, ax=axis)
 axis.set_ylim([-2, 3])
 
