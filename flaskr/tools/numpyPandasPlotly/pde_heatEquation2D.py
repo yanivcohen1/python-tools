@@ -54,6 +54,8 @@ while counter < time :
             # see: pde Central difference Approximating.jpg
             dd_uy = (w[i, j-1] - 2*w[i, j] + w[i, j+1])/dy**2
 
+            # [∂u(t+1) - ∂u(t)]/∂t ​= ∂²𝑢/∂x² + ∂²𝑢/∂y²
+            # dx = dy;   k= a/dx^2
             u[i, j] = dt * k * (dd_ux + dd_uy) + w[i, j]
 
     counter += dt
