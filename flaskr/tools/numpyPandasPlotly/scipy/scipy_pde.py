@@ -36,5 +36,5 @@ ax.set_xlabel('Position - Spatial coordinate')
 ax.set_ylabel('Time')
 ax.set_zlabel('Temperature')
 plt.title("Temperature T(x,t) by solve PDE Heat Equation: \n \
-            ∂T/∂t ​= κ*∂^2*T/∂x^2;  T0=sin(pi * x)")
+            ∂u/∂t ​= κ*∂²u/∂x²;  T0=sin(pi * x)")
 plt.show()

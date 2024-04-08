@@ -52,6 +52,6 @@ ax.set_xlabel('Position')
 ax.set_ylabel('Time')
 ax.set_zlabel('Displacement')
 plt.title("Wave y(x,t) by solve PDE Wave Equation:\n \
-  ∂^2*y \ ∂t^2 = c^2*∂^2*y \ ∂x^2;  T0 = sin(pi * x)")
+  ∂²y \ ∂t² = c² * ∂²y \ ∂x²;  T0 = sin(pi * x)")
 
 plt.show()
