@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# solve PDE Heat Equation in 2D u(t, x, y): ∂u/∂t ​= κ*∂²𝑢/∂x² + κ*∂²𝑢/∂y² # pylint: disable=E2515
+# solve PDE Heat Equation in 2D u(t, x, y): ∂u/∂t ​= ∂²𝑢/∂x² + ∂²𝑢/∂y² # pylint: disable=E2515
 # Defining our problem
 
 k = 110
