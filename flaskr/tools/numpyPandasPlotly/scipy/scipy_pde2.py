@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 # from mpl_toolkits.mplot3d import Axes3D
 
 # Define the wave equation as a system of first-order ODEs
-# solve wave equation: ∂^2y \ ∂t^2 = c^2*∂^2*y \ ∂x^2
+# solve wave equation: ∂²y \ ∂t² = c² * ∂²y \ ∂x²
 def wave_eq(t, y, c, N):
     d2ydt2 = np.zeros_like(y)
     # Discretized Laplacian base on "Central difference Approximating Derivatives"
