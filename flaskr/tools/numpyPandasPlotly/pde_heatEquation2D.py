@@ -39,9 +39,10 @@ plt.colorbar(pcm, ax=axis)
 
 counter = 0
 
+# w is the memory for u[i+1 or j+1] that will not overide
+u_new = u.copy()
+
 while counter < time :
-    # w is the memory for u[i+1 or j+1] that will not overide
-    w = u.copy()
 
     for i in range(1, nodes - 1):
         for j in range(1, nodes - 1):
@@ -49,15 +50,16 @@ while counter < time :
             # Discretized Laplacian base on "Central difference Approximating Derivatives"
             # Discretized Laplacian | x=x_i: (u_{i-1} - 2u_i + u_{i+1}) / dx^2
             # see: pde Central difference Approximating.jpg
-            dd_ux = (w[i-1, j] - 2*w[i, j] + w[i+1, j])/dx**2
+            dd_ux = (u[i+1, j] - 2*u[i, j] + u[i-1, j]) / dx**2
             # Discretized Laplacian | y=y_i: (u_{i-1} - 2u_i + u_{i+1}) / dy^2
             # see: pde Central difference Approximating.jpg
-            dd_uy = (w[i, j-1] - 2*w[i, j] + w[i, j+1])/dy**2
+            dd_uy = (u[i, j+1] - 2*u[i, j] + u[i, j-1]) / dy**2
 
             # [∂u(t+1) - ∂u(t)]/∂t ​= ∂²𝑢/∂x² + ∂²𝑢/∂y²
             # dx = dy;   k= a/dx^2
-            u[i, j] = dt * k * (dd_ux + dd_uy) + w[i, j]
+            u_new[i, j] = u[i, j] + dt * k * (dd_ux + dd_uy)
 
+    u = u_new.copy()
     counter += dt
 
     print("t: {:.3f} [s], Average temperature: {:.2f} Celcius".format(counter, np.average(u)))
