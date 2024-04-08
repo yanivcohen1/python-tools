@@ -40,6 +40,7 @@ plt.colorbar(pcm, ax=axis)
 counter = 0
 
 # w is the memory for u[i+1 or j+1] that will not overide
+# # u_new is the u(t+dt)
 u_new = u.copy()
 
 while counter < time :

@@ -36,6 +36,7 @@ axis.set_ylim([-2, 3])
 
 counter = 0
 
+# u_new is the u(t+dt)
 u_new = u.copy()
 
 while counter < time :
