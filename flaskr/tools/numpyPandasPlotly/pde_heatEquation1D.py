@@ -37,13 +37,14 @@ axis.set_ylim([-2, 3])
 counter = 0
 
 while counter < time :
-
+    # w is the memory for u[i + 1] that will not overide
     w = u.copy()
 
     for i in range(1, nodes - 1):
 
         # Discretized Laplacian base on "Central difference Approximating Derivatives"
         # Discretized Laplacian | x=x_i: (u_{i-1} - 2u_i + u_{i+1}) / dx^2
+        # see: pde Central difference Approximating.jpg
         u[i] = dt * k * (w[i - 1] - 2 * w[i] + w[i + 1]) / dx ** 2 + w[i]
 
     counter += dt
