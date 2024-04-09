@@ -2,15 +2,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # solve PDE Heat Equation in 2D u(t, x, y): ∂u/∂t ​= k(∂²𝑢/∂x² + ∂²𝑢/∂y²) # pylint: disable=E2515
-# Defining our problem
 
+# Defining our problem
 k = 110
 length = 50 #mm
 time = 4 #seconds
 nodes = 40
 
 # Initialization
-
 dx = length / nodes
 dy = length / nodes
 
@@ -21,7 +20,6 @@ t_nodes = int(time/dt)
 u = np.zeros((nodes, nodes)) + 20 # Plate is initially as 20 degres C
 
 # Boundary Conditions
-
 u[0, :] = np.linspace(0, 100, nodes) # temp rising from 0 to 100 in x = 0
 u[-1, :] = np.linspace(0, 100, nodes) # temp rising from 0 to 100 in x = L
 
@@ -29,14 +27,11 @@ u[:, 0] = np.linspace(0, 100, nodes) # temp rising from 0 to 100 in y = 0
 u[:, -1] = np.linspace(0, 100, nodes) # temp rising from 0 to 100 in y = L
 
 # Visualizing with a plot
-
 fig, axis = plt.subplots()
-
 pcm = axis.pcolormesh(u, cmap="jet", vmin=0, vmax=100) # cmap=plt.cm.jet
 plt.colorbar(pcm, ax=axis)
 
 # Simulating
-
 counter = 0
 
 # w is the memory for u[i+1 or j+1] that will not overide
@@ -70,6 +65,5 @@ while counter < time :
     pcm.set_array(u)
     axis.set_title("Distribution at t: {:.3f} [s].".format(counter))
     plt.pause(0.01)
-
 
 plt.show()
