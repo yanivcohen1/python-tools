@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 # Define the function
 def f(x):
-    return x**2
+    return x**3
 
 # Define the central difference method
 def central_difference(f, x, h):
@@ -18,23 +18,23 @@ h = 0.1
 # Calculate the derivative using the central difference method
 derivatives = [central_difference(f, xi, h) for xi in x]
 
-y_exact = 2*x
+y_exact = 3*x**2
 
 # Plot the function and its derivative
 plt.figure(figsize=(10, 5))
 
 # Plot the original function
 plt.subplot(1, 2, 1)
-plt.plot(x, f(x), label='f(x) = x²')
-plt.title('Function x²')
+plt.plot(x, f(x), label='f(x) = x^3')
+plt.title('Function x^3')
 plt.grid(True)
 plt.legend()
 
 # Plot the derivative
 plt.subplot(1, 2, 2)
 plt.plot(x, derivatives, label="f'(x) Approximation", color='orange')
-plt.plot(x, y_exact, '--', label="The exact solution is y = 2x")
-plt.title('Derivative is 2x')
+plt.plot(x, y_exact, '--', label="The exact solution is y = 3x^2")
+plt.title('Derivative is 3x^2')
 plt.grid(True)
 plt.legend()
 
