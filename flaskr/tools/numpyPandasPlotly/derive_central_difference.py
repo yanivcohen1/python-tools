@@ -9,7 +9,9 @@ def f(x):
 
 # Define the central difference method
 def central_difference(f, x, h):
-    return (f(x + h) - f(x - h)) / (2 * h)
+    return (f(x + h) - f(x)) / (h)
+    # Define the central difference method
+    # return (f(x + h) - f(x - h)) / (2 * h)
 
 # Define the range for x and the step size h
 x = np.linspace(-10, 10, 100)
