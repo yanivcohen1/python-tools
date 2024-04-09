@@ -19,8 +19,8 @@ def euler(f, tv, y0, N):
     ys[0, :] = y
 
     for i in range(N):
-        s = f(t, y)  # Evaluate direction field at current point
-        y = y + s * h  # Update y using Euler method
+        slop = f(t, y)  # Evaluate direction field at current point
+        y = y + slop * h  # Update y using Euler method
         t = t + h
         ts[i + 1] = t
         ys[i + 1, :] = y
