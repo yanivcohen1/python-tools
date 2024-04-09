@@ -22,11 +22,11 @@ u = np.zeros((nodes, nodes)) + 20 # Plate is initially as 20 degres C
 
 # Boundary Conditions
 
-u[0, :] = np.linspace(0, 100, nodes)
-u[-1, :] = np.linspace(0, 100, nodes)
+u[0, :] = np.linspace(0, 100, nodes) # temp rising from 0 to 100 in x = 0
+u[-1, :] = np.linspace(0, 100, nodes) # temp rising from 0 to 100 in x = L
 
-u[:, 0] = np.linspace(0, 100, nodes)
-u[:, -1] = np.linspace(0, 100, nodes)
+u[:, 0] = np.linspace(0, 100, nodes) # temp rising from 0 to 100 in y = 0
+u[:, -1] = np.linspace(0, 100, nodes) # temp rising from 0 to 100 in y = L
 
 # Visualizing with a plot
 
