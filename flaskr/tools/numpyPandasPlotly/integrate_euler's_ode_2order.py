@@ -49,7 +49,7 @@ y_exact = np.sin(ts) + 2*np.cos(ts)
 # Plot the solution
 plt.plot(ts, ys[:, 0], 'b', label='y(t)') # y' = ys[:, 1]
 plt.plot(ts, y_exact, 'r--', label="The exact solution is y = sin(t) + 2*cos(t)")
-plt.title("Solution y''(t) + t*y'(t) -3*y(t) = 0 with y(0) = 1, y'(0) = -2")
+plt.title("Solution y''(t) + y(t) = 0 with y(0)=2, y'(0)=1")
 plt.ylabel('y(t)')
 plt.xlabel('t')
 plt.grid(True)
