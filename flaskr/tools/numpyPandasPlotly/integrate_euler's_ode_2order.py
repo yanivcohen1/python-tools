@@ -41,7 +41,7 @@ yfinal = ys[-1, :]
 print(f"y(T) = {yfinal[0]:.5f}, y'(T) = {yfinal[1]:.5f}")
 
 # Plot the solution
-plt.plot(ts, ys[:, 0], 'b', label='y(t)')
+plt.plot(ts, ys[:, 0], 'b', label='y(t)') # y' = ys[:, 1]
 plt.title("Solution y''(t) + t*y'(t) -3*y(t) = 0 with y(0) = 1, y'(0) = -2")
 plt.ylabel('y(t)')
 plt.xlabel('t')
