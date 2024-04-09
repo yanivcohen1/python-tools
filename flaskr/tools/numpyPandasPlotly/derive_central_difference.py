@@ -18,6 +18,8 @@ h = 0.1
 # Calculate the derivative using the central difference method
 derivatives = [central_difference(f, xi, h) for xi in x]
 
+y_exact = 2*x
+
 # Plot the function and its derivative
 plt.figure(figsize=(10, 5))
 
@@ -31,6 +33,7 @@ plt.legend()
 # Plot the derivative
 plt.subplot(1, 2, 2)
 plt.plot(x, derivatives, label="f'(x) Approximation", color='orange')
+plt.plot(x, y_exact, '--', label="The exact solution is y = 2x")
 plt.title('Derivative is 2x')
 plt.grid(True)
 plt.legend()
