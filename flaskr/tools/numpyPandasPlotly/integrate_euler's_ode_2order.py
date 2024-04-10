@@ -24,10 +24,11 @@ def euler(f, tv, y0, N):
 
     for i in range(N):
         slop = f(t, y)  # Evaluate direction field at current point
-        y = y + slop * h  # Update y using Euler method
+        y_next = y + slop * h  # Update y using Euler method
         t = t + h
         ts[i + 1] = t
-        ys[i + 1, :] = y
+        ys[i + 1, :] = y_next
+    return
 
     return ts, ys
 

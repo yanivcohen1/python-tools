@@ -11,7 +11,7 @@ nodes = 20
 
 # Initialization
 dx = length / nodes
-dt = 0.5 * dx**2 / k
+dt = 0.5 * dx**2 / k # γ=(k⋅dt)/(dx^2) <= 0.5 Courant-Friedrichs-Lewy (CFL) condition
 t_nodes = int(time/dt)
 
 u = np.zeros(nodes) + 20 # Plate is initially as 20 degres C

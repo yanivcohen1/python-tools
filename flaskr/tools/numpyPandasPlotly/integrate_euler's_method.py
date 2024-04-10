@@ -23,8 +23,8 @@ y_values = [y0]
 for i in range(1, len(x_values)):
     x = x_values[i-1]
     y = y_values[-1]
-    y_new = y + h * derivative(x, y) # y(x+dx) = y(x) + dy(x); dy(x) = dx * y'(x)
-    y_values.append(y_new)
+    y_next = y + h * derivative(x, y) # y(x+dx) = y(x) + dy(x); dy(x) = dx * y'(x)
+    y_values.append(y_next)
 
 y_exact =  2 * np.exp(x_values) - x_values - 1  # Exact solution
 
