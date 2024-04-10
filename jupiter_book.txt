@@ -35,11 +35,19 @@ jupyter-book build .
 # add sub_secection to the book in file _toc.yml
 format: jb-book
 root: index
-chapters:
-- file: path/to/chapter1
-- file: path/to/chapter2
-  sections:
-  - file: path/to/chapter2/section1
+parts:
+  - caption: Name of Part 1
+    chapters:
+    - file: path/to/part1/chapter1
+    - file: path/to/part1/chapter2
+      sections:
+      - file: path/to/part1/chapter2/section1
+  - caption: Name of Part 2
+    chapters:
+    - file: path/to/part2/chapter1
+    - file: path/to/part2/chapter2
+      sections:
+      - file: path/to/part2/chapter2/section1
 
 
 # convert from word to html
