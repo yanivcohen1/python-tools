@@ -13,7 +13,9 @@ nodes = 40
 dx = length / nodes
 dy = length / nodes
 
-dt = min( dx**2 / (4 * k), dy**2 / (4 * k) ) # γ=(k⋅dt)/(dx^2) <= 0.5 Courant-Friedrichs-Lewy (CFL) condition for stability
+# γ=(k⋅dt)/(dx^2) <= 0.5 Courant-Friedrichs-Lewy (CFL) condition for stability
+# we chooce γ=0.25 satisfying the (CFL) condition for stability
+dt = min( dx**2 / (4 * k), dy**2 / (4 * k) )
 
 t_nodes = int(time/dt)
 
