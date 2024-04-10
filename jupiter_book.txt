@@ -32,6 +32,16 @@ jupyter-book build .
 # to add pic
 <img src="control_jupiter.jpg" alt="My Image">
 
+# add sub_secection to the book in file _toc.yml
+format: jb-book
+root: index
+chapters:
+- file: path/to/chapter1
+- file: path/to/chapter2
+  sections:
+  - file: path/to/chapter2/section1
+
+
 # convert from word to html
 
 # to add existing html page to left side menu
