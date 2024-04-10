@@ -11,9 +11,13 @@ def h(z, k):
     g = x + y+ 1*k
     return [f,g]
 
-z0 = [1,1]
+init_gess = [1,1]
 for k in range(0, 5, 2):
-    print(f"for k={k}: ", fsolve(h, z0, args=(k)))
+    res = fsolve(h, init_gess, args=(k), maxfev=5000)
+    print(f"for k={k}: ", res)
+    # Verify the solution is a root
+    result = h(res, k)
+    print(f"validated if fun(root)=0 find:", result) # result= [0.]
 # the output is [x_root, y_root]:
 # for k=1:  [-2.67944947  1.67944947]
 # for k=2:  [ 1. -3.]
