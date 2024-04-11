@@ -26,7 +26,7 @@ setup(
       "scapy", "psutil", "keyboard", "sortedcontainers", "numpy", "matplotlib", "pandas", "pandas_datareader",
       "plotly", "cufflinks", "ipykernel", "selenium", "webdriver-manager", "sympy", "scipy", "pycryptodome",
       "ipywidgets", "IPython", "seaborn", "nbformat", "openpyxl", "jupyterlab-mathjax3", "google-generativeai",
-      "pint"
+      "pint", "scikit-image"
       ],
     extras_require={"test": ["pytest", "coverage"]},
 )
