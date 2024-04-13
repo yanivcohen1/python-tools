@@ -4,11 +4,22 @@ import numpy as np
 from numpy.fft import fft, ifft
 import numbers
 
+# tack only columns ['Timestamp (Hour Ending)', 'Demand (MWh)']
 df = pd.read_csv('flaskr/tools/numpyPandasPlotly/930-data-export.csv',
-                  delimiter=',', parse_dates=[1])
+        delimiter=',', parse_dates=[0], usecols=['Timestamp (Hour Ending)', 'Demand (MWh)'])
+
 df.rename(columns={'Timestamp (Hour Ending)':'hour',
                     'Demand (MWh)':'demand'},
           inplace=True)
+# remove NaN
+df = df[df['demand'].notna()]
+# df[["hour"]] = df[["hour"]].apply(pd.to_datetime)
+# df[["demand"]] = df[["demand"]].apply(pd.to_numeric)
+
+# filter dates
+start_date = '2024-04-06'
+end_date = '2024-04-14'
+df = df.loc[(df['hour'] >= start_date) & (df['hour'] <= end_date)]
 
 plt.figure(figsize = (10, 5))
 plt.plot(df['hour'], df['demand'])
@@ -17,15 +28,7 @@ plt.ylabel('California electricity demand (MWh)')
 plt.xticks(rotation=25) # tilte the x label in 25 dgree
 plt.show()
 
-# filter dates
-start_date = '2024-04-06'
-end_date = '2024-04-14'
-df1 = df.loc[(df['hour'] >= start_date) & (df['hour'] <= end_date)]
-
-# remove NaN
-df2 = df1[df1['demand'].notna()]
-
-X = fft(df2['demand'])
+X = fft(df['demand'])
 N = len(X)
 n = np.arange(N)
 # get the sampling rate
