@@ -2,11 +2,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy.fft import fft, ifft
+import numbers
 
 df = pd.read_csv('flaskr/tools/numpyPandasPlotly/930-data-export.csv',
                  delimiter=',', parse_dates=[1])
 df.rename(columns={'Timestamp (Hour Ending)':'hour',
-                   'Demand (MWh)':'demand'},
+                    'Demand (MWh)':'demand'},
           inplace=True)
 
 plt.figure(figsize = (10, 5))
@@ -16,8 +17,12 @@ plt.ylabel('California electricity demand (MWh)')
 plt.xticks(rotation=25) # tilte the x label in 25 dgree
 plt.show()
 
+start_date = '2024-04-06'
+end_date = '2024-04-13'
 
-X = fft(df['demand'])
+df1 = df.loc[(df['hour'] >= start_date) & (df['hour'] <= end_date)]
+
+X = fft(df1['demand'])
 N = len(X)
 n = np.arange(N)
 # get the sampling rate
