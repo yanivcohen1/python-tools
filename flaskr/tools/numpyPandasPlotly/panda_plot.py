@@ -11,6 +11,7 @@ df = pd.read_csv('flaskr/tools/numpyPandasPlotly/930-data-export.csv',
 df.rename(columns={'Timestamp (Hour Ending)':'hour',
                     'Demand (MWh)':'demand'},
           inplace=True)
+
 # remove NaN
 df = df[df['demand'].notna()]
 # df[["hour"]] = df[["hour"]].apply(pd.to_datetime)
