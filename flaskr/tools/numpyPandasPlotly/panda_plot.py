@@ -4,9 +4,9 @@ import numpy as np
 from numpy.fft import fft, ifft
 
 df = pd.read_csv('flaskr/tools/numpyPandasPlotly/930-data-export.csv',
-                 delimiter=',', parse_dates=[2])
-df.rename(columns={'Selected Hour Timestamp (Hour Ending)':'hour',
-                   'Selected Hour Demand (MWh)':'demand'},
+                 delimiter=',', parse_dates=[1])
+df.rename(columns={'Timestamp (Hour Ending)':'hour',
+                   'Demand (MWh)':'demand'},
           inplace=True)
 
 plt.figure(figsize = (10, 5))
@@ -34,4 +34,14 @@ plt.figure(figsize = (10, 5))
 plt.plot(f_oneside, np.abs(X[:n_oneside]), 'b')
 plt.xlabel('Freq (Hz)')
 plt.ylabel('FFT Amplitude |X(freq)|')
+plt.show()
+
+# convert frequency to hour
+t_h = 1/f_oneside / (60 * 60)
+
+plt.figure(figsize=(12,6))
+plt.plot(t_h, np.abs(X[:n_oneside])/n_oneside)
+plt.xticks([12, 24, 84, 168])
+plt.xlim(0, 200)
+plt.xlabel('Period ($hour$)')
 plt.show()
