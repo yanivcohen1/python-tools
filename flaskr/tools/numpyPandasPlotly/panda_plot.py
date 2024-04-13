@@ -5,7 +5,7 @@ from numpy.fft import fft, ifft
 import numbers
 
 df = pd.read_csv('flaskr/tools/numpyPandasPlotly/930-data-export.csv',
-                 delimiter=',', parse_dates=[1])
+                  delimiter=',', parse_dates=[1])
 df.rename(columns={'Timestamp (Hour Ending)':'hour',
                     'Demand (MWh)':'demand'},
           inplace=True)
@@ -17,12 +17,15 @@ plt.ylabel('California electricity demand (MWh)')
 plt.xticks(rotation=25) # tilte the x label in 25 dgree
 plt.show()
 
+# filter dates
 start_date = '2024-04-06'
-end_date = '2024-04-13'
-
+end_date = '2024-04-14'
 df1 = df.loc[(df['hour'] >= start_date) & (df['hour'] <= end_date)]
 
-X = fft(df1['demand'])
+# remove NaN
+df2 = df1[df1['demand'].notna()]
+
+X = fft(df2['demand'])
 N = len(X)
 n = np.arange(N)
 # get the sampling rate
