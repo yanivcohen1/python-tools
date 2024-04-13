@@ -117,7 +117,6 @@ x2_pendulum_2 = x1_pendulum_2 + np.sin(the2_sol_2)
 y2_pendulum_2 = y1_pendulum_2 + -np.cos(the2_sol_2)
 
 
-
 # -------  Animating the solutions ------- #
 
 import matplotlib.pyplot as plt
