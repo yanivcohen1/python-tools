@@ -53,7 +53,7 @@ t_h = 1/f_oneside / (60 * 60)
 
 plt.figure(figsize=(12,6))
 plt.plot(t_h, np.abs(X[:n_oneside])/n_oneside)
-plt.xticks([12, 24, 84, 168])
+plt.xticks([12, 24, 48, 84, 168])
 plt.xlim(0, 200)
 plt.xlabel('Period ($hour$)')
 plt.show()
