@@ -51,7 +51,7 @@ plt.show()
 # convert frequency to hour
 t_h = 1/f_oneside / (60 * 60)
 
-plt.figure(figsize=(12,6))
+plt.figure(figsize=(10,5))
 plt.plot(t_h, np.abs(X[:n_oneside])/n_oneside)
 plt.xticks([12, 24, 48, 84, 168])
 plt.xlim(0, 200)
