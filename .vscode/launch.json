@@ -47,5 +47,17 @@
           "jinja": true,
           "justMyCode": true
       },
+      {
+        "name": "Python:Streamlit",
+        "type": "python",
+        "request": "launch",
+        "module": "streamlit",
+        "args": [
+              "run",
+              "${file}",
+              "--server.port",
+              "3001"
+        ]
+      },
     ]
 }
