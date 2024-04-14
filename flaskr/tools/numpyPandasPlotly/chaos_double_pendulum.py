@@ -160,7 +160,7 @@ pendulum2_2, = ax.plot([x1_pendulum[0], x2_pendulum[0]], [y1_pendulum[0], y2_pen
 mass2_2, = ax.plot([x2_pendulum[0]], [y2_pendulum[0]], 'o', markersize=4*int(m2_val)+1, color='blue')
 
 
-animation = FuncAnimation(fig, update, frames=len(time_points), interval=25, blit=True)
+animation = FuncAnimation(fig, update, frames=len(time_points), interval=50, blit=True)
 
 plt.title("illustration of chaos over time (start_angel2_2 = start_angel2 + 0.01)")
 plt.show()
