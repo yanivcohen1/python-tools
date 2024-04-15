@@ -3,10 +3,11 @@
 # https://github.com/pixegami/streamlit-demo-app/tree/main
 # https://www.youtube.com/watch?v=D0D4Pa22iG0
 # run main.py -- --option1 val1 --option2 val2
+import numpy as np
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import math
+import plotly.express as px
 
 st.title("Mortgage Repayments Calculator")
 
@@ -46,7 +47,7 @@ for i in range(1, number_of_payments + 1):
     interest_payment = remaining_balance * monthly_interest_rate
     principal_payment = monthly_payment - interest_payment
     remaining_balance -= principal_payment
-    year = math.ceil(i / 12)  # Calculate the year into the loan
+    year = np.ceil(i / 12)  # Calculate the year into the loan
     schedule.append(
         [
             i,
@@ -67,3 +68,7 @@ df = pd.DataFrame(
 st.write("### Payment Schedule")
 payments_df = df[["Year", "Remaining Balance"]].groupby("Year").min()
 st.line_chart(payments_df)
+
+# plotly chart
+fig = px.line(df, x = "Year", y=["Remaining Balance", "Payment"],height=500,template="gridon")
+st.plotly_chart(fig, use_container_width=True)
