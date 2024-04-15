@@ -6,7 +6,6 @@
 import numpy as np
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 import plotly.express as px
 
 st.title("Mortgage Repayments Calculator")
@@ -70,5 +69,6 @@ payments_df = df[["Year", "Remaining Balance"]].groupby("Year").min()
 st.line_chart(payments_df)
 
 # plotly chart
-fig = px.line(df, x = "Year", y=["Remaining Balance", "Payment"],height=500,template="gridon")
+st.write("### Payment Schedule Plotly")
+fig = px.line(df, x="Year", y=["Remaining Balance", "Payment"], height=500, template="gridon")
 st.plotly_chart(fig, use_container_width=True)
