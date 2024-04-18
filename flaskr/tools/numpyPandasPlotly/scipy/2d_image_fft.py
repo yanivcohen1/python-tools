@@ -25,6 +25,7 @@ img_FT_alt[-2:] = 0
 img_FT_alt[:,-2:] = 0
 img_FT_alt[:2] = 0
 img_FT_alt[:,:2] = 0
+# inverse fft in 2D
 img_alt = np.abs(ifft2(img_FT_alt))
 plt.imshow(img_alt, cmap='gray')
 plt.colorbar()
