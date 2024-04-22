@@ -12,6 +12,6 @@ duration = A + B # probbility of a and b
 plt.figure()
 plt.hist(duration, density = True, edgecolor='white')
 plt.axvline(9, color='r')
-res = "your probbility of a and b after 9 is: " + str((duration > 9).sum()/num_sims*100) + "%"
-plt.title(res)
+res = (duration > 9).sum()/num_sims*100
+plt.title(f"your probbility of a and b after 9 is: {res:.2f}%")
 plt.show()
