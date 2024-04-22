@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
-# w_0 = ψ_0 -> growun state is the first alow wave from ground for alow waves k = 0
-# for g for 1 to 5 inside loop E from 0 to 10 and find E_val where psi == 0 and return it
-# and plot g vs E where psi == 0
+
+# ground state is whare n=1 k=n*pi whare k is ψ" = kψ
+
 
 # Define the Schrödinger equation
 def schroedinger_eqn(x, y, E, g):
