@@ -20,7 +20,7 @@ AnimalSchema = marshmallow_dataclass.class_schema(Animal)
 
 print("creating list[objs] -------------------------------")
 animals_list = [Animal("cat1", [24, 25], [Cat("cat1", 23), Cat("cat2", 24)]),
-                Animal("cat2", [23, 24], [Cat("cat11", 23), Cat("cat22", 24)])]
+                Animal("cat2", [23, 24], [Cat("cat11", 23), Cat(name ="cat22",higth=24)])]
 # print(f"animal obj: {animals_list}")
 obj_to_dict2: str = AnimalSchema(many=True).dumps(animals_list)# to string
 print(f"animal0 json: {obj_to_dict2}") # string
