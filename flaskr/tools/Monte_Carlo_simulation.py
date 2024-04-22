@@ -1,0 +1,17 @@
+# https://www.youtube.com/watch?v=slbZ-SLpIgg
+import numpy as np
+import matplotlib.pyplot as plt
+
+num_sims = 1000000 # number of trays
+
+A = np.random.uniform(1, 5, num_sims) # uniform prabbility between 1 to 5
+B = np.random.uniform(2, 6, num_sims) # uniform prabbility between 2 to 6
+
+duration = A + B # probbility of a and b
+
+plt.figure()
+plt.hist(duration, density = True, edgecolor='white')
+plt.axvline(9, color='r')
+res = "your probbility of a and b after 9 is: " + str((duration > 9).sum()/num_sims*100) + "%"
+plt.title(res)
+plt.show()
