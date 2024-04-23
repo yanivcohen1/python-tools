@@ -67,7 +67,7 @@ LEF2 = sm.lambdify((the1, the2, the1_d, the2_d, t, m_1, m_2, g), solutions[the2_
 
 # Initial conditions & Constants
 initial_conditions = [1.0, 10.0, -1.0, 3.0]  # Angle_1, Velocity_1, Angle_2, Velocity_2,
-initial_conditions_2 = [1.0, 10.0, -1.01, 3.0]  # Angle_1, Velocity_1, Angle_2, Velocity_2,
+initial_conditions_2 = [1.0, 10.0, -1.001, 3.0]  # Angle_1, Velocity_1, Angle_2, Velocity_2,
 
 m1_val = 2
 m2_val = 2
