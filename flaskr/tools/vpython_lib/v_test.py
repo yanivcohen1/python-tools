@@ -3,6 +3,7 @@ import vpython
 from vpython import *
 import numpy as np
 
+# np.save('3Dpen', np.array([x1,y1,z1,x2,y2,z2]))
 x1, y1, z1, x2, y2, z2 = np.load('flaskr/tools/vpython_lib/3Dpen.npy')
 ball1 = vpython.sphere(color = color.green, radius = 0.3, make_trail=True, retain=20)
 ball2 = vpython.sphere(color = color.blue, radius = 0.3, make_trail=True, retain=20)
