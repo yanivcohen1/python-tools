@@ -27,7 +27,7 @@ ball_bouncing = False
 running = True
 while running:
     screen.fill(WHITE)
-    
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -36,9 +36,9 @@ while running:
             if (ball_pos[0] - ball_radius < event.pos[0] < ball_pos[0] + ball_radius) and \
                (ball_pos[1] - ball_radius < event.pos[1] < ball_pos[1] + ball_radius):
                 angle = random.uniform(-1, 1)  # Random angle for the jump
-                ball_speed = [angle * 10, -10]  # Initial speed for the bounce
+                ball_speed = [angle * 20, -20]  # Initial speed for the bounce
                 ball_bouncing = True
-    
+
     # Ball physics
     if ball_bouncing:
         ball_speed[1] += gravity
@@ -59,15 +59,15 @@ while running:
         if ball_pos[0] >= width - ball_radius:
             ball_pos[0] = width - ball_radius
             ball_speed[0] *= -1
-    
+
     # Stop the ball if it's moving very slowly
     if ball_bouncing and abs(ball_speed[1]) < 0.5 and ball_pos[1] == floor:
         ball_speed = [0, 0]
         ball_bouncing = False
-    
+
     # Draw the ball
     pygame.draw.circle(screen, RED, ball_pos, ball_radius)
-    
+
     # Update the display
     pygame.display.flip()
     pygame.time.delay(10)
