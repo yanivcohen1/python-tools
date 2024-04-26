@@ -162,5 +162,5 @@ mass2_2, = ax.plot([x2_pendulum[0]], [y2_pendulum[0]], 'o', markersize=4*int(m2_
 
 animation = FuncAnimation(fig, update, frames=len(time_points), interval=50, blit=True)
 
-plt.title("illustration of chaos over time (start_angel2_2 = start_angel2 + 0.01)")
+plt.title("illustration of chaos over time (start_angel2_2 = start_angel2 + 0.001)")
 plt.show()
