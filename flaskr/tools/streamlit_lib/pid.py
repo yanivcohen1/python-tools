@@ -127,7 +127,7 @@ if "init" not in st.session_state:
 
     pidPlot(0.1, 4.0, 0.0)
 
-st.plotly_chart(st.session_state["fig"], use_container_width=True)
-
 if P or I or D:
     pidPlot(P, I, D)
+
+st.plotly_chart(st.session_state["fig"], use_container_width=True)
