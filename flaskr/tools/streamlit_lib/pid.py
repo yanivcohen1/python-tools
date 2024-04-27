@@ -83,15 +83,13 @@ P = col1.slider('P', value=0.1, min_value=-0.2, max_value=1.0, step=0.05)
 I = col2.slider('I', value=4.0, min_value=0.01, max_value=5.0, step=0.1)
 D = col3.slider('D', value=0.0, min_value=0.0, max_value=1.0, step=0.1)
 
-if "fig" not in st.session_state:
-    st.session_state["fig"] = make_subplots(rows=2, cols=2)
-
-fig = st.session_state["fig"]
-
 # run once
 if "init" not in st.session_state:
     # Initialize 'options' variable
     st.session_state["init"] = True
+
+    st.session_state["fig"] = make_subplots(rows=2, cols=2)
+    fig = st.session_state["fig"]
     #, subplot_titles=("Plot 1", "Plot 2", "Plot 3", "Plot 4"))
     # fig: go.Figure = st.session_state["fig"]
     # Update xaxis properties
@@ -129,7 +127,7 @@ if "init" not in st.session_state:
 
     pidPlot(0.1, 4.0, 0.0)
 
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(st.session_state["fig"], use_container_width=True)
 
 if P or I or D:
     pidPlot(P, I, D)
