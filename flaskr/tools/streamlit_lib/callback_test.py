@@ -1,5 +1,7 @@
 import streamlit as st
 
+st.write("### Callback test")
+
 # run once
 if "init" not in st.session_state:
     # Initialize 'options' variable
