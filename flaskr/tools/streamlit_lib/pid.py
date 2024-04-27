@@ -22,6 +22,7 @@ from plotly.subplots import make_subplots
 n = 100 # time points to plot
 tf = 20.0 # final time
 SP_start = 2.0 # time of set point change
+fig: go.Figure = None
 
 def process(y,t,u):
     Kp = 4.0
@@ -85,14 +86,14 @@ D = col3.slider('D', value=0.0, min_value=0.0, max_value=1.0, step=0.1)
 if "fig" not in st.session_state:
     st.session_state["fig"] = make_subplots(rows=2, cols=2)
 
-st.plotly_chart(st.session_state["fig"], use_container_width=True)
+fig = st.session_state["fig"]
 
 # run once
 if "init" not in st.session_state:
     # Initialize 'options' variable
     st.session_state["init"] = True
     #, subplot_titles=("Plot 1", "Plot 2", "Plot 3", "Plot 4"))
-    fig: go.Figure = st.session_state["fig"]
+    # fig: go.Figure = st.session_state["fig"]
     # Update xaxis properties
     fig.update_xaxes(title_text="time", showgrid=True, row=2, col=1)
     fig.update_xaxes(title_text="time", showgrid=True, row=2, col=2)
@@ -127,6 +128,8 @@ if "init" not in st.session_state:
     )
 
     pidPlot(0.1, 4.0, 0.0)
+
+st.plotly_chart(fig, use_container_width=True)
 
 if P or I or D:
     pidPlot(P, I, D)
