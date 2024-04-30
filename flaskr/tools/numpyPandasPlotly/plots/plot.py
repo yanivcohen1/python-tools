@@ -66,6 +66,8 @@ plt.grid(True)
 
 # Plot the imaginary part
 plt.plot(t, psi_imag, label='Imaginary part', marker='.')
+plt.plot(t, np.abs(psi), label='|psi|')
+plt.plot(t, np.arctan(psi_real/psi_imag)/(np.pi), label='psi angle')
 plt.xlabel('Time')
 plt.ylabel('Wave function')
 plt.axvline(2, color="k", ls="--", label="start")
