@@ -7,12 +7,12 @@ import numpy as np
 x1, y1, z1, x2, y2, z2 = np.load('flaskr/tools/vpython_lib/3Dpen.npy')
 ball1 = vpython.sphere(color = color.green, radius = 0.3, make_trail=True, retain=20)
 ball2 = vpython.sphere(color = color.blue, radius = 0.3, make_trail=True, retain=20)
-rod1 = cylinder(pos=vector(0,0,0),axis=vector(0,0,0), radius=0.05)
-rod2 = cylinder(pos=vector(0,0,0),axis=vector(0,0,0), radius=0.05)
+rod1 = cylinder(pos=vector(0,0,0),axis=vector(0,0,0), radius=0.05) # the stick
+rod2 = cylinder(pos=vector(0,0,0),axis=vector(0,0,0), radius=0.05) # the stick
 base  = box(pos=vector(0,-4.25,0),axis=vector(1,0,0),
-            size=vector(10,0.5,10) )
-s1 = cylinder(pos=vector(0,-3.99,0),axis=vector(0,-0.1,0), radius=0.8, color=color.gray(luminance=0.7))
-s2 = cylinder(pos=vector(0,-3.99,0),axis=vector(0,-0.1,0), radius=0.8, color=color.gray(luminance=0.7))
+            size=vector(10,0.5,10) ) # the base is the platform
+s1 = cylinder(pos=vector(0,-3.99,0),axis=vector(0,-0.1,0), radius=0.8, color=color.gray(luminance=0.7))# shadow
+s2 = cylinder(pos=vector(0,-3.99,0),axis=vector(0,-0.1,0), radius=0.8, color=color.gray(luminance=0.7))# shadow
 
 print('Start')
 i = 0
