@@ -22,11 +22,11 @@ setup(
     # to add lib A version 1 and lib B at lest version 2 "'A>=1,<2', 'B>=2', c==3.1"
     install_requires=["flask==1.1.2", "marshmallow-dataclass==8.4.1", "marshmallow-enum==1.5.1", "flask-jsonpify==1.5.0",
       "flask-sqlalchemy==2.5.1", "flask-restful==0.3.8", "flask-cors==3.0.10", "Flask-JWT==0.3.2", "itsdangerous==1.1.0",
-      "flask-socketio==5.0.1", "schedule==1.1.0", "Jinja2==3.1.2", "markupsafe==2.1.5", "werkzeug==1.0.1", "pynput==1.7.6",
+      "flask-socketio==5.0.1", "schedule==1.1.0", "Jinja2==2.11.3", "markupsafe==1.1.1", "werkzeug==1.0.1", "pynput==1.7.6",
       "scapy", "psutil", "keyboard", "sortedcontainers", "numpy", "matplotlib", "pandas", "pandas_datareader",
       "plotly", "cufflinks", "ipykernel", "selenium", "webdriver-manager", "sympy==1.6.2", "scipy", "pycryptodome",
       "ipywidgets", "IPython", "seaborn", "nbformat", "openpyxl", "jupyterlab-mathjax3", "google-generativeai",
       "pint", "scikit-image", "streamlit", "vpython", "pygame", "numba", "pymunk"
-      ], # "cupy", Jinja2==2.11.3 and markupsafe==1.1.1 for flask_v1
+      ], # "cupy"
     extras_require={"test": ["pytest", "coverage"]},
 )
