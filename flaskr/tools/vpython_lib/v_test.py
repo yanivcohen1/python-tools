@@ -2,9 +2,18 @@
 import vpython
 from vpython import *
 import numpy as np
+import sys
+
+args = sys.argv  # a list of the arguments provided (str)
+if len(args) > 1:
+    print("running two_digits.py", args)
+    # a, b = int(args[1]), int(args[2])
+    py_file = args[1]
+else:
+    py_file = 'flaskr/tools/vpython_lib/3Dpen.npy'
 
 # np.save('3Dpen', np.array([x1,y1,z1,x2,y2,z2]))
-x1, y1, z1, x2, y2, z2 = np.load('flaskr/tools/vpython_lib/3Dpen.npy')
+x1, y1, z1, x2, y2, z2 = np.load(py_file)
 ball1 = vpython.sphere(color = color.green, radius = 0.3, make_trail=True, retain=20)
 ball2 = vpython.sphere(color = color.blue, radius = 0.3, make_trail=True, retain=20)
 rod1 = cylinder(pos=vector(0,0,0),axis=vector(0,0,0), radius=0.05) # the stick
