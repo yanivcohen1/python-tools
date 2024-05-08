@@ -4,7 +4,7 @@ import numpy as np
 from matplotlib import animation
 
 fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
+ax: Axes3D = fig.add_subplot(111, projection='3d')
 
 def gen(n):
     phi = 0
