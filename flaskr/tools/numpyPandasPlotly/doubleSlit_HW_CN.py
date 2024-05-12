@@ -236,7 +236,7 @@ cbar = fig.colorbar(img)
 
 # path = 'flaskr/tools/numpyPandasPlotly/doubleSlit_HW_CN.gif'
 path = str(os.path.dirname(__file__)) + "/doubleSlit_HW_CN.gif"
-anim.save(path, writer='pillow',fps=30,dpi=100)
+anim.save(path, writer='pillow', fps=30, dpi=100)
 
 plt.show() # We show the animation finally.
 
