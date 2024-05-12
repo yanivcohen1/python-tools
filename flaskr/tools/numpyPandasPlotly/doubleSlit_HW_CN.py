@@ -8,12 +8,12 @@ Script to simulate the passage of a Gaussian packet wave function through a
 double slit with hard-walls (infinite potential barrier; the wave function
 cancels inside the walls).
 """
-
+import os
+import time
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from matplotlib.patches import Rectangle
-import time
 
 def psi0(x, y, x0, y0, sigma=0.5, k=15*np.pi):
 
@@ -234,7 +234,8 @@ anim = FuncAnimation(fig, animate, interval=1, frames=np.arange(0,Nt,2), repeat=
 
 cbar = fig.colorbar(img)
 
-path = 'flaskr/tools/numpyPandasPlotly/doubleSlit_HW_CN.gif'
+# path = 'flaskr/tools/numpyPandasPlotly/doubleSlit_HW_CN.gif'
+path = str(os.path.dirname(__file__)) + "/doubleSlit_HW_CN.gif"
 anim.save(path, writer='pillow',fps=30,dpi=100)
 
 plt.show() # We show the animation finally.
