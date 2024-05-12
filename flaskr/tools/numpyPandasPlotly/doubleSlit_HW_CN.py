@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# https://github.com/artmenlope/double-slit-2d-schrodinger/tree/main
 """
 @author: Arturo Mena López
 
-Script to simulate the passage of a Gaussian packet wave function through a 
-double slit with hard-walls (infinite potential barrier; the wave function 
+Script to simulate the passage of a Gaussian packet wave function through a
+double slit with hard-walls (infinite potential barrier; the wave function
 cancels inside the walls).
 """
 
@@ -12,64 +13,65 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from matplotlib.patches import Rectangle
+import time
 
 def psi0(x, y, x0, y0, sigma=0.5, k=15*np.pi):
-    
+
     """
     Proposed wave function for the initial time t=0.
     Initial position: (x0, y0)
     Default parameters:
         - sigma = 0.5 -> Gaussian dispersion.
         - k = 15*np.pi -> Proportional to the momentum.
-        
-    Note: if Dy=0.1 use np.exp(-1j*k*(x-x0)), if Dy=0.05 use 
-          np.exp(1j*k*(x-x0)) so that the particle will move 
+
+    Note: if Dy=0.1 use np.exp(-1j*k*(x-x0)), if Dy=0.05 use
+          np.exp(1j*k*(x-x0)) so that the particle will move
           to the right.
     """
-    
+
     return np.exp(-1/2*((x-x0)**2 + (y-y0)**2)/sigma**2)*np.exp(1j*k*(x-x0))
 
 
 def doubleSlit_interaction(psi, j0, j1, i0, i1, i2, i3):
-    
+
     """
-    Function responsible of the interaction of the psi wave function with the 
+    Function responsible of the interaction of the psi wave function with the
     double slit in the case of rigid walls.
-    
-    The indices j0, j1, i0, i1, i2, i3 define the extent of the double slit. 
-    slit. 
-    
+
+    The indices j0, j1, i0, i1, i2, i3 define the extent of the double slit.
+    slit.
+
     Input parameters:
-        
-        psi -> Numpy array with the values of the wave function at each point 
+
+        psi -> Numpy array with the values of the wave function at each point
                in 2D space.
-    
-        Indices that parameterize the double slit in the space of 
+
+        Indices that parameterize the double slit in the space of
         points:
-        
+
             Horizontal axis.
                 j0 -> Left edge.
                 j1 -> Right edge.
-                
+
             Vertical axis.
                 i0 -> Lower edge of the lower slit.
                 i1 -> Upper edge of the lower slit.
                 i2 -> Lower edge of upper slit.
                 i3 -> Upper edge of upper slit.
 
-    Returns the array with the wave function values at each point in 2D space 
+    Returns the array with the wave function values at each point in 2D space
     updated with the interaction with the double slit of rigid walls.
     """
-    
+
     psi = np.asarray(psi) # Ensures that psi is a numpy array.
-    
+
     # We cancel the wave function inside the walls of the double slit.
     psi[0:i3, j0:j1] = 0
     psi[i2:i1,j0:j1] = 0
     psi[i0:,  j0:j1] = 0
-    
+
     return psi
-    
+
 
 # =============================================================================
 # Parameters
@@ -117,28 +119,29 @@ Ni = (Nx-2)*(Ny-2)  # Number of unknown factors v[i,j], i = 1,...,Nx-2, j = 1,..
 A = np.zeros((Ni,Ni), complex)
 M = np.zeros((Ni,Ni), complex)
 
+print("fill the A and M matrices loop:", Ni)
 # We fill the A and M matrices.
-for k in range(Ni):     
-    
+for k in range(Ni):
+
     # k = (i-1)*(Ny-2) + (j-1)
     i = 1 + k//(Ny-2)
     j = 1 + k%(Ny-2)
-    
+
     # Main central diagonal.
     A[k,k] = 1 + 2*rx + 2*ry + 1j*Dt/2*v[i,j]
     M[k,k] = 1 - 2*rx - 2*ry - 1j*Dt/2*v[i,j]
-    
+
     if i != 1: # Lower lone diagonal.
-        A[k,(i-2)*(Ny-2)+j-1] = -ry 
+        A[k,(i-2)*(Ny-2)+j-1] = -ry
         M[k,(i-2)*(Ny-2)+j-1] = ry
-        
+
     if i != Nx-2: # Upper lone diagonal.
         A[k,i*(Ny-2)+j-1] = -ry
         M[k,i*(Ny-2)+j-1] = ry
-    
+
     if j != 1: # Lower main diagonal.
-        A[k,k-1] = -rx 
-        M[k,k-1] = rx 
+        A[k,k-1] = -rx
+        M[k,k-1] = rx
 
     if j != Ny-2: # Upper main diagonal.
         A[k,k+1] = -rx
@@ -165,8 +168,12 @@ psi[0,:] = psi[-1,:] = psi[:,0] = psi[:,-1] = 0 # The wave function equals 0 at 
 psi = doubleSlit_interaction(psi, j0, j1, i0, i1, i2, i3) # Initial interaction with the double slit.
 psis.append(np.copy(psi)) # We store the wave function of this time step.
 
+print("solve the matrix system at each time step, loops:", Nt)
 # We solve the matrix system at each time step in order to obtain the wave function.
-for i in range(1,Nt):
+start = time.time()
+for i in range(1,Nt): # run 450 sec or 7.5 minitus
+    if i%50 == 0:
+        print(i, f'{(time.time()-start):.2f}')
     psi_vect = psi.reshape((Ni)) # We adjust the shape of the array to generate the matrix b of independent terms.
     b = np.matmul(M,psi_vect) # We calculate the array of independent terms.
     psi_vect = spsolve(Asp,b) # Resolvemos el sistema para este paso temporal.
@@ -181,7 +188,7 @@ for wavefunc in psis:
     im = np.imag(wavefunc) # Imaginary part.
     mod = np.sqrt(re**2 + im**2) # We calculate the modulus.
     mod_psis.append(mod) # We save the calculated modulus.
-    
+
 ## In case there is a need to save memory.
 # del psis
 # del M
@@ -209,25 +216,27 @@ ax.add_patch(wall_top)
 
 # We define the animation function for FuncAnimation.
 
+print("start Animate loops:", Nt/2)
 def animate(i):
-    
+
     """
-    Animation function. Paints each frame. Function for Matplotlib's 
+    Animation function. Paints each frame. Function for Matplotlib's
     FuncAnimation.
     """
-    
+
     img.set_data(mod_psis[i]) # Fill img with the modulus data of the wave function.
     img.set_zorder(1)
-    
+
     return img, # We return the result ready to use with blit=True.
 
 
 anim = FuncAnimation(fig, animate, interval=1, frames=np.arange(0,Nt,2), repeat=True, blit=0) # We generate the animation.
 
-path = 'yaniv/test/doubleSlit_HW_CN.gif'
+cbar = fig.colorbar(img)
+
+path = 'flaskr/tools/numpyPandasPlotly/doubleSlit_HW_CN.gif'
 anim.save(path, writer='pillow',fps=30,dpi=100)
 
-cbar = fig.colorbar(img)
 plt.show() # We show the animation finally.
 
 ## Save the animation (Ubuntu).
