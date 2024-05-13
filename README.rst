@@ -182,3 +182,7 @@ pip3 install twine
 twine upload dist/*
 // to download and install it from pip
 pip install <projectName>
+
+To upgrade latest
+--------------------------
+pip install <package_name> --upgrade
