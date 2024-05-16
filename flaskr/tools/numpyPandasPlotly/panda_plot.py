@@ -59,25 +59,33 @@ plt.xlabel('Period ($hour$)')
 plt.show()
 
 
-# ------------ panda from csv
+# ------------ panda from dict
 
 print(pd.to_datetime(['2018-10-26 12:00 -0530', '2018-10-26 12:00 -0500'],
                 utc=True)[0]) # print in utc: 2018-10-26 17:30:00+00:00
 # -------- panda for table data menipulation -------------------
-csv = {
-  "Month": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+dict1 = {
+  "Date": ["2018-10-26", "2018-10-26", "2018-10-27", "2018-10-28", "2018-10-29", "2018-10-29"],
   "Sales": [1000, 1200, 1500, 1800, 2000, 2200],
   "Profit": [200, 300, 400, 500, 600, 700],
   'time': [1, 2, 3],
 }
 
-table = pd.DataFrame(csv, columns=['Month', 'Sales', "Profit"])# option to fillter
-# table = pd.read_csv('data.csv')
+table = pd.DataFrame(dict1, columns=['Date', 'Sales', "Profit"])# option to fillter
+table[["Date"]] = table[["Date"]].apply(pd.to_datetime)
 
-# Panda print 2 first rows
+# Panda print 3 first rows
 # use a list of indexes:
 print(table.head(3))
-#   Month  Sales  Profit
-# 0   Jan   1000     200
-# 1   Feb   1200     300
-# 2   Mar   1500     400
+#         Date  Sales  Profit
+# 0 2018-10-26   1000     200
+# 1 2018-10-26   1200     300
+# 2 2018-10-27   1500     400
+
+url = "https://www.fdic.gov/resources/resolutions/bank-failures/failed-bank-list"
+df = pd.read_html(url)
+print(df[0].head(3))
+#                            Bank NameBank      CityCity  ... Closing DateClosing  FundFund
+# 0  Republic First Bank dba Republic Bank  Philadelphia  ...      April 26, 2024     10546
+# 1                          Citizens Bank      Sac City  ...    November 3, 2023     10545
+# 2               Heartland Tri-State Bank       Elkhart  ...       July 28, 2023     10544
