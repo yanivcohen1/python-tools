@@ -57,3 +57,27 @@ plt.xticks([12, 24, 48, 84, 168])
 plt.xlim(0, 200)
 plt.xlabel('Period ($hour$)')
 plt.show()
+
+
+# ------------ panda from csv
+
+print(pd.to_datetime(['2018-10-26 12:00 -0530', '2018-10-26 12:00 -0500'],
+                utc=True)[0]) # print in utc: 2018-10-26 17:30:00+00:00
+# -------- panda for table data menipulation -------------------
+csv = {
+  "Month": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+  "Sales": [1000, 1200, 1500, 1800, 2000, 2200],
+  "Profit": [200, 300, 400, 500, 600, 700],
+  'time': [1, 2, 3],
+}
+
+table = pd.DataFrame(csv, columns=['Month', 'Sales', "Profit"])# option to fillter
+# table = pd.read_csv('data.csv')
+
+# Panda print 2 first rows
+# use a list of indexes:
+print(table.head(3))
+#   Month  Sales  Profit
+# 0   Jan   1000     200
+# 1   Feb   1200     300
+# 2   Mar   1500     400
