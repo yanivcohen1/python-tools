@@ -1,9 +1,11 @@
 def total(galleons, sickles, knuts):
     return (galleons * 17 + sickles) * 29 + knuts
 
+# *args
 coins_lst = [100, 50, 25]
 print(total(*coins_lst), "Knuts")
 
+# **kwargs -key:val
 coins_dict = {"galleons": 100, "sickles": 50, "knuts": 25}
 print(total(**coins_dict), "Knuts")
 
