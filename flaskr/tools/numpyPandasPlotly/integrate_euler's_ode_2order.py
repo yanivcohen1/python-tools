@@ -28,7 +28,7 @@ def euler(f, tv, y0, N):
         t = t + h
         ts[i + 1] = t
         ys[i + 1, :] = y_next
-    return
+        y = y_next
 
     return ts, ys
 
