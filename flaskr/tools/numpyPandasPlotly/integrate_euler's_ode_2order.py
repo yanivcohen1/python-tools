@@ -9,7 +9,7 @@ def f(t, y):
     # return np.array([y[1], t + y[1] - 3 * y[0]]) # [y', y'']
 
     # y"(t) + y(t) = 0 , y(0)=2, y'(0)=1
-    return np.array([y[1], -y[0]]) # [y', y'']
+    return [y[1], -y[0]] # [y', y'']
 
 # Euler method for solving ODEs y[0]]) # [y', y'']
 def euler(f, tv, y0, N):
@@ -24,7 +24,7 @@ def euler(f, tv, y0, N):
 
     for i in range(N):
         slop = f(t, y)  # Evaluate direction field at current point
-        y_next = y + slop * h  # Update y using Euler method
+        y_next = y + np.array(slop) * h  # Update y using Euler method
         t = t + h
         ts[i + 1] = t
         ys[i + 1, :] = y_next
