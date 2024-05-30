@@ -186,3 +186,6 @@ pip install <projectName>
 To upgrade latest
 --------------------------
 pip install <package_name> --upgrade
+
+To complie proj to pyc:
+python -m compileall .
