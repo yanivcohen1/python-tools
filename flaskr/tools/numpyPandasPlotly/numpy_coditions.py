@@ -20,5 +20,5 @@ print(x[out_x]) # [1 2] values
 vals = np.array([-3,-1,1,2])
 sings = np.sign(vals) # [-1, -1, 1, 1]
 diff_next = np.diff(sings) # [0, 2, 0] # replace sing
-zero_crossings = np.where(diff_next) # [1] where (diff_next > 0)
+zero_crossings = np.where(diff_next) # [1] index where (diff_next > 0)
 print(vals[zero_crossings]) # [-1] val where changing sing
