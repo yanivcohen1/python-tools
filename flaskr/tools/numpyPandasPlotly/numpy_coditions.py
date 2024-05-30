@@ -17,8 +17,8 @@ print(out_x) # [0, 1] indexs
 print(x[out_x]) # [1 2] values
 
 # find val where changing sing (-1 to 1 changing sing) return val -1
-vals = np.array([-2,-1,1,2])
-sings = np.sign(vals) # vals
-diff_next = np.diff(sings) # [0, 2, 0]
-zero_crossings = np.where(diff_next) # [[1], ]
-print(vals[zero_crossings[0]]) # -1
+vals = np.array([-3,-1,1,2])
+sings = np.sign(vals) # [-1, -1, 1, 1]
+diff_next = np.diff(sings) # [0, 2, 0] # replace sing
+zero_crossings = np.where(diff_next) # [1] where (diff_next > 0)
+print(vals[zero_crossings]) # [-1] val where changing sing
