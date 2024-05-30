@@ -190,3 +190,5 @@ pip install <package_name> --upgrade
 To complie proj to pyc:
 --------------------------
 python -m compileall .
+// and run it:
+python yourfile.pyc
