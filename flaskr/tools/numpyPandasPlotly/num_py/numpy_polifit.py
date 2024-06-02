@@ -20,7 +20,7 @@ for i in range(1, 7):
         if j-i == 0:
             print(f"+ {y_est[i-j]:.2f}", end=" ")
         else:
-            print(f"+ {y_est[i-j]:.2f} X^{i-j}", end=" ")
+            print(f"+ {y_est[i-j]:.2f}*X^{i-j}", end=" ")
     print("")
 
 plt.tight_layout()
