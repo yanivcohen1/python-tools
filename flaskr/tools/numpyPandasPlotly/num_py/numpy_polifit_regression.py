@@ -11,25 +11,28 @@ for i in range(1, 7):
     y_est = np.polyfit(x_d, y_d, i)
     plt.subplot(2,3,i)
     plt.plot(x_d, y_d, 'o')
+
+    # print poly
+    formula = ""
+    for j in range(i + 1):
+        if i-j == 0:
+            formula += f'{"+" if y_est[j]>=0 else ""} {y_est[j]:.2f}'
+        else:
+            formula += f'{"+" if y_est[j]>=0 else ""}{y_est[j]:.2f}*X^{i-j} '
+    print(f"poly {i}: {formula}")
+
     # evaluate the values for a polynomial
-    plt.plot(x_d, np.polyval(y_est, x_d))
+    plt.plot(x_d, np.polyval(y_est, x_d), label=formula)
+    # plt.legend()
     np.set_printoptions(precision=2)
-    if i > 4:
+    if i > 3:
         plt.title(f'Polynomial order {i} \n {y_est[:4]} ...')
     else:
-        plt.title(f'Polynomial order {i} \n {y_est}')
+        plt.title(f'Polynomial order {i} \n {formula}')
     if i == 1:
         f = lambda X: y_est[0]*X**1 + y_est[1]
         plt.plot(x_d, f(x_d), ".")
         plt.title(f'Polynomial order {i}: \n {y_est[0]:.2f}*X^1 + {y_est[1]:.2f}')
-    # print poly
-    print(f"poly {i}: ", end="")
-    for j in range(i + 1):
-        if i-j == 0:
-            print(f"+ {y_est[j]:.2f}", end=" ")
-        else:
-            print(f"+ {y_est[j]:.2f}*X^{i-j}", end=" ")
-    print("")
 
 plt.tight_layout()
 plt.show()
