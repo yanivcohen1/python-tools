@@ -15,15 +15,15 @@ for i in range(1, 7):
     # print poly
     formula = ""
     for j in range(i + 1):
+        formula += f'{"+" if y_est[j]>=0 else ""}'
         if i-j == 0:
-            formula += f'{"+" if y_est[j]>=0 else ""} {y_est[j]:.2f}'
+            formula += f'{y_est[j]:.2f}'
         else:
-            formula += f'{"+" if y_est[j]>=0 else ""}{y_est[j]:.2f}*X^{i-j} '
+            formula += f'{y_est[j]:.2f}*X^{i-j} '
     print(f"poly {i}: {formula}")
 
     # evaluate the values for a polynomial
     plt.plot(x_d, np.polyval(y_est, x_d), label=formula)
-    # plt.legend()
     np.set_printoptions(precision=2)
     if i > 3:
         plt.title(f'Polynomial order {i} \n {y_est[:4]} ...')
