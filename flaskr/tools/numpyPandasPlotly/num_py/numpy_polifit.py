@@ -3,7 +3,6 @@ import numpy as np
 
 x_d = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8])
 y_d = np.array([0, 0.8, 0.9, 0.1, -0.6, -0.8, -1, -0.9, -0.4])
-f = lambda X: -0.19*X**1 + 0.55
 
 plt.figure(figsize = (12, 6))
 for i in range(1, 7):
@@ -14,9 +13,11 @@ for i in range(1, 7):
     plt.plot(x_d, y_d, 'o')
     # evaluate the values for a polynomial
     plt.plot(x_d, np.polyval(y_est, x_d))
-    if i == 1:
-        plt.plot(x_d, f(x_d), ".")
     plt.title(f'Polynomial order {i}')
+    if i == 1:
+        f = lambda X: y_est[0]*X**1 + y_est[1]
+        plt.plot(x_d, f(x_d), ".")
+        plt.title(f'Polynomial order {i}: {y_est[0]:.2f}*X^1 + {y_est[1]:.2f}')
     # print poly
     print(f"poly {i}: ", end="")
     for j in range(i + 1):
