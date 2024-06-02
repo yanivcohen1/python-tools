@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.fft import fft, ifft, fft2, ifft2
 import numpy as np
 
-img_load = io.imread('flaskr/tools/numpyPandasPlotly/scipy/2d_image_flower.PNG')
+img_load = io.imread('flaskr/tools/numpyPandasPlotly/sci_py/2d_image_flower.PNG')
 rgb_img = color.rgba2rgb(img_load)
 gray_img = color.rgb2gray(rgb_img)
 plt.imshow(gray_img, cmap='gray')
