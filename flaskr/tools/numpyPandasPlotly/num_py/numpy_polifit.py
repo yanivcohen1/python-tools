@@ -13,11 +13,15 @@ for i in range(1, 7):
     plt.plot(x_d, y_d, 'o')
     # evaluate the values for a polynomial
     plt.plot(x_d, np.polyval(y_est, x_d))
-    plt.title(f'Polynomial order {i}')
+    np.set_printoptions(precision=2)
+    if i > 4:
+        plt.title(f'Polynomial order {i} \n {y_est[:4]} ...')
+    else:
+        plt.title(f'Polynomial order {i} \n {y_est}')
     if i == 1:
         f = lambda X: y_est[0]*X**1 + y_est[1]
         plt.plot(x_d, f(x_d), ".")
-        plt.title(f'Polynomial order {i}: {y_est[0]:.2f}*X^1 + {y_est[1]:.2f}')
+        plt.title(f'Polynomial order {i}: \n {y_est[0]:.2f}*X^1 + {y_est[1]:.2f}')
     # print poly
     print(f"poly {i}: ", end="")
     for j in range(i + 1):
