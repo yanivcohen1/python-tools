@@ -20,7 +20,7 @@ f = lambda x : -1.5 * x**2 + 3.5 * x + 1
 
 # Plot the polynomial
 plt.plot(x_vals, y_vals, label='Polynomial Interpolation')
-plt.plot(x_vals, f(x_vals), ".", label='Polynomial Interpolation formula')
+plt.plot(x_vals, f(x_vals), ".", label='Poly find: -1.5x^2 + 3.5x + 1')
 # Plot the original data points
 plt.plot(x, y, 'ro', label='Data Points')
 
