@@ -22,7 +22,7 @@ fig.add_shape(type="line", xref="x", yref="y",
 
 # add Custom shape
 fig.add_shape(type="path",
-              path=" M 2 2 L 2 3 L 4 1 Z",
+              path=" M 2,2 L 2,3 L 4,1 Z",
               fillcolor="LightPink",
               line_color="Crimson")
 
