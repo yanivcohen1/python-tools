@@ -148,7 +148,7 @@ def main():
             ax.get_xaxis().set_visible(False)
             ax.get_yaxis().set_visible(False)
             ax.set_aspect("equal")
-            plt.pause(0.0001)
+            plt.pause(0.00001)
             outputCount += 1
 
     # Save figure
