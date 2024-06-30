@@ -48,4 +48,4 @@ for f in range(DURATION):
     frames.append(Image.fromarray(color, mode='HSV').convert('RGB'))
 
 print('Saving simulation result.')
-frames[0].save('flaskr/tools/fluid_sim/example.gif', save_all=True, append_images=frames[1:], duration=20, loop=0)
+frames[0].save('flaskr/tools/numpyPandasPlotly/fluid_sim/example.gif', save_all=True, append_images=frames[1:], duration=20, loop=0)
