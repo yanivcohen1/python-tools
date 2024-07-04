@@ -6,6 +6,7 @@ class MyClass2:
 
     def reads(self):
         print("filename:", self.filename)
+
 class MyClass:
     """Print and number lines in a text file."""
     def __init__(self, filename, num, obj):
