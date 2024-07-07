@@ -33,5 +33,6 @@ H, bins = np.histogram(data, bins=5, range=[-1, 4])
 # H += np.histogram(data[6:], bins=5,range=[-1, 4])[0]
 
 plt.bar(bins[:-1] - data[0] ,H ,width=1, edgecolor='b')
+plt.plot(bins[:-1] - data[0], H, "k")
 
 plt.show()
