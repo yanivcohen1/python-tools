@@ -11,7 +11,7 @@ n_bins = 20
 dist1 = rng.standard_normal(N_points)
 dist2 = 0.4 * rng.standard_normal(N_points) + 5
 
-fig, axs = plt.subplots(1, 2, sharey=True, tight_layout=True)
+fig, axs = plt.subplots(1, 2, tight_layout=True) # sharey=true -> share y scale, tight_layout -> tight sides space
 
 # We can set the number of bins with the *bins* keyword argument.
 axs[0].hist(dist1, bins=n_bins)
