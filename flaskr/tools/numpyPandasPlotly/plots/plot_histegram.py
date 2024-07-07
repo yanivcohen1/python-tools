@@ -22,3 +22,16 @@ axs[0].set_ylabel("how many")
 axs[1].set_xlabel("values")
 
 plt.show()
+
+# numpy histegram
+data = [-0.5, 0.5, 0.5, 0.5,
+    1.5, 2.1, 2.2, 2.3, 2.4, 2.5, 3.1, 3.2]
+
+plt.hist(data, bins=5, range=[-1, 4], histtype='step',edgecolor='r',linewidth=3)
+
+H, bins = np.histogram(data, bins=5, range=[-1, 4])
+# H += np.histogram(data[6:], bins=5,range=[-1, 4])[0]
+
+plt.bar(bins[:-1] - data[0] ,H ,width=1, edgecolor='b')
+
+plt.show()
