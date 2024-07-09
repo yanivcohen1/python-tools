@@ -27,7 +27,7 @@ setup(
       "plotly", "cufflinks", "ipykernel", "selenium", "webdriver-manager", "sympy==1.6.2", "scipy", "pycryptodome",
       "ipywidgets", "IPython", "seaborn", "nbformat", "openpyxl", "jupyterlab-mathjax3", "google-generativeai",
       "pint", "scikit-image", "streamlit", "vpython", "pygame", "numba", "pymunk", "opencv-python", "pyautogui",
-      "yfinance"
+      "yfinance", "openai"
       ], # "cupy"
     extras_require={"test": ["pytest", "coverage"]},
 )
