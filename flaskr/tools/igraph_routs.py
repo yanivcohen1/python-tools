@@ -13,7 +13,8 @@ for rout in routs:
     g.add_edges([tuple([g.vs.find(label=name).index for name in rout[1:]])])
     weights.append(rout[0])
 
-g.es['weight'] = weights # Assign weights to edges
+g.es['weight'] = weights[:-1]
+g.es['weight'] = g.es['weight'] + [weights[-1]] # for testing
 # Find all simple paths between source and destination
 all_paths = g.get_all_simple_paths(g.vs.find(label=source).index, g.vs.find(label=destination).index)
 resoults = []
