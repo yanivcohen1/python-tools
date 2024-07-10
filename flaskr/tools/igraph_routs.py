@@ -24,7 +24,7 @@ for path in all_paths:
     resoults.append({
                     "path": names,
                     "total_weight": total_weight,
-                    "num_routs": len(path)
+                    "num_routs": len(path) - 1
                     })
 sort_resoults_by_weight = sorted(resoults, key=lambda d: d['total_weight'])
 for resoult in sort_resoults_by_weight:
