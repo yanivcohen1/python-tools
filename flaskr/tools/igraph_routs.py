@@ -1,8 +1,9 @@
 import igraph as ig
+import numpy as np
 
 # Define your source and destination nodes
 source = "A"
-destination = "F"
+destination = "D"
 
 g = ig.Graph(directed=True)
 g.add_vertices(6)
@@ -19,8 +20,10 @@ g.es['weight'] = g.es['weight'] + [weights[-1]] # for testing
 all_paths = g.get_all_simple_paths(g.vs.find(label=source).index, g.vs.find(label=destination).index)
 resoults = []
 print("All possible routes from source to destination:")
-for path in all_paths:
-    total_weight = sum(g.es[e]['weight'] for e in path)
+for ind, path in enumerate(all_paths):
+    total_weight = 0
+    for i in range(len(path)-1):
+        total_weight += g.shortest_paths(path[i], path[i+1], weights='weight')[0][0]
     names = [g.vs[e]["label"] for e in path]
     resoults.append({
                     "path": names,
