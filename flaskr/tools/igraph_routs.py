@@ -1,5 +1,4 @@
 import igraph as ig
-import numpy as np
 
 # Define your source and destination nodes
 source = "A"
@@ -8,14 +7,12 @@ destination = "D"
 g = ig.Graph(directed=True)
 g.add_vertices(6)
 g.vs["label"] = ["A", "B", "C", "D", "E", "F"]  # Assign labels to nodes
+g.es['weight'] = []
 routs = [(2, "A", "B"), (1, "A", "C"), (5, "B", "D"), (4, "C", "D"), (7, "C", "E"), (3, "D", "F"), (2, "E", "F")]
-weights = []
 for rout in routs:
     g.add_edges([tuple([g.vs.find(label=name).index for name in rout[1:]])])
-    weights.append(rout[0])
+    g.es['weight'] = g.es['weight'][:-1] + [rout[0]]
 
-g.es['weight'] = weights[:-1]
-g.es['weight'] = g.es['weight'] + [weights[-1]] # for testing
 # Find all simple paths between source and destination
 all_paths = g.get_all_simple_paths(g.vs.find(label=source).index, g.vs.find(label=destination).index)
 resoults = []
