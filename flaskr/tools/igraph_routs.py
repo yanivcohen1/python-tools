@@ -29,7 +29,6 @@ fig, ax = plt.subplots(1, 1, figsize=(8, 4))
 # Plot the graph with edge weights displayed
 ig.plot(g, target=ax, edge_label=df['weight'].tolist())
 ax.set_title(f"igraph auto from panda")
-plt.show()
 
 # Find all simple paths between source and destination
 all_paths = g.get_all_simple_paths(g.vs.find(label=source).index, g.vs.find(label=destination).index)
@@ -48,3 +47,5 @@ for path in all_paths:
 sort_resoults_by_weight = sorted(resoults, key=lambda d: d['total_weight'])
 for resoult in sort_resoults_by_weight:
     print(resoult)
+
+plt.show()
