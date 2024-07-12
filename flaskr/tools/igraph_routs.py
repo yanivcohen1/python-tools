@@ -8,9 +8,11 @@ g = ig.Graph(directed=True)
 g.add_vertices(6)
 g.vs["label"] = ["A", "B", "C", "D", "E", "F"]  # Assign labels to nodes
 g.es['weight'] = []
+# build Graph from panda data_frame
+# G_airtraffic = ig.Graph.DataFrame(data_frame.loc[:, ['source', 'dest']], use_vids=False)
 routs = [(2, "A", "B"), (1, "A", "C"), (5, "B", "D"), (4, "C", "D"), (7, "C", "E"), (3, "D", "F"), (2, "E", "F")]
 for rout in routs:
-    g.add_edges([tuple([g.vs.find(label=name).index for name in rout[1:]])])
+    g.add_edges([[g.vs.find(label=name).index for name in rout[1:]]])
     g.es['weight'] = g.es['weight'][:-1] + [rout[0]]
 
 # Find all simple paths between source and destination
