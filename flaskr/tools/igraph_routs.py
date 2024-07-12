@@ -23,7 +23,7 @@ g = g.TupleList(df.itertuples(index=False),
                         vertex_name_attr='label')  # Remove 'weights=True'
 
 # Choose a layout algorithm (e.g., Kamada-Kawai)
-# g.layout("kamada_kawai")
+g.layout("kamada_kawai")
 
 fig, ax = plt.subplots(1, 1, figsize=(8, 4))
 # Plot the graph with edge weights displayed
