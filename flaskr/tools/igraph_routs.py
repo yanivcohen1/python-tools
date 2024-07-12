@@ -13,7 +13,7 @@ destination = "D"
 df = pd.DataFrame({
     'source': ['A', 'A', 'A', 'A', 'C'],
     'target': ['B', 'C', 'D', 'E', 'D'],
-    'weight': [ 1 ,  2 ,  3 ,  4 ,  5 ]
+    'weight': [ 1 ,  2 ,  8 ,  4 ,  5 ]
 })
 
 # Generate the graph
@@ -23,11 +23,11 @@ g = g.TupleList(df.itertuples(index=False),
                         vertex_name_attr='label')  # Remove 'weights=True'
 
 # Choose a layout algorithm (e.g., Kamada-Kawai)
-layout = g.layout("kamada_kawai")
+# g.layout("kamada_kawai")
 
 fig, ax = plt.subplots(1, 1, figsize=(8, 4))
 # Plot the graph with edge weights displayed
-ig.plot(g, layout=layout, target=ax, edge_label=df['weight'].tolist())
+ig.plot(g, target=ax, edge_label=df['weight'].tolist())
 ax.set_title(f"igraph auto from panda")
 plt.show()
 
@@ -38,7 +38,7 @@ print("All possible routes from source to destination sort by weights:")
 for path in all_paths:
     total_weight = 0
     for i in range(len(path)-1):
-        total_weight += g.distances(path[i], path[i+1], weights='weight')[0][0]
+        total_weight += g.es[g.get_eid(path[i], path[i+1])]['weight']
     names = [g.vs[e]["label"] for e in path]
     resoults.append({
                     "path": names,
