@@ -1,6 +1,7 @@
 import igraph as ig
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 g = ig.Graph(directed=True)
 g.add_vertices(6)
@@ -27,7 +28,9 @@ g.layout("kamada_kawai")
 
 fig, ax = plt.subplots(1, 1, figsize=(8, 4))
 # Plot the graph with edge weights displayed
-ig.plot(g, target=ax, edge_label=df['weight'].tolist())
+width = g.es["weight"]
+width_norm = np.array(width) / max(width)
+ig.plot(g, target= ax, edge_label= g.es["weight"], edge_width= width_norm*2)
 ax.set_title(f"igraph auto from panda")
 
 # Find all simple paths between source and destination
