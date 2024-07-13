@@ -3,10 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-g = ig.Graph(directed=True)
-g.add_vertices(6)
-g.vs["label"] = ["A", "B", "C", "D", "E", "F"]
-
 # Define your source and destination nodes
 source = "A"
 destination = "D"
@@ -16,6 +12,13 @@ df = pd.DataFrame({
     'target': ['B', 'C', 'D', 'E', 'D'],
     'weight': [ 1 ,  2 ,  8 ,  4 ,  5 ]
 })
+
+labels = list(set(df['source']) | set(df['target']))
+labels.sort()
+
+g = ig.Graph(directed=True)
+g.add_vertices(len(labels))
+g.vs["label"] = labels
 
 # Generate the graph
 g = g.TupleList(df.itertuples(index=False),
