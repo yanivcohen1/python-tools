@@ -27,7 +27,7 @@ g = g.TupleList(df.itertuples(index=False),
                         vertex_name_attr='label')  # Remove 'weights=True'
 
 # # to add manualy
-# g.es['weight'] = []
+# g.es['weight'] = [] # for new g and not for exist
 # routs = [(2, "A", "B"), (1, "A", "C"), (5, "B", "D"), (4, "C", "D"), (7, "C", "E"), (3, "D", "F"), (2, "E", "F")]
 # for rout in routs:
 #     for rout1 in rout[1:]:
