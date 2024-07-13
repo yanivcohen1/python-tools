@@ -26,6 +26,17 @@ g = g.TupleList(df.itertuples(index=False),
                         edge_attrs='weight',
                         vertex_name_attr='label')  # Remove 'weights=True'
 
+# # to add manualy
+# g.es['weight'] = []
+# routs = [(2, "A", "B"), (1, "A", "C"), (5, "B", "D"), (4, "C", "D"), (7, "C", "E"), (3, "D", "F"), (2, "E", "F")]
+# for rout in routs:
+#     for rout1 in rout[1:]:
+#         if rout1 not in g.vs["label"]:
+#             g.add_vertices(1)
+#             g.vs["label"] = g.vs["label"] + [rout1]
+#     g.add_edges([tuple([g.vs.find(label=name).index for name in rout[1:]])])
+#     g.es['weight'] = g.es['weight'][:-1] + [rout[0]]
+
 # Choose a layout algorithm (e.g., Kamada-Kawai)
 g.layout("kamada_kawai")
 
