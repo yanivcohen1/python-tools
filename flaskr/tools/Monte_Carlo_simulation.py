@@ -15,5 +15,7 @@ plt.hist(duration, density = True, edgecolor='white')
 plt.axvline(finish_time, color='r')
 # sum of bools ((duration > finish_time).sum())
 res = (duration > finish_time).sum()/num_sims * 100 # precentages for above finish_time
-plt.title(f"probbility of a and b done above {finish_time} hours is: {res:.2f}% and under is {(100-res):.2f}%")
+plt.title(
+f'''the probbility of a and b done in exactly {finish_time} hours
+for above {finish_time} hours is: {res:.2f}% and for under is {(100-res):.2f}%''')
 plt.show()
