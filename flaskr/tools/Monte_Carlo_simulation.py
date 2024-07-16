@@ -7,7 +7,7 @@ num_sims = 1000000 # number of trays
 A = np.random.uniform(1, 5, num_sims) # uniform prabbility between 1 to 5
 B = np.random.uniform(2, 6, num_sims) # uniform prabbility between 2 to 6
 
-duration = A + B # probbility of a and b
+duration = A + B # probbility of a and b for finish 1 and then finish 2
 
 plt.figure()
 plt.hist(duration, density = True, edgecolor='white')
