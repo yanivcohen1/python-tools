@@ -9,17 +9,18 @@ n_bins = 20
 
 # Generate two normal distributions
 dist1 = rng.standard_normal(N_points)
-dist2 = 0.4 * rng.standard_normal(N_points) + 5
+dist2 = rng.standard_normal(N_points)
 
 fig, axs = plt.subplots(1, 2, tight_layout=True) # sharey=true -> share y scale, tight_layout -> tight sides space
 
 # We can set the number of bins with the *bins* keyword argument.
 axs[0].hist(dist1, bins=n_bins)
-axs[1].hist(dist2, bins=n_bins)
+axs[1].hist(dist2, bins=n_bins, density='norm', label='norm')
 
 axs[0].set_xlabel("values")
 axs[0].set_ylabel("how many")
 axs[1].set_xlabel("values")
+axs[1].set_ylabel("probility")
 
 plt.show()
 
