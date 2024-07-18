@@ -4,15 +4,15 @@ import matplotlib.pyplot as plt
 # Generate a 1 kHz sine wave with noise
 fs = 10_000  # Sampling frequency (Hz)
 t = np.linspace(0, 1, fs, endpoint=False)
-signal =  1.5*np.sin(2 * np.pi * 1000 * t) + np.random.normal(0, 1, len(t)) + \
-          np.sin(2 * np.pi * 900 * t) + np.sin(2 * np.pi * 1100 * t)
+signal =  0.5*np.sin(2 * np.pi * 1000 * t) + 0.5*np.random.normal(0, 1, len(t)) + \
+          0.3*np.sin(2 * np.pi * 900 * t) + 0.3*np.sin(2 * np.pi * 1100 * t)
 
 # Compute the FFT of the signal
 fft_result = np.fft.fft(signal)
 freq = np.fft.fftfreq(len(t), d=1/fs)
 
 # Design a bandpass filter
-filter_wide = 150
+filter_wide = 110
 max_signal_freq = np.abs(freq[np.argmax(np.abs(fft_result))])
 lowcut, highcut = max_signal_freq-filter_wide, max_signal_freq+filter_wide  # Frequency range (Hz)
 sig_rfft_filtered = fft_result.copy()

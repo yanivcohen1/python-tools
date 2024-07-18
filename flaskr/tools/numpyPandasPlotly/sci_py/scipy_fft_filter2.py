@@ -5,7 +5,8 @@ from scipy.signal import butter, lfilter, freqz
 # Generate a 1 kHz sine wave with noise
 fs = 10_000  # Sampling frequency (Hz)
 t = np.linspace(0, 1, fs, endpoint=False)
-signal = np.sin(2 * np.pi * 1000 * t) + np.random.normal(0, 0.5, len(t))
+signal =  1.5*np.sin(2 * np.pi * 1000 * t) + np.random.normal(0, 1, len(t)) + \
+          np.sin(2 * np.pi * 900 * t) + np.sin(2 * np.pi * 1100 * t)
 
 # Compute the FFT of the signal
 fft_result = np.fft.rfft(signal)
@@ -13,7 +14,7 @@ freq = np.fft.rfftfreq(len(t), d=1/fs)
 
 max_signal_freq = freq[np.argmax(np.abs(fft_result))]
 # Design a bandpass filter
-band_wide = 10 # in hz
+band_wide = 150 # in hz
 lowcut, highcut = max_signal_freq-band_wide, max_signal_freq+band_wide  # Frequency range (Hz)
 order = 4  # Filter order
 nyq = 0.5 * fs
@@ -37,7 +38,7 @@ plt.subplot(4, 1, 2)
 plt.plot(freq, np.abs(fft_result), label='rFFT')
 plt.xlabel('Frequency (Hz)')
 plt.ylabel('Amplitude')
-plt.ylim(0, 300)
+plt.ylim(0, 1000)
 plt.legend()
 
 plt.subplot(4, 1, 3)
@@ -54,7 +55,7 @@ plt.subplot(4, 1, 4)
 plt.plot(freq, np.abs(fft_result2[0:len(freq)]), label=f'FFT filtered wide {band_wide} hz')
 plt.xlabel('Frequency (Hz)')
 plt.ylabel('Amplitude')
-plt.ylim(0, 300)
+plt.ylim(0, 1000)
 plt.legend()
 
 plt.tight_layout()
