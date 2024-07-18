@@ -1,69 +1,62 @@
-import matplotlib.pyplot as plt
 import numpy as np
-# from numpy.fft import fft, ifft
-from scipy.fftpack import fft, ifft, fftfreq
+import matplotlib.pyplot as plt
+from scipy.signal import butter, lfilter, freqz
 
-sr = 2_000
-# sampling interval
-ts = 1.0/sr
-t = np.arange(0,1,ts)
+# Generate a 1 kHz sine wave with noise
+fs = 10_000  # Sampling frequency (Hz)
+t = np.linspace(0, 1, fs, endpoint=False)
+signal =  0.2*np.sin(2 * np.pi * 1000 * t) + 0.7*np.random.normal(0, 1, len(t)) + \
+          0.1*np.sin(2 * np.pi * 900 * t) + 0.1*np.sin(2 * np.pi * 1100 * t)
 
-# generate forye serial of 3 freq 1. 4 7 and add them
-freq = 1.
-x = 3*np.sin(2*np.pi*freq*t)
+# Compute the FFT of the signal
+fft_result = np.fft.rfft(signal)
+freq = np.fft.rfftfreq(len(t), d=1/fs)
 
-freq = 4
-x += np.sin(2*np.pi*freq*t)
+max_signal_freq = freq[np.argmax(np.abs(fft_result))]
+# Design a bandpass filter
+band_wide = 150 # in hz
+lowcut, highcut = max_signal_freq-band_wide, max_signal_freq+band_wide  # Frequency range (Hz)
+order = 4  # Filter order
+nyq = 0.5 * fs
+low = lowcut / nyq
+high = highcut / nyq
+b, a = butter(order, [low, high], btype='band')
 
-freq = 7
-x += 0.5* np.sin(2*np.pi*freq*t)
+# Apply the filter
+filtered_signal = lfilter(b, a, signal)
 
-# FFT the signal
-sig_fft = fft(x)
-# copy the FFT results
-sig_fft_filtered = sig_fft.copy()
-
-# obtain the frequencies using scipy function
-freq = fftfreq(len(x), d=1./2000)
-
-# define the cut-off frequency
-cut_off = 6
-
-# high-pass filter by assign zeros to the
-# FFT amplitudes where the absolute
-# frequencies smaller than the cut-off
-sig_fft_filtered[np.abs(freq) < cut_off] = 0
-
-# get the filtered signal in time domain
-filtered = ifft(sig_fft_filtered)
-
-# plot the filtered signal
-plt.figure(figsize = (10, 7))
-plt.subplot(3, 1, 1)
-plt.plot(t, 2*filtered, label="filter signal") # mull 2 for two sides
-plt.plot(t, x, label="Original signal")
+# Plot the original signal, FFT, and filtered signal
+plt.figure(figsize=(10, 6))
+plt.subplot(4, 1, 1)
+plt.plot(t, signal, label='Original Signal')
 plt.xlabel('Time (s)')
 plt.ylabel('Amplitude')
+plt.xlim(0.10, 0.20)
 plt.legend()
-# plt.show()
 
-# plot the FFT amplitude before and after
-plt.subplot(3, 1, 2)
-# plt.subplot(121)
-plt.stem(freq, np.abs(sig_fft), 'b', \
-         markerfmt=" ", basefmt="-b")
-plt.title('Before filtering')
-plt.xlim(0, 10)
+plt.subplot(4, 1, 2)
+plt.plot(freq, np.abs(fft_result), label='rFFT')
 plt.xlabel('Frequency (Hz)')
-plt.ylabel('FFT Amplitude')
+plt.ylabel('Amplitude')
+plt.ylim(0, 1000)
+plt.legend()
 
-plt.subplot(3, 1, 3)
-# plt.subplot(122)
-plt.stem(freq, np.abs(sig_fft_filtered), 'b', \
-         markerfmt=" ", basefmt="-b")
-plt.title('After filtering')
-plt.xlim(0, 10)
+plt.subplot(4, 1, 3)
+plt.plot(t, filtered_signal, label='Filtered Signal')
+plt.xlabel('Time (s)')
+plt.ylabel('Amplitude')
+plt.xlim(0.10, 0.20)
+plt.legend()
+
+# Compute the FFT of the signal
+fft_result2 = np.fft.fft(filtered_signal)
+
+plt.subplot(4, 1, 4)
+plt.plot(freq, np.abs(fft_result2[0:len(freq)]), label=f'FFT filtered wide {band_wide} hz')
 plt.xlabel('Frequency (Hz)')
-plt.ylabel('FFT Amplitude')
+plt.ylabel('Amplitude')
+plt.ylim(0, 1000)
+plt.legend()
+
 plt.tight_layout()
 plt.show()
