@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import butter, lfilter, freqz
-from scipy.fftpack import fft, ifft, fftfreq
 
 # Generate a 1 kHz sine wave with noise
 fs = 10000  # Sampling frequency (Hz)
@@ -12,15 +11,18 @@ signal = np.sin(2 * np.pi * 1000 * t) + np.random.normal(0, 0.5, len(t))
 fft_result = np.fft.rfft(signal)
 freq = np.fft.rfftfreq(len(t), d=1/fs)
 
-# Design a bandpass filter
 max_signal_freq = freq[np.argmax(np.abs(fft_result))]
+
+# Design a bandpass filter
 lowcut, highcut = max_signal_freq-10, max_signal_freq+10  # Frequency range (Hz)
-sig_fft_filtered = fft_result.copy()
-sig_fft_filtered[(freq < lowcut) | (freq > highcut)] = 0
+order = 4  # Filter order
+nyq = 0.5 * fs
+low = lowcut / nyq
+high = highcut / nyq
+b, a = butter(order, [low, high], btype='band')
 
-# get the filtered signal in time domain
-filtered_signal = np.fft.irfft(np.abs(sig_fft_filtered))
-
+# Apply the filter
+filtered_signal = lfilter(b, a, signal)
 
 # Plot the original signal, FFT, and filtered signal
 plt.figure(figsize=(10, 6))
@@ -36,7 +38,6 @@ plt.plot(freq, np.abs(fft_result), label='rFFT')
 plt.xlabel('Frequency (Hz)')
 plt.ylabel('Amplitude')
 plt.ylim(0, 300)
-plt.xlim(0, 2000)
 plt.legend()
 
 plt.subplot(4, 1, 3)
@@ -46,12 +47,15 @@ plt.ylabel('Amplitude')
 plt.xlim(0.10, 0.20)
 plt.legend()
 
+# Compute the FFT of the signal
+fft_result2 = np.fft.rfft(filtered_signal)
+freq = np.fft.rfftfreq(len(t), d=1/fs)
+
 plt.subplot(4, 1, 4)
-plt.plot(freq, sig_fft_filtered, label='rFFT filtered')
+plt.plot(freq, np.abs(fft_result2), label='rFFT filtered')
 plt.xlabel('Frequency (Hz)')
 plt.ylabel('Amplitude')
 plt.ylim(0, 300)
-plt.xlim(0, 2000)
 plt.legend()
 
 plt.tight_layout()
