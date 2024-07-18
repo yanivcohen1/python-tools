@@ -3,7 +3,7 @@ import numpy as np
 # from numpy.fft import fft, ifft
 from scipy.fftpack import fft, ifft, fftfreq
 
-sr = 2000
+sr = 2_000
 # sampling interval
 ts = 1.0/sr
 t = np.arange(0,1,ts)

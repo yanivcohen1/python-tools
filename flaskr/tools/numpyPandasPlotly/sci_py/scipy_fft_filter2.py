@@ -4,7 +4,7 @@ from scipy.signal import butter, lfilter, freqz
 from scipy.fftpack import fft, ifft, fftfreq
 
 # Generate a 1 kHz sine wave with noise
-fs = 10000  # Sampling frequency (Hz)
+fs = 10_000  # Sampling frequency (Hz)
 t = np.linspace(0, 1, fs, endpoint=False)
 signal = np.sin(2 * np.pi * 1000 * t) + np.random.normal(0, 0.5, len(t))
 
