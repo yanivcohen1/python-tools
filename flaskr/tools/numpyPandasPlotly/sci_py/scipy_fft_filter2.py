@@ -35,7 +35,7 @@ plt.xlim(0.10, 0.20)
 plt.legend()
 
 plt.subplot(4, 1, 2)
-plt.plot(freq, np.abs(fft_result), label='FFT')
+plt.plot(freq, np.abs(fft_result), label='FFT original')
 plt.xlabel('Frequency (Hz)')
 plt.ylabel('Amplitude')
 plt.ylim(0, 300)
@@ -50,7 +50,7 @@ plt.xlim(0.10, 0.20)
 plt.legend()
 
 plt.subplot(4, 1, 4)
-plt.plot(freq, np.abs(sig_fft_filtered), label='FFT filtered') # mulltiply 2 for bout sides
+plt.plot(freq, np.abs(sig_fft_filtered), label=f'FFT filtered wide {filter_wide} hz') # mulltiply 2 for bout sides
 plt.xlabel('Frequency (Hz)')
 plt.ylabel('Amplitude')
 plt.ylim(0, 300)
