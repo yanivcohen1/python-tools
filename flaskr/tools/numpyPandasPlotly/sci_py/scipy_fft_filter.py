@@ -39,7 +39,7 @@ filtered = ifft(sig_fft_filtered)
 
 # plot the filtered signal
 plt.figure(figsize = (10, 5))
-plt.plot(t, filtered, label="filter signal")
+plt.plot(t, 2*filtered, label="filter signal") # mull 2 for two sides
 plt.plot(t, x, label="Original signal")
 plt.xlabel('Time (s)')
 plt.ylabel('Amplitude')
