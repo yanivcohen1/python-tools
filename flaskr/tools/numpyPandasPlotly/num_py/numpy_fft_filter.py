@@ -17,7 +17,7 @@ lowcut, highcut = max_signal_freq-filter_wide, max_signal_freq+filter_wide  # Fr
 sig_rfft_filtered = fft_result.copy()
 sig_rfft_filtered[(freq < lowcut) | (freq > highcut)] = 0
 sig_lfft_filtered = fft_result.copy()
-sig_lfft_filtered[(-freq < lowcut) | (-freq > highcut)] = 0
+sig_lfft_filtered[(freq > -lowcut) | (freq < -highcut)] = 0
 sig_fft_filtered = sig_rfft_filtered + sig_lfft_filtered
 # get the filtered signal in time domain
 filtered_signal = np.fft.ifft(sig_fft_filtered)
