@@ -12,7 +12,6 @@ fft_result = np.fft.rfft(signal)
 freq = np.fft.rfftfreq(len(t), d=1/fs)
 
 max_signal_freq = freq[np.argmax(np.abs(fft_result))]
-
 # Design a bandpass filter
 band_wide = 10
 lowcut, highcut = max_signal_freq-band_wide, max_signal_freq+band_wide  # Frequency range (Hz)
@@ -52,7 +51,7 @@ plt.legend()
 fft_result2 = np.fft.fft(filtered_signal)
 
 plt.subplot(4, 1, 4)
-plt.plot(freq, np.abs(fft_result2[0:len(freq)]), label='FFT filtered')
+plt.plot(freq, np.abs(fft_result2[0:len(freq)]), label=f'FFT filtered wide {band_wide} hz')
 plt.xlabel('Frequency (Hz)')
 plt.ylabel('Amplitude')
 plt.ylim(0, 300)
