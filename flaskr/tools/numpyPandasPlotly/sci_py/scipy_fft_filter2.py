@@ -1,7 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.signal import butter, lfilter, freqz
-from scipy.fftpack import fft, ifft, fftfreq
 
 # Generate a 1 kHz sine wave with noise
 fs = 10_000  # Sampling frequency (Hz)
