@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 # Generate a 1 kHz sine wave with noise
 fs = 10_000  # Sampling frequency (Hz)
 t = np.linspace(0, 1, fs, endpoint=False)
-signal =  0.5*np.sin(2 * np.pi * 1000 * t) + 0.5*np.random.normal(0, 1, len(t)) + \
-          0.3*np.sin(2 * np.pi * 900 * t) + 0.3*np.sin(2 * np.pi * 1100 * t)
+signal =  0.2*np.sin(2 * np.pi * 1000 * t) + 0.7*np.random.normal(0, 1, len(t)) + \
+          0.1*np.sin(2 * np.pi * 900 * t) + 0.1*np.sin(2 * np.pi * 1100 * t)
 
 # Compute the FFT of the signal
 fft_result = np.fft.fft(signal)
@@ -26,14 +26,14 @@ filtered_signal = np.fft.ifft(sig_fft_filtered)
 
 # Plot the original signal, FFT, and filtered signal
 plt.figure(figsize=(10, 7))
-plt.subplot(5, 1, 1)
+plt.subplot(6, 1, 1)
 plt.plot(t, signal, label='Original Signal')
 plt.xlabel('Time (s)')
 plt.ylabel('Amplitude')
 plt.xlim(0.10, 0.20)
 plt.legend()
 
-plt.subplot(5, 1, 2)
+plt.subplot(6, 1, 2)
 plt.plot(freq, np.abs(fft_result), label='FFT original')
 plt.xlabel('Frequency (Hz)')
 plt.ylabel('Amplitude')
@@ -41,14 +41,14 @@ plt.ylabel('Amplitude')
 plt.xlim(0, 2000)
 plt.legend()
 
-plt.subplot(5, 1, 3)
+plt.subplot(6, 1, 3)
 plt.plot(t, filtered_signal, label='Filtered Signal')
 plt.xlabel('Time (s)')
 plt.ylabel('Amplitude')
 plt.xlim(0.10, 0.20)
 plt.legend()
 
-plt.subplot(5, 1, 4)
+plt.subplot(6, 1, 4)
 plt.plot(freq, np.abs(sig_fft_filtered), label=f'FFT filtered wide {filter_wide}hz')
 plt.xlabel('Frequency (Hz)')
 plt.ylabel('Amplitude')
@@ -56,8 +56,19 @@ plt.ylabel('Amplitude')
 plt.xlim(0, 2000)
 plt.legend()
 
-plt.subplot(5, 1, 5)
-plt.plot(freq, np.abs(fft_result) - np.abs(sig_fft_filtered), 'r', label=f'FFT (original - filtered)')
+sig_fft_filtered_clear = np.where(np.abs(sig_fft_filtered) < 300, 0, sig_fft_filtered)
+sig_filtered_clean = np.fft.ifft(sig_fft_filtered_clear)
+
+plt.subplot(6, 1, 5)
+plt.plot(freq, sig_filtered_clean, label='clean signal')
+plt.xlabel('Time (s)')
+plt.ylabel('Amplitude')
+# plt.ylim(0, 1000)
+plt.xlim(50, 1000)
+plt.legend()
+
+plt.subplot(6, 1, 6)
+plt.plot(freq, np.abs(sig_fft_filtered_clear), label=f'FFT clean')
 plt.xlabel('Frequency (Hz)')
 plt.ylabel('Amplitude')
 # plt.ylim(0, 1000)
