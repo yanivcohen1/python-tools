@@ -13,7 +13,7 @@ freq = np.fft.rfftfreq(len(t), d=1/fs)
 
 max_signal_freq = freq[np.argmax(np.abs(fft_result))]
 # Design a bandpass filter
-band_wide = 10
+band_wide = 10 # in hz
 lowcut, highcut = max_signal_freq-band_wide, max_signal_freq+band_wide  # Frequency range (Hz)
 order = 4  # Filter order
 nyq = 0.5 * fs

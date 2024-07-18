@@ -38,24 +38,27 @@ sig_fft_filtered[np.abs(freq) < cut_off] = 0
 filtered = ifft(sig_fft_filtered)
 
 # plot the filtered signal
-plt.figure(figsize = (10, 5))
+plt.figure(figsize = (10, 7))
+plt.subplot(3, 1, 1)
 plt.plot(t, 2*filtered, label="filter signal") # mull 2 for two sides
 plt.plot(t, x, label="Original signal")
 plt.xlabel('Time (s)')
 plt.ylabel('Amplitude')
 plt.legend()
-plt.show()
+# plt.show()
 
 # plot the FFT amplitude before and after
-plt.figure(figsize = (10, 5))
-plt.subplot(121)
+plt.subplot(3, 1, 2)
+# plt.subplot(121)
 plt.stem(freq, np.abs(sig_fft), 'b', \
          markerfmt=" ", basefmt="-b")
 plt.title('Before filtering')
 plt.xlim(0, 10)
 plt.xlabel('Frequency (Hz)')
 plt.ylabel('FFT Amplitude')
-plt.subplot(122)
+
+plt.subplot(3, 1, 3)
+# plt.subplot(122)
 plt.stem(freq, np.abs(sig_fft_filtered), 'b', \
          markerfmt=" ", basefmt="-b")
 plt.title('After filtering')
