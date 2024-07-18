@@ -8,7 +8,7 @@ signal = np.sin(2 * np.pi * 1000 * t) + np.random.normal(0, 0.5, len(t))
 
 # Compute the FFT of the signal
 fft_result = np.fft.fft(signal)
-freq = np.fft.fftfreq(len(t), d=1/fs)
+freq = np.fft.fftfreq(len(t), d=1/fs)# d=1/(Sampling rate)
 
 # Design a bandpass filter
 filter_wide = 10
