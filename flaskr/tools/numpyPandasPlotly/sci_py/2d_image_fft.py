@@ -28,11 +28,12 @@ ax[0,1].set_title('fft image')
 # plt.show()
 
 # Remove low frequencies
+th = 2 # threshole
 img_FT_alt = np.copy(fft_image)
-img_FT_alt[-2:] = 0
-img_FT_alt[:,-2:] = 0
-img_FT_alt[:2] = 0
-img_FT_alt[:,:2] = 0
+img_FT_alt[-th:] = 0
+img_FT_alt[:,-th:] = 0
+img_FT_alt[:th] = 0
+img_FT_alt[:,:th] = 0
 # inverse fft in 2D
 
 ax[1,1].imshow(np.log1p(np.abs(img_FT_alt)), cmap='gray')
@@ -44,5 +45,5 @@ ax[1,0].set_title(f'filterd image')
 
 # plt.imshow(img_alt, cmap='gray')
 # plt.colorbar()
-plt.tight_layout
+plt.tight_layout()
 plt.show()
