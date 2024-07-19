@@ -32,7 +32,7 @@ def callback_panda_debug(a):
 @jit(fastmath=True)
 def g(a: np.ndarray, B: np.ndarray) -> float:
     # Some function of 'a' and 'B'
-    with objmode(y= 'float32[:,:]'):  # annotate return type integer pointer
+    with objmode(y= 'float32[:,:]'):  # annotate return type float32 2d arry
         # this region is executed by object-mode.
         y = callback_panda_debug(A)
     return 19.12 / (len(a) + len(B) + sum(y[0, :]))
