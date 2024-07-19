@@ -18,12 +18,14 @@ fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(8, 8))
 
 ax[0,0].imshow(image, cmap='gray')
 ax[0,0].set_title(f'original image')
+# fft 2d
 fft_image = np.fft.fft2(image)
 ax[0,1].imshow(np.log1p(np.abs(fft_image)), cmap='gray')
 ax[0,1].set_title('fft image')
 
 ax[1,0].imshow(filtered_image, cmap='gray')
 ax[1,0].set_title(f'filterd image')
+# fft 2d
 fft_filtered_image = np.fft.fft2(filtered_image)
 ax[1,1].imshow(np.log1p(np.abs(fft_filtered_image)), cmap='gray')
 ax[1,1].set_title('fft filterd image')
