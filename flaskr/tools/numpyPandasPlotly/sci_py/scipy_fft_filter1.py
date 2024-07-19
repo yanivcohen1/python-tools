@@ -58,8 +58,6 @@ plt.legend()
 
 threshold = 300
 sig_fft_filtered_clear = np.where(np.abs(sig_fft_filtered) < threshold, 0, sig_fft_filtered)
-# sig_fft_filtered_clear = sig_fft_filtered.copy()
-# sig_fft_filtered_clear[np.abs(sig_fft_filtered) < threshold] = 0
 sig_filtered_clean = ifft(sig_fft_filtered_clear)
 
 plt.subplot(6, 1, 5)
