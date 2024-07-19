@@ -24,7 +24,7 @@ def callback_panda_debug(a):
     b = a.reshape(-1)# same as .flatten()
     c = b[:9]
     df = pd.DataFrame(data, columns=['Numbers'])
-    res = c + np.asarray(df['Numbers'])
+    res = c + np.asarray(df['Numbers']) + 0.1
     return np.asarray(res, np.float32)
 
 # Define another function (simplified representation of your actual function)
