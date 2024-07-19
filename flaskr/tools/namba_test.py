@@ -19,7 +19,7 @@ def f(A: np.ndarray, B: np.ndarray, C: float) -> np.ndarray:
         result[i] = g(A[i], B) + C
     return result
 
-def callback_panda(x):
+def callback_panda_debug(x):
     # This code is executed by the interpreter.
     df = pd.DataFrame(data, columns=['Numbers'])
     res = np.asarray(x.tolist()) + np.asarray(df['Numbers'], np.float32)
@@ -31,7 +31,7 @@ def g(a: np.ndarray, B: np.ndarray) -> float:
     # Some function of 'a' and 'B'
     with objmode(y= 'float32[:]'):  # annotate return type integer pointer
         # this region is executed by object-mode.
-        y = callback_panda(B)
+        y = callback_panda_debug(B)
     return 19.12 / (len(a) + len(B) + sum(y))
 
 # Call the optimized function
