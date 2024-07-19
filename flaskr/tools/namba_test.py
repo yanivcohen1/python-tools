@@ -1,3 +1,5 @@
+# numba types
+# https://numba.pydata.org/numba-doc/dev/reference/types.html
 import numpy as np
 from numba import jit, objmode
 import pandas as pd
@@ -20,13 +22,14 @@ def f(A: np.ndarray, B: np.ndarray, C: float) -> np.ndarray:
 def callback_panda(x):
     # This code is executed by the interpreter.
     df = pd.DataFrame(data, columns=['Numbers'])
-    return np.asarray(x.tolist()) + np.asarray(df['Numbers'])
+    res = np.asarray(x.tolist()) + np.asarray(df['Numbers'], np.float32)
+    return np.asarray(res, np.float32)
 
 # Define another function (simplified representation of your actual function)
 @jit(fastmath=True)
 def g(a: np.ndarray, B: np.ndarray) -> float:
     # Some function of 'a' and 'B'
-    with objmode(y='intp[:]'):  # annotate return type integer pointer
+    with objmode(y= 'float32[:]'):  # annotate return type integer pointer
         # this region is executed by object-mode.
         y = callback_panda(B)
     return 19.12 / (len(a) + len(B) + sum(y))
