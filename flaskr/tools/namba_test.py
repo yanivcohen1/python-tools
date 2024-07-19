@@ -11,11 +11,11 @@ data = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 # Define a function to optimize with Numba
 @jit(nopython=True)
-def f(A: np.ndarray, B: np.ndarray) -> float:
-    total = 0.0
+def f(A: np.ndarray, B: np.ndarray, C: float) -> np.ndarray:
+    result = np.zeros(len(B), dtype=float)  # Initialize an array to store results
     for i in range(len(B)):
-        total += g(A[i], B)
-    return total
+        result[i] = g(A[i], B) + C
+    return result
 
 def bar(x):
     # This code is executed by the interpreter.
@@ -33,6 +33,6 @@ def g(a: np.ndarray, B: np.ndarray) -> float:
 
 # Call the optimized function
 start = time.time()
-result = f(A, B)
+result = f(A, B, 5.0)
 print("Result:", result)
 print(f'run toke {time.time()-start:.2f} sec')
