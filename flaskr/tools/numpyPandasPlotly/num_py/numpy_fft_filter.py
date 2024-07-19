@@ -61,11 +61,11 @@ sig_fft_filtered_clear = np.where(np.abs(sig_fft_filtered) < threshold, 0, sig_f
 sig_filtered_clean = np.fft.ifft(sig_fft_filtered_clear)
 
 plt.subplot(6, 1, 5)
-plt.plot(freq, sig_filtered_clean, label='clean signal')
+plt.plot(t, sig_filtered_clean, label='clean signal')
 plt.xlabel('Time (s)')
 plt.ylabel('Amplitude')
 # plt.ylim(0, 1000)
-plt.xlim(50, 1000)
+plt.xlim(0.10, 0.20)
 plt.legend()
 
 plt.subplot(6, 1, 6)
