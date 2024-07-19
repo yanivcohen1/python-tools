@@ -56,7 +56,8 @@ plt.ylabel('Amplitude')
 plt.xlim(0, 2000)
 plt.legend()
 
-sig_fft_filtered_clear = np.where(np.abs(sig_fft_filtered) < 300, 0, sig_fft_filtered)
+threshold = 300
+sig_fft_filtered_clear = np.where(np.abs(sig_fft_filtered) < threshold, 0, sig_fft_filtered)
 sig_filtered_clean = np.fft.ifft(sig_fft_filtered_clear)
 
 plt.subplot(6, 1, 5)
@@ -68,7 +69,7 @@ plt.xlim(50, 1000)
 plt.legend()
 
 plt.subplot(6, 1, 6)
-plt.plot(freq, np.abs(sig_fft_filtered_clear), label=f'FFT clean')
+plt.plot(freq, np.abs(sig_fft_filtered_clear), label=f'FFT clean under {threshold}')
 plt.xlabel('Frequency (Hz)')
 plt.ylabel('Amplitude')
 # plt.ylim(0, 1000)
