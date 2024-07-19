@@ -9,7 +9,7 @@ import time
 A = np.array([[2, 5], [4, 5], [0, 8], [6, 7], [1, 8], [0, 1], [1, 3], [1, 3], [2, 4]], dtype=np.int32)
 B = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1], dtype=int)
 
-data = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+data = [1., 2., 3., 4., 5., 6., 7., 8., 9.]
 
 # Define a function to optimize with Numba
 @jit(nopython=True)
@@ -22,19 +22,20 @@ def f(A: np.ndarray, B: np.ndarray, C: float) -> np.ndarray:
 def callback_panda_debug(a):
     # This code is executed by the interpreter.
     b = a.reshape(-1)# same as .flatten()
-    c = b[:9]
+    c = b[:2]
     df = pd.DataFrame(data, columns=['Numbers'])
-    res = c + np.asarray(df['Numbers']) + 0.1
-    return np.asarray(res, np.float32)
+    res = np.vstack((c , np.asarray(df['Numbers'])[:2]))
+    res1 = res + a[:2]
+    return np.asarray(res1, np.float32)
 
 # Define another function (simplified representation of your actual function)
 @jit(fastmath=True)
 def g(a: np.ndarray, B: np.ndarray) -> float:
     # Some function of 'a' and 'B'
-    with objmode(y= 'float32[:]'):  # annotate return type integer pointer
+    with objmode(y= 'float32[:,:]'):  # annotate return type integer pointer
         # this region is executed by object-mode.
         y = callback_panda_debug(A)
-    return 19.12 / (len(a) + len(B) + sum(y))
+    return 19.12 / (len(a) + len(B) + sum(y[0, :]))
 
 # Call the optimized function
 start = time.time()
