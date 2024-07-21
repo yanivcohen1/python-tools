@@ -7,11 +7,11 @@ from skimage.filters import difference_of_gaussians, window
 image = gravel()
 
 # Apply a Hann window to reduce edge artifacts
-wimage = image * window('hann', image.shape)
+wimage = image * window('hann', image.shape) # window = 1/L*sin(2pi/L)^2
 
 # Apply the Difference of Gaussians (DoG) filter
-filtered_image = difference_of_gaussians(image, 1, 12)
-filtered_wimage = filtered_image * window('hann', image.shape)
+filtered_image = difference_of_gaussians(image, 1, 12) # edges->diff = g(σ1)-g(σ2); gaussians = 1/σ*e^-[(x-µ)^2/2σ^2]
+# filtered_wimage = filtered_image * window('hann', image.shape)
 
 # Display original and filtered images
 fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(8, 8))
