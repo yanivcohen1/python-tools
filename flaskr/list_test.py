@@ -48,3 +48,6 @@ for index, num in enumerate([2, 4, 6]): print('index:', index, ' num:', num) # i
 # sort list of dict
 lst = [{"id":2, "name": "yan"}, {"id":1, "name": "tam"}]
 print(sorted(lst, key=lambda lst_i: lst_i['id']))
+
+a = [0 if i % 2 == 0 else i * 2 for i in range(6) if i < 4]
+print(a)
