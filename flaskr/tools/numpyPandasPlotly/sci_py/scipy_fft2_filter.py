@@ -10,7 +10,7 @@ gray_img = color.rgb2gray(rgb_img)
 # plt.imshow(gray_img, cmap='gray')
 # plt.show()
 
-fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(7, 6))
+fig, ax = plt.subplots(nrows=3, ncols=2, figsize=(8, 7))
 
 ax[0,0].imshow(gray_img, cmap='gray')
 ax[0,0].set_title(f'original image')
@@ -28,7 +28,7 @@ ax[0,1].set_title('fft image')
 # plt.show()
 
 # Remove low frequencies
-th = 2 # threshole
+th = 5 # threshole
 img_FT_alt = np.copy(fft_image)
 img_FT_alt[-th:] = 0
 img_FT_alt[:,-th:] = 0
@@ -36,12 +36,28 @@ img_FT_alt[:th] = 0
 img_FT_alt[:,:th] = 0
 # inverse fft in 2D
 
+# low pass filter
 ax[1,1].imshow(np.log1p(np.abs(img_FT_alt)), cmap='gray')
-ax[1,1].set_title('fft filterd image')
+ax[1,1].set_title('fft lp filterd image')
 
 img_alt = np.abs(ifft2(img_FT_alt))
 ax[1,0].imshow(img_alt, cmap='gray')
-ax[1,0].set_title(f'filterd image')
+ax[1,0].set_title(f'lp filterd image')
+
+# hith pass filter
+img_FT_alt = np.copy(fft_image)
+th = 5 # threshole
+img_FT_alt[-th:] = 0
+img_FT_alt[:,-th:] = 0
+img_FT_alt[:th] = 0
+img_FT_alt[:,:th] = 0
+hp_fft_image = fft_image - img_FT_alt
+ax[2,1].imshow(np.log1p(np.abs(hp_fft_image)), cmap='gray')
+ax[2,1].set_title('fft hp filterd image')
+
+img_alt = np.abs(ifft2(hp_fft_image))
+ax[2,0].imshow(img_alt, cmap='gray')
+ax[2,0].set_title(f'hp filterd image')
 
 # plt.imshow(img_alt, cmap='gray')
 # plt.colorbar()
