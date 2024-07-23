@@ -67,7 +67,8 @@ LEF2 = sm.lambdify((the1, the2, the1_d, the2_d, t, m_1, m_2, g), solutions[the2_
 
 # Initial conditions & Constants
 initial_conditions = [1.0, 10.0, -1.0, 3.0]  # Angle_1, Velocity_1, Angle_2, Velocity_2,
-initial_conditions_2 = [1.0, 10.0, -1.001, 3.0]  # Angle_1, Velocity_1, Angle_2, Velocity_2,
+angle_2_dt = 0.001
+initial_conditions_2 = [1.0, 10.0, -1.0+angle_2_dt, 3.0]  # Angle_1, Velocity_1, Angle_2, Velocity_2,
 
 m1_val = 2
 m2_val = 2
@@ -162,5 +163,5 @@ mass2_2, = ax.plot([x2_pendulum[0]], [y2_pendulum[0]], 'o', markersize=4*int(m2_
 
 animation = FuncAnimation(fig, update, frames=len(time_points), interval=50, blit=True)
 
-plt.title("illustration of chaos over time (start_angel2_2 = start_angel2 + 0.001)")
+plt.title(f"illustration of chaos over time (start_angel2_2 = start_angel2 + {angle_2_dt})")
 plt.show()
