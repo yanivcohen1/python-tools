@@ -14,7 +14,7 @@ filtered_image = difference_of_gaussians(image, 1, 12) # edges->diff = g(σ1)-g(
 # filtered_wimage = filtered_image * window('hann', image.shape)
 
 # Display original and filtered images
-fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(8, 8))
+fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(7, 7))
 
 ax[0,0].imshow(image, cmap='gray')
 ax[0,0].set_title(f'original image')
@@ -30,4 +30,5 @@ fft_filtered_image = np.fft.fft2(filtered_image)
 ax[1,1].imshow(np.log1p(np.abs(fft_filtered_image)), cmap='gray')
 ax[1,1].set_title('fft filterd image')
 
+plt.tight_layout()
 plt.show()

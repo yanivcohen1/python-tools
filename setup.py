@@ -28,6 +28,6 @@ setup(
       "ipywidgets", "IPython", "seaborn", "nbformat", "openpyxl", "jupyterlab-mathjax3", "google-generativeai",
       "pint", "scikit-image", "streamlit", "vpython", "pygame", "numba", "pymunk", "opencv-python", "pyautogui",
       "yfinance", "openai", "igraph", "wget"
-      ], # "cupy"
+      ], # "cupy", "flask-migrate==4.0.7"
     extras_require={"test": ["pytest", "coverage"]},
 )
