@@ -1,3 +1,4 @@
+# https://scikit-image.org/docs/stable/auto_examples/
 import matplotlib.pyplot as plt
 import numpy as np
 from skimage.data import gravel
