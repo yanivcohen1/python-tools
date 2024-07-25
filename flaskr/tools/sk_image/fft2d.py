@@ -8,7 +8,7 @@ from scipy.fft import fftn, fftshift
 image = gravel()
 # Apply a Hann window to reduce edge artifacts, window = 1/L*sin(2pi/L)^2
 wimage = image * window('hann', image.shape)  # window image to improve FFT
-# Apply the Difference of Gaussians (DoG) filter
+# Apply the Difference of Gaussians (DoG) filter (bend wide filter)
 # edges->diff = g(σ1)-g(σ2); gaussians = 1/σ*e^-[(x-µ)^2/2σ^2]
 filtered_image = difference_of_gaussians(image, 1, 12)
 filtered_wimage = filtered_image * window('hann', image.shape) # window image to improve FFT
