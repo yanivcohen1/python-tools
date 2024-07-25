@@ -1,34 +1,24 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from skimage.data import gravel
 from skimage.filters import difference_of_gaussians, window
-# import scipy.signal
-# Load an example image (you can replace this with your own image)
+from scipy.fft import fftn, fftshift
+
 image = gravel()
+wimage = image * window('hann', image.shape)  # window image to improve FFT
+filtered_image = difference_of_gaussians(image, 1, 12)
+filtered_wimage = filtered_image * window('hann', image.shape)
+im_f_mag = fftshift(np.abs(fftn(wimage)))
+fim_f_mag = fftshift(np.abs(fftn(filtered_wimage)))
 
-# Apply a Hann window to reduce edge artifacts
-wimage = image * window('hann', image.shape) # window = 1/L*sin(2pi/L)^2
-
-# Apply the Difference of Gaussians (DoG) filter
-filtered_image = difference_of_gaussians(image, 1, 12) # edges->diff = g(σ1)-g(σ2); gaussians = 1/σ*e^-[(x-µ)^2/2σ^2]
-# filtered_wimage = filtered_image * window('hann', image.shape)
-
-# Display original and filtered images
-fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(7, 7))
-
-ax[0,0].imshow(image, cmap='gray')
-ax[0,0].set_title(f'original image')
-# fft 2d
-fft_image = np.fft.fft2(image)
-ax[0,1].imshow(np.log1p(np.abs(fft_image)), cmap='gray')
-ax[0,1].set_title('fft image')
-
-ax[1,0].imshow(filtered_image, cmap='gray')
-ax[1,0].set_title(f'filterd image')
-# fft 2d
-fft_filtered_image = np.fft.fft2(filtered_image)
-ax[1,1].imshow(np.log1p(np.abs(fft_filtered_image)), cmap='gray')
-ax[1,1].set_title('fft filterd image')
-
+fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(8, 7))
+ax[0, 0].imshow(image, cmap='gray')
+ax[0, 0].set_title('Original Image')
+ax[0, 1].imshow(np.log(im_f_mag), cmap='magma')
+ax[0, 1].set_title('Original FFT Magnitude (log)')
+ax[1, 0].imshow(filtered_image, cmap='gray')
+ax[1, 0].set_title('Filtered Image')
+ax[1, 1].imshow(np.log(fim_f_mag), cmap='magma')
+ax[1, 1].set_title('Filtered FFT Magnitude (log)')
 plt.tight_layout()
 plt.show()
