@@ -10,7 +10,7 @@ wimage = image * window('hann', image.shape)  # window image to improve FFT
 # Apply the Difference of Gaussians (DoG) filter
 # edges->diff = g(σ1)-g(σ2); gaussians = 1/σ*e^-[(x-µ)^2/2σ^2]
 filtered_image = difference_of_gaussians(image, 1, 12)
-filtered_wimage = filtered_image * window('hann', image.shape)
+filtered_wimage = filtered_image * window('hann', image.shape) # window image to improve FFT
 im_f_mag = fftshift(np.abs(fftn(wimage)))
 fim_f_mag = fftshift(np.abs(fftn(filtered_wimage)))
 
