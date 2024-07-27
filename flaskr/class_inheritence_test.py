@@ -8,6 +8,7 @@ class DataClassTest():
 
 queen_of_hearts = DataClassTest('Q', 'Hearts')
 print(f'rank: {queen_of_hearts.rank}, suit: {queen_of_hearts.suit}')
+print(queen_of_hearts)
 
 class Robot(ABC):
 
