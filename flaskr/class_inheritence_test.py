@@ -1,5 +1,13 @@
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
 
+@dataclass # no need constractor
+class DataClassTest():
+    rank: str
+    suit: str
+
+queen_of_hearts = DataClassTest('Q', 'Hearts')
+print(f'rank: {queen_of_hearts.rank}, suit: {queen_of_hearts.suit}')
 
 class Robot(ABC):
 

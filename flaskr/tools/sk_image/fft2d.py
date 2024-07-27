@@ -6,7 +6,7 @@ from skimage.filters import difference_of_gaussians, window
 from scipy.fft import fftn, fftshift
 
 image = gravel()
-# Apply a Hann window to reduce edge artifacts, window = 1/L*sin(2pi/L)^2
+# Apply a Hann window to reduce edge artifacts (מלאכותי), window = 1/L*sin(2pi/L)^2
 wimage = image * window('hann', image.shape)  # window image to improve FFT
 # Apply the Difference of Gaussians (DoG) filter (bend wide filter)
 # edges->diff = g(σ1)-g(σ2); gaussians = 1/σ*e^-[(x-µ)^2/2σ^2]
