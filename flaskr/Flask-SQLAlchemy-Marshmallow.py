@@ -4,7 +4,7 @@ import json
 from dataclasses import dataclass
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
+# from flask_marshmallow import Marshmallow
 from sqlalchemy.sql import text
 
 app = Flask(__name__)
@@ -13,7 +13,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+ \
                 os.path.join(basedir, 'db.sqlite3')
 
 db = SQLAlchemy(app)
-ma = Marshmallow(app)
+# ma = Marshmallow(app)
 
 @dataclass
 class NoteModel(db.Model):
@@ -137,7 +137,7 @@ def update_note(note_id):
 @app.route('/note/<int:note_id>/', methods=["DELETE"])
 def delete_note(note_id):
     note = NoteModel.query.get(note_id)
-    
+
     db.session.delete(note)
     db.session.commit()
 
