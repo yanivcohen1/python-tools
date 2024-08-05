@@ -59,5 +59,16 @@
               "3001"
         ]
       },
+      {
+        "name": "Python:Manim",
+        "type": "python",
+        "request": "launch",
+        "module": "manim",
+        "args": [
+              "-pql",
+              "${file}",
+              "Main"
+        ]
+      }
     ]
 }
