@@ -9,6 +9,7 @@
 # https://www.youtube.com/watch?v=d9nbtyO2YcU
 from manim import *
 
+# https://docs.manim.community/en/stable/examples.html#pointmovingonshapes
 class Main(Scene):
     def construct(self):
         circle = Circle(radius=1, color=BLUE)
