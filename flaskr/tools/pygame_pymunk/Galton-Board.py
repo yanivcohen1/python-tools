@@ -3,7 +3,7 @@ from random import randrange
 import pymunk.pygame_util
 pymunk.pygame_util.positive_y_is_up = False
 
-RES = WIDTH, HEIGHT = 800, 650
+RES = WIDTH, HEIGHT = 800, 800
 FPS = 60
 
 pg.init()
