@@ -1,3 +1,3 @@
 #!/bin/bash
-ls -l
+ls -l $1
 pwd
