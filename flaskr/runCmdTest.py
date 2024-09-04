@@ -10,7 +10,7 @@ import os
 cwd = os.getcwd() # currect working dir
 print(cwd)
 if  platform.system() != "Windows":
-    result = subprocess.run(['sh ./flaskr/cmd.sh', 'C:/Temp'], stdout=subprocess.PIPE, shell=True)
+    result = subprocess.run(['sh ./flaskr/cmd.sh', '/c/Temp'], stdout=subprocess.PIPE, shell=True)
 else :
     result = subprocess.run(['sh', './flaskr/cmd.sh', 'C:/Temp'], stdout=subprocess.PIPE, shell=True)
 print(result.stdout.decode('utf-8'))
