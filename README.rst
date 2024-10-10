@@ -29,9 +29,8 @@ Create a virtualenv and activate it::
     # linux
     # for linux create virtual envirment
     sudo apt install python3.8-venv
-    $ python3 -m venv venv
-    $ . venv/bin/activate
-    sudo sh venv/bin/activate
+    $ python3 -m venv .venv
+    $ . .venv/bin/activate
 
     # windows
     $ py -m venv venv
