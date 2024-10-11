@@ -1,4 +1,5 @@
 # start this first and then run ws_server1
+# pip install websockets
 import asyncio
 from datetime import datetime
 import websockets
