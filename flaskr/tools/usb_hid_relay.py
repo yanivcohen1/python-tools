@@ -2,22 +2,27 @@
 # hid - human interface device
 # #! /usr/bin/env python3
 import time
+from enum import Enum
 import pyhid_usb_relay
+
+class Devices(Enum):
+    RELAY_1 = 1
+    RELAY_2 = 2
 
 if __name__ == "__main__":
     relay = pyhid_usb_relay.find()
     print(relay.serial)
     # Example of reading state and toggling relay #1
-    print("relay_1 is", relay.get_state(1))
-    if relay.get_state(1):
-        relay.toggle_state(1)
+    print(f"{Devices.RELAY_1.name} is", relay.get_state(Devices.RELAY_1.value))
+    if relay.get_state(Devices.RELAY_1.value):
+        relay.toggle_state(Devices.RELAY_1.value)
         time.sleep(3)
-        print("relay_1 after toggle is", relay.get_state(1))
+        print(f"{Devices.RELAY_1.name} after toggle is", relay.get_state(Devices.RELAY_1.value))
 
-    if not relay.get_state(1):
-        relay.toggle_state(1)
+    if not relay.get_state(Devices.RELAY_1.value):
+        relay.toggle_state(Devices.RELAY_1.value)
         time.sleep(3)
-        print("relay_1 after toggle is", relay.get_state(1))
+        print(f"{Devices.RELAY_1.name} after toggle is", relay.get_state(Devices.RELAY_1.value))
 
     # # You can also refer to relays by index
     # if relay[1]:
