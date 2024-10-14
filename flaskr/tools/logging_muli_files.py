@@ -6,22 +6,21 @@ from logging.handlers import RotatingFileHandler
 # logging.basicConfig(filename='connection_log.txt', level=logging.INFO, format='%(asctime)s - %(message)s')
 
 # https://stackoverflow.com/questions/24505145/how-to-limit-log-file-size-in-python
-log_formatter = logging.Formatter('%(asctime)s %(levelname)s %(funcName)s(%(lineno)d) %(message)s')
-
-logFile = 'D:\\Temp\\log\\log' # connection_log.txt
-
-my_handler = RotatingFileHandler(logFile, mode='a', maxBytes=5*1024*1024,
-                                 backupCount=2, encoding=None, delay=0)
-my_handler.setFormatter(log_formatter)
-my_handler.setLevel(logging.INFO)
-
 app_log = logging.getLogger('root')
-app_log.setLevel(logging.INFO)
 
-app_log.addHandler(my_handler)
+def init_logger():
+    log_formatter = logging.Formatter('%(asctime)s %(levelname)s %(funcName)s(%(lineno)d) %(message)s')
 
-# while True:
-#     app_log.info("data")
+    logFile = 'D:\\Temp\\log\\log' # connection_log.txt
+
+    my_handler = RotatingFileHandler(logFile, mode='a', maxBytes=5*1024*1024,
+                                    backupCount=2, encoding=None, delay=0)
+    my_handler.setFormatter(log_formatter)
+    my_handler.setLevel(logging.INFO)
+
+    app_log.setLevel(logging.INFO)
+
+    app_log.addHandler(my_handler)
 
 
 def is_connected():
@@ -50,4 +49,5 @@ def main():
         time.sleep(7)  # Check every 60 seconds
 
 if __name__ == "__main__":
+    init_logger()
     main()
