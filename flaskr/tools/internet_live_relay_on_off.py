@@ -52,8 +52,6 @@ def is_connected():
         return False
 
 def log_status(status):
-    # timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
-    # log_entry = f"{'Online' if status else 'Offline'}"
     if status:
         app_log.info("Online")
     else:
