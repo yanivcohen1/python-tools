@@ -31,27 +31,35 @@ class Devices(Enum):
     RELAY_1 = 1
     RELAY_2 = 2
 
-relay = pyhid_usb_relay.find()
-print("relay serial:", relay.serial)
-# Example of reading state and toggling relay #1
-print(f"{Devices.RELAY_1.name} is", relay.get_state(Devices.RELAY_1.value))
-
+relay = None
+try:
+    relay = pyhid_usb_relay.find()
+    print("relay serial:", relay.serial)
+    # Example of reading state and toggling relay #1
+    print(
+        f"{Devices.RELAY_1.name} is",
+        "on" if relay.get_state(Devices.RELAY_1.value) else "off",
+    )
+except Exception as e:
+    app_log.error("relay exception:" + str(e))
+    print("relay error")
 
 def off_on_relay():
     try:
         relay.toggle_state(Devices.RELAY_1.value)
         print(
             f"{Devices.RELAY_1.name} after toggle is",
-            relay.get_state(Devices.RELAY_1.value),
+            'on' if relay.get_state(Devices.RELAY_1.value) else 'off',
         )
         time.sleep(10)
         relay.toggle_state(Devices.RELAY_1.value)
         print(
             f"{Devices.RELAY_1.name} after toggle is",
-            relay.get_state(Devices.RELAY_1.value),
+            'on' if relay.get_state(Devices.RELAY_1.value) else 'off',
         )
     except Exception as e:
         app_log.error("relay exception:" + str(e))
+        print("relay error")
 
 
 def is_connected():
