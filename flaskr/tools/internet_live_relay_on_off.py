@@ -42,7 +42,7 @@ try:
     )
 except Exception as e:
     app_log.error("relay exception:" + str(e))
-    print("relay error")
+    print("relay error:", e)
 
 def off_on_relay():
     try:
@@ -59,7 +59,7 @@ def off_on_relay():
         )
     except Exception as e:
         app_log.error("relay exception:" + str(e))
-        print("relay error")
+        print("relay error:", e)
 
 
 def is_connected():
