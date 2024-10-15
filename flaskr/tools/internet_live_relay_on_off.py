@@ -36,12 +36,23 @@ print("relay serial:", relay.serial)
 # Example of reading state and toggling relay #1
 print(f"{Devices.RELAY_1.name} is", relay.get_state(Devices.RELAY_1.value))
 
+
 def off_on_relay():
-    relay.toggle_state(Devices.RELAY_1.value)
-    print(f"{Devices.RELAY_1.name} after toggle is", relay.get_state(Devices.RELAY_1.value))
-    time.sleep(10)
-    relay.toggle_state(Devices.RELAY_1.value)
-    print(f"{Devices.RELAY_1.name} after toggle is", relay.get_state(Devices.RELAY_1.value))
+    try:
+        relay.toggle_state(Devices.RELAY_1.value)
+        print(
+            f"{Devices.RELAY_1.name} after toggle is",
+            relay.get_state(Devices.RELAY_1.value),
+        )
+        time.sleep(10)
+        relay.toggle_state(Devices.RELAY_1.value)
+        print(
+            f"{Devices.RELAY_1.name} after toggle is",
+            relay.get_state(Devices.RELAY_1.value),
+        )
+    except Exception as e:
+        app_log.error("relay exception:" + str(e))
+
 
 def is_connected():
     try:
