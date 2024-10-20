@@ -8,7 +8,7 @@ def home():
     return render_template('index.html')
 
 def event_stream():
-    while True:
+    # while True:
         time.sleep(1)
         yield 'data: The time is now {}\n\n'.format(time.ctime())
 
