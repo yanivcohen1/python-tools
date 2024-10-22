@@ -1,9 +1,9 @@
 A = 1
 B = 2
 
-def my_fun(a1):
+def my_fun(a):
     global A
-    A = a1
+    A = a
 
 class Person:
     def __init__(self, name, age):
