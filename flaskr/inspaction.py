@@ -24,5 +24,5 @@ print(dir()) # all variables
 
 my_fun(5)
 print(vars().get('A')) # get values from var
-
+print(vars(p).get('name')) # get name from obj p from class Person
 print(vars()) # all variables and there values
