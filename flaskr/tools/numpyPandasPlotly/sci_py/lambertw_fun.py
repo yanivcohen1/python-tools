@@ -1,7 +1,7 @@
 from scipy.special import lambertw
 import numpy as np
 
-print("lambertw(4) ==", lambertw(4))
+print("x*e^x = 4 => x = lambertw(4) =", lambertw(4))
 
 # x = lambertw(x*e^x)
 # x*e^x = 4 => x = lambertw(4)
