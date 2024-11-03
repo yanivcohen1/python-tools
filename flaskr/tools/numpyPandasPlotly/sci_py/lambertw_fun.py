@@ -1,8 +1,7 @@
 from scipy.special import lambertw
 import numpy as np
 
-result = lambertw(4)
-print(result)
+print("lambertw(4) ==", lambertw(4))
 
 # x = lambertw(x*e^x)
 # x^x=4
@@ -11,7 +10,10 @@ print(result)
 # y = ln(x) = W(ln(4))
 # x = e^W(ln(4)) => x = 2
 print("x^x = 4")
-print("x = e^W(ln(4)) => x =",np.real(np.exp(lambertw(np.log(4)))))
+x = np.real(np.exp(lambertw(np.log(4))))
+print("x = e^W(ln(4)) => x =", x)
+print("x^x =", x**x)
+print()
 
 # 0.5^x = x
 # 0.5 = x ^ 1/x
@@ -21,4 +23,6 @@ print("x = e^W(ln(4)) => x =",np.real(np.exp(lambertw(np.log(4)))))
 # -ln(x) = W(-ln(0.5))
 # x = e^-W(-ln(0.5)) =~ 0.641
 print("0.5^x = x")
-print("x = e^-W(-ln(0.5)) => x =",np.real(np.exp(-lambertw(-np.log(0.5)))))
+x = np.real(np.exp(-lambertw(-np.log(0.5))))
+print("x = e^-W(-ln(0.5)) => x =", x)
+print("0.5^x =", 0.5**x)
