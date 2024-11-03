@@ -16,7 +16,7 @@ print("x^x =", x**x)
 print()
 
 # 0.5^x = x
-# 0.5 = x ^ 1/x
+# x ^ 1/x = 0.5
 # ln(0.5) = 1/x * ln(x), y = ln(x) => 1/x = 1/e^y = e^-y
 # -y*e^-y = -ln(0.5) => W(-y) = W(-ln(0.5))
 # W(-ln(x)) = W(-ln(0.5))
@@ -25,4 +25,4 @@ print()
 print("0.5^x = x")
 x = np.real(np.exp(-lambertw(-np.log(0.5))))
 print("x = e^-W(-ln(0.5)) => x =", x)
-print("0.5^x =", 0.5**x)
+print("x^1/x =", x**(1/x))
