@@ -21,4 +21,4 @@ print("x = e^W(ln(4)) => x =",np.real(np.exp(lambertw(np.log(4)))))
 # -ln(x) = W(-ln(0.5))
 # x = e^-W(-ln(0.5)) =~ 0.641
 print("0.5^x = x")
-print("x = e^-W(ln(0.5)) => x =",np.real(np.exp(-lambertw(-np.log(0.5)))))
+print("x = e^-W(-ln(0.5)) => x =",np.real(np.exp(-lambertw(-np.log(0.5)))))
