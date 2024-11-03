@@ -1,11 +1,10 @@
 from scipy.special import lambertw
 import numpy as np
 
-print("x*e^x = 4 => x = lambertw(4) =", lambertw(4))
-
 # x = lambertw(x*e^x)
 # x*e^x = 4 => x = lambertw(4)
 # https://www.youtube.com/watch?v=6x1dUo7S5UE
+print("x*e^x = 4 => x = lambertw(4) =", lambertw(4))
 
 # x^x=4
 # x*ln(x) = ln(4) , y = ln(x) => x=e^y
