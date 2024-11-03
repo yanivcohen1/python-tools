@@ -1,8 +1,9 @@
 from scipy.special import lambertw
 import numpy as np
 
-# x = lambertw(x*e^x)
-# x*e^x = 4 => x = lambertw(4)
+# x*e^x = 4
+# W(x*e^x) = W(4)
+# x = W(4)
 # https://www.youtube.com/watch?v=6x1dUo7S5UE
 print("x*e^x = 4 => x = lambertw(4) =", lambertw(4))
 
