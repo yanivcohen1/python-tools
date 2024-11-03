@@ -4,6 +4,7 @@ import numpy as np
 print("lambertw(4) ==", lambertw(4))
 
 # x = lambertw(x*e^x)
+# x*e^x = 4 => x = lambertw(4)
 # https://www.youtube.com/watch?v=6x1dUo7S5UE
 
 # x^x=4
