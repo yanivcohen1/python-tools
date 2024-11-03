@@ -22,7 +22,7 @@ print()
 # W(-ln(x)) = W(-ln(0.5))
 # -ln(x) = W(-ln(0.5))
 # x = e^-W(-ln(0.5)) =~ 0.641
-print("0.5^x = x")
+print("0.5^x = x  => x^1/x = 0.5")
 x = np.real(np.exp(-lambertw(-np.log(0.5))))
 print("x = e^-W(-ln(0.5)) => x =", x)
 print("x^1/x =", x**(1/x))
