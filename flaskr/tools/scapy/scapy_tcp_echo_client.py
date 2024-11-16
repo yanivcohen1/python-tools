@@ -5,7 +5,7 @@ from scapy.layers.inet import UDP, TCP, IP, Ether
 # https://gist.github.com/richarddun/1bb11d32cafc394efbcb8f4a8b6cb130
 # url to ip4: https://www.nslookup.io/website-to-ip-lookup/
 
-SERVER = "192.168.1.155" #"142.250.191.46 #google" #  # "manager1: python3 tcp_echo_client.py"
+SERVER = "192.168.0.155" #"142.250.191.46 #google" #  # "manager1: python3 tcp_echo_client.py"
 PORT = 5000 # 50
 
 def stopfilter(x):
@@ -39,4 +39,3 @@ while True:
             rawr = Raw(l)
             # rawr.show()
             print("client rcv payload: " + l.decode())
-
