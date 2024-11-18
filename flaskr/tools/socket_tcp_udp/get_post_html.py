@@ -29,6 +29,7 @@ def send_rcv_cookies_and_download_file():
     headers={"Content-Type":"json"}
     response = session.post(url, allow_redirects=True, headers=headers, cookies=cookies, json = myJson)
     open('google.ico', 'wb').write(response.content) # download file
+    session.cookies.set("cookie_name", "cookie_value")
     print("print the cookies", session.cookies.get_dict())
     print("print the headers", response.headers)
     print("json of response", response.json)
