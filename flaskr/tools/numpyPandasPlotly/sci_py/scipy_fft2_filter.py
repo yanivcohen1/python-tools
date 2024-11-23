@@ -21,7 +21,7 @@ fy = np.fft.fftfreq(gray_img.shape[0],d=10) #suppose the spacing between pixels 
 fx = np.fft.fftfreq(gray_img.shape[1],d=10)
 print('{:.2f} correponds to fx={:.6f} and fy={:.6f}'.format(fft_image[10,20], fx[20], fy[10]))
 
-ax[0,1].imshow(np.log1p(np.abs(fft_image)), cmap='gray')
+p1 = ax[0,1].imshow(np.log1p(np.abs(fft_image)), cmap='gray')
 ax[0,1].set_title('fft image')
 # plt.imshow(np.abs(img_FT), cmap='gray', vmax=50)
 # plt.colorbar()
@@ -37,7 +37,7 @@ img_FT_alt[:,:th] = 0
 # inverse fft in 2D
 
 # low pass filter
-ax[1,1].imshow(np.log1p(np.abs(img_FT_alt)), cmap='gray')
+p2 = ax[1,1].imshow(np.log1p(np.abs(img_FT_alt)), cmap='gray')
 ax[1,1].set_title('fft lp filterd image')
 
 img_alt = np.abs(ifft2(img_FT_alt))
@@ -52,7 +52,7 @@ img_FT_alt[:,-th:] = 0
 img_FT_alt[:th] = 0
 img_FT_alt[:,:th] = 0
 hp_fft_image = fft_image - img_FT_alt
-ax[2,1].imshow(np.log1p(np.abs(hp_fft_image)), cmap='gray')
+p3 = ax[2,1].imshow(np.log1p(np.abs(hp_fft_image)), cmap='gray')
 ax[2,1].set_title('fft hp filterd image')
 
 img_alt = np.abs(ifft2(hp_fft_image))
@@ -61,5 +61,8 @@ ax[2,0].set_title(f'hp filterd image')
 
 # plt.imshow(img_alt, cmap='gray')
 # plt.colorbar()
+plt.colorbar(p1)
+plt.colorbar(p2)
+plt.colorbar(p3)
 plt.tight_layout()
 plt.show()
