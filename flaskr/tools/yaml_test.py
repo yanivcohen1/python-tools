@@ -8,5 +8,4 @@ with open(currentDir + '/config_dev.yml', 'r') as file:
 print(prime_service_dict['rest']['url']) # https://example.org/primenumbers/v1
 port = prime_service_dict['rest']['port']
 print(port) # 8443
-print(type(port)) # <class 'int'>
-print(isinstance(port, int)) # True
+print(type(port) is int) # <class 'int'>
