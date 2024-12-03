@@ -11,6 +11,8 @@ def process_out_packet(packet):
     if packet.haslayer(HTTPRequest) and packet[IP].dst == target_ip:
         # Modify the HTTP request
         print(packet)
+        if packet.haslayer(Raw) and b'application/json' in packet[HTTPRequest].Content_Type:
+            print("payload:", packet[Raw].load)
         if packet[HTTPRequest].Path == b"/user/" and packet.haslayer(Raw):
             payload_bin = packet[Raw].load
             payload_dict = json.loads(payload_bin)
@@ -26,8 +28,8 @@ def process_out_packet(packet):
         # sendp(packet) # , iface="eth0"
 
     if packet.haslayer(HTTPResponse) and packet[IP].src == target_ip:
-        if packet.haslayer(Raw):
-            print(packet[Raw].load)
+        if packet.haslayer(Raw) and b'application/json' in packet[HTTPResponse].Content_Type:
+            print("response:",packet[Raw].load)
 
 # Sniff HTTP packets from the specified IP and port
 sniff(filter=f"tcp and host {target_ip} and port {target_port}", prn=process_out_packet, store=False)
