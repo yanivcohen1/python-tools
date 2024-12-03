@@ -29,7 +29,8 @@ def process_out_packet(packet):
 
     if packet.haslayer(HTTPResponse) and packet[IP].src == target_ip:
         if packet.haslayer(Raw) and b'application/json' in packet[HTTPResponse].Content_Type:
-            print("response:",packet[Raw].load)
+            if packet[Raw].load != b'[]':
+                print("response:",packet[Raw].load)
 
 # Sniff HTTP packets from the specified IP and port
 sniff(filter=f"tcp and host {target_ip} and port {target_port}", prn=process_out_packet, store=False)
