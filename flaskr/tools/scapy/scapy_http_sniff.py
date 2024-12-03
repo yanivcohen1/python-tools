@@ -7,7 +7,7 @@ from scapy.layers.inet import UDP, TCP, IP, Ether
 target_ip = "54.187.16.171"
 target_port = 80
 
-def process_out_packet(packet):
+def process_packet(packet):
     if packet.haslayer(HTTPRequest) and packet[IP].dst == target_ip:
         # Modify the HTTP request
         print(packet)
@@ -33,4 +33,4 @@ def process_out_packet(packet):
                 print("response:",packet[Raw].load)
 
 # Sniff HTTP packets from the specified IP and port
-sniff(filter=f"tcp and host {target_ip} and port {target_port}", prn=process_out_packet, store=False)
+sniff(filter=f"tcp and host {target_ip} and port {target_port}", prn=process_packet, store=False)
