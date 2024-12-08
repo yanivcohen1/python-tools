@@ -1,6 +1,6 @@
+import time
 import os
 import psutil
-import time
 
 
 def memory_usage():
