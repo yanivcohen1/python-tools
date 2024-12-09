@@ -6,7 +6,7 @@ Start-Sleep -Milliseconds 100
 $memoryUsage = (Get-Process -Id $process.Id).WorkingSet64 / (1024 * 1024)
 $process.WaitForExit()
 $cpuTime = $process.TotalProcessorTime.TotalMilliseconds / 1000
-# $memoryUsage = (Get-Process -Id $process.Id).WorkingSet64
+# $memoryUsage = $process.PrivateMemorySize64 / (1024 * 1024)
 
 Write-Output "CPU Time: $cpuTime sec"
 Write-Output "Memory Usage: $memoryUsage Mb"
