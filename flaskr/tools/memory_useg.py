@@ -8,4 +8,4 @@ def memory_usage():
     return process.memory_info().rss / (1024 * 1024)
 
 
-print(f'memory useg: {memory_usage():.2f} MB')
+print(f'memory useg: {memory_usage():.2f} MB') # matches “Mem Usage” column of taskmgr.exe.
