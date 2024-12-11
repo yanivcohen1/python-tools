@@ -4,5 +4,17 @@
     // "python.linting.pylintEnabled": true,
     // "python.linting.enabled": true
     "python.languageServer": "Default",
-    "esbonio.sphinx.confDir": ""
+    "esbonio.sphinx.confDir": "",
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        ".",
+        "-p",
+        "test_*.py"
+    ],
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestArgs": [
+      "flaskr/tools/py_test"
+    ]
 }
