@@ -1,4 +1,5 @@
 
+# all tested need to be in format test_*.py
 # run the all tests ">pytest"
 # run the spcific tests ">pytest -q test_class.py"
 from unittest import mock
