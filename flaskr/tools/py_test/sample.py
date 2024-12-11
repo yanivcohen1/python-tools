@@ -2,10 +2,13 @@ import random
 import time
 import requests
 
+def my_str(strs):
+    return ""
+
 def random_sum():
     a = random.randint(1, 10)
     b = random.randint(1,7)
-    return a + b
+    return a + b if not my_str("test") else my_str("mock")
 
 def silly():
     params = {

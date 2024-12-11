@@ -49,3 +49,13 @@ def test_silly(mock_requests_get, mock_time, mock_randint):
     mock_requests_get.return_value = mock.Mock(**{"status_code": 200,
                         "json.return_value": {"args": test_params}})
     assert silly() == test_params
+
+
+def my_side_effect2(strs):
+    return strs
+
+@mock.patch("flaskr.tools.py_test.sample.my_str")
+def test_my_random_sum2(mock_my_str):
+    mock_my_str.side_effect = my_side_effect2
+    assert random_sum() == "mock"
+    mock_my_str.assert_has_calls(calls=[call("mock")])
