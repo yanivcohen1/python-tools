@@ -51,11 +51,11 @@ def test_silly(mock_requests_get, mock_time, mock_randint):
     assert silly() == test_params
 
 
-def my_side_effect2(strs):
+def my_str(strs):
     return strs
 
 @mock.patch("flaskr.tools.py_test.sample.my_str")
 def test_my_random_sum2(mock_my_str):
-    mock_my_str.side_effect = my_side_effect2
+    mock_my_str.side_effect = my_str
     assert random_sum() == "mock"
     mock_my_str.assert_has_calls(calls=[call("mock")])
