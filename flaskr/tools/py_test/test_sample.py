@@ -2,18 +2,13 @@
 # all tested need to be in format test_*.py
 # in file setup.cfg in section [tool:pytest] testpaths=flaskr/tools/py_test
 # in settings.json
-""" "python.testing.unittestArgs": [
-        "-v",
-        "-s",
-        ".flaskr/tools/py_test",
-        "-p",
-        "test_*.py"
-    ],
-    "python.testing.pytestEnabled": true,
-    "python.testing.unittestEnabled": false,
-    "python.testing.pytestArgs": [
-      "flaskr/tools/py_test"
-    ] """
+"""
+"python.testing.pytestEnabled": true,
+"python.testing.unittestEnabled": false,
+"python.testing.pytestArgs": [
+  "flaskr/tools/py_test"
+]
+"""
 # run the all tests ">pytest"
 # run the spcific tests ">pytest -q test_class.py"
 # from testing tab select tests to run or debug
