@@ -16,7 +16,7 @@
     ] """
 # run the all tests ">pytest"
 # run the spcific tests ">pytest -q test_class.py"
-# from testing tab select tests to run
+# from testing tab select tests to run or debug
 from unittest import mock
 from unittest.mock import call
 from flaskr.tools.py_test.sample import random_sum, silly
