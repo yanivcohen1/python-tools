@@ -27,6 +27,15 @@ def test_random_sum(mock_randint):
     assert random_sum() == 7
     mock_randint.assert_has_calls(calls=[call(1, 10), call(1, 7)])
 
+def my_side_effect(num1 , num2):
+    return num2 + 1
+
+@mock.patch("flaskr.tools.py_test.sample.random.randint")
+def test_my_random_sum(mock_randint):
+    mock_randint.side_effect = my_side_effect
+    assert random_sum() == 19
+    mock_randint.assert_has_calls(calls=[call(1, 10), call(1, 7)])
+
 @mock.patch("flaskr.tools.py_test.sample.random.randint")
 @mock.patch("flaskr.tools.py_test.sample.time.time")
 @mock.patch("flaskr.tools.py_test.sample.requests.get")
