@@ -1,17 +1,19 @@
 
+# run the all tests ">pytest"
+# run the spcific tests ">pytest -q test_class.py"
 from unittest import mock
 from unittest.mock import call
 from flaskr.tools.py_test.sample import random_sum, silly
 
-@mock.patch("tut10.myapp.sample.random.randint")
+@mock.patch("flaskr.tools.py_test.sample.random.randint")
 def test_random_sum(mock_randint):
     mock_randint.side_effect = [3, 4]
     assert random_sum() == 7
     mock_randint.assert_has_calls(calls=[call(1, 10), call(1, 7)])
 
-@mock.patch("tut10.myapp.sample.random.randint")
-@mock.patch("tut10.myapp.sample.time.time")
-@mock.patch("tut10.myapp.sample.requests.get")
+@mock.patch("flaskr.tools.py_test.sample.random.randint")
+@mock.patch("flaskr.tools.py_test.sample.time.time")
+@mock.patch("flaskr.tools.py_test.sample.requests.get")
 def test_silly(mock_requests_get, mock_time, mock_randint):
     test_params = {
         "timestamp": 123,
