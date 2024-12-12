@@ -66,6 +66,7 @@ def test_silly2(mock_requests_get, mock_time, mock_randint):
     }
     mock_time.return_value = test_params['timestamp']
     mock_randint.return_value = 5
-    mock_requests_get.return_value.status_code = 200
-    mock_requests_get.return_value.json.return_value = {"args": test_params} # all fun need return_value
+    req_get_ret_val = mock_requests_get.return_value
+    req_get_ret_val.status_code = 200
+    req_get_ret_val.json.return_value = {"args": test_params} # all fun need return_value
     assert silly() == test_params
