@@ -13,7 +13,7 @@
 # run the spcific tests ">pytest -q test_class.py"
 # from testing tab select tests to run or debug
 from unittest import mock
-from unittest.mock import call, patch
+from unittest.mock import call, patch, ANY
 from flaskr.tools.py_test.sample import random_sum, silly
 
 @patch("flaskr.tools.py_test.sample.random.randint")
@@ -42,7 +42,7 @@ def test_silly(mock_requests_get, mock_time, mock_randint):
     mock_time.return_value = test_params['timestamp']
     mock_randint.return_value = 5
     mock_requests_get.return_value = mock.Mock(**{"status_code": 200,
-                        "json.return_value": {"args": test_params}})
+                        "json.return_value": {"args": test_params}}) # all fun need return_value
     assert silly() == test_params
 
 
@@ -54,3 +54,18 @@ def test_my_random_sum2(mock_my_str):
     mock_my_str.side_effect = my_str
     assert random_sum() == "mock"
     mock_my_str.assert_has_calls(calls=[call("mock")])
+
+
+@patch("flaskr.tools.py_test.sample.random.randint")
+@patch("flaskr.tools.py_test.sample.time.time")
+@patch("flaskr.tools.py_test.sample.requests.get")
+def test_silly2(mock_requests_get, mock_time, mock_randint):
+    test_params = {
+        "timestamp": 123,
+        "number": 5
+    }
+    mock_time.return_value = test_params['timestamp']
+    mock_randint.return_value = 5
+    mock_requests_get.return_value.status_code = 200
+    mock_requests_get.return_value.json.return_value = {"args": test_params} # all fun need return_value
+    assert silly() == test_params
