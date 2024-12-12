@@ -13,10 +13,10 @@
 # run the spcific tests ">pytest -q test_class.py"
 # from testing tab select tests to run or debug
 from unittest import mock
-from unittest.mock import call
+from unittest.mock import call, patch
 from flaskr.tools.py_test.sample import random_sum, silly
 
-@mock.patch("flaskr.tools.py_test.sample.random.randint")
+@patch("flaskr.tools.py_test.sample.random.randint")
 def test_random_sum(mock_randint):
     mock_randint.side_effect = [3, 4] # first run return 3 second run return 4
     assert random_sum() == 7
@@ -25,15 +25,15 @@ def test_random_sum(mock_randint):
 def my_side_effect(num1 , num2):
     return num2 + 1
 
-@mock.patch("flaskr.tools.py_test.sample.random.randint")
+@patch("flaskr.tools.py_test.sample.random.randint")
 def test_my_random_sum(mock_randint):
     mock_randint.side_effect = my_side_effect
     assert random_sum() == 19
     mock_randint.assert_has_calls(calls=[call(1, 10), call(1, 7)])
 
-@mock.patch("flaskr.tools.py_test.sample.random.randint")
-@mock.patch("flaskr.tools.py_test.sample.time.time")
-@mock.patch("flaskr.tools.py_test.sample.requests.get")
+@patch("flaskr.tools.py_test.sample.random.randint")
+@patch("flaskr.tools.py_test.sample.time.time")
+@patch("flaskr.tools.py_test.sample.requests.get")
 def test_silly(mock_requests_get, mock_time, mock_randint):
     test_params = {
         "timestamp": 123,
@@ -49,7 +49,7 @@ def test_silly(mock_requests_get, mock_time, mock_randint):
 def my_str(strs):
     return strs
 
-@mock.patch("flaskr.tools.py_test.sample.my_str")
+@patch("flaskr.tools.py_test.sample.my_str")
 def test_my_random_sum2(mock_my_str):
     mock_my_str.side_effect = my_str
     assert random_sum() == "mock"
