@@ -18,13 +18,25 @@ from flaskr.tools.py_test.sample import random_sum, silly
 
 
 class MyTestCase(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        # Code to set up class-wide fixtures
+        cls.shared_resource = "Shared Resource"
+        print("setUpClass: Shared resource initialized")
+
+    @classmethod
+    def tearDownClass(cls):
+        # Code to clean up class-wide fixtures
+        cls.shared_resource = None
+        print("tearDownClass: Shared resource cleaned up")
+
     def setUp(self):
-        # Code to set up test fixtures Runs once before any or all test methods in the class
+        # Code to set up test fixtures Runs once before any test methods in the class
         self.resource = "SetUp Resource"
         print("setUp: Resource initialized")
 
     def tearDown(self):
-        # Code to tear down test fixtures Runs once after all test methods in the class
+        # Code to tear down test fixtures Runs once after any test methods in the class
         self.resource = None
         print("tearDown: Resource cleaned up")
 
