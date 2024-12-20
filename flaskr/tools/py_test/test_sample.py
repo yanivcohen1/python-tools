@@ -82,10 +82,18 @@ class MyTestCase(unittest.TestCase):
     def test_silly2(self, mock_requests_get, mock_time, mock_randint):
         test_params = {"timestamp": 123, "number": 5}
         mock_time.return_value = test_params["timestamp"]
-        mock_randint.return_value = 5
+        mock_randint.return_value = test_params["number"]
         req_get_ret_val = mock_requests_get.return_value
         req_get_ret_val.status_code = 200
         req_get_ret_val.json.return_value = {
             "args": test_params
         }  # all fun need return_value
         assert silly() == test_params
+
+    @patch("flaskr.tools.py_test.sample.random.randint")
+    @patch("flaskr.tools.py_test.sample.time.time")
+    def test_silly3(self, mock_time, mock_randint):
+        test_params = {"timestamp": '123', "number": '5'}
+        mock_time.return_value = int(test_params["timestamp"])
+        mock_randint.return_value = int(test_params["number"])
+        assert silly() == test_params # this will actualy get from the url
