@@ -7,10 +7,10 @@ myvar = [{'This': 'is', 'Example': 1}, 'of',
 
 print("To serialized msg:", myvar)
 # Use dumps() to make it serialized
-serialized = pickle.dumps(myvar)
-print("serialized msg:", serialized)
+serialized_bytes = pickle.dumps(myvar)
+print("serialized msg:", serialized_bytes)
 
-unSerialized = pickle.loads(serialized)
+unSerialized = pickle.loads(serialized_bytes)
 print("UnSerialized msg:", unSerialized)
 
 # -------------------------------------------------------
