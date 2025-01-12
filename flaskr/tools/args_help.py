@@ -14,4 +14,5 @@ args = parser.parse_args()
 print(f'file_path: {args.file_path}')
 print(f'key_path: {args.key_path}')
 print(f'decrypt: {args.decrypt}')
-# usege: python args_help.py -f "file_path\fileName.extention.aes" -k "file_path\keys.key" -d
+# for help use: python args_help.py -h
+# usege: python .\args_help.py "file_path\fileName.extention.aes" "file_path\keys.key" -d false
