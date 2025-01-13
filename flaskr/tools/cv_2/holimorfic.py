@@ -3,7 +3,7 @@ import cv2
 from matplotlib import pyplot as plt
 # from scipy.fft import fft, ifft, fft2, ifft2
 
-gray_img = cv2.imread('flaskr/tools/sk_image/holimorfic.png', cv2.IMREAD_GRAYSCALE)
+gray_img = cv2.imread('flaskr/tools/cv_2/holimorfic.png', cv2.IMREAD_GRAYSCALE)
 #Load the image 'me2.jpg' in grayscale
 # gray_img = cv2.imread(r'C:\pyProj\yaniv\test\holimorfic.png', 0) # Read the image in grayscale
 #Homomorphic filter function
