@@ -28,7 +28,7 @@ setup(
       "ipywidgets", "IPython", "seaborn", "nbformat", "openpyxl", "jupyterlab-mathjax3", "google-generativeai",
       "pint", "scikit-image", "streamlit", "vpython", "pygame", "numba", "pymunk", "opencv-python", "pyautogui",
       "yfinance", "openai", "igraph", "wget", "marshmallow_sqlalchemy==1.0.0", "manim", "pyhid-usb-relay", "pywin32",
-      "websockets", "pyyaml", "pytest"
+      "websockets", "pyyaml", "pytest", "beautifulsoup4"
       ], # "cupy", "flask-migrate==4.0.7"
     extras_require={"test": ["pytest", "coverage"]},
 )
