@@ -57,8 +57,12 @@ rows = []
 for row in table.find_all('tr')[1:]:  # Skip the header row
     rows.append([cell.text for cell in row.find_all('td')])
 
+row_names = ['Row1', 'Row2']
 # Create the DataFrame
-df = pd.DataFrame(rows, columns=headers)
+df = pd.DataFrame(rows, columns=headers, index=row_names)
 
 # Display the DataFrame
 print(df)
+print('Column2 is',df['Column2'][0:2].values)
+element = df.loc['Row2', 'Column2']
+print('row2 column2 is:', element)
