@@ -26,6 +26,7 @@ default Git version is the master branch. ::
 
 update python and pip
     $ python -m pip install --upgrade pip
+
 Create a virtualenv and activate it::
 
     # linux
