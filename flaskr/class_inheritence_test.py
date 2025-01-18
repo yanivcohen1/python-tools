@@ -10,6 +10,11 @@ queen_of_hearts = DataClassTest('Q', 'Hearts')
 print(f'rank: {queen_of_hearts.rank}, suit: {queen_of_hearts.suit}')
 print(queen_of_hearts)
 
+class Animal1():
+    a="internal"
+Animal1.b="dymamic" # add new field to class
+print(Animal1.a, Animal1.b)
+
 class Robot():
 
     def __init__(self, name):
