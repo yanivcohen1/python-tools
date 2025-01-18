@@ -10,7 +10,7 @@ queen_of_hearts = DataClassTest('Q', 'Hearts')
 print(f'rank: {queen_of_hearts.rank}, suit: {queen_of_hearts.suit}')
 print(queen_of_hearts)
 
-class Robot(ABC):
+class Robot():
 
     def __init__(self, name):
         self.name = name
@@ -38,9 +38,9 @@ class Robot(ABC):
     def say_hi5():
         print("Hi5, I am ")
 
-    #@abstractmethod # mast be implemented by the inherted class, can't create this class
-    # def say_hi6():
-    #    raise Exception("this is en error")
+    @abstractmethod # mast be implemented by the inherted class, can't create this class
+    def say_hi6(self):
+        print("Hi6, I am ")
 
 class PhysicianRobot(Robot):
 
@@ -48,10 +48,10 @@ class PhysicianRobot(Robot):
         print(self.name + " takes care of you!")
         super().say_hi4()
 
-    def say_hi6():
+    def say_hi6(self):
         print("Hi6, I am ")
 
-robot = Robot("Marvin")
+robot = Robot("Marvin") # can't create object of abstract class
 physicianRobot = PhysicianRobot("James")
 
 print(robot, type(robot))
@@ -59,6 +59,7 @@ print(physicianRobot, type(physicianRobot))
 
 physicianRobot.say_hi()
 physicianRobot.say_hi2()
+physicianRobot.say_hi6()
 
 print(robot.__dict__) # display obj as dictionary
 print(type(robot).__name__) # print Robot
