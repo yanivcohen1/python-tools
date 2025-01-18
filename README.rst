@@ -45,6 +45,8 @@ Create a virtualenv and activate it::
 
     # test it in cmd
     where python
+    # or in PS
+    python -v # control+Z to exit
     # in linux
     which python
 
