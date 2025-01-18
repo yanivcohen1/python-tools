@@ -34,6 +34,9 @@ Create a virtualenv and activate it::
 
     # windows
     $ py -m venv venv
+    # Create a virtual environment using the full path to the Python executable version X.Y
+    $ /path/to/spcific_python_version/python.exe -m venv myenv
+
     $ venv\Scripts\activate.bat
     $ venv\Scripts\activate
 
