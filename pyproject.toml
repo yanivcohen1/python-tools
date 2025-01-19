@@ -1,0 +1,48 @@
+[project]
+name = "flaskr" # project nmae
+version = "1.0.0"
+description = "The basic blog app built in the Flask tutorial"
+readme = "README.rst"
+requires-python = "~=3.10"
+license = {text = "MIT"}
+dependencies = ["flask==1.1.2", "marshmallow-dataclass==8.4.1", "marshmallow-enum==1.5.1", "flask-jsonpify==1.5.0",
+  "flask-sqlalchemy==2.5.1", "flask-restful==0.3.8", "flask-cors==3.0.10", "Flask-JWT==0.3.2", "itsdangerous==1.1.0",
+  "flask-socketio==5.0.1", "schedule==1.1.0", "Jinja2==2.11.3", "markupsafe==1.1.1", "werkzeug==1.0.1", "pynput",
+  "scapy", "psutil", "keyboard", "sortedcontainers", "numpy", "matplotlib", "pandas", "pandas_datareader",
+  "plotly", "cufflinks", "ipykernel", "selenium", "webdriver-manager", "sympy==1.6.2", "scipy", "pycryptodome",
+  "ipywidgets", "IPython", "seaborn", "nbformat", "openpyxl", "jupyterlab-mathjax3", "google-generativeai",
+  "pint", "scikit-image", "streamlit", "vpython", "pygame", "numba", "pymunk", "opencv-python", "pyautogui",
+  "yfinance", "openai", "igraph", "wget", "marshmallow_sqlalchemy==1.0.0", "manim", "pyhid-usb-relay", "pywin32",
+  "websockets", "pyyaml", "pytest", "beautifulsoup4"]
+
+[project.urls]
+homepage = "https://your_project_homepage.com"
+repository = "https://github.com/your_username/your_project"
+
+[[project.authors]]
+name = "Your Name"
+email = "your_email@example.com"
+
+[project.optional-dependencies]
+test = ["pytest", "coverage"]
+
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.bdist_wheel]
+universal = true
+
+[tool.coverage.run]
+branch = true
+source = ["flaskr"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = [
+    "flaskr/tools/py_test",
+    "integration"
+]
+
+[tool.setuptools]
+packages = ["flaskr"]
