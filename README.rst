@@ -44,7 +44,7 @@ Create a virtualenv and activate it::
 
 
     # test it in cmd
-    pip -V
+    python -m pip -V
     where python
     # or in PS
     python -v # control+Z to exit
