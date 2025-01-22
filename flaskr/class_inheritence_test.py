@@ -1,5 +1,10 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
+import types
+
+obj = types.SimpleNamespace() # create class object
+obj.test = "test" # add field
+print(obj.test) # read field
 
 @dataclass # no need constractor
 class DataClassTest():
