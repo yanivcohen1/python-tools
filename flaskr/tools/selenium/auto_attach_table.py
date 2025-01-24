@@ -15,7 +15,7 @@ import os
 # 3. Use these two parameter to connect to your driver.
 options = Options()
 options.add_experimental_option("detach", True)
-url = "http://localhost:9515"
+url = "http://localhost:1914"
 driver = webdriver.Remote(command_executor=url, options=options)
 session_id = ""
 # 4. And you are connected to your driver again.
@@ -50,7 +50,7 @@ table_id = driver.find_element(
 # table_id = driver.find_element(By.ID, 'data_configuration_feeds_ct_fields_body0')
 rows = table_id.find_elements(By.TAG_NAME, "tr")  # get all of the rows in the table
 # head = rows[0].text.split(" ")
-head = 1
+head = True
 for i, row in enumerate(rows):
     if head:
         cols = row.find_elements(By.TAG_NAME, "th")
@@ -60,6 +60,6 @@ for i, row in enumerate(rows):
         print('%30s' % col.text, ",", end=" ")  # prints text from the element
     if head:
         print("\n----------------------------------------------------------------------------------------------------")
-        head = 0
+        head = False
     else:
         print()
