@@ -30,7 +30,7 @@ driver = webdriver.Remote(command_executor=url, options=options)
 new_session_id = driver.session_id
 driver.session_id = session_id
 try:
-    # driver.get("https://www.neuralnine.com/")
+    driver.get("https://www.w3schools.com/html/html_tables.asp")
     print(driver.current_url)
     driver.session_id = new_session_id
     # this prevents the dummy browser
