@@ -57,7 +57,7 @@ for i, row in enumerate(rows):
     else:
         cols = row.find_elements(By.TAG_NAME, "td")
     for col in cols:
-        print('%30s' % col.text, ",", end=" ")  # prints text from the element
+        print(f'{col.text:>30} ,', end=" ")  # cell string should be right-aligned (>) and take up 30 characters in width
     if head:
         print("\n----------------------------------------------------------------------------------------------------")
         head = False
