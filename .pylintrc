@@ -4,3 +4,4 @@ disable=
     C0116, # missing-function-docstring
     C0115, # missing-class-docstring
     W0621, # redefined-outer-name
+    W0702, # bare-except
