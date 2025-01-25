@@ -49,7 +49,7 @@ Create a virtualenv and activate it::
     # or in PS
     python -v # control+Z to exit
     # in linux
-    which python
+    which python3
 
     on linux use pip3 and python3
 
