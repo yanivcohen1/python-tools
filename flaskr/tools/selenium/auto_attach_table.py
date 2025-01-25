@@ -44,7 +44,7 @@ except:
 print(driver.session_id)
 
 # testing
-driver.maximize_window()
+#   driver.maximize_window()
 # driver.find_element(By.CSS_SELECTOR, "a[href='https://www.neuralnine.com/books/']").click()
 # driver.find_element(By.PARTIAL_LINK_TEXT, "Books").click()
 table_id = driver.find_element(
