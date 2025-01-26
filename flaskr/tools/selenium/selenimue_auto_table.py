@@ -30,7 +30,10 @@ table_id = driver.find_element(
 # table_id = driver.find_element(By.ID, 'data_configuration_feeds_ct_fields_body0')
 rows = table_id.find_elements(By.TAG_NAME, "tr")  # get all of the rows in the table
 # head = rows[0].text.split(" ")
-is_head = True
+th = rows[0].find_elements(By.TAG_NAME, "th")
+is_head = False
+if th:
+    is_head = True
 for i, row in enumerate(rows):
     if is_head:
         cols = row.find_elements(By.TAG_NAME, "th")
@@ -43,4 +46,3 @@ for i, row in enumerate(rows):
         is_head = False
     else:
         print()
-

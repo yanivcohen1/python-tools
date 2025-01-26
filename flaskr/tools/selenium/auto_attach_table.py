@@ -24,18 +24,18 @@ table_id = driver.find_element(
 rows = table_id.find_elements(By.TAG_NAME, "tr")  # get all of the rows in the table
 # head = rows[0].text.split(" ")
 th = rows[0].find_elements(By.TAG_NAME, "th")
-head = False
+is_head = False
 if th:
-    head = True
+    is_head = True
 for i, row in enumerate(rows):
-    if head:
+    if is_head:
         cols = row.find_elements(By.TAG_NAME, "th")
     else:
         cols = row.find_elements(By.TAG_NAME, "td")
     for col in cols:
         print(f'{col.text:>30} ,', end=" ")  # cell string should be right-aligned (>) and take up 30 characters in width
-    if head:
+    if is_head:
         print("\n----------------------------------------------------------------------------------------------------")
-        head = False
+        is_head = False
     else:
         print()
