@@ -25,15 +25,6 @@ def create_new_remote_session():
 
     return driver
 
-# Create a new remote session
-driver = create_new_remote_session()
-
-# Example: Open a website
-driver.get('https://www.example.com')
-
-# Print the title of the current page
-print(driver.title)
-
 
 def get_all_sessions_from_status(grid_url):
     # Make a GET request to the Selenium Grid's /status endpoint
@@ -78,20 +69,27 @@ def connect_to_existing_session(server_url, session_id):
     return driver
 
 
-server_url = "http://localhost:4444"
-# Get the active sessions
-active_sessions = get_all_sessions_from_status(server_url)
+if __name__ == "__main__":
+    # Create a new remote session
+    driver = create_new_remote_session()
 
-print("Active sessions:", active_sessions)
-# Example server URL and session ID (replace with actual values)
-session_id = active_sessions[0]  # Replace with the session ID you want to connect to
+    # Example: Open a website
+    driver.get('https://www.example.com')
 
-driver.session_id = active_sessions[0]
-driver.get('https://www.google.com')
-print(driver.title)
-driver.session_id = active_sessions[1]
-driver.get('https://www.trello.com')
-print(driver.title)
+    # Print the title of the current page
+    print(driver.title)
 
-# if __name__ == "__main__":
-#     connect_to_existing_session(server_url, session_id)
+    server_url = "http://localhost:4444"
+    # Get the active sessions
+    active_sessions = get_all_sessions_from_status(server_url)
+
+    print("Active sessions:", active_sessions)
+    # Example server URL and session ID (replace with actual values)
+    session_id = active_sessions[0]  # Replace with the session ID you want to connect to
+    driver.session_id = active_sessions[0]
+    driver.get('https://www.google.com')
+    print(driver.title)
+    if len(active_sessions) > 1:
+        driver.session_id = active_sessions[1]
+        driver.get('https://www.trello.com')
+        print(driver.title)
