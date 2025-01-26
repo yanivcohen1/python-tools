@@ -92,6 +92,9 @@ installing Flaskr::
 // test it
 python -c "import flask; print(flask.__version__)"
 
+// to upgrade package_name
+pip install package_name --upgrade
+
 // stop it
 control + c
 #linux
