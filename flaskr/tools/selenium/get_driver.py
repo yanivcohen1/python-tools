@@ -1,6 +1,6 @@
 import socket
 import os
-import json
+import subprocess
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -10,10 +10,18 @@ from selenium.webdriver.chrome.options import Options
 
 # you need first to run the chrome driver in cmd (.\chromedriver.exe --port=5000)
 def connect_to_driver():
+    if not check_port_is_open("localhost", 5000):
+        # current_folder = os.path.dirname(os.path.abspath(__file__))
+        # find path installed chrome driver
+        # chromedriver_path = os.path.join(current_folder, "chromedriver.exe")
+        # chrome_install = ChromeDriverManager().install()
+        # folder = os.path.dirname(chrome_install)
+        # chromedriver_path = os.path.join(folder, "chromedriver.exe")
+        raise Exception("run the chrome driver in cmd (.\chromedriver.exe --port=5000)")
     options = Options()
     options.add_argument("--start-maximized")
     # driver = webdriver.Chrome(options=options)
-    url = "http://127.0.0.1:5000" # driver.command_executor._url
+    url = "http://127.0.0.1:5000"  # driver.command_executor._url
     options.add_experimental_option("detach", True)
     driver = webdriver.Remote(command_executor=url, options=options)
     session_id = ""
@@ -38,6 +46,19 @@ def connect_to_driver():
     url = driver.current_url
     print(driver.session_id)
     return driver
+
+
+def check_port_is_open(ip, port):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.settimeout(1)
+    try:
+        sock.connect((ip, int(port)))
+        return True
+    except:  # pylint: disable=bare-except
+        return False
+    finally:
+        sock.close()
+
 
 if __name__ == "__main__":
     driver = connect_to_driver()

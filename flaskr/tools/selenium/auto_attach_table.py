@@ -18,12 +18,15 @@ driver.get("https://www.w3schools.com/html/html_tables.asp")
 # driver.find_element(By.PARTIAL_LINK_TEXT, "Books").click()
 table_id = driver.find_element(
     By.CSS_SELECTOR,
-    "#customers",
+    "table#customers",
 )
 # table_id = driver.find_element(By.ID, 'data_configuration_feeds_ct_fields_body0')
 rows = table_id.find_elements(By.TAG_NAME, "tr")  # get all of the rows in the table
 # head = rows[0].text.split(" ")
-head = True
+th = rows[0].find_elements(By.TAG_NAME, "th")
+head = False
+if th:
+    head = True
 for i, row in enumerate(rows):
     if head:
         cols = row.find_elements(By.TAG_NAME, "th")
