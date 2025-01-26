@@ -1,10 +1,5 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
+from get_driver import connect_to_driver
 from selenium.webdriver.common.by import By
-import os
-import json
 # you need first to run the chrome driver in cmd (.\chromedriver.exe)
 
 # 1. open a driver
@@ -13,35 +8,9 @@ import json
 # url = driver.command_executor._url       #"http://127.0.0.1:60622/hub"
 # session_id = driver.session_id            #'4e167f26-dc1d-4f51-a207-f761eaf73c31'
 # 3. Use these two parameter to connect to your driver.
-dir_path = os.path.dirname(os.path.realpath(__file__))
-FILE_NAME = dir_path + "\\session_id.txt"
-# port = 1914
-# my_list = ['1', port]
-# with open(FILE_NAME, 'w') as file:
-#     json.dump(my_list, file) # ["1", 1914]
-with open(FILE_NAME, "r") as f:
-    load = json.load(f)
-session_id, port = load
-options = Options()
-options.add_experimental_option("detach", True)
-url = "http://localhost:" + str(port)
-driver = webdriver.Remote(command_executor=url, options=options)
-# 4. And you are connected to your driver again.
-new_session_id = driver.session_id
-driver.session_id = session_id
-try:
-    driver.get("https://www.w3schools.com/html/html_tables.asp")
-    print(driver.current_url)
-    driver.session_id = new_session_id
-    # this prevents the dummy browser
-    driver.close()
-    driver.session_id = session_id
-except:
-    driver.session_id = new_session_id
-    driver.get("https://www.w3schools.com/html/html_tables.asp")
-    with open(FILE_NAME, "w") as f:
-        json.dump([new_session_id, port], f)
-print(driver.session_id)
+driver = connect_to_driver()
+driver.get("https://www.w3schools.com/html/html_tables.asp")
+
 
 # testing
 #   driver.maximize_window()
