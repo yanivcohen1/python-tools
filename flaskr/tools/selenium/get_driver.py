@@ -26,7 +26,7 @@ def connect_to_driver():
     driver.session_id = session_id
     try:
         # driver.get("https://www.neuralnine.com/")
-        print(driver.current_url)
+        url = driver.current_url
         driver.session_id = new_session_id
         # this prevents the dummy browser
         driver.close()
