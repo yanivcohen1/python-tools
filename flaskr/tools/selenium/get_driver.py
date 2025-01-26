@@ -1,6 +1,6 @@
 import socket
 import os
-import subprocess
+# import subprocess
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -59,7 +59,24 @@ def check_port_is_open(ip, port):
     finally:
         sock.close()
 
+def get_all_sesions(driver):
+    import requests
+    # URL to get all sessions from Chromedriver
+    url = "http://localhost:5000/sessions"
+    # Send request to Chromedriver
+    response = requests.get(url)
+    # Check if the request was successful
+    if response.status_code == 200:
+        sessions = response.json().get("value", [])
+        ret = []
+        for session in sessions:
+            ret.append(session["id"])
+        return ret
+    else:
+        print(f"Failed to get sessions: {response.status_code}")
+
 
 if __name__ == "__main__":
     driver = connect_to_driver()
+    print("all sessions:",get_all_sesions(driver))
     driver.get("https://google.com/")
