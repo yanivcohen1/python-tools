@@ -1,6 +1,6 @@
 from get_driver import connect_to_driver
 from selenium.webdriver.common.by import By
-# you need first to run the chrome driver in cmd (.\chromedriver.exe)
+# you need first to run the chrome driver in cmd (.\chromedriver.exe --port=5000)
 
 # 1. open a driver
 # driver = webdriver.Chrome(options=options)
