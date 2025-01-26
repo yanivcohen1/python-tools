@@ -68,10 +68,7 @@ def get_all_sesions(driver):
     # Check if the request was successful
     if response.status_code == 200:
         sessions = response.json().get("value", [])
-        ret = []
-        for session in sessions:
-            ret.append(session["id"])
-        return ret
+        return [session["id"] for session in sessions]
     else:
         print(f"Failed to get sessions: {response.status_code}")
 
