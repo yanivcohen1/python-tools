@@ -3,8 +3,6 @@ import socket
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.remote.webdriver import WebDriver
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 
 # --allow-cors -Selenium server should allow web browser connections from any host
 # --session-timeout 999999 in seconds
