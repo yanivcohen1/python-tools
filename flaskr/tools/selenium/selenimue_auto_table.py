@@ -25,7 +25,7 @@ driver.maximize_window()
 # driver.find_element(By.PARTIAL_LINK_TEXT, "Books").click()
 table_id = driver.find_element(
     By.CSS_SELECTOR,
-    "#customers",
+    "table#customers",
 )
 # table_id = driver.find_element(By.ID, 'data_configuration_feeds_ct_fields_body0')
 rows = table_id.find_elements(By.TAG_NAME, "tr")  # get all of the rows in the table
