@@ -24,7 +24,7 @@ driver = webdriver.Remote(command_executor=url, options=options)
 session_id = ""
 # 4. And you are connected to your driver again.
 dir_path = os.path.dirname(os.path.realpath(__file__))
-FILE_NAME = dir_path + "\\session_id2.txt"
+FILE_NAME = dir_path + "\\session_id.txt"
 with open(FILE_NAME, "r") as f:
     session_id = f.read()
 new_session_id = driver.session_id
