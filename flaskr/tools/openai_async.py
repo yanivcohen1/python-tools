@@ -10,7 +10,7 @@ openai.api_key = 'lm-studio'
 async def fetch_completion(my_msg):
     async with aiohttp.ClientSession() as session:
         async with session.post(
-            'http://localhost:1234/v1/completions',
+            'http://localhost:1234/v1/completions', # no dialog history only this one
             headers={
                 # 'Authorization': f'Bearer {openai.api_key}',
                 'Content-Type': 'application/json'
