@@ -1,9 +1,9 @@
 # !pip install openai aiohttp
 
-import openai
-import aiohttp
 import asyncio
 import json
+import openai
+import aiohttp
 
 openai.api_key = 'lm-studio'
 
@@ -37,4 +37,5 @@ async def fetch_completion(my_msg):
 
 prompt = "Once upon a time"
 full_ans = asyncio.run(fetch_completion(prompt))
+print("\n\n Full Answer:")
 print(full_ans)
