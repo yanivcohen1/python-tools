@@ -117,7 +117,7 @@ def admin_required(view):
         # autorization = request.headers.get('Autorization')
         user: User = current_user
         if user.username is None:
-            return not_found()
+            return not_found("login required")
         else:
             if user.username != 'yaniv':
                 return not_found("Only admin can access this page")
