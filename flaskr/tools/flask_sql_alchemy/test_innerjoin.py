@@ -1,4 +1,5 @@
 import functools
+from typing import List
 from flask import Flask, g, jsonify, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
@@ -24,20 +25,20 @@ bcrypt = Bcrypt(app)
 # Define the models
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), unique=True, nullable=False)
-    password = db.Column(db.String(255), nullable=False)
+    id: int = db.Column(db.Integer, primary_key=True)
+    username: str = db.Column(db.String(50), unique=True, nullable=False)
+    password: str = db.Column(db.String(255), nullable=False)
 
 class Author(db.Model):
     __tablename__ = "authors"
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
+    id: int = db.Column(db.Integer, primary_key=True)
+    name: str = db.Column(db.String(50), nullable=False)
 
 class Book(db.Model):
     __tablename__ = "books"
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    author_id = db.Column(db.Integer, db.ForeignKey("authors.id"), nullable=False)
+    id: int = db.Column(db.Integer, primary_key=True)
+    title: str = db.Column(db.String(100), nullable=False)
+    author_id: int = db.Column(db.Integer, db.ForeignKey("authors.id"), nullable=False)
     author = db.relationship("Author", backref=db.backref("books", lazy=True))
 
 
@@ -198,7 +199,7 @@ def find_books_title_by_author_name():
     if author_name is None:
         return jsonify({'error': 'author_name query parameter is required'}), 400
     author: Author = Author.query.filter_by(name=author_name).first_or_404()
-    books = Book.query.filter_by(author_id=author.id).all()
+    books: List[Book] = Book.query.filter_by(author_id=author.id).all()
     # return jsonify(book_schema.dump(books, many=True))
     book_titles = [book.title for book in books]
     return jsonify({'book_titles': book_titles})
