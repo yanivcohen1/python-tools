@@ -9,19 +9,18 @@ login_data = {
 }
 login_response = requests.post(login_url, json=login_data)
 access_token = login_response.json().get("access_token")
-
 # Use the access token to access the protected route
-protected_url = host+"/protected"
 headers = {
     "Authorization": f"Bearer {access_token}"
 }
-protected_response = requests.get(protected_url, headers=headers)
+print('access_token:', access_token)
 
-print('protected:', protected_response.json())
+url = host+"/protected"
+response = requests.get(url, headers=headers)
+print('protected:', response.json())
 
 url = host+"/get_user_id"
 response = requests.get(url, headers=headers)
-
 print('get_user_id:', response.text)
 
 url = host+"/find_books_by_author_name?author_name=F. Scott Fitzgerald"
