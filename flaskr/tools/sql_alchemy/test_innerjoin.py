@@ -155,7 +155,7 @@ if __name__ == "__main__":
     #     # Create the tables
     #     db.create_all()
 
-    #     # Insert initial data
+    #     # Insert initial users
     #     user1 = User(id=1, username="yaniv",
     #                  password=bcrypt.generate_password_hash("yaniv_P").decode('utf-8'))
     #     user2 = User(id=2, username="yaniv2",
@@ -164,6 +164,7 @@ if __name__ == "__main__":
     #                  password=bcrypt.generate_password_hash("yaniv3_P").decode('utf-8'))
     #     db.session.add_all([user1, user2, user3])
     #     db.session.commit()
+
     #     # Insert initial data
     #     author1 = Author(id=1, name="F. Scott Fitzgerald")
     #     author2 = Author(id=2, name="George Orwell")
@@ -179,4 +180,4 @@ if __name__ == "__main__":
     #     db.session.add_all([book1, book2, book3])
     #     db.session.commit()
 
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
