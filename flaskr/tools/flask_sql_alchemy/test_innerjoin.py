@@ -129,7 +129,7 @@ def admin_required(view):
 @login_required
 @admin_required
 def get_user_id():
-    return "user Id is - "'%s'  % current_user.id
+    return f"user Id is - {current_user.id}"
 
 @app.route('/protected', methods=['GET'])
 @login_required
