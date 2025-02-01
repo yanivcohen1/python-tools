@@ -2,9 +2,10 @@ import functools
 from typing import List
 from flask import Flask, g, jsonify, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required # ,current_user
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from marshmallow import fields, ValidationError
 from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
 
@@ -15,12 +16,14 @@ app.config["SQLALCHEMY_DATABASE_URI"] = (
 )
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:' # Use an in-memory SQLite database
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config['SECRET_KEY'] = 'your_secret_key' # for login manager
+app.config['SECRET_KEY'] = 'your_secret_key' # for login manager pass incrypt
+app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key' # for jwf token
 # cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 cors = CORS(app)
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 bcrypt = Bcrypt(app)
+jwt = JWTManager(app)
 
 # Define the models
 class User(db.Model, UserMixin):
@@ -81,10 +84,11 @@ def register():
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    user = User.query.filter_by(username=data['username']).first()
-    if user and bcrypt.check_password_hash(user.password, data['password']):
-        login_user(user)
-        return jsonify({'message': 'Logged in successfully'})
+    password = data['password']
+    user: User = User.query.filter_by(username=data['username']).first()
+    if user and bcrypt.check_password_hash(user.password, password):
+        access_token = create_access_token(identity=str(user.id))
+        return jsonify({'access_token': access_token})
     return jsonify({'message': 'Invalid username or password'}), 401
 
 ###################################
@@ -106,7 +110,7 @@ def not_found(error=None):
     return resp
 
 @app.route('/logout', methods=['POST'])
-@login_required
+@jwt_required()
 def logout():
     logout_user()
     return jsonify({'message': 'Logged out successfully'})
@@ -116,7 +120,8 @@ def admin_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         # autorization = request.headers.get('Autorization')
-        user: User = current_user
+        user_id = get_jwt_identity()
+        user: User = load_user(user_id)
         if user.username is None:
             return not_found("login required")
         else:
@@ -127,15 +132,18 @@ def admin_required(view):
     return wrapped_view
 
 @app.route('/get_user_id')
-@login_required
+@jwt_required()
 @admin_required
 def get_user_id():
-    return f"user Id is - {current_user.id}"
+    user_id = get_jwt_identity()
+    return f"user Id is - {user_id}"
 
 @app.route('/protected', methods=['GET'])
-@login_required
+@jwt_required()
 def protected():
-    return jsonify({'message': f'Hello, {current_user.username}! This is a protected route.'})
+    user_id = get_jwt_identity()
+    user: User = load_user(user_id)
+    return jsonify({'message': f'Hello, {user.username}! This is a protected route.'})
 
 # Perform an inner join query
 @app.route("/books_with_authors") # , methods=["GET"]
