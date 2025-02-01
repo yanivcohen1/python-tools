@@ -105,9 +105,7 @@ if __name__ == "__main__":
 
     print("Active sessions:", active_sessions)
     # Example server URL and session ID (replace with actual values)
-    session_id = active_sessions[
-        0
-    ]  # Replace with the session ID you want to connect to
+    session_id = active_sessions[0]  # Replace with the session ID you want to connect to
     driver.session_id = active_sessions[0]
     driver.get("https://www.google.com")
     print(driver.title)
