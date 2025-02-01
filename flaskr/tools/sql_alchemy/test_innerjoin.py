@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, request, redirect, url_for
+import functools
+from flask import Flask, g, jsonify, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from flask_bcrypt import Bcrypt
@@ -13,7 +14,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = (
 )
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:' # Use an in-memory SQLite database
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['SECRET_KEY'] = 'your_secret_key' # for login manager
 # cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 cors = CORS(app)
 db = SQLAlchemy(app)
@@ -85,11 +86,50 @@ def login():
         return jsonify({'message': 'Logged in successfully'})
     return jsonify({'message': 'Invalid username or password'}), 401
 
+###################################
+@app.errorhandler(404)
+def not_found(error=None):
+    if error is None:
+        message = {
+            'status': 404,
+            'message': 'Not Found: ' + request.url,
+        }
+    else:
+        message = {
+            'status': 404,
+            'message': error,
+        }
+    resp = jsonify(message)
+    resp.status_code = 404
+
+    return resp
+
 @app.route('/logout', methods=['POST'])
 @login_required
 def logout():
     logout_user()
     return jsonify({'message': 'Logged out successfully'})
+
+def admin_required(view):
+    """View decorator that redirects anonymous users to the login page."""
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        # autorization = request.headers.get('Autorization')
+        user: User = current_user
+        if user.username is None:
+            return not_found()
+        else:
+            if user.username != 'yaniv':
+                return not_found("Only admin can access this page")
+        return view(**kwargs)
+
+    return wrapped_view
+
+@app.route('/get_user_id')
+@login_required
+@admin_required
+def get_user_id():
+    return "user Id is - "'%s'  % current_user.id
 
 @app.route('/protected', methods=['GET'])
 @login_required
