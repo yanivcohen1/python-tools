@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required # ,current_user
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
+from flask_restful import Api, Resource
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from marshmallow import fields, ValidationError
 from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
@@ -24,6 +25,7 @@ db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
+api = Api(app)
 
 # Define the models
 class User(db.Model, UserMixin):
@@ -187,30 +189,39 @@ def find_book_by_name():
     book = Book.query.filter_by(title=book_name).first_or_404()
     return jsonify(book_schema.dump(book))
 
-# GET /find_books_by_author_name?author_name=F. Scott Fitzgerald
-@app.route('/find_books_by_author_name')
-def find_books_by_author_name():
-    author_name = request.args.get('author_name')
-    if author_name is None:
-        return jsonify({'error': 'author_name query parameter is required'}), 400
-    author: Author = Author.query.filter_by(name=author_name).first_or_404()
-    books = Book.query.filter_by(author_id=author.id).all()
-    # return jsonify(book_schema.dump(books, many=True))
-    # book_titles = [book.title for book in books]
-    # return jsonify({'book_titles': book_titles})
-    return jsonify(books_schema.dump(books))
 
-# GET /find_books_title_by_author_name?author_name=F. Scott Fitzgerald
-@app.route('/find_books_title_by_author_name')
-def find_books_title_by_author_name():
-    author_name = request.args.get('author_name')
-    if author_name is None:
-        return jsonify({'error': 'author_name query parameter is required'}), 400
-    author: Author = Author.query.filter_by(name=author_name).first_or_404()
-    books: List[Book] = Book.query.filter_by(author_id=author.id).all()
-    # return jsonify(book_schema.dump(books, many=True))
-    book_titles = [book.title for book in books]
-    return jsonify({'book_titles': book_titles})
+class FindBooksByAuthorNameResource(Resource):
+    # GET /find_books_by_author_name?author_name=F. Scott Fitzgerald
+    # @app.route('/find_books_by_author_name')
+    def get(self):
+        author_name = request.args.get("author_name")
+        if author_name is None:
+            return jsonify({"error": "author_name query parameter is required"}), 400
+        author: Author = Author.query.filter_by(name=author_name).first_or_404()
+        books = Book.query.filter_by(author_id=author.id).all()
+        # return jsonify(book_schema.dump(books, many=True))
+        # book_titles = [book.title for book in books]
+        # return jsonify({'book_titles': book_titles})
+        return jsonify(books_schema.dump(books))
+
+
+class FindBooksTitleByAuthorNameResource(Resource):
+    # GET /find_books_title_by_author_name?author_name=F. Scott Fitzgerald
+    # @app.route('/find_books_title_by_author_name')
+    def get(self):
+        author_name = request.args.get("author_name")
+        if author_name is None:
+            return jsonify({"error": "author_name query parameter is required"}), 400
+        author: Author = Author.query.filter_by(name=author_name).first_or_404()
+        books: List[Book] = Book.query.filter_by(author_id=author.id).all()
+        # return jsonify(book_schema.dump(books, many=True))
+        book_titles = [book.title for book in books]
+        return jsonify({"book_titles": book_titles})
+
+
+# all Resources
+api.add_resource(FindBooksByAuthorNameResource, '/api/find_books_by_author_name')
+api.add_resource(FindBooksTitleByAuthorNameResource, '/api/find_books_title_by_author_name')
 
 if __name__ == "__main__":
     # with app.app_context():

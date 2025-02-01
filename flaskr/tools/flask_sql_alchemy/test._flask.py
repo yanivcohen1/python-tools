@@ -1,6 +1,12 @@
 import requests
 
 host = 'http://127.0.0.1:5000'
+
+# no need to login to access this route
+url = host+"/api/find_books_by_author_name?author_name=F. Scott Fitzgerald"
+response = requests.get(url)
+print('find_books_by_author_name:', response.json())
+
 # First, login to get the JWT access token
 login_url = host+"/login"
 login_data = {
@@ -22,8 +28,3 @@ print('protected:', response.json())
 url = host+"/get_user_id"
 response = requests.get(url, headers=headers)
 print('get_user_id:', response.text)
-
-url = host+"/find_books_by_author_name?author_name=F. Scott Fitzgerald"
-response = requests.get(url, headers=headers)
-
-print('find_books_by_author_name:', response.json())
