@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
-from marshmallow import Schema, fields, ValidationError
+from marshmallow import fields, ValidationError
 from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
 
 app = Flask(__name__)
