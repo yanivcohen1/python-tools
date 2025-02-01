@@ -187,6 +187,8 @@ def find_books_by_author_name():
     author: Author = Author.query.filter_by(name=author_name).first_or_404()
     books = Book.query.filter_by(author_id=author.id).all()
     # return jsonify(book_schema.dump(books, many=True))
+    # book_titles = [book.title for book in books]
+    # return jsonify({'book_titles': book_titles})
     return jsonify(books_schema.dump(books))
 
 
