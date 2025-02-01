@@ -50,6 +50,22 @@ INSERT INTO `books` (`id`, `title`, `author_id`) VALUES
 	(2, '1984', 2),
 	(3, 'Pride and Prejudice', 3);
 
+-- Dumping structure for table alchemy.users
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table alchemy.users: ~3 rows (approximately)
+DELETE FROM `users`;
+INSERT INTO `users` (`id`, `username`, `password`) VALUES
+	(1, 'yaniv', '$2b$12$Dh7aHhC6cTuwf5W1Z0W2SuuLRQmMLwDQpVmBWig2KbnuX0VuRH9jO'),
+	(2, 'yaniv2', '$2b$12$UB4OQNxiYkXffKdUE8BcpurfFG3H2VSnfAwrI9uc.EOfQGaa.4vMm'),
+	(3, 'yaniv3', '$2b$12$UH4pui2uBCMRBYOS5IN8oOY.t/Q.Jamxfbd8OfObu0jLy.7zVk9tS');
+
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;

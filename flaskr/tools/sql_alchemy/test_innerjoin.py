@@ -1,5 +1,8 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from flask_bcrypt import Bcrypt
+from flask_cors import CORS
 from marshmallow import Schema, fields, ValidationError
 from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
 
@@ -10,15 +13,24 @@ app.config["SQLALCHEMY_DATABASE_URI"] = (
 )
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:' # Use an in-memory SQLite database
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config['SECRET_KEY'] = 'your_secret_key'
+# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(app)
 db = SQLAlchemy(app)
-
+login_manager = LoginManager(app)
+bcrypt = Bcrypt(app)
 
 # Define the models
+class User(db.Model, UserMixin):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
+
 class Author(db.Model):
     __tablename__ = "authors"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-
 
 class Book(db.Model):
     __tablename__ = "books"
@@ -50,6 +62,39 @@ class BookSchema(SQLAlchemySchema):
 author_schema = AuthorSchema()
 book_schema = BookSchema()
 books_schema = BookSchema(many=True)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+@app.route('/register', methods=['POST'])
+def register():
+    data = request.get_json()
+    hashed_password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
+    new_user = User(username=data['username'], password=hashed_password)
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({'message': 'User registered successfully'}), 201
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    user = User.query.filter_by(username=data['username']).first()
+    if user and bcrypt.check_password_hash(user.password, data['password']):
+        login_user(user)
+        return jsonify({'message': 'Logged in successfully'})
+    return jsonify({'message': 'Invalid username or password'}), 401
+
+@app.route('/logout', methods=['POST'])
+@login_required
+def logout():
+    logout_user()
+    return jsonify({'message': 'Logged out successfully'})
+
+@app.route('/protected', methods=['GET'])
+@login_required
+def protected():
+    return jsonify({'message': f'Hello, {current_user.username}! This is a protected route.'})
 
 # Perform an inner join query
 @app.route("/books_with_authors") # , methods=["GET"]
@@ -110,6 +155,15 @@ if __name__ == "__main__":
     #     # Create the tables
     #     db.create_all()
 
+    #     # Insert initial data
+    #     user1 = User(id=1, username="yaniv",
+    #                  password=bcrypt.generate_password_hash("yaniv_P").decode('utf-8'))
+    #     user2 = User(id=2, username="yaniv2",
+    #                  password=bcrypt.generate_password_hash("yaniv2_P").decode('utf-8'))
+    #     user3 = User(id=3, username="yaniv3",
+    #                  password=bcrypt.generate_password_hash("yaniv3_P").decode('utf-8'))
+    #     db.session.add_all([user1, user2, user3])
+    #     db.session.commit()
     #     # Insert initial data
     #     author1 = Author(id=1, name="F. Scott Fitzgerald")
     #     author2 = Author(id=2, name="George Orwell")
