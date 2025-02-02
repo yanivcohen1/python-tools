@@ -191,7 +191,7 @@ def find_book_by_name():
 
 
 class FindBooksByAuthorNameResource(Resource):
-    # GET /find_books_by_author_name?author_name=F. Scott Fitzgerald
+    # GET /api/find_books_by_author_name?author_name=F. Scott Fitzgerald
     # @app.route('/find_books_by_author_name')
     def get(self):
         author_name = request.args.get("author_name")
@@ -206,7 +206,7 @@ class FindBooksByAuthorNameResource(Resource):
 
 
 class FindBooksTitleByAuthorNameResource(Resource):
-    # GET /find_books_title_by_author_name?author_name=F. Scott Fitzgerald
+    # GET /api/find_books_title_by_author_name?author_name=F. Scott Fitzgerald
     # @app.route('/find_books_title_by_author_name')
     def get(self):
         author_name = request.args.get("author_name")
