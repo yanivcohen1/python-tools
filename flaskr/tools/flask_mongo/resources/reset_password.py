@@ -1,13 +1,15 @@
-from flask import request, render_template
-from flask_jwt_extended import create_access_token, decode_token
-from database.models import User
-from flask_restful import Resource
 import datetime
-from resources.errors import SchemaValidationError, InternalServerError, \
-    EmailDoesnotExistsError, BadTokenError
-from jwt.exceptions import ExpiredSignatureError, DecodeError, \
-    InvalidTokenError
-from services.mail_service import send_email
+
+from flaskr.tools.flask_mongo.resources.errors import (BadTokenError, EmailDoesnotExistsError,
+                    InternalServerError, SchemaValidationError)
+from jwt.exceptions import (DecodeError, ExpiredSignatureError,
+                            InvalidTokenError)
+from flask import render_template, request
+from flask_jwt_extended import create_access_token, decode_token
+from flask_restful import Resource
+from flaskr.tools.flask_mongo.database.models import User
+from flaskr.tools.flask_mongo.services.mail_service import send_email
+
 
 class ForgotPassword(Resource):
     def post(self):
@@ -17,7 +19,7 @@ class ForgotPassword(Resource):
             email = body.get('email')
             if not email:
                 raise SchemaValidationError
-
+            # pylint: disable=no-member
             user = User.objects.get(email=email)
             if not user:
                 raise EmailDoesnotExistsError
@@ -32,12 +34,12 @@ class ForgotPassword(Resource):
                                                         url=url + reset_token),
                               html_body=render_template('email/reset_password.html',
                                                         url=url + reset_token))
-        except SchemaValidationError:
-            raise SchemaValidationError
-        except EmailDoesnotExistsError:
-            raise EmailDoesnotExistsError
+        except SchemaValidationError as exc:
+            raise SchemaValidationError from exc
+        except EmailDoesnotExistsError as exc:
+            raise EmailDoesnotExistsError from exc
         except Exception as e:
-            raise InternalServerError
+            raise InternalServerError from e
 
 
 class ResetPassword(Resource):
@@ -52,7 +54,7 @@ class ResetPassword(Resource):
                 raise SchemaValidationError
 
             user_id = decode_token(reset_token)['identity']
-
+            # pylint: disable=no-member
             user = User.objects.get(id=user_id)
 
             user.modify(password=password)
@@ -65,11 +67,11 @@ class ResetPassword(Resource):
                               text_body='Password reset was successful',
                               html_body='<p>Password reset was successful</p>')
 
-        except SchemaValidationError:
-            raise SchemaValidationError
-        except ExpiredSignatureError:
-            raise ExpiredTokenError
+        except SchemaValidationError as exc:
+            raise SchemaValidationError from exc
+        except ExpiredSignatureError as exc:
+            raise ExpiredSignatureError from exc
         except (DecodeError, InvalidTokenError):
-            raise BadTokenError
+            raise BadTokenError from exc
         except Exception as e:
-            raise InternalServerError
+            raise InternalServerError from e

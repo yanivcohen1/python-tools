@@ -1,26 +1,28 @@
+from typing import Optional
 from flask import Response, request
 from flask_jwt_extended import create_access_token
-from database.models import User
+from flaskr.tools.flask_mongo.database.models import User
 from flask_restful import Resource
 import datetime
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist
-from resources.errors import SchemaValidationError, EmailAlreadyExistsError, UnauthorizedError, \
+from flaskr.tools.flask_mongo.resources.errors import SchemaValidationError, EmailAlreadyExistsError, UnauthorizedError, \
 InternalServerError
 
 from functools import wraps
 from flask import jsonify
 from flask_jwt_extended import get_jwt
 from flask_jwt_extended import verify_jwt_in_request
-from database.models import Role
+from flaskr.tools.flask_mongo.database.models import Role
+from mongoengine import Document
 
 class SignupApi(Resource):
     def post(self):
         try:
             body = request.get_json()
-            user =  User(**body)
+            user: User =  User(**body)
             user.hash_password()
             user.save()
-            id = user.id
+            id = user.pk
             return {'id': str(id)}, 200
         except FieldDoesNotExist:
             raise SchemaValidationError
@@ -33,7 +35,8 @@ class LoginApi(Resource):
     def post(self):
         try:
             body = request.get_json()
-            user = User.objects.get(email=body.get('email'))
+            # pylint: disable=no-member
+            user: User = User.objects.get(email=body.get('email'))
             authorized = user.check_password(body.get('password'))
             if not authorized:
                 raise UnauthorizedError
@@ -48,7 +51,7 @@ class LoginApi(Resource):
             raise UnauthorizedError
         except Exception as e:
             raise InternalServerError
-        
+
 def admin_required():
     def wrapper(fn):
         @wraps(fn)

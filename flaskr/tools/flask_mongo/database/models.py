@@ -1,7 +1,10 @@
 from enum import Enum
-from .db import db
+from typing import List
+from flaskr.tools.flask_mongo.database.db import db
+from mongoengine import EmbeddedDocument, Document, StringField, ListField, EmbeddedDocumentField, ReferenceField, EmailField, EnumField, CASCADE, PULL
 from flask_bcrypt import generate_password_hash, check_password_hash
 
+# pylint: disable=no-member
 class Embed(db.EmbeddedDocument):
     name: str = db.StringField(default='yan')
     value: str = db.StringField(default='con')
@@ -30,5 +33,5 @@ class User(db.Document):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
-    
+
 User.register_delete_rule(Movie, 'added_by', db.CASCADE)

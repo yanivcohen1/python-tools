@@ -32,6 +32,9 @@ venv\Scripts\activate
 //pipenv install
 
 // for run the app
+// in dev manualy
+sh C:\Users\yaniv\OneDrive\python-flask\flaskr\tools\flask_mongo\dev.sh
+
 //pipenv shell
 # linux
 export ENV_FILE_LOCATION=./.env.test
@@ -69,8 +72,8 @@ sh .\run.sh
 
 //Now run the app with
 //python run.py
-$env:FLASK_APP = ".\app.py" 
-$env:FLASK_ENV = "development" 
+$env:FLASK_APP = ".\app.py"
+$env:FLASK_ENV = "development"
 flask run
 
 // needed at least mongoDB ver 3.6
@@ -116,8 +119,8 @@ authorization bearer token: {from login with no ""}
 
 // get query
 http://127.0.0.1:5000/api/movie?name=yaniv5@gmail.com&name2=yan1&value=con1
-result is : [{"_id": {"$oid": "637fa5b20563ba13bf6a3636"}, "name": "yaniv5@gmail.com", "casts": 
-["yaniv5"], "genres": ["cohen5"], "embeds": [{"name": "yan1", "value": "con1"}], "added_by": 
+result is : [{"_id": {"$oid": "637fa5b20563ba13bf6a3636"}, "name": "yaniv5@gmail.com", "casts":
+["yaniv5"], "genres": ["cohen5"], "embeds": [{"name": "yan1", "value": "con1"}], "added_by":
 {"$oid": "637f3f586f953a55081b5c96"}}]
 
 // advanced-queries

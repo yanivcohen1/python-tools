@@ -1,6 +1,6 @@
-from .movie import MoviesApi, MovieApi, MoviesApiQuery
-from .auth import SignupApi, LoginApi
-from .reset_password import ForgotPassword, ResetPassword
+from flaskr.tools.flask_mongo.resources.movie import MoviesApi, MovieApi, MoviesApiQuery
+from flaskr.tools.flask_mongo.resources.auth import SignupApi, LoginApi
+from flaskr.tools.flask_mongo.resources.reset_password import ForgotPassword, ResetPassword
 
 
 def initialize_routes(api):

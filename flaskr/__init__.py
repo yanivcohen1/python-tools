@@ -3,7 +3,7 @@ from flask import Flask, request
 from flask_cors import CORS, cross_origin
 from flask_restful import Resource, Api
 from json import dumps
-from flask_jsonpify import jsonify
+# from flask_jsonpify import jsonify
 
 # request.headers.get('your-header-name') // read from header parameters
 # session.get("user_id") // read from session parameters
@@ -11,7 +11,7 @@ from flask_jsonpify import jsonify
 # if request.method == "POST": // not mast
 #        username = request.form.get("user_id") // read post parameters
 
-# init      
+# init
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
     print('_init_.py')
@@ -60,13 +60,13 @@ def create_app(test_config=None):
     # add by yaniv for angular
     api = Api(app)
     CORS(app)
-    # if Employees class is from file then 
+    # if Employees class is from file then
     # from folderName import fileName
     # from .folder.folder import fileName //nested dir
     # from . import fileName //current dir
     # from ...folder.folder import fileName // three backwords dirs
     # fileName.className
-    #api.add_resource(Employees, '/employees') # Route_1 
+    #api.add_resource(Employees, '/employees') # Route_1
     #api.add_resource(Employees_Name, '/employees/<employee_id>') # Route_3
     #for angular
     from flaskr import employees
@@ -111,10 +111,10 @@ def create_app(test_config=None):
 # add by yaniv for angular
 # class Employees(Resource):
 #     def get(self):
-#         return {'employees': [{'id':1, 'name':'Balram'},{'id':2, 'name':'Tom'}]} 
+#         return {'employees': [{'id':1, 'name':'Balram'},{'id':2, 'name':'Tom'}]}
 
 # class Employees_Name(Resource):
 #     def get(self, employee_id):
 #         print('Employee id:' + employee_id)
 #         result = {'data': {'id':1, 'name':'Balram'}}
-#         return jsonify(result) 
+#         return jsonify(result)

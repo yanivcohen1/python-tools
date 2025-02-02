@@ -21,9 +21,10 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "flaskr",
+                "FLASK_APP": "./flaskr/tools/flask_mongo/run.py", // flasker
                 "FLASK_ENV": "development",
-                "FLASK_DEBUG": "1"
+                "FLASK_DEBUG": "1",
+                "ENV_FILE_LOCATION": "./.env.test"
             },
             "args": [
                 "run"
