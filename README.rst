@@ -37,6 +37,7 @@ Create a virtualenv and activate it::
 
     # windows
     $ py -m venv venv
+	$ python -m venv venv
     # Create a virtual environment using the full path to the Python executable version X.Y
     $ /path/to/spcific_python_version/python.exe -m venv myenv
     $ venv\Scripts\activate
@@ -102,6 +103,35 @@ control + z
 Run
 ---
 
+
+// To run the server
+# on linux
+sh ./run.sh
+# on windows
+./run.sh
+
+//or manualy read params from the .env file
+# linux
+export ENV_FILE_LOCATION=./.env.test
+export ENV_FILE_LOCATION=./.env
+
+# windows PS
+$env:ENV_FILE_LOCATION = "./.env.test"
+$env:ENV_FILE_LOCATION = "./.env"
+
+# windows cmd
+set ENV_FILE_LOCATION = "./.env.test"
+set ENV_FILE_LOCATION = "./.env"
+
+//Now run the app with
+//python run.py
+$env:FLASK_APP = "./app.py"
+$env:FLASK_ENV = "development"
+flask run
+// or in dev - debug mode
+python run.py
+
+// set the params manualy
 on linux ::
 
     $ export FLASK_APP=flaskr
