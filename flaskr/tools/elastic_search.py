@@ -29,7 +29,7 @@ def find_query(string_query, page_request, from_date, to_date, group_name, index
     })
 
     # Build the string query
-    combined_query = Q('query_string', query=f'{string_query}') # groupName:{group_name} AND {string_query}
+    combined_query = Q('query_string', query=f'groupName:{group_name} AND {string_query}')
 
     # Combine filter and query
     s = Search(using=es, index=index_name).query(combined_query).filter(date_range_filter)
@@ -57,7 +57,7 @@ if __name__ == '__main__':
     to_date = date(2025, 1, 31)
     page_request = {'number': 0, 'size': 10}
     group_name = 'group1_agrs2f5sa2'
-    string_query = "*" # 'productName:("*")'
+    string_query = "productName:*" # 'productName:("*")'
     results = find_query(string_query, page_request, from_date, to_date, group_name, index_name=index_name)
     for hit in results:
         print(hit)  # Do something with the hit
