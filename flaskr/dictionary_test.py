@@ -1,39 +1,41 @@
 # filter(key>1) and map(val/10) the result is list: [2.0, 3.0]
-dic = {1:10, 2:20, 3:30}
-print(dic.get(1, 'optional defalt form any type if not exist'))
-print(dic.get(5, 'optional defalt form any type if not exist'))
-print([dic[key] / 10 for key in dic if key>1]) # [2.0, 3.0]
-print({key: dic[key] /10 for key in dic if key>1}) # {2: 2.0, 3: 3.0}
+dic = {1: 10, 2: 20, 3: 30}
+print(dic.get(1, "optional defalt form any type if not exist"))
+print(dic.get(5, "optional defalt form any type if not exist"))
+print([dic[key] / 10 for key in dic if key > 1])  # [2.0, 3.0]
+print({key: dic[key] / 10 for key in dic if key > 1})  # {2: 2.0, 3: 3.0}
 firstKey = next(iter(dic))
-print('first key is:', firstKey, ' first val is:', dic[firstKey]) # first key is: 1  first val is: 10
+print(
+    "first key is:", firstKey, " first val is:", dic[firstKey]
+)  # first key is: 1  first val is: 10
 
-thisdict =	{
-  "brand": "Ford",
-  "model": "Mustang",
-  "year": 1964,
-  "nest": {"inner": "innerval"},
-  "arry": [1, 2, 3]
+thisdict = {
+    "brand": "Ford",
+    "model": "Mustang",
+    "year": 1964,
+    "nest": {"inner": "innerval"},
+    "arry": [1, 2, 3],
 }
-if 'brand' in thisdict :
+if "brand" in thisdict:
     print("brand: ", thisdict["brand"])
-del thisdict['brand'] # del brand
-print("brand deleted: ", not ('brand' in thisdict))
-print("numbers of items: ",len(thisdict.items()))
-print("first of item: "+ list(thisdict.keys())[0] + ': ' +list(thisdict.values())[0] )
+del thisdict["brand"]  # del brand
+print("brand deleted: ", not ("brand" in thisdict))
+print("numbers of items: ", len(thisdict.items()))
+print("first of item: " + list(thisdict.keys())[0] + ": " + list(thisdict.values())[0])
 print("the nested items: ", thisdict["nest"]["inner"])
 print("the arry secend item: ", thisdict["arry"][1])
 # loop by order
 for key in thisdict:
-  print(key, ':', thisdict[key])
+    print(key, ":", thisdict[key])
 # loop by values
 for val in thisdict.values():
-  print('val: ', val)
+    print("val: ", val)
 # loop by keys
 for key in thisdict.keys():
-  print('key: ', key)
+    print("key: ", key)
 # loop by key value
 for key, val in thisdict.items():
-  print(key, ':', val)
+    print(key, ":", val)
 
 # concatenate dict
 dicts = {1: "2"}
@@ -65,14 +67,20 @@ lists = [1, "2"]
 lists.extend([3, "4"])
 print(lists)
 
+
 # add index by key
 def build_dict(seq, key):
-        return dict((d[key], d) for (index, d) in enumerate(seq))
+    return dict((d[key], d) for (index, d) in enumerate(seq))
 
-list_to_be_sorted = [{"name": "yan1", "val": 1}, {"name": "yan", "val": 0}, {"name": "yan2", "val": 2}]
+
+list_to_be_sorted = [
+    {"name": "yan1", "val": 1},
+    {"name": "yan", "val": 0},
+    {"name": "yan2", "val": 2},
+]
 newlist = build_dict(list_to_be_sorted, "name")
 print(newlist)
-print(newlist["yan"])# find in list by key
+print(newlist["yan"])  # find in list by key
 
 myDict = {1: "2", 3: "4", 4: "3", 2: "1", 0: "0"}
 myKeys = list(myDict.keys())
@@ -82,18 +90,20 @@ sorted_dict = {key: myDict[key] for key in myKeys}
 print(sorted_dict)
 
 from sortedcontainers import SortedDict
-sd = SortedDict({'b': 2, 'd': -3, 'a': 1, "c": 1}) # sort by key
-print("print from the start:", sd.peekitem(0)) #  from the start ('a', 1)
-print("print from the end:", sd.popitem(index=-1))# from the end ('d', -3)
+
+sd = SortedDict({"b": 2, "d": -3, "a": 1, "c": 1})  # sort by key
+print("print from the start:", sd.peekitem(0))  #  from the start ('a', 1)
+print("print from the end:", sd.popitem(index=-1))  # from the end ('d', -3)
 
 from collections import OrderedDict
+
 od = OrderedDict()
 od["a"] = 1
 od["b"] = 2
 od["c"] = 3
 od.move_to_end("b")
 lst = list(od.keys())
-print("print from the start:", lst[0])# from the start ('a0', 1)
-print("print from the end:", lst[-1])# from the End ('d', 2)
-print("pop from the start:", od.popitem(last=False))# from the start ('c', 3)
-print("pop from the end:", od.popitem(last=True))# from the End ('c', 3)
+print("print from the start:", lst[0])  # from the start ('a0', 1)
+print("print from the end:", lst[-1])  # from the End ('d', 2)
+print("pop from the start:", od.popitem(last=False))  # from the start ('c', 3)
+print("pop from the end:", od.popitem(last=True))  # from the End ('c', 3)
