@@ -10,8 +10,8 @@ license = {text = "MIT"}
 #  "flask-socketio==5.0.1", "schedule==1.1.0", "Jinja2==2.11.3", "markupsafe==1.1.1", "werkzeug==1.0.1",
 # flask-mongoengine==1.0.0 for mongo 3.6 need also flask==2.2.5
 dependencies = [
-  "flask==2.2.5", "marshmallow", "marshmallow-sqlalchemy", "flask_sqlalchemy", "pymysql", "sqlalchemy", "flask-login", "flask-mongoengine==1.0.0",
-  "flask-bcrypt", "flask-cors", "flask-restful", "flask-jwt-extended", "flask-socketio", "flask-migrate", "flask-mail", "flask_jsonpify",
+  "flask==2.2.5", "marshmallow", "marshmallow_dataclass", "marshmallow-sqlalchemy", "flask_sqlalchemy", "pymysql", "sqlalchemy", "flask-login",
+  "flask-mongoengine==1.0.0", "flask-bcrypt", "flask-cors", "flask-restful", "flask-jwt-extended", "flask-socketio", "flask-migrate", "flask-mail", "flask_jsonpify",
   "scapy", "psutil", "keyboard", "sortedcontainers", "numpy", "matplotlib", "pandas", "pandas_datareader",
   "plotly", "cufflinks", "ipykernel", "selenium", "webdriver-manager", "sympy==1.6.2", "scipy", "pycryptodome",
   "ipywidgets", "IPython", "seaborn", "nbformat", "openpyxl", "jupyterlab-mathjax3", "google-generativeai",
