@@ -1,3 +1,4 @@
+from time import sleep
 from pynput import keyboard
 from pynput.keyboard import Key, Controller
 from pyautogui import press, typewrite #, hotkey
@@ -5,6 +6,26 @@ from pynput.mouse import Button
 from pynput import mouse
 from pynput.mouse import Controller as MController
 import pyperclip
+from pynput.mouse import Button, Controller
+
+mouse_ctrl = Controller()
+
+# sleep(1)
+# Set pointer position
+mouse_ctrl.position = (10, 400)
+# Move pointer relative to current position
+mouse_ctrl.move(2000, -40)
+
+# Press and release
+mouse_ctrl.press(Button.left)
+mouse_ctrl.release(Button.left)
+
+# Double click; this is different from pressing and releasing
+# twice on macOS
+mouse_ctrl.click(Button.left, 2)
+
+# Scroll two steps down
+mouse_ctrl.scroll(0, 2)
 
 class MyException(Exception): pass
 
