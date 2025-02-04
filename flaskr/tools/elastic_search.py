@@ -45,7 +45,7 @@ def find_query(string_query, page_request, from_date, to_date, group_name, index
     # Calculate total pages
     total_hits = response.hits.total
     total_pages = ceil(float(total_hits) / page_size)
-    print(f"Find count: {total_pages}")
+    print(f"Find total Pages: {total_pages}")
 
     # Return the results
     return response
@@ -57,7 +57,7 @@ if __name__ == '__main__':
     to_date = date(2025, 1, 31)
     page_request = {'number': 0, 'size': 10}
     group_name = 'group1_agrs2f5sa2'
-    string_query = "productName:*" # 'productName:("*")'
+    string_query = "productName:(*) AND stepUpdateStatus:('failed')" # test the query in Kibana before using it here
     results = find_query(string_query, page_request, from_date, to_date, group_name, index_name=index_name)
     for hit in results:
         print(hit)  # Do something with the hit
