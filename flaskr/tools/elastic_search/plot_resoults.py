@@ -21,8 +21,8 @@ def plot_build_name_counts(build_name_counts):
 
     # Customize the plot
     plt.xlabel('Build Name')
-    plt.ylabel('Count')
-    plt.title('Build Name vs. Count')
+    plt.ylabel('Steps Count')
+    plt.title('Build Name vs. Steps Count')
     plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
 
@@ -44,24 +44,4 @@ if __name__ == '__main__':
         build_name = hit.buildName
         build_name_counts[build_name] = build_name_counts.get(build_name, 0) + 1
 
-    values = list(build_name_counts.values())
-    items = list(build_name_counts.keys())
-
-    # Create a bar chart
-    plt.figure(figsize=(10, 6))
-    bars = plt.bar(items, values, color='skyblue')
-
-    # Add value labels on top of each bar
-    for bar, value in zip(bars, values):
-        yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width() / 2.0, yval + 0.5, value, ha='center', va='bottom')
-
-    # Customize the plot
-    plt.xlabel('Build Name')
-    plt.ylabel('Steps Count')
-    plt.title('Build Name vs. Steps Count')
-    plt.xticks(rotation=45, ha='right')
-    plt.tight_layout()
-
-    # Show the plot
-    plt.show()
+    plot_build_name_counts(build_name_counts)
