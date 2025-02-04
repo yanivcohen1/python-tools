@@ -35,7 +35,7 @@ def find_query(string_query, page_request, from_date, to_date, group_name, index
     s = Search(using=es, index=index_name).query(combined_query).filter(date_range_filter)
 
     # Apply pagination
-    page_number = page_request["number"]
+    page_number = page_request["page"]
     page_size = page_request["size"]
     s = s[page_number * page_size : (page_number + 1) * page_size]
 
@@ -55,7 +55,7 @@ if __name__ == '__main__':
     # Example usage
     from_date = date(2025, 1, 1)
     to_date = date(2025, 1, 31)
-    page_request = {'number': 0, 'size': 10}
+    page_request = {'page': 0, 'size': 10}
     group_name = 'group1_agrs2f5sa2'
     string_query = "productName:(*) AND stepUpdateStatus:('failed')" # test the query in Kibana before using it here
     results = find_query(string_query, page_request, from_date, to_date, group_name, index_name=index_name)

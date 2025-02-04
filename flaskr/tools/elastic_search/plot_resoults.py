@@ -40,7 +40,7 @@ def plot_build_name_counts(build_name_counts):
 if __name__ == "__main__":
     from_date = date(2025, 1, 1)
     to_date = date(2025, 1, 31)
-    page_request = {"number": 0, "size": 10}
+    page_request = {"page": 0, "size": 10}
     group_name = "group1_agrs2f5sa2"
     string_query = "productName:(*) AND stepUpdateStatus:('failed')"  # test the query in Kibana before using it here
     results = find_query(
