@@ -54,8 +54,8 @@ if __name__ == "__main__":
 
     # Extract aggregation results
     build_name_counts = {}
-    for hit in results:
-        build_name = hit.buildName
+    for result in results:
+        build_name = result.buildName
         build_name_counts[build_name] = build_name_counts.get(build_name, 0) + 1
 
     plot_build_name_counts(build_name_counts)
