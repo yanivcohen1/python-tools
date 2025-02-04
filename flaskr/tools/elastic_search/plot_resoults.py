@@ -4,11 +4,11 @@ from flaskr.tools.elastic_search.elastic_search import find_query
 
 def plot_build_name_counts(build_name_counts):
     # Sort the dictionary by count in descending order
-    sorted_counts = dict(sorted(build_name_counts.items(), key=lambda item: item[1], reverse=True))
+    # sorted_counts = dict(sorted(build_name_counts.items(), key=lambda item: item[1], reverse=True))
 
     # Prepare data for plotting
-    build_names = list(sorted_counts.keys())
-    counts = list(sorted_counts.values())
+    build_names = list(build_name_counts.keys())
+    counts = list(build_name_counts.values())
 
     # Create the bar chart
     plt.figure(figsize=(12, 6))
