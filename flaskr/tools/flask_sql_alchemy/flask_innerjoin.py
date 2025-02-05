@@ -199,11 +199,9 @@ class FindBooksByAuthorNameResource(Resource):
             return jsonify({"error": "author_name query parameter is required"}), 400
         author: Author = Author.query.filter_by(name=author_name).first_or_404()
         books = Book.query.filter_by(author_id=author.id).all()
-        # return jsonify(book_schema.dump(books, many=True))
-        # book_titles = [book.title for book in books]
-        # return jsonify({'book_titles': book_titles})
         response = make_response(jsonify(books_schema.dump(books)))
         response.headers['Custom-Header'] = 'CustomValue'
+        # response.headers['Header-Two'] = 'Value2'
         return response
 
 
