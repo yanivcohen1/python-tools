@@ -47,4 +47,4 @@ if __name__ == '__main__':
         # Do stuff...
         time.sleep(0.1)
         if item % 10 == 0:
-            print(f'\nfound {item}')
+            print(f'found {item}               ')
