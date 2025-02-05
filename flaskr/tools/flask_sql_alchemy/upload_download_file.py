@@ -2,6 +2,7 @@
 from io import BytesIO
 from flask import Flask, render_template, request, send_file, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text
 
 # Initialize flask and create sqlite database
 app = Flask(__name__)
@@ -11,6 +12,9 @@ app.config["SQLALCHEMY_DATABASE_URI"] = (
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
+# with app.app_context():
+#     result = result = db.session.execute(text('SELECT VERSION()')).fetchone()
+#     db_version = result[0]
 
 # create datatable
 class Upload(db.Model):
