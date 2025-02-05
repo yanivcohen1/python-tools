@@ -34,12 +34,13 @@ if __name__ == '__main__':
     # A List of Items
     items = list(range(0, 57))
 
-    for item in items:
-        print(f'\rProgress: {item}/{len(items)}', end='\r')
+    for i, item in enumerate(items):
+        print(f'\rProgress: {i}/{len(items)}', end='\r')
         # Do stuff...
         time.sleep(0.1)
         if item % 10 == 0:
             print(f'\nfound {item}')
+    print()
 
     # A Nicer, Single-Call Usage
     for item in progressBar(items, prefix = 'Progress:', suffix = 'Complete', length = 50):
