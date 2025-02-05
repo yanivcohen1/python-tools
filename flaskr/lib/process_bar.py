@@ -28,14 +28,22 @@ def progressBar(iterable, prefix = '', suffix = '', decimals = 1, length = 100, 
 
 
 ############################################ Sample Usage
-import time
+if __name__ == '__main__':
+    import time
 
-# A List of Items
-items = list(range(0, 57))
+    # A List of Items
+    items = list(range(0, 57))
 
-# A Nicer, Single-Call Usage
-for item in progressBar(items, prefix = 'Progress:', suffix = 'Complete', length = 50):
-    # Do stuff...
-    time.sleep(0.1)
-    if item % 10 == 0:
-        print(f'\nfound {item}')
+    for item in items:
+        print(f'\rProgress: {item}/{len(items)}', end='\r')
+        # Do stuff...
+        time.sleep(0.1)
+        if item % 10 == 0:
+            print(f'\nfound {item}')
+
+    # A Nicer, Single-Call Usage
+    for item in progressBar(items, prefix = 'Progress:', suffix = 'Complete', length = 50):
+        # Do stuff...
+        time.sleep(0.1)
+        if item % 10 == 0:
+            print(f'\nfound {item}')
