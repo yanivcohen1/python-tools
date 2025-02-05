@@ -194,13 +194,15 @@ class FindBooksByAuthorNameResource(Resource):
     # GET /api/find_books_by_author_name?author_name=F. Scott Fitzgerald
     # @app.route('/find_books_by_author_name')
     def get(self):
+        custom_header = request.headers.get('Custom-Header')
+        print(f'Custom-Header: {custom_header}')
         author_name = request.args.get("author_name")
         if author_name is None:
             return jsonify({"error": "author_name query parameter is required"}), 400
         author: Author = Author.query.filter_by(name=author_name).first_or_404()
         books = Book.query.filter_by(author_id=author.id).all()
         response = make_response(jsonify(books_schema.dump(books)))
-        response.headers['Custom-Header'] = 'CustomValue'
+        response.headers['Custom-Header'] = 'CustomValueResponse'
         # response.headers['Header-Two'] = 'Value2'
         return response
 

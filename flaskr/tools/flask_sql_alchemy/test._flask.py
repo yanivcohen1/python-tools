@@ -4,7 +4,8 @@ host = 'http://127.0.0.1:5000'
 
 # no need to login to access this route
 url = host+"/api/find_books_by_author_name?author_name=F. Scott Fitzgerald"
-response = requests.get(url)
+headers = { 'Custom-Header': 'CustomValueSend' }
+response = requests.get(url, headers=headers)
 print('find_books_by_author_name:', response.json())
 # Access a specific header
 custom_header = response.headers.get('Custom-Header')
