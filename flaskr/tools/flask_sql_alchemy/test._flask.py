@@ -6,6 +6,9 @@ host = 'http://127.0.0.1:5000'
 url = host+"/api/find_books_by_author_name?author_name=F. Scott Fitzgerald"
 response = requests.get(url)
 print('find_books_by_author_name:', response.json())
+# Access a specific header
+custom_header = response.headers.get('Custom-Header')
+print(f'Custom-Header: {custom_header}')
 
 # First, login to get the JWT access token
 login_url = host+"/login"

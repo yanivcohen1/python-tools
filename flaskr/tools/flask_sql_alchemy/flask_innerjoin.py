@@ -1,6 +1,6 @@
 import functools
 from typing import List
-from flask import Flask, g, jsonify, request, redirect, url_for
+from flask import Flask, jsonify, request, make_response, g, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required # ,current_user
 from flask_bcrypt import Bcrypt
@@ -202,7 +202,9 @@ class FindBooksByAuthorNameResource(Resource):
         # return jsonify(book_schema.dump(books, many=True))
         # book_titles = [book.title for book in books]
         # return jsonify({'book_titles': book_titles})
-        return jsonify(books_schema.dump(books))
+        response = make_response(jsonify(books_schema.dump(books)))
+        response.headers['Custom-Header'] = 'CustomValue'
+        return response
 
 
 class FindBooksTitleByAuthorNameResource(Resource):

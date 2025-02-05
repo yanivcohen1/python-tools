@@ -8,7 +8,7 @@ es = Elasticsearch() # host='localhost', port=9200
 try:
     info = es.info()
     print("Elasticsearch Cluster Info:")
-    print(info)
+    # print(info)
 except Exception as e:
     print("Failed to connect to Elasticsearch.")
     print(f"Error: {e}")
