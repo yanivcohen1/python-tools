@@ -39,7 +39,15 @@ for i, item in enumerate(items):
     # Do stuff...
     time.sleep(0.1)
     if item % 10 == 0:
-        print(f'\nfound {item}')
+        print(f'found {item}        ')
+print()
+
+# A Nicer, Single-Call Usage
+for item in progressBar(items, prefix = 'Progress:', suffix = 'Complete', length = 50):
+    # Do stuff...
+    time.sleep(0.1)
+    if item % 10 == 0:
+        print(f'found {item}                                                                      ')
 print()
 
 # A Nicer, Single-Call Usage
