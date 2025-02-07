@@ -1,6 +1,7 @@
 import os
 import re
 import requests
+import base64
 
 host = 'http://127.0.0.1:5000'
 file_id = None
@@ -48,3 +49,15 @@ if __name__ == '__main__':
     # file_id = upload()
     file_id = 1
     download()
+
+
+
+    # file_path = r"C:\Users\yaniv\OneDrive\python-flask\flaskr\tools\flask_sql_alchemy\upload_download\hero.jpg"
+    # # Open the file in binary mode and send it using a POST request
+    # with open(file_path, 'rb') as file:
+    #     files = file.read()
+    # file_64_str = base64.b64encode(files).decode()
+    # file_dec = base64.b64decode(file_64_str)
+    # file_down_path = r"C:\Users\yaniv\OneDrive\python-flask\flaskr\tools\flask_sql_alchemy\upload_download\hero2.jpg"
+    # with open(file_down_path, 'wb') as file:
+    #     file.write(file_dec)

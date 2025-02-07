@@ -16,7 +16,8 @@ lib.process_json.restype = ctypes.c_char_p
 input_json = json.dumps({"key": "value"})
 
 # Call the C function
-output_json = lib.process_json(input_json.encode('utf-8')).decode('utf-8')
+output_json_bin = lib.process_json(input_json.encode('utf-8'))
+output_json = output_json_bin.decode('utf-8')
 
 # Print the output JSON
-print(output_json)
+print("py print:", output_json)
