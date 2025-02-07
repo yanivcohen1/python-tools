@@ -26,10 +26,10 @@ def test_file():
     output_bin = lib.process_file(file_64_bin)
     # output_json = output_json_bin.decode('utf-8')
 
-    file_dec = base64.b64decode(output_bin)
+    file_dec_bin = base64.b64decode(output_bin)
     file_down_path = r"C:\Users\yaniv\OneDrive\python-flask\flaskr\tools\flask_sql_alchemy\upload_download\hero2.jpg"
     with open(file_down_path, 'wb') as file:
-        file.write(file_dec)
+        file.write(file_dec_bin)
 
 currentDir = os.path.join(os.path.dirname(__file__))
 # Load the shared dll library win
