@@ -30,3 +30,25 @@ const char* process_json(const char* input_json) {
 
     return utf8_str;
 }
+
+// Example C function that processes JSON
+const char* process_file(const char* input_json) {
+    // Calculate the size of the original JSON string
+    size_t size = strlen(input_json) + 1; // +1 for the null terminator
+
+    // Allocate memory for the copy
+    char* json_copy = (char*)malloc(size);
+
+    if (json_copy == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return NULL;
+    }
+
+    // Copy the original JSON string into the allocated memory
+    strcpy(json_copy, input_json);
+
+    // Free the allocated memory
+    // free(utf8_str);
+
+    return input_json;
+}
