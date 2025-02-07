@@ -38,8 +38,8 @@ lib = ctypes.CDLL(currentDir + '/jsonprocess.dll')
 # lib_linux = ctypes.CDLL(currentDir + '/ibjsonprocess.so')
 
 # Define the argument and return types of the C function
-lib.process_json.argtypes = [ctypes.c_char_p]
-lib.process_json.restype = ctypes.c_char_p
+lib.process_json.argtypes = [ctypes.c_char_p] # input c char pointer
+lib.process_json.restype = ctypes.c_char_p # output c char pointer
 
 lib.process_file.argtypes = [ctypes.c_char_p]
 lib.process_file.restype = ctypes.c_char_p

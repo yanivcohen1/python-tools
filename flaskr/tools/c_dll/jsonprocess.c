@@ -10,45 +10,45 @@ const char* process_json(const char* input_json) {
     size_t size = strlen(input_json) + strlen(my_str) + 1;
 
     // Allocate memory for the concatenated string
-    char* utf8_str = (char*)malloc(size);
+    char* output_json = (char*)malloc(size);
 
-    if (utf8_str == NULL) {
+    if (output_json == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
         return NULL;
     }
 
     // Concatenate the strings
     // Concatenate the parts into the new UTF-8 encoded string
-    strcpy(utf8_str, my_str);
-    strcat(utf8_str, input_json);
+    strcpy(output_json, my_str);
+    strcat(output_json, input_json);
 
     // Print the concatenated string
-    printf("c print: %s\n", utf8_str);
+    printf("c print: %s\n", output_json);
 
     // Free the allocated memory
     // free(utf8_str);
 
-    return utf8_str;
+    return output_json;
 }
 
 // Example C function that processes JSON
-const char* process_file(const char* input_json) {
+const char* process_file(const char* input_str) {
     // Calculate the size of the original JSON string
-    size_t size = strlen(input_json) + 1; // +1 for the null terminator
+    size_t size = strlen(input_str) + 1; // +1 for the null terminator
 
     // Allocate memory for the copy
-    char* json_copy = (char*)malloc(size);
+    char* output_str = (char*)malloc(size);
 
-    if (json_copy == NULL) {
+    if (output_str == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
         return NULL;
     }
 
     // Copy the original JSON string into the allocated memory
-    strcpy(json_copy, input_json);
+    strcpy(output_str, input_str);
 
     // Free the allocated memory
-    // free(utf8_str);
+    // free(output_str);
 
-    return input_json;
+    return output_str;
 }
