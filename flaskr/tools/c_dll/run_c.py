@@ -20,13 +20,13 @@ def test_file():
     # Open the file in binary mode and send it using a POST request
     with open(file_path, 'rb') as file:
         files = file.read()
-    file_64_str = base64.b64encode(files).decode()
+    file_64_bin = base64.b64encode(files)# .decode()
 
     # Call the C function
-    output_json_bin = lib.process_file(file_64_str.encode('utf-8'))
-    output_json = output_json_bin.decode('utf-8')
+    output_bin = lib.process_file(file_64_bin)
+    # output_json = output_json_bin.decode('utf-8')
 
-    file_dec = base64.b64decode(output_json)
+    file_dec = base64.b64decode(output_bin)
     file_down_path = r"C:\Users\yaniv\OneDrive\python-flask\flaskr\tools\flask_sql_alchemy\upload_download\hero2.jpg"
     with open(file_down_path, 'wb') as file:
         file.write(file_dec)
