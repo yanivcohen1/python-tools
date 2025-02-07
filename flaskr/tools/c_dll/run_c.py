@@ -3,8 +3,10 @@ import json
 import os
 
 currentDir = os.path.join(os.path.dirname(__file__))
-# Load the shared library
-lib = ctypes.CDLL(currentDir + '/jsonprocess.dll') #'./jsonprocess.dll'
+# Load the shared dll library win
+lib = ctypes.CDLL(currentDir + '/jsonprocess.dll')
+# Load the shared so library linux
+# lib_linux = ctypes.CDLL(currentDir + '/ibjsonprocess.so')
 
 # Define the argument and return types of the C function
 lib.process_json.argtypes = [ctypes.c_char_p]
