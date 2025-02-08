@@ -4,6 +4,8 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 options = Options()
 options.add_argument("--start-maximized")
@@ -18,6 +20,10 @@ driver = webdriver.Chrome(
     service=service, options=options
 )
 
+# Wait until the form elements are present time out is 10 sec
+WebDriverWait(driver, 10).until(
+    EC.presence_of_element_located((By.CSS_SELECTOR, "table#customers"))
+)
 # testing
 driver.get("https://www.w3schools.com/html/html_tables.asp")
 driver.maximize_window()
