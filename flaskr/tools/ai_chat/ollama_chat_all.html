@@ -72,12 +72,6 @@
 
                 modelListDiv.appendChild(select);
 
-                // Add a submit button
-                const submitButton = document.createElement('button');
-                submitButton.innerText = 'Submit';
-                submitButton.addEventListener('click', printSelectedModel);
-                modelListDiv.appendChild(submitButton);
-
             } catch (error) {
                 console.error('Error:', error);
             }
