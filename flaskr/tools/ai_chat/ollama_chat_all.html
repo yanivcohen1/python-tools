@@ -37,6 +37,7 @@
         }
     </style>
     <script>
+        let controller;
         // const code_highlight = ", the code in response will be like this ```{program_language_name}"
         async function getModelList() {
             try {
@@ -83,12 +84,24 @@
         }
 
         async function fetchCompletion() {
-            let myMsg = document.getElementById('inputMessage').value;
             const selectedModel = document.getElementById('modelSelect').value;
             if (!selectedModel) {
                 alert('No model selected. Please select a model first.');
                 return
             }
+            const send_btn = document.getElementById('send')
+            send = send_btn.innerHTML
+            if (send == "Send"){
+                send_btn.innerHTML = "stop"
+            } else{
+                // stop the call
+                controller.abort();
+                send_btn.innerHTML = "Send"
+                return
+            }
+            let myMsg = document.getElementById('inputMessage').value;
+            controller = new AbortController();
+            const signal = controller.signal;
             const response = await fetch('http://localhost:11434/v1/chat/completions', {
                 method: 'POST',
                 headers: {
@@ -103,7 +116,8 @@
                     'temperature': 0.7,
                     'max_tokens': -1, // -1 for unlimited
                     'stream': true
-                })
+                }),
+                signal // Add signal here to support aborting
             });
 
             const reader = response.body.getReader();
@@ -146,7 +160,7 @@
     <div id="modelList"></div>
     <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here..."></textarea>
     <br>
-    <button onclick="fetchCompletion()">Send</button>
+    <button id="send" onclick="fetchCompletion()">Send</button>
     <div id="output"></div>
 </body>
 
