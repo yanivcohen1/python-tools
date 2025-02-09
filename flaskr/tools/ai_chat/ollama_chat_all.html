@@ -41,6 +41,7 @@
         // const code_highlight = ", the code in response will be like this ```{program_language_name}"
         async function getModelList() {
             try {
+				document.getElementById('output').innerHTML = ""
                 const response = await fetch('http://localhost:11434/v1/models');
                 if (!response.ok) {
                     throw new Error('Failed to fetch model list');
@@ -71,19 +72,21 @@
                 });
 
                 modelListDiv.appendChild(select);
+				document.getElementById("refresh_models").style.display = "none";
 
             } catch (error) {
-                document.getElementById('output').innerHTML = 'Error on read ollama models:  ' + error
+				document.getElementById('output').innerHTML = 'Error on read ollama models:  ' + error
                 console.error('Error:', error);
             }
         }
 
         async function fetchCompletion() {
-            const selectedModel = document.getElementById('modelSelect').value;
-            if (!selectedModel) {
+			const modelSelect = document.getElementById('modelSelect')
+            if (!modelSelect || !modelSelect.value) {
                 alert('No model selected. Please select a model first.');
                 return
             }
+			const selectedModel = modelSelect.value;
             const send_btn = document.getElementById('send')
             send = send_btn.innerHTML
             if (send == "Send"){
@@ -152,7 +155,8 @@
 
 <body onload="getModelList()">
     <h1>Ask Ollama</h1>
-    <div id="modelList"></div>
+    <div><div id="modelList"></div>
+	<button id="refresh_models" onclick="getModelList()">refresh module list</button></div>
     <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here..."></textarea>
     <br>
     <button id="send" onclick="fetchCompletion()">Send</button>
