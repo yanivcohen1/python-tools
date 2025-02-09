@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ollama-DeepSeek-r1</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
         }
+
         #output {
             background-color: #f4f4f4;
             padding: 20px;
             border-radius: 10px;
             color: #333;
         }
+
         code {
             background-color: #e8e8e8;
             color: #d6336c;
             padding: 2px 4px;
             border-radius: 4px;
         }
+
         pre code {
             background-color: #2d2d2d;
             color: #f8f8f2;
@@ -32,19 +37,68 @@
         }
     </style>
     <script>
-        const code_highlight = ", the code in response will be like this ```{program_language_name}"
+        // const code_highlight = ", the code in response will be like this ```{program_language_name}"
+        async function getModelList() {
+            try {
+                const response = await fetch('http://localhost:11434/v1/models');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch model list');
+                }
+                const data = await response.json();
+
+                const models = data.data;
+                const modelListDiv = document.getElementById('modelList');
+                modelListDiv.innerHTML = '';  // Clear any previous content
+
+                // Create a select dropdown with model options
+                const select = document.createElement('select');
+                select.id = 'modelSelect';
+
+                // Create a default option
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.text = 'Select a model';
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                select.appendChild(defaultOption);
+
+                models.forEach((model) => {
+                    const option = document.createElement('option');
+                    option.value = model.id;
+                    option.text = model.id;
+                    select.appendChild(option);
+                });
+
+                modelListDiv.appendChild(select);
+
+                // Add a submit button
+                const submitButton = document.createElement('button');
+                submitButton.innerText = 'Submit';
+                submitButton.addEventListener('click', printSelectedModel);
+                modelListDiv.appendChild(submitButton);
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
         async function fetchCompletion() {
             let myMsg = document.getElementById('inputMessage').value;
+            const selectedModel = document.getElementById('modelSelect').value;
+            if (!selectedModel) {
+                alert('No model selected. Please select a model first.');
+                return
+            }
             const response = await fetch('http://localhost:11434/v1/chat/completions', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    'model': 'deepseek-r1:8b',
+                    'model': selectedModel,//'deepseek-r1:8b',
                     'messages': [
                         { "role": "system", "content": "" },
-                        { "role": "user", "content": myMsg}
+                        { "role": "user", "content": myMsg }
                     ],
                     'temperature': 0.7,
                     'max_tokens': -1, // -1 for unlimited
@@ -86,11 +140,14 @@
         }
     </script>
 </head>
-<body>
-    <h1>Ask AI</h1>
+
+<body onload="getModelList()">
+    <h1>Ask Ollama</h1>
+    <div id="modelList"></div>
     <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here..."></textarea>
     <br>
     <button onclick="fetchCompletion()">Send</button>
     <div id="output"></div>
 </body>
+
 </html>
