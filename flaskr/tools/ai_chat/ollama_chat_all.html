@@ -73,6 +73,7 @@
                 modelListDiv.appendChild(select);
 
             } catch (error) {
+                document.getElementById('output').innerHTML = 'Error on read ollama models:  ' + error
                 console.error('Error:', error);
             }
         }
