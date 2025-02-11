@@ -42,7 +42,7 @@
         async function getModelList() {
             try {
 				document.getElementById('output').innerHTML = ""
-                const response = await fetch('http://localhost:8000/v1/models');
+                const response = await fetch('http://127.0.0.1:8000/v1/models');
                 if (!response.ok) {
                     throw new Error('Failed to fetch model list');
                 }
@@ -100,7 +100,7 @@
             let myMsg = document.getElementById('inputMessage').value;
             controller = new AbortController();
             const signal = controller.signal;
-            const response = await fetch('http://localhost:8000/v1/chat/completions', {
+            const response = await fetch('http://127.0.0.1:8000/v1/chat/completions', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
