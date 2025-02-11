@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import httpx
 import asyncio
 
+# Start ollama first
+# in cmd type "ollama serve"
 app = FastAPI()
 
 # Configure CORS
