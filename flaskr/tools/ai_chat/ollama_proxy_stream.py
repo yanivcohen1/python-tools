@@ -15,22 +15,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-OLLAMA_URL = "http://localhost:11434/v1/chat/completions"
+OLLAMA_URL = "http://localhost:11434"
+OLLAMA_CHAT = "/v1/chat/completions"
 
 async def stream_ollama_response(request_body: dict):
     async with httpx.AsyncClient() as client:
-        async with client.stream("POST", OLLAMA_URL, json=request_body) as response:
+        async with client.stream("POST", OLLAMA_URL + OLLAMA_CHAT, json=request_body) as response:
             async for chunk in response.aiter_bytes():
                 yield chunk
 
-@app.post("/v1/chat/completions") # for stream
+@app.post(f"{OLLAMA_CHAT}") # for stream
 async def proxy(request: Request):
     request_body = await request.json()
     return StreamingResponse(stream_ollama_response(request_body), media_type="text/event-stream")
 
 @app.api_route("/{endpoint:path}", methods=["GET", "POST", "OPTIONS"]) # for none stream
 async def non_stream_proxy(request: Request, endpoint: str):
-    url = f"http://localhost:11434/{endpoint}"
+    url = f"{OLLAMA_URL}/{endpoint}"
     async with httpx.AsyncClient() as client:
         if request.method == "GET":
             response = await client.get(url, params=request.query_params)
