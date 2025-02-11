@@ -15,6 +15,7 @@ def stream_response(response):
         if chunk:
             yield chunk
 
+
 # for stream   : http://localhost:5000/v1/chat/completions
 # or non stream: http://localhost:5000/v1/models
 @app.route('/<path:endpoint>', methods=['GET', 'POST', 'OPTIONS'])
@@ -26,12 +27,17 @@ def proxy(endpoint):
         return '', 204
 
     url = f"{OLLAMA_URL}/{endpoint}"
+    try:
+        json = request.get_json() # if request.is_json else None
+    except:
+        json = None
 
     # Forward request to Ollama
     with requests.request(
         method=request.method,
+        # headers = request.headers,
         url=url,
-        json=request.get_json(),
+        json=json,
         stream=True  # Enable streaming
     ) as response:
         # Check if the request is for a streaming response
