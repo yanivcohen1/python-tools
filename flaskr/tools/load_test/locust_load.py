@@ -59,7 +59,7 @@ if __name__ == "__main__":
     run_locust()
 
 # to run locust with his web page live info
-# locust -f locustfile.py -u 10 -r 2 --web
+# locust -f locustfile.py -u 10 -r 2 -h http://your-api-url.com --web
 
 # to run locust witout his web page live info
-# locust -f locustfile.py -u 10 -r 2 --headless
+# locust -f locustfile.py -u 10 -r 2  -h http://your-api-url.com --headless
