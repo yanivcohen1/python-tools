@@ -79,7 +79,7 @@
           "-u", "10",  // Number of users
           "-r", "1",   // Spawn rate - add 1 user every sec
           "--run-time", "1m", // Duration of the test for timeout
-          "--csv", "flaskr/tools/load_test/locust_report"
+          "--html", "flaskr/tools/load_test/locust_report"
       ],
       "console": "integratedTerminal",
       "env": {
