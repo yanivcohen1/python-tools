@@ -57,3 +57,6 @@ def run_locust():
 
 if __name__ == "__main__":
     run_locust()
+
+# to open locust web page run
+# locust -f locustfile.py -u 10 -r 2 --web
