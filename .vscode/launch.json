@@ -69,6 +69,25 @@
       ]
     },
     {
+      "name": "Locust",
+      "type": "python",
+      "request": "launch",
+      "program": "flaskr/tools/load_test/locust_load.py",
+      "args": [
+          "--headless",
+          "-u", "100",  // Number of users
+          "-r", "10",   // Spawn rate
+          "--run-time", "1m", // Duration of the test
+          "--csv", "locust_report"
+      ],
+      "console": "integratedTerminal",
+      "env": {
+          "PYTHONPATH": "${workspaceFolder}"
+      },
+      "justMyCode": true,
+      "stopOnEntry": false
+    },
+    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",

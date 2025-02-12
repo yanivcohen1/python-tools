@@ -5,7 +5,7 @@ class UserBehavior(TaskSet):
 
     def on_start(self):
         # Login and obtain JWT token
-        response = self.client.post("/login", json={"username": "user", "password": "pass"})
+        response = self.client.post("/login", json={"username": "user", "password": "pass"}, cookies={"cookie_name": "cookie_value"}  )
         self.token = response.json()["access_token"]
         self.headers = {"Authorization": f"Bearer {self.token}"}
 
@@ -27,7 +27,7 @@ class UserBehavior(TaskSet):
 
 class WebsiteUser(HttpUser):
     tasks = [UserBehavior]
-    wait_time = between(1, 5)
+    wait_time = between(1, 5) # wait between 1 and 5 seconds after each task
     host = "http://your-api-url.com"  # Replace with your API URL
     min_wait = 1000  # Minimum wait time in milliseconds
     max_wait = 5000  # Maximum wait time in milliseconds
@@ -37,6 +37,7 @@ def run_locust():
     import subprocess
 
     # Define the number of users and spawn rate
+    # in 10 sec all users run (100 users = 10 users/sec * 10 sec)
     num_users = 100 # 100 users
     spawn_rate = 10 # 10 users per second
 
