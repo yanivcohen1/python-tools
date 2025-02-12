@@ -26,3 +26,12 @@ class AppUser(HttpUser):
     def sentiment_page(self):
         mytext = random.choice(sentences)
         self.client.get("/sentiment/" + str(mytext))
+
+# for debug brackpoint
+# select "Python:Locust" in debug
+
+# run with gui 1m timeout
+# locust -f flaskr/tools/load_test/fast_api_load.py -u 10 -r 2 -h http://localhost:8000 --run-time 1m
+
+# run without gui 1m timeout
+# locust -f flaskr/tools/load_test/fast_api_load.py -u 10 -r 2 -h http://localhost:8000 --headless --run-time 1m --csv flaskr/tools/load_test/locust_report

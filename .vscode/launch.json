@@ -69,7 +69,7 @@
       ]
     },
     {
-      "name": "Locust",
+      "name": "Python:Locust",
       "type": "python",
       "request": "launch",
       "module": "locust",
