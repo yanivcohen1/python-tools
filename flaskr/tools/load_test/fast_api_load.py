@@ -17,7 +17,7 @@ class AppUser(HttpUser):
 
     wait_time = between(2, 5)  # wait
 
-    def on_start(self):
+    def on_start(self): # on new user (total of -u <users> times)
         # Login and obtain JWT token
         now = datetime.datetime.now()
         print("started:", now)

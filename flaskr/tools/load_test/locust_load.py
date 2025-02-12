@@ -3,7 +3,7 @@ import json
 
 class UserBehavior(TaskSet):
 
-    def on_start(self):
+    def on_start(self): # on new user (total of -u <users> times)
         # Login and obtain JWT token
         response = self.client.post("/login", json={"username": "user", "password": "pass"}, cookies={"cookie_name": "cookie_value"}  )
         self.token = response.json()["access_token"]
