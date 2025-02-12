@@ -46,7 +46,7 @@ source = ["flaskr"]
 [tool.pytest.ini_options]
 minversion = "6.0"
 testpaths = [
-    "flaskr/tools/py_test",
+    "flaskr/tools/tests",
     "integration"
 ]
 
