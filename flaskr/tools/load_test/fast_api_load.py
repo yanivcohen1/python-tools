@@ -15,7 +15,7 @@ sentences = [
 
 class AppUser(HttpUser):
 
-    wait_time = between(2, 5)  # wait between 1 and 5 seconds after each task
+    wait_time = between(1, 5)  # wait between 1 and 5 seconds after each task
 
     def on_start(self): # on new user (total of -u <users> times)
         # Login and obtain JWT token
