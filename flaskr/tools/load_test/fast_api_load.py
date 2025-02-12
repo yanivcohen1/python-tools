@@ -9,7 +9,7 @@ sentences = [
     "Well what a surprise",
     "James hates eating onions",
 ]
-# host = "http://127.0.0.1:5000"
+# host = "http://127.0.0.1:8000"
 
 
 class AppUser(HttpUser):
@@ -27,11 +27,13 @@ class AppUser(HttpUser):
         mytext = random.choice(sentences)
         self.client.get("/sentiment/" + str(mytext))
 
+# for help: locust -h
+
 # for debug brackpoint
 # select "Python:Locust" in debug
 
-# run with gui 1m timeout
-# locust -f flaskr/tools/load_test/fast_api_load.py -u 10 -r 2 -h http://localhost:8000 --run-time 1m
+# run with gui: http://localhost:8089 1m timeout
+# locust -f ./flaskr/tools/load_test/fast_api_load.py -u 10 -r 2 -H http://localhost:8000 --run-time 1m
 
 # run without gui 1m timeout
-# locust -f flaskr/tools/load_test/fast_api_load.py -u 10 -r 2 -h http://localhost:8000 --headless --run-time 1m --csv flaskr/tools/load_test/locust_report
+# locust -f ./flaskr/tools/load_test/fast_api_load.py -u 10 -r 2 -H http://localhost:8000 --headless --run-time 1m --html flaskr/tools/load_test/locust_report
