@@ -60,7 +60,7 @@ def run_locust():
 if __name__ == "__main__":
     run_locust()
 
-# to run locust with his web page live info run for 1m
+# to run locust with gui: http://localhost:8089 run for 1m
 # locust -f ./flaskr/tools/load_test/locustfile.py -u 10 -r 2 -H http://localhost:8000 --web --run-time 1m
 
 # to run locust witout his web page live info run for 1m
