@@ -58,5 +58,8 @@ def run_locust():
 if __name__ == "__main__":
     run_locust()
 
-# to open locust web page run
+# to run locust with his web page live info
 # locust -f locustfile.py -u 10 -r 2 --web
+
+# to run locust witout his web page live info
+# locust -f locustfile.py -u 10 -r 2 --headless
