@@ -76,8 +76,8 @@
       "args": [
           "-f", "flaskr/tools/load_test/fast_api_load.py",
           "--headless",
-          "-u", "100",  // Number of users
-          "-r", "10",   // Spawn rate
+          "-u", "10",  // Number of users
+          "-r", "1",   // Spawn rate - add 1 user every sec
           "--run-time", "1m", // Duration of the test for timeout
           "--csv", "flaskr/tools/load_test/locust_report"
       ],
