@@ -78,7 +78,7 @@
           "--headless",
           "-u", "100",  // Number of users
           "-r", "10",   // Spawn rate
-          "--run-time", "1m", // Duration of the test
+          "--run-time", "1m", // Duration of the test for timeout
           "--csv", "flaskr/tools/load_test/locust_report"
       ],
       "console": "integratedTerminal",

@@ -48,7 +48,7 @@ def run_locust():
         "--headless",
         "-u", str(num_users),
         "-r", str(spawn_rate),
-        "--run-time", "1m",  # Duration of the test
+        "--run-time", "1m",  # Duration of the test for timeout
         "--csv", "locust_report",  # Prefix for the CSV report files
         "--host", "http://your-api-url.com"  # Replace with your API URL
     ]
