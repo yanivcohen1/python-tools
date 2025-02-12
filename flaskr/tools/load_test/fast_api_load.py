@@ -1,4 +1,5 @@
 import random
+import datetime
 from locust import HttpUser, task, between
 
 # https://www.youtube.com/watch?v=esIEW0aEKqk
@@ -18,7 +19,8 @@ class AppUser(HttpUser):
 
     def on_start(self):
         # Login and obtain JWT token
-        print("started")
+        now = datetime.datetime.now()
+        print("started:", now)
 
     @task
     def index_page(self):
