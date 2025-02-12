@@ -13,7 +13,7 @@ sentences = [
 # host = "http://127.0.0.1:8000"
 
 
-class AppUser(HttpUser):
+class AppUser(HttpUser): # for every user
 
     wait_time = between(1, 5)  # wait between 1 and 5 seconds after each task
 

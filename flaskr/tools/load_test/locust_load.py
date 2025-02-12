@@ -1,7 +1,7 @@
 from locust import HttpUser, TaskSet, task, between
 import json
 
-class UserBehavior(TaskSet):
+class UserBehavior(TaskSet): # for every user
 
     def on_start(self): # on new user (total of -u <users> times)
         # Login and obtain JWT token
