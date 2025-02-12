@@ -20,7 +20,7 @@ class AppUser(HttpUser):
     def on_start(self): # on new user (total of -u <users> times)
         # Login and obtain JWT token
         now = datetime.datetime.now()
-        print("started:", now)
+        print("start new user:", now)
 
     @task
     def index_page(self):
