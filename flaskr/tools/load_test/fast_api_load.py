@@ -16,6 +16,10 @@ class AppUser(HttpUser):
 
     wait_time = between(2, 5)  # wait
 
+    def on_start(self):
+        # Login and obtain JWT token
+        print("started")
+
     @task
     def index_page(self):
         response = self.client.get("/")
