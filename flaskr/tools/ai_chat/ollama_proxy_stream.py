@@ -21,7 +21,7 @@ OLLAMA_URL = "http://localhost:11434"
 OLLAMA_CHAT = "/v1/chat/completions"
 
 async def stream_ollama_response(request_body: dict):
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(timeout=60) as client:
         async with client.stream("POST", OLLAMA_URL + OLLAMA_CHAT, json=request_body) as response:
             async for chunk in response.aiter_bytes():
                 yield chunk
@@ -34,7 +34,7 @@ async def proxy(request: Request):
 @app.api_route("/{endpoint:path}", methods=["GET", "POST", "OPTIONS"]) # for none stream
 async def non_stream_proxy(request: Request, endpoint: str):
     url = f"{OLLAMA_URL}/{endpoint}"
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(timeout=60) as client:
         if request.method == "GET":
             response = await client.get(url, params=request.query_params)
         elif request.method == "POST":
