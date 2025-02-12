@@ -39,5 +39,5 @@ class AppUser(HttpUser):
 # run with gui: http://localhost:8089 1m run time
 # locust -f ./flaskr/tools/load_test/fast_api_load.py -u 10 -r 2 -H http://localhost:8000 --run-time 1m
 
-# run without gui 1m 1m run time
+# run without gui 1m run time
 # locust -f ./flaskr/tools/load_test/fast_api_load.py -u 10 -r 2 -H http://localhost:8000 --headless --run-time 1m --html flaskr/tools/load_test/locust_report.html
