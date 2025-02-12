@@ -64,4 +64,4 @@ if __name__ == "__main__":
 # locust -f ./flaskr/tools/load_test/locustfile.py -u 10 -r 2 -H http://localhost:8000 --web --run-time 1m
 
 # to run locust witout his web page live info run for 1m
-# locust -f ./flaskr/tools/load_test/locustfile.py -u 10 -r 2  -H http://localhost:8000 --headless --run-time 1m --html ./flaskr/tools/load_test/locust_report
+# locust -f ./flaskr/tools/load_test/locustfile.py -u 10 -r 2  -H http://localhost:8000 --headless --run-time 1m --html ./flaskr/tools/load_test/locust_report.html
