@@ -47,3 +47,5 @@ async def non_stream_proxy(request: Request, endpoint: str):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, port=8000) # host="0.0.0.0"
+
+# for swagger API http://127.0.0.1:8000/docs#/
