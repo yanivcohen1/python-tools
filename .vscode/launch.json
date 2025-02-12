@@ -74,7 +74,7 @@
       "request": "launch",
       "module": "locust",
       "args": [
-          "-f", "flaskr/tools/load_test/locust_load.py",
+          "-f", "flaskr/tools/load_test/fast_api_load.py",
           "--headless",
           "-u", "100",  // Number of users
           "-r", "10",   // Spawn rate

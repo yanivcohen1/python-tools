@@ -15,7 +15,9 @@ class UserBehavior(TaskSet):
 
     @task(2)
     def read_item(self):
-        self.client.get("/items/1", headers=self.headers)
+        response = self.client.get("/items/1", headers=self.headers)
+        assert response.status_code == 200, f"Expected status code 200, but got {response.status_code}"
+        assert "expected_content" in response.text, "Expected content not found in response"
 
     @task(3)
     def update_item(self):
