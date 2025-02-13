@@ -18,7 +18,7 @@ dependencies = [
   "pint", "scikit-image", "streamlit", "vpython", "pygame", "numba", "pymunk", "opencv-python", "pyautogui",
   "yfinance", "openai", "igraph", "wget", "manim", "pyhid-usb-relay", "pywin32", "pynput",
   "websockets", "pyyaml", "beautifulsoup4","aiohttp", "nest_asyncio", "elasticsearch==2.4.1", "elasticsearch-dsl==2.2.0",
-  "fastapi", "uvicorn", "locust", "textblob", "flask-swagger-ui"
+  "fastapi", "uvicorn", "locust", "textblob", "flask-swagger-ui", "pyscript"
   ]
 
 [project.urls]
