@@ -32,12 +32,12 @@ print(table[['Date', 'Profit']].head(3))
 url = "https://www.fdic.gov/resources/resolutions/bank-failures/failed-bank-list"
 df = pd.read_html(url)[0]
 print(df.iloc[0:3])
+print("number of rows:" , df.shape[0])
+print("number of columns:" , df.shape[1])
 #                               Bank Name          City         State   Cert                Aquiring Institution      Closing Date  Fund  Sort ascending
 # 0                   Pulaski Savings Bank       Chicago      Illinois  28611                     Millennium Bank  January 17, 2025                 10548
 # 1     The First National Bank of Lindsay       Lindsay      Oklahoma   4134  First Bank & Trust Co., Duncan, OK  October 18, 2024                 10547
 # 2  Republic First Bank dba Republic Bank  Philadelphia  Pennsylvania  27332   Fulton Bank, National Association    April 26, 2024                 10546
-print("number of rows:" , df.shape[0])
-print("number of columns:" , df.shape[1])
 # number of rows: 10
 # number of columns: 7
 
