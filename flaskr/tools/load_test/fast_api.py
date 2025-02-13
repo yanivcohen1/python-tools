@@ -5,6 +5,7 @@ from textblob import TextBlob
 
 # Init App
 app = FastAPI()
+
 # Routes
 @app.get('/')
 async def index():
