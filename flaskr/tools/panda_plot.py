@@ -6,22 +6,28 @@ import numbers
 
 # tack only columns ['Timestamp (Hour Ending)', 'Demand (MWh)']
 df = pd.read_csv('flaskr/tools/numpyPandasPlotly/930-data-export.csv',
-        delimiter=',', parse_dates=[0], usecols=['Timestamp (Hour Ending)', 'Demand (MWh)'])
-
+        delimiter=',', parse_dates=[0], usecols=['Timestamp (Hour Ending)', 'Demand (MWh)'],
+        date_format=lambda x: pd.to_datetime(x.replace("EDT", ""), format='%m/%d/%Y %I %p'))
+# Step 2: Localize the datetime column to the correct timezone
 df.rename(columns={'Timestamp (Hour Ending)':'hour',
                     'Demand (MWh)':'demand'},
           inplace=True)
 
 # remove NaN
 df = df[df['demand'].notna()]
+
+# Step 1: Convert 'hour' column to datetime, removing "EDT"
+df['hour'] = pd.to_datetime(df['hour'].str.replace(" EDT", ""), errors='coerce')
+
 # df[["hour"]] = df[["hour"]].apply(pd.to_datetime)
 # df[["demand"]] = df[["demand"]].apply(pd.to_numeric)
 
 # filter dates
 start_date = '2024-04-06'
-end_date = '2024-04-14'
+end_date = '2024-04-13'
 df = df.loc[(df['hour'] >= start_date) & (df['hour'] <= end_date)]
 
+# plot
 plt.figure(figsize = (10, 5))
 plt.plot(df['hour'], df['demand'])
 plt.xlabel('Datetime')
@@ -57,35 +63,3 @@ plt.xticks([12, 24, 48, 84, 168])
 plt.xlim(0, 200)
 plt.xlabel('Period ($hour$)')
 plt.show()
-
-
-# ------------ panda from dict
-
-print(pd.to_datetime(['2018-10-26 12:00 -0530', '2018-10-26 12:00 -0500'],
-                utc=True)[0]) # print in utc: 2018-10-26 17:30:00+00:00
-# -------- panda for table data menipulation -------------------
-dict1 = {
-  "Date": ["2018-10-26", "2018-10-26", "2018-10-27", "2018-10-28", "2018-10-29", "2018-10-29"],
-  "Sales": [1000, 1200, 1500, 1800, 2000, 2200],
-  "Profit": [200, 300, 400, 500, 600, 700],
-  'time': [1, 2, 3],
-}
-
-table = pd.DataFrame(dict1, columns=['Date', 'Sales', "Profit"])# option to fillter
-table[["Date"]] = table[["Date"]].apply(pd.to_datetime)
-
-# Panda print 3 first rows
-# use a list of indexes:
-print(table.head(3))
-#         Date  Sales  Profit
-# 0 2018-10-26   1000     200
-# 1 2018-10-26   1200     300
-# 2 2018-10-27   1500     400
-
-url = "https://www.fdic.gov/resources/resolutions/bank-failures/failed-bank-list"
-df = pd.read_html(url)
-print(df[0].head(3))
-#                            Bank NameBank      CityCity  ... Closing DateClosing  FundFund
-# 0  Republic First Bank dba Republic Bank  Philadelphia  ...      April 26, 2024     10546
-# 1                          Citizens Bank      Sac City  ...    November 3, 2023     10545
-# 2               Heartland Tri-State Bank       Elkhart  ...       July 28, 2023     10544
