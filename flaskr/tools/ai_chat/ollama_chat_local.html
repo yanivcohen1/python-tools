@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollama-DeepSeek-r1</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #output {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 10px;
+            color: #333;
+        }
+
+        code {
+            background-color: #e8e8e8;
+            color: #d6336c;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        pre code {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 10px;
+            display: block;
+        }
+    </style>
+    <script>
+        let controller;
+        // const code_highlight = ", the code in response will be like this ```{program_language_name}"
+        async function getModelList() {
+            try {
+				document.getElementById('output').innerHTML = ""
+                const response = await fetch('http://localhost:11434/v1/models');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch model list');
+                }
+                const data = await response.json();
+
+                const models = data.data;
+                const modelListDiv = document.getElementById('modelList');
+                modelListDiv.innerHTML = '';  // Clear any previous content
+
+                // Create a select dropdown with model options
+                const select = document.createElement('select');
+                select.id = 'modelSelect';
+
+                // Create a default option
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.text = 'Select a model';
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                select.appendChild(defaultOption);
+
+                models.forEach((model) => {
+                    const option = document.createElement('option');
+                    option.value = model.id;
+                    option.text = model.id;
+                    select.appendChild(option);
+                });
+
+                modelListDiv.appendChild(select);
+				document.getElementById("refresh_models").style.display = "none";
+
+            } catch (error) {
+				document.getElementById('output').innerHTML = 'Error on read ollama models:  ' + error
+                console.error('Error:', error);
+            }
+        }
+
+        async function fetchCompletion() {
+			const modelSelect = document.getElementById('modelSelect')
+            if (!modelSelect || !modelSelect.value) {
+                alert('No model selected. Please select a model first.');
+                return
+            }
+			const selectedModel = modelSelect.value;
+            const send_btn = document.getElementById('send')
+            send = send_btn.innerHTML
+            if (send == "Send"){
+                send_btn.innerHTML = "stop"
+            } else{
+                // stop the call
+                controller.abort();
+                send_btn.innerHTML = "Send"
+                return
+            }
+            let myMsg = document.getElementById('inputMessage').value;
+            controller = new AbortController();
+            const signal = controller.signal;
+            const response = await fetch('http://localhost:11434/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'model': selectedModel,//'deepseek-r1:8b',
+                    'messages': [
+                        { "role": "system", "content": "" },
+                        { "role": "user", "content": myMsg }
+                    ],
+                    'temperature': 0.7,
+                    'max_tokens': -1, // -1 for unlimited
+                    'stream': true
+                }),
+                signal // Add signal here to support aborting
+            });
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let content = "";
+            const displayHandle = document.getElementById('output');
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const text = decoder.decode(value, { stream: true });
+                const lines = text.split('\n');
+                for (const line of lines) {
+                    if (line.startsWith("data: ")) {
+                        const data = line.substring("data: ".length);
+                        if (data !== '[DONE]') {
+                            const jsonData = JSON.parse(data);
+                            const delta = jsonData['choices'][0]['delta'];
+                            if ('content' in delta) {
+                                content += delta['content'];
+                                displayHandle.innerHTML = marked.parse(content);
+                                // Syntax highlighting
+                                document.querySelectorAll('pre code').forEach((block) => {
+                                    hljs.highlightBlock(block);
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            send_btn.innerHTML = "Send";
+            return content;
+        }
+    </script>
+</head>
+
+<body onload="getModelList()">
+    <h1>Ask Ollama</h1>
+    <div><div id="modelList"></div>
+	<button id="refresh_models" onclick="getModelList()">refresh module list</button></div>
+    <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here..."></textarea>
+    <br>
+    <button id="send" onclick="fetchCompletion()">Send</button>
+    <div id="output"></div>
+</body>
+
+</html>
