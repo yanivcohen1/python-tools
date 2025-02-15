@@ -8,13 +8,22 @@ class TestFastAPIApp(unittest.IsolatedAsyncioTestCase):
 
     async def asyncSetUp(self):
         self.client = TestClient(app)
-        self.ac = AsyncClient(base_url="http://localhost:11434")
+        self.ac = AsyncClient(base_url="http://localhost:11434", timeout=60)
 
     async def asyncTearDown(self):
         await self.ac.aclose()
 
     async def test_proxy_stream(self):
-        request_body = {"key": "value"}  # Add appropriate request body for your test
+        request_body = {
+                    'model': 'deepseek-r1:8b',
+                    'messages': [
+                        { "role": "system", "content": "" },
+                        { "role": "user", "content": "hi" }
+                    ],
+                    'temperature': 0.7,
+                    'max_tokens': -1,
+                    'stream': True
+                }
         response = await self.ac.post("/v1/chat/completions", json=request_body)
         self.assertEqual(response.status_code, 200)
         # Additional checks based on your response content
