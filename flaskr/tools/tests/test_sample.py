@@ -14,7 +14,7 @@
 import unittest
 from unittest import mock
 from unittest.mock import call, patch, ANY
-from flaskr.tools.py_test.sample import random_sum, silly
+from flaskr.tools.tests.sample import random_sum, silly
 
 
 class MyTestCase(unittest.TestCase):
