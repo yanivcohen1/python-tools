@@ -1,11 +1,11 @@
 # all tested need to be in format test_*.py
-# in file setup.cfg in section [tool:pytest] testpaths=flaskr/tools/py_test
+# in file setup.cfg in section [tool:pytest] testpaths=flaskr/tools/tests
 # in settings.json
 """
 "python.testing.pytestEnabled": true,
 "python.testing.unittestEnabled": false,
 "python.testing.pytestArgs": [
-  "flaskr/tools/py_test"
+  "flaskr/tools/tests"
 ]
 """
 # run the all tests ">pytest"
@@ -40,7 +40,7 @@ class MyTestCase(unittest.TestCase):
         self.resource = None
         print("tearDown: Resource cleaned up")
 
-    @patch("flaskr.tools.py_test.sample.random.randint")
+    @patch("flaskr.tools.tests.sample.random.randint")
     def test_random_sum(self, mock_randint):
         mock_randint.side_effect = [3, 4]  # first run return 3 second run return 4
         assert random_sum() == 7
@@ -49,15 +49,15 @@ class MyTestCase(unittest.TestCase):
     def my_side_effect(self, num1, num2):
         return num2 + 1
 
-    @patch("flaskr.tools.py_test.sample.random")
+    @patch("flaskr.tools.tests.sample.random")
     def test_my_random_sum(self, mock_random):
         mock_random.randint.side_effect = self.my_side_effect
         assert random_sum() == 19
         mock_random.randint.assert_has_calls(calls=[call(1, 10), call(ANY, ANY)])
 
-    @patch("flaskr.tools.py_test.sample.random.randint")
-    @patch("flaskr.tools.py_test.sample.time.time")
-    @patch("flaskr.tools.py_test.sample.requests.get")
+    @patch("flaskr.tools.tests.sample.random.randint")
+    @patch("flaskr.tools.tests.sample.time.time")
+    @patch("flaskr.tools.tests.sample.requests.get")
     def test_silly(self, mock_requests_get, mock_time, mock_randint):
         test_params = {"timestamp": 123, "number": 5}
         mock_time.return_value = test_params["timestamp"]
@@ -70,15 +70,15 @@ class MyTestCase(unittest.TestCase):
     def my_str(self, strs):
         return strs
 
-    @patch("flaskr.tools.py_test.sample.my_str")
+    @patch("flaskr.tools.tests.sample.my_str")
     def test_my_random_sum2(self, mock_my_str):
         mock_my_str.side_effect = self.my_str
         assert random_sum() == "mock"
         mock_my_str.assert_has_calls(calls=[call("mock")])
 
-    @patch("flaskr.tools.py_test.sample.random.randint")
-    @patch("flaskr.tools.py_test.sample.time.time")
-    @patch("flaskr.tools.py_test.sample.requests.get")
+    @patch("flaskr.tools.tests.sample.random.randint")
+    @patch("flaskr.tools.tests.sample.time.time")
+    @patch("flaskr.tools.tests.sample.requests.get")
     def test_silly2(self, mock_requests_get, mock_time, mock_randint):
         test_params = {"timestamp": 123, "number": 5}
         mock_time.return_value = test_params["timestamp"]
@@ -90,8 +90,8 @@ class MyTestCase(unittest.TestCase):
         }  # all fun need return_value
         assert silly() == test_params
 
-    @patch("flaskr.tools.py_test.sample.random.randint")
-    @patch("flaskr.tools.py_test.sample.time.time")
+    @patch("flaskr.tools.tests.sample.random.randint")
+    @patch("flaskr.tools.tests.sample.time.time")
     def test_silly3(self, mock_time, mock_randint):
         test_params = {"timestamp": '123', "number": '5'}
         mock_time.return_value = int(test_params["timestamp"])
