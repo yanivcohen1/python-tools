@@ -125,7 +125,7 @@ def read_books(request: Request, response: Response, db: Session = Depends(get_d
         custom_header = request.headers.get('Custom-Header')
         response.headers['Custom-Header'] = custom_header + '-Response'
     except: pass
-    return db.exec(select(Book).options(joinedload(Book.author))).all()
+    return db.exec(select(Book)).all()
 
 @app.get("/books/{book_id}", response_model=Book)
 def read_book(book_id: int, db: Session = Depends(get_db)):
