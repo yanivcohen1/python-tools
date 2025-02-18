@@ -1,12 +1,12 @@
+from datetime import datetime, timedelta
+from typing import List, Optional
 from fastapi import FastAPI, Depends, HTTPException, status, Request, Response
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlmodel import Field, SQLModel, create_engine, Session, select, Relationship
 from passlib.context import CryptContext
 from sqlalchemy.orm import joinedload
 import jwt
-from datetime import datetime, timedelta
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel
-from typing import List, Optional
 
 DATABASE_URL = "mysql+pymysql://root:yanivc77@localhost/sqlmodel"
 engine = create_engine(DATABASE_URL)
