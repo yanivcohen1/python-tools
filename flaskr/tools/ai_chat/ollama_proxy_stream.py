@@ -28,7 +28,7 @@ async def stream_ollama_response(request_body: dict):
                 yield chunk
 
 @app.post(f"{OLLAMA_CHAT}") # for stream
-async def proxy(request: Request):
+async def stream_proxy(request: Request):
     request_body = await request.json()
     return StreamingResponse(stream_ollama_response(request_body), media_type="text/event-stream")
 
