@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException, status, Request, Response
 from sqlmodel import Field, SQLModel, create_engine, Session, select, Relationship
 from passlib.context import CryptContext
+from sqlalchemy.orm import joinedload
 import jwt
 from datetime import datetime, timedelta
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -39,6 +40,13 @@ class Book(SQLModel, table=True):
 
 SQLModel.metadata.create_all(engine)
 
+class BookResponse(BaseModel):
+    id: int
+    title: str
+    author: Author
+
+    class Config:
+        orm_mode = True
 class Token(BaseModel):
     access_token: str
     token_type: str
@@ -111,13 +119,13 @@ def create_book(book: Book, db: Session = Depends(get_db)):
     db.refresh(new_book)
     return new_book
 
-@app.get("/books/", response_model=List[Book])
+@app.get("/books/", response_model=List[BookResponse])
 def read_books(request: Request, response: Response, db: Session = Depends(get_db)):
     try:
         custom_header = request.headers.get('Custom-Header')
         response.headers['Custom-Header'] = custom_header + '-Response'
     except: pass
-    return db.exec(select(Book)).all()
+    return db.exec(select(Book).options(joinedload(Book.author))).all()
 
 @app.get("/books/{book_id}", response_model=Book)
 def read_book(book_id: int, db: Session = Depends(get_db)):
