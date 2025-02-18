@@ -31,6 +31,6 @@ print('access_token:', access_token)
 # response = requests.get(url, headers=headers)
 # print('protected:', response.json())
 
-url = host+"/get_user_id"
+url = host+"/get_user_name"
 response = requests.get(url, headers=headers)
-print('get_user_id:', response.text)
+print('get_user_name:', response.text)

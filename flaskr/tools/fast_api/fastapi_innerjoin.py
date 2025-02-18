@@ -1,12 +1,14 @@
+from datetime import datetime, timedelta
 from fastapi import FastAPI, Depends, HTTPException, status, Request, Response
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker, Session
 from sqlalchemy import create_engine
 from passlib.context import CryptContext
 import jwt
-from datetime import datetime, timedelta
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from pydantic import BaseModel
+from typing import List, Optional
 
 DATABASE_URL = "mysql+pymysql://root:yanivc77@localhost/alchemy"
 
@@ -21,6 +23,38 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 app = FastAPI()
+
+# Pydantic Schemas
+class AuthorBase(BaseModel):
+    name: str
+
+class AuthorCreate(AuthorBase):
+    pass
+
+class AuthorResponse(AuthorBase):
+    id: int
+    class Config:
+        orm_mode = True
+
+class BookBase(BaseModel):
+    title: str
+    author_id: int
+
+class BookCreate(BookBase):
+    pass
+
+class BookResponse(BookBase):
+    id: int
+    author: Optional[AuthorResponse]
+    class Config:
+        orm_mode = True
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    username: Optional[str] = None
 
 class User(Base):
     __tablename__ = "users"
@@ -71,7 +105,7 @@ def register(username: str, password: str, db: Session = Depends(get_db)):
     db.refresh(user)
     return {"message": "User registered successfully"}
 
-@app.post("/login")
+@app.post("/login", response_model=Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     print(f"Received login request: username={form_data.username}, password={form_data.password}")  # Debugging
     user = db.query(User).filter(User.username == form_data.username).first()
@@ -84,7 +118,7 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
 def logout():
     return {"message": "User logged out successfully"}
 
-@app.get("/get_user_id")
+@app.get("/get_user_name")
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
@@ -98,7 +132,7 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     except:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authentication credentials")
 
-@app.post("/books/")
+@app.post("/books/", response_model=BookResponse)
 def create_book(title: str, author_id: int, db: Session = Depends(get_db)):
     author = db.query(Author).filter(Author.id == author_id).first()
     if not author:
@@ -109,20 +143,22 @@ def create_book(title: str, author_id: int, db: Session = Depends(get_db)):
     db.refresh(book)
     return book
 
-@app.get("/books/")
+@app.get("/books/", response_model=List[BookResponse])
 def read_books(request: Request, response: Response, db: Session = Depends(get_db)):
-    custom_header = request.headers.get('Custom-Header')
-    response.headers['Custom-Header'] = custom_header + '-Response'
+    try:
+        custom_header = request.headers.get('Custom-Header')
+        response.headers['Custom-Header'] = custom_header + '-Response'
+    except: pass
     return db.query(Book).all()
 
-@app.get("/books/{book_id}")
+@app.get("/books/{book_id}", response_model=BookResponse)
 def read_book(book_id: int, db: Session = Depends(get_db)):
     book = db.query(Book).filter(Book.id == book_id).first()
     if book is None:
         raise HTTPException(status_code=404, detail="Book not found")
     return book
 
-@app.get("/books/by_author/{author_id}")
+@app.get("/books/by_author/{author_id}", response_model=List[BookResponse])
 def find_books_by_author(author_id: int, db: Session = Depends(get_db)):
     return db.query(Book).filter(Book.author_id == author_id).all()
 
@@ -140,8 +176,8 @@ if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, port=5000) # host="0.0.0.0"
 
-# for swagger API http://127.0.0.1:8000/docs#/
-# for fastAPI http://127.0.0.1:8000/redoc
+# for swagger API http://127.0.0.1:5000/docs#/
+# for fastAPI http://127.0.0.1:5000/redoc
 
 def create_DB():
     ...
