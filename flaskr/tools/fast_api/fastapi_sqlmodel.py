@@ -108,6 +108,10 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     except:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authentication credentials")
 
+@app.get("/protected")
+def protected(token: str = Depends(oauth2_scheme)):
+    return "protected content"
+
 @app.post("/books/", response_model=Book)
 def create_book(book: Book, db: Session = Depends(get_db)):
     author = db.exec(select(Author).where(Author.id == book.author_id)).first()
