@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
+import requests
 import asyncio
 
 # Start ollama first
@@ -32,15 +33,14 @@ async def proxy(request: Request):
     return StreamingResponse(stream_ollama_response(request_body), media_type="text/event-stream")
 
 @app.api_route("/{endpoint:path}", methods=["GET", "POST", "OPTIONS"]) # for none stream
-async def non_stream_proxy(request: Request, endpoint: str):
+def non_stream_proxy(request: Request, endpoint: str):
     url = f"{OLLAMA_URL}/{endpoint}"
-    async with httpx.AsyncClient(timeout=60) as client:
-        if request.method == "GET":
-            response = await client.get(url, params=request.query_params)
-        elif request.method == "POST":
-            response = await client.post(url, json=await request.json())
-        else:
-            return JSONResponse(content={"message": "Method Not Allowed"}, status_code=405)
+    if request.method == "GET":
+        response = requests.get(url, params=request.query_params, timeout=10)
+    elif request.method == "POST":
+        response = requests.post(url, json=request.json(), timeout=10)
+    else:
+        return JSONResponse(content={"message": "Method Not Allowed"}, status_code=405)
 
     return JSONResponse(content=response.json(), status_code=response.status_code)
 
