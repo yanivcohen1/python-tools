@@ -5,7 +5,7 @@ from sqlalchemy.orm import joinedload
 import jwt
 from datetime import datetime, timedelta
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from pydantic import BaseModel
+from pydantic import BaseModel  # pylint: disable=no-name-in-module
 from typing import List, Optional
 
 DATABASE_URL = "mysql+pymysql://root:yanivc77@localhost/sqlmodel"
