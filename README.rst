@@ -89,6 +89,7 @@ installing Flaskr::
 
     $ pip install -e ../..
     $ pip install -e .
+    $ pip install --upgrade -e .
 
 // test it
 python -c "import flask; print(flask.__version__)"
