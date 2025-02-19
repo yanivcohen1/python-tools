@@ -7,7 +7,7 @@ from passlib.context import CryptContext
 import jwt
 from pymongo import MongoClient
 from pymongo.cursor import Cursor
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from bson import ObjectId
 
 DATABASE_URL = "mongodb://localhost:27017"
@@ -35,7 +35,7 @@ app.add_middleware(
 
 # Pydantic models
 class User(BaseModel):
-    id: Optional[str] = None
+    id: Optional[str] = Field(None, alias='_id')
     username: str
     hashed_password: str
 
@@ -43,17 +43,17 @@ class Comment(BaseModel):
     content: str
 
 class Author(BaseModel):
-    id: Optional[str] = None
+    id: Optional[str] = Field(None, alias='_id')
     name: str
     comments: List[Comment] = []
 
 class Book(BaseModel):
-    id: Optional[str] = None
+    id: Optional[str] = Field(None, alias='_id')
     title: str
     author_id: str
 
 class BookResponse(BaseModel):
-    id: str
+    id: Optional[str]
     title: str
     author: Author
 
@@ -66,6 +66,12 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     username: Optional[str] = None
+
+def from_dict(cls, data: dict):
+    # Convert _id to a string if it exists
+    if '_id' in data:
+        data['_id'] = str(data['_id'])
+    return cls(**data)
 
 def verify_password(plain_password, password):
     return pwd_context.verify(plain_password, password)
@@ -131,8 +137,9 @@ def read_books(request: Request, response: Response):
         custom_header = request.headers.get('Custom-Header')
         response.headers['Custom-Header'] = custom_header + '-Response'
     except: pass
-    books = list(db.books.find())
-    return [BookResponse(id=str(book["_id"]), title=book["title"], author=db.authors.find_one({"_id": ObjectId(book["author_id"])})) for book in books]
+    book_dicts = list(db.books.find())
+    books = [from_dict(Book, book_dict) for book_dict in book_dicts]
+    return [BookResponse(id=book.id, title=book.title, author=from_dict(Author,db.authors.find_one({"_id": ObjectId(book.author_id)}))) for book in books]
 
 @app.get("/books/{book_id}", response_model=Book)
 def read_book(book_id: str):
