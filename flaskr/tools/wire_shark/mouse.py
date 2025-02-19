@@ -1,0 +1,70 @@
+import os
+import pyshark
+import matplotlib.pyplot as plt
+
+def extract_mouse_movements(pcap_file):
+    cap = pyshark.FileCapture(pcap_file) # display_filter="usb.capdata"
+
+    x, y = 0, 0
+    x_data, y_data = [x], [y]
+
+    for packet in cap:
+        try:
+            if hasattr(packet, 'usb') and int(packet.usb.function, 0) == 9:
+            # if hasattr(packet, 'usb') and hasattr(packet.usb, 'capdata'):
+                hid_data = packet.data.usbhid_data
+                data_bytes = bytes(int(b, 16) for b in hid_data.split(':'))
+                if len(data_bytes) < 3:
+                    raise ValueError("Invalid HID data format")
+                # Extract X and Y movement values (signed 8-bit integers)
+                x_movement = int.from_bytes([data_bytes[1]], byteorder='little', signed=True)
+                y_movement = int.from_bytes([data_bytes[2]], byteorder='little', signed=True)
+                left_button = int.from_bytes([data_bytes[0]], byteorder='little', signed=True)
+                dx, dy = x_movement, y_movement
+                if dx > 127:
+                    dx -= 256 # dx the complementry
+                if dy > 127:
+                    dy -= 256
+                x += dx
+                y += dy
+                if left_button == 1: # left button pressed
+                    x_data.append(x)
+                    y_data.append(y)
+        except Exception as e:
+            print(f"Error processing packet: {e}")
+
+    return x_data, y_data
+
+def plot_mouse_movements(x_data, y_data):
+    plt.figure(figsize=(8, 6))
+    plt.scatter(x_data, y_data, marker='.', color='b')
+    plt.xlabel("X Position")
+    plt.ylabel("Y Position")
+    plt.title("Mouse Movement Path")
+    plt.grid()
+    plt.show()
+
+def save_position_to_file(x, y, file_path="positions.txt"):
+    # Save the current x and y position to a file
+    with open(file_path, "a") as f:  # Open file in append mode
+        f.write(f"{x},{y}\n")  # Write x, y values to file in CSV format
+
+if __name__ == "__main__":
+    # pcap_file = "/mnt/data/mouse.pcap"
+    current_directory = os.path.dirname(__file__)
+    pcap_file = current_directory + "/mouse.pcap"
+    x_data, y_data = extract_mouse_movements(pcap_file)
+    # save_position_to_file(x_data, y_data)
+    # print(x_data, y_data)
+    plot_mouse_movements(x_data, y_data)
+
+
+# Byte Index	Value (Hex)	Meaning
+# 0	01	Button state (1 means left button pressed)
+# 1	80	X movement (0x80 in signed 8-bit is -128)
+# 2	00	Y movement (0x00 in signed 8-bit is 0)
+# 3	FD	Wheel movement (0xFD in signed 8-bit is -3)
+# Mouse Position Movement:
+# X movement: 0x80 (interpreted as -128 in signed 8-bit format)
+# Y movement: 0x00 (interpreted as 0)
+# Scroll movement: -3 (if relevant)
