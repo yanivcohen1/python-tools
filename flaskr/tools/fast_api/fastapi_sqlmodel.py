@@ -5,6 +5,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Field, SQLModel, create_engine, Session, select, Relationship
 from passlib.context import CryptContext
+from sqlalchemy import text
 from sqlalchemy.orm import joinedload
 import jwt
 from pydantic import BaseModel
@@ -161,6 +162,11 @@ def delete_book(book_id: int, db: Session = Depends(get_db)):
     db.commit()
     return {"message": "Book deleted successfully"}
 
+def run_native_query(query: str):
+    with Session(engine) as session:
+        result = session.execute(text(query))
+        return result.fetchall()
+
 def create_DB():
     with Session(engine) as db:
         # Create the tables
@@ -191,8 +197,16 @@ def create_DB():
         db.add_all([book1, book2, book3])
         db.commit()
 
+def run_native_query_example():
+    # Example usage
+    query = "SELECT `book`.`title`, `author`.`name`, `author`.`id` FROM `book` , `author`"
+    results = run_native_query(query)
+    for row in results:
+        print(row)
+
 if __name__ == "__main__":
     # create_DB()
+    # run_native_query_example()
     import uvicorn
     uvicorn.run(app, port=5000) # host="0.0.0.0"
 
