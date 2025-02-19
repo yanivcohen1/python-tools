@@ -139,7 +139,7 @@ def read_books(request: Request, response: Response):
     except: pass
     book_dicts = list(db.books.find())
     books = [from_dict(Book, book_dict) for book_dict in book_dicts]
-    return [BookResponse(id=book.id, title=book.title, author=from_dict(Author,db.authors.find_one({"_id": ObjectId(book.author_id)}))) for book in books]
+    return [BookResponse(id=book.id, title=book.title, author=from_dict(Author, db.authors.find_one({"_id": ObjectId(book.author_id)}))) for book in books]
 
 @app.get("/books/{book_id}", response_model=Book)
 def read_book(book_id: str):
