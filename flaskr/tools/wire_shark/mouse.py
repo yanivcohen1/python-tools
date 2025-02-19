@@ -11,12 +11,13 @@ def extract_mouse_movements(pcap_file):
     for packet in cap:
         try:
             if hasattr(packet, 'usb') and int(packet.usb.function, 0) == 9:
-            # if hasattr(packet, 'usb') and hasattr(packet.usb, 'capdata'):
                 hid_data = packet.data.usbhid_data
+                # Convert hex string to integer
                 data_bytes = bytes(int(b, 16) for b in hid_data.split(':'))
-                if len(data_bytes) < 3:
+                if len(data_bytes) < 3 or len(data_bytes) > 4:
                     raise ValueError("Invalid HID data format")
                 # Extract X and Y movement values (signed 8-bit integers)
+                # Return the integer represented by the given array of bytes
                 dx = int.from_bytes([data_bytes[1]], byteorder='little', signed=True)
                 dy = int.from_bytes([data_bytes[2]], byteorder='little', signed=True)
                 left_button = int.from_bytes([data_bytes[0]], byteorder='little', signed=True)
