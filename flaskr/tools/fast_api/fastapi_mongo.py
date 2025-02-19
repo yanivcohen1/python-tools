@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from passlib.context import CryptContext
 import jwt
 from pymongo import MongoClient
+from pymongo.cursor import Cursor
 from pydantic import BaseModel
 
 DATABASE_URL = "mongodb://localhost:27017"
@@ -148,6 +149,12 @@ def delete_book(book_id: str):
     db.books.delete_one({"_id": book_id})
     return {"message": "Book deleted successfully"}
 
+# Function to get paginated results
+def get_paginated_results(page: int, page_size: int, cursor: Cursor):
+    skip = (page - 1) * page_size
+    results = cursor.skip(skip).limit(page_size)
+    return list(results)
+
 def create_DB():
     # Insert initial users
     user1 = {"username": "yaniv", "hashed_password": get_password_hash("yaniv_P")}
@@ -168,12 +175,13 @@ def create_DB():
     db.books.insert_many([book1, book2, book3])
 
 def run_native_query():
-    # Find all users whose username starts with 'john' and sort by username
+    # Find all users whose username starts with 'yaniv' and sort by username
     users_collections = db["users"]
-    users = users_collections.find(
+    users_ = users_collections.find(
       {"username": {"$regex": "^yaniv"}},
       {"hashed_password": 0} # exclude hashed_password
     ).sort("username", 1)
+    users = get_paginated_results(1, 10, users_)
     for user in users:
         print(user)
 
