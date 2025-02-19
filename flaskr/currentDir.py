@@ -6,6 +6,9 @@ print(os.__file__) # tells you where the os module is for current python path
 cwd_module = os.getcwd()
 print(cwd_module) # C:\Users\yaniv\OneDrive\python-flask
 
+current_directory = os.path.dirname(__file__)
+print(current_directory)
+
 absolute_path = str(Path(__file__).parent.resolve())
 print(absolute_path) # C:\Users\yaniv\OneDrive\python-flask\flaskr
 
