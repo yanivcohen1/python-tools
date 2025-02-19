@@ -167,8 +167,20 @@ def create_DB():
     book3 = {"title": "Pride and Prejudice", "author_id": author3["_id"]}
     db.books.insert_many([book1, book2, book3])
 
+def run_native_query():
+    # Find all users whose username starts with 'john' and sort by username
+    books = db["users"]
+    users = books.find(
+      {"username": {"$regex": "^yaniv"}},
+      {"hashed_password": 0} # exclude hashed_password
+    ).sort("username", 1)
+    for user in users:
+        print(user)
+
+
 if __name__ == "__main__":
     # create_DB()
+    # run_native_query()
     import uvicorn
     uvicorn.run(app, port=5000) # host="0.0.0.0"
 
