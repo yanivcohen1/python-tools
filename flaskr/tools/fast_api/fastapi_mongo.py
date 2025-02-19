@@ -169,8 +169,8 @@ def create_DB():
 
 def run_native_query():
     # Find all users whose username starts with 'john' and sort by username
-    books = db["users"]
-    users = books.find(
+    users_collections = db["users"]
+    users = users_collections.find(
       {"username": {"$regex": "^yaniv"}},
       {"hashed_password": 0} # exclude hashed_password
     ).sort("username", 1)
