@@ -8,6 +8,7 @@ import jwt
 from pymongo import MongoClient
 from pymongo.cursor import Cursor
 from pydantic import BaseModel
+from bson import ObjectId
 
 DATABASE_URL = "mongodb://localhost:27017"
 DATABASE_NAME = "fastapi"
@@ -38,9 +39,13 @@ class User(BaseModel):
     username: str
     hashed_password: str
 
+class Comment(BaseModel):
+    content: str
+
 class Author(BaseModel):
     id: Optional[str] = None
     name: str
+    comments: List[Comment] = []
 
 class Book(BaseModel):
     id: Optional[str] = None
@@ -127,7 +132,7 @@ def read_books(request: Request, response: Response):
         response.headers['Custom-Header'] = custom_header + '-Response'
     except: pass
     books = list(db.books.find())
-    return [BookResponse(id=str(book["_id"]), title=book["title"], author=db.authors.find_one({"_id": book["author_id"]})) for book in books]
+    return [BookResponse(id=str(book["_id"]), title=book["title"], author=db.authors.find_one({"_id": ObjectId(book["author_id"])})) for book in books]
 
 @app.get("/books/{book_id}", response_model=Book)
 def read_book(book_id: str):
@@ -157,21 +162,27 @@ def get_paginated_results(page: int, page_size: int, cursor: Cursor):
 
 def create_DB():
     # Insert initial users
-    user1 = {"username": "yaniv", "hashed_password": get_password_hash("yaniv_P")}
-    user2 = {"username": "yaniv2", "hashed_password": get_password_hash("yaniv2_P")}
-    user3 = {"username": "yaniv3", "hashed_password": get_password_hash("yaniv3_P")}
+    user1 = User(username= "yaniv", hashed_password = get_password_hash("yaniv_P")).dict()
+    user2 = User(username= "yaniv2", hashed_password = get_password_hash("yaniv2_P")).dict()
+    user3 = User(username= "yaniv3", hashed_password = get_password_hash("yaniv3_P")).dict()
     db.users.insert_many([user1, user2, user3])
 
-    # Insert initial authors
-    author1 = {"name": "F. Scott Fitzgerald"}
-    author2 = {"name": "George Orwell"}
-    author3 = {"name": "Jane Austen"}
+    comment1 = Comment(content="comment1").dict()
+    comment2 = Comment(content="comment2").dict()
+    comment3 = Comment(content="comment3").dict()
+
+    # Insert initial authors with embedded Comments
+    author1 = Author(name="F. Scott Fitzgerald", comments=[comment1]).dict()
+    author2 = Author(name="George Orwell", comments=[comment2]).dict()
+    author3 = Author(name="Jane Austen", comments=[comment3]).dict()
+    # author2 = {"name": "George Orwell"}
+    # author3 = {"name": "Jane Austen"}
     db.authors.insert_many([author1, author2, author3])
 
     # Insert initial books
-    book1 = {"title": "The Great Gatsby", "author_id": author1["_id"]}
-    book2 = {"title": "1984", "author_id": author2["_id"]}
-    book3 = {"title": "Pride and Prejudice", "author_id": author3["_id"]}
+    book1 = Book(title= "The Great Gatsby", author_id= str(author1["_id"])).dict()
+    book2 = Book(title= "1984", author_id= str(author2["_id"])).dict()
+    book3 = Book(title= "Pride and Prejudice", author_id= str(author3["_id"])).dict()
     db.books.insert_many([book1, book2, book3])
 
 def run_native_query():
