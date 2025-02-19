@@ -164,8 +164,15 @@ def delete_book(book_id: int, db: Session = Depends(get_db)):
 
 def run_native_query(query: str):
     with Session(engine) as session:
-        result = session.execute(text(query))
-        return result.fetchall()
+        result = session.exec(text(query))
+    return result.all()
+
+def get_pagination_resoult(query, page: int = 1, page_size: int = 10):
+    offset = (page - 1) * page_size
+    statement = query.offset(offset).limit(page_size)
+    with Session(engine) as db:
+        result = db.exec(statement).all()
+    return result
 
 def create_DB():
     with Session(engine) as db:
@@ -204,9 +211,16 @@ def run_native_query_example():
     for row in results:
         print(row)
 
+def run_paganation():
+    query = select(Book) # .where(Book.id == book_id)
+    books = get_pagination_resoult(query, 1, 10)
+    for book in books:
+        print(book)
+
 if __name__ == "__main__":
     # create_DB()
     # run_native_query_example()
+    # run_paganation()
     import uvicorn
     uvicorn.run(app, port=5000) # host="0.0.0.0"
 
