@@ -17,14 +17,9 @@ def extract_mouse_movements(pcap_file):
                 if len(data_bytes) < 3:
                     raise ValueError("Invalid HID data format")
                 # Extract X and Y movement values (signed 8-bit integers)
-                x_movement = int.from_bytes([data_bytes[1]], byteorder='little', signed=True)
-                y_movement = int.from_bytes([data_bytes[2]], byteorder='little', signed=True)
+                dx = int.from_bytes([data_bytes[1]], byteorder='little', signed=True)
+                dy = int.from_bytes([data_bytes[2]], byteorder='little', signed=True)
                 left_button = int.from_bytes([data_bytes[0]], byteorder='little', signed=True)
-                dx, dy = x_movement, y_movement
-                if dx > 127:
-                    dx -= 256 # dx the complementry
-                if dy > 127:
-                    dy -= 256
                 x += dx
                 y += dy
                 if left_button == 1: # left button pressed
