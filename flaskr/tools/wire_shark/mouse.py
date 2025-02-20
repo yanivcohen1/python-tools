@@ -14,7 +14,7 @@ def extract_mouse_movements(pcap_file):
                 hid_data = packet.data.usbhid_data
                 # Convert hex string to integer
                 data_bytes = bytes(int(b, 16) for b in hid_data.split(':'))
-                if len(data_bytes) < 3 or len(data_bytes) > 4:
+                if len(data_bytes) < 3 or len(data_bytes) > 5:
                     raise ValueError("Invalid HID data format")
                 # Extract X and Y movement values (signed 8-bit integers)
                 # Return the integer represented by the given array of bytes
@@ -23,7 +23,7 @@ def extract_mouse_movements(pcap_file):
                 dy = int.from_bytes([data_bytes[2]], byteorder='little', signed=True)
                 wheel = int.from_bytes([data_bytes[3]], byteorder='little', signed=True)
                 x += dx
-                y += dy
+                y -= dy
                 if left_button == 1: # left button pressed
                     x_data.append(x)
                     y_data.append(y)
@@ -33,6 +33,7 @@ def extract_mouse_movements(pcap_file):
     return x_data, y_data
 
 def plot_mouse_movements(x_data, y_data):
+    # y_flipped = np.flip(y_data)
     plt.figure(figsize=(8, 6))
     plt.scatter(x_data, y_data, marker='.', color='b')
     plt.xlabel("X Position")
@@ -49,7 +50,8 @@ def save_position_to_file(x, y, file_path="positions.txt"):
 if __name__ == "__main__":
     # pcap_file = "/mnt/data/mouse.pcap"
     current_directory = os.path.dirname(__file__)
-    pcap_file = current_directory + "/mouse.pcap"
+    # pcap_file = current_directory + "/mouse.pcap"
+    pcap_file = current_directory + "/yaniv.pcapng"
     x_data, y_data = extract_mouse_movements(pcap_file)
     # save_position_to_file(x_data, y_data)
     # print(x_data, y_data)
