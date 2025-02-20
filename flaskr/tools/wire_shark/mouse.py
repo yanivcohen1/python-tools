@@ -18,9 +18,10 @@ def extract_mouse_movements(pcap_file):
                     raise ValueError("Invalid HID data format")
                 # Extract X and Y movement values (signed 8-bit integers)
                 # Return the integer represented by the given array of bytes
+                left_button = int.from_bytes([data_bytes[0]], byteorder='little', signed=True)
                 dx = int.from_bytes([data_bytes[1]], byteorder='little', signed=True)
                 dy = int.from_bytes([data_bytes[2]], byteorder='little', signed=True)
-                left_button = int.from_bytes([data_bytes[0]], byteorder='little', signed=True)
+                wheel = int.from_bytes([data_bytes[3]], byteorder='little', signed=True)
                 x += dx
                 y += dy
                 if left_button == 1: # left button pressed
@@ -54,6 +55,7 @@ if __name__ == "__main__":
     # print(x_data, y_data)
     plot_mouse_movements(x_data, y_data)
 
+# https://www.amazon.com/Wacom-Bamboo-Splash-Tablet-CTL471/dp/B0089VGPII
 
 # Byte Index	Value (Hex)	Meaning
 # 0	01	Button state (1 means left button pressed)
