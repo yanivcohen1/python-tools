@@ -71,6 +71,7 @@ def from_dict(cls, data: dict):
     # Convert _id to a string if it exists
     if '_id' in data:
         data['_id'] = str(data['_id'])
+        data['id'] = str(data['_id'])
     return cls(**data)
 
 def verify_password(plain_password, password):
@@ -127,9 +128,9 @@ def create_book(book: Book):
     author = db.authors.find_one({"_id": book.author_id})
     if not author:
         raise HTTPException(status_code=404, detail="Author not found")
-    new_book = {"title": book.title, "author_id": book.author_id}
-    db.books.insert_one(new_book)
-    return new_book
+    # new_book = {"title": book.title, "author_id": book.author_id}
+    result = db.books.insert_one(book.dict(by_alias=True))
+    return result.inserted_id
 
 @app.get("/books/", response_model=List[BookResponse])
 def read_books(request: Request, response: Response):
@@ -160,6 +161,12 @@ def delete_book(book_id: str):
         raise HTTPException(status_code=404, detail="Book not found")
     db.books.delete_one({"_id": book_id})
     return {"message": "Book deleted successfully"}
+
+@app.get("/find_authors_by_comment/{comment}", response_model=Author)
+def find_authors_by_comment_text(comment: str):
+    authors = db.authors.find({"comments.content": comment})
+    # authors = [from_dict(Author, author) for author in authors]
+    return list(authors)
 
 # Function to get paginated results
 def get_paginated_results(page: int, page_size: int, cursor: Cursor):
@@ -207,6 +214,7 @@ def run_native_query():
 if __name__ == "__main__":
     # create_DB()
     # run_native_query()
+    # print("authors:", find_authors_by_comment_text("comment1"))
     import uvicorn
     uvicorn.run(app, port=5000) # host="0.0.0.0"
 
