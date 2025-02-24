@@ -43,6 +43,10 @@ Create a virtualenv and activate it::
     $ venv\Scripts\activate
     $ venv\Scripts\activate.bat # for cmd not ps
 
+    # create requirements.txt
+    pip freeze > requirements.txt
+    // install the requirements
+    pip install -r requirements.txt
 
     # test it in cmd
     python -m pip -V
