@@ -9,6 +9,7 @@ license = {text = "MIT"}
 #  "flask-sqlalchemy==2.5.1", "flask-restful==0.3.8", "flask-cors==3.0.10", "Flask-JWT==0.3.2", "itsdangerous==1.1.0",
 #  "flask-socketio==5.0.1", "schedule==1.1.0", "Jinja2==2.11.3", "markupsafe==1.1.1", "werkzeug==1.0.1",
 # flask-mongoengine==1.0.0 for mongo 3.6 need also flask==2.2.5
+# pymongo==4.1.1 for mongo 3.6 and motor==3.0.0 (for asnyc mongo)
 dependencies = [
   "flask==2.2.5", "marshmallow", "marshmallow_dataclass", "marshmallow-sqlalchemy", "flask_sqlalchemy", "pymysql", "sqlalchemy", "flask-login",
   "flask-mongoengine==1.0.0", "flask-bcrypt", "flask-cors", "flask-restful", "flask-jwt-extended", "flask-socketio", "flask-migrate", "flask-mail", "flask_jsonpify",
@@ -19,7 +20,7 @@ dependencies = [
   "yfinance", "openai", "igraph", "wget", "manim", "pyhid-usb-relay", "pywin32", "pynput",
   "websockets", "pyyaml", "beautifulsoup4","aiohttp", "nest_asyncio", "elasticsearch==2.4.1", "elasticsearch-dsl==2.2.0",
   "fastapi", "fastapi_sqlalchemy", "sqlmodel", "passlib", "uvicorn", "locust", "textblob", "flask-swagger-ui",
-  "pyscript", "pytest" , "coverage", "python-multipart", "pyshark"
+  "pyscript", "pytest" , "coverage", "python-multipart", "pyshark", "motor==3.0.0", "pymongo==4.1.1"
   ]
 
 [project.urls]
