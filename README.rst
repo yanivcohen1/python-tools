@@ -58,6 +58,12 @@ Create a virtualenv and activate it::
 
     on linux use pip3 and python3
 
+# run jupyter notebook in env with the venv
+jupyter nbconvert --to script file.ipynb
+python file.py
+//or
+papermill file.ipynb output.ipynb
+
 Add to windows path:
 C:\Users\yaniv\anaconda3
 C:\Users\yaniv\anaconda3\Scripts;

@@ -10,14 +10,13 @@ import os
 cwd = os.getcwd() # currect working dir
 print(cwd)
 if  platform.system() != "Windows":
-    result = subprocess.run(['sh ./flaskr/cmd.sh', '/c/Temp'], stdout=subprocess.PIPE, shell=True)
+    result = subprocess.run(['sh ./flaskr/cmd.sh', '/c/Temp'], stdout=subprocess.PIPE, shell=True, text=True, check=False)
 else :
-    result = subprocess.run(['sh', './flaskr/cmd.sh', '/c/Temp'], stdout=subprocess.PIPE, shell=True)
+    result = subprocess.run(['sh', './flaskr/cmd1.sh', '/c/Temp'], stdout=subprocess.PIPE, shell=True, text=True, check=False)
 if result.returncode == 0:
     print(result.stdout.decode('utf-8'))
 else:
     print("error occurred")
-
 
 # capture the error masg or print the output in no error
 param = "-n" if platform.system() == "Windows" else "-c"
