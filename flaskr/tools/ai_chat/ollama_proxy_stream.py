@@ -18,7 +18,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-OLLAMA_URL = "http://localhost:11434"
+OLLAMA_URL = "http://127.0.0.1:11434"
 OLLAMA_CHAT = "/v1/chat/completions"
 
 async def stream_ollama_response(request_body: dict):
