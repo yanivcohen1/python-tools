@@ -14,6 +14,7 @@ chmod +x stop_all_ollama.sh
 sed -i 's/\r$//' stop_all_ollama.sh
 # stop all models
 ./stop_all_ollama.sh
+# in windows 
 
 # start
 ollama serve &
