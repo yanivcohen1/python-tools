@@ -64,6 +64,9 @@ python file.py
 //or
 papermill file.ipynb output.ipynb
 
+# linux remove the carriage return characters from win
+sed -i 's/\r$//' your_script.sh
+
 Add to windows path:
 C:\Users\yaniv\anaconda3
 C:\Users\yaniv\anaconda3\Scripts;
