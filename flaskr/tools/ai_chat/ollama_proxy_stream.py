@@ -46,7 +46,7 @@ def non_stream_proxy(request: Request, endpoint: str):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000) # host="0.0.0.0"
+    uvicorn.run(app, host="0.0.0.0", port=8000) # host="0.0.0.0" listning to all interfaces
 
 # for swagger API http://127.0.0.1:8000/docs#/
 # for fastAPI http://127.0.0.1:8000/redoc
