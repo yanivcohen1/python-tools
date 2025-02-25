@@ -67,6 +67,9 @@ papermill file.ipynb output.ipynb
 # linux remove the carriage return characters from win
 sed -i 's/\r$//' your_script.sh
 
+# kill script
+sudo pkill -f runOllamaChatProxy.sh
+
 Add to windows path:
 C:\Users\yaniv\anaconda3
 C:\Users\yaniv\anaconda3\Scripts;
