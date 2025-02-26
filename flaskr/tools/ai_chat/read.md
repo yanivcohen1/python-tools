@@ -5,6 +5,8 @@ ollama ps
 ollama list
 ollama stop deepseek-r1:8b
 ollama stop deepseek-coder-v2:16b
+# ollama delete model
+ollama rm deepseek-r1:8b
 
 # stop all running models
 papermill stop_all_modules.ipynb out.ipynb
