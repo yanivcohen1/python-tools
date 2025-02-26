@@ -2,6 +2,7 @@
 ollama -v
 ollama -h
 ollama ps
+ollama list
 ollama stop deepseek-r1:8b
 ollama stop deepseek-coder-v2:16b
 
