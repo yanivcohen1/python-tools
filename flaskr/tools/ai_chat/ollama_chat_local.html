@@ -38,6 +38,8 @@
     </style>
     <script>
         let controller;
+		let startTime = null;
+		let content = "";
         // const code_highlight = ", the code in response will be like this ```{program_language_name}"
         async function getModelList() {
             try {
@@ -81,6 +83,7 @@
         }
 
         async function fetchCompletion() {
+			
 			const modelSelect = document.getElementById('modelSelect')
             if (!modelSelect || !modelSelect.value) {
                 alert('No model selected. Please select a model first.');
@@ -91,10 +94,14 @@
             send = send_btn.innerHTML
             if (send == "Send"){
                 send_btn.innerHTML = "stop"
+				startTime = Date.now();
+				document.getElementById("count").innerHTML = "";
+				content = ""
             } else{
                 // stop the call
                 controller.abort();
                 send_btn.innerHTML = "Send"
+				calc_time(content, startTime)
                 return
             }
             let myMsg = document.getElementById('inputMessage').value;
@@ -120,7 +127,6 @@
 
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
-            let content = "";
             const displayHandle = document.getElementById('output');
 
             while (true) {
@@ -148,8 +154,28 @@
                 }
             }
             send_btn.innerHTML = "Send";
+			calc_time(content, startTime);
             return content;
         }
+		
+		function calc_time(content, startTime){
+			let wordsArray = content.trim().split(/\s+/);
+            wordCount = wordsArray.length;
+
+            // Calculate elapsed time in minutes
+            let elapsedTimeSec = (Date.now() - startTime) / 1000;
+            let elapsedTimeMin = elapsedTimeSec / 60;
+
+            // Calculate words per minute (avoid division by zero)
+            let wpm = elapsedTimeMin > 0 ? (wordCount / elapsedTimeMin).toFixed(2) : 0;
+
+            // Update the output div
+            document.getElementById("count").innerHTML = `
+                Time: ${elapsedTimeSec.toFixed(2)} sec<br>
+                Words: ${wordCount}<br>
+                WPM: ${wpm}
+            `;
+		}
     </script>
 </head>
 
@@ -160,6 +186,7 @@
     <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here..."></textarea>
     <br>
     <button id="send" onclick="fetchCompletion()">Send</button>
+	<div id="count"></div>
     <div id="output"></div>
 </body>
 
