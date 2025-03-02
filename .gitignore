@@ -48,3 +48,5 @@ Thumbs.db
 /instance/flaskr.sqlite
 *.pyc
 media/
+package-lock.json
+yarn.lock
