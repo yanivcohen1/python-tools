@@ -167,13 +167,13 @@
             let elapsedTimeMin = elapsedTimeSec / 60;
 
             // Calculate words per minute (avoid division by zero)
-            let wpm = elapsedTimeMin > 0 ? (wordCount / elapsedTimeMin).toFixed(2) : 0;
+            let wpm = elapsedTimeSec > 0 ? (wordCount / elapsedTimeSec).toFixed(2) : 0;
 
             // Update the output div
             document.getElementById("count").innerHTML = `
                 Time: ${elapsedTimeSec.toFixed(2)} sec<br>
                 Words: ${wordCount}<br>
-                WPM: ${wpm}
+                WPS: ${wpm}
             `;
 		}
     </script>
