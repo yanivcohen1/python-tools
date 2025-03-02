@@ -9,13 +9,19 @@ import asyncio
 # in cmd type "ollama serve"
 app = FastAPI()
 
+origins = [
+    "https://testsmanager.com",
+    "https://testsmanager2.com",
+    "http://192.168.0.103:8000",  # CIDR notation for 192.168.0.*
+]
+
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Adjust as needed
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins = origins,  # Adjust as needed
+    allow_credentials = True,
+    allow_methods = ["*"],
+    allow_headers = ["*"],
 )
 
 OLLAMA_URL = "http://127.0.0.1:11434"
@@ -34,6 +40,13 @@ async def stream_proxy(request: Request):
 
 @app.api_route("/{endpoint:path}", methods=["GET", "POST", "OPTIONS"]) # for none stream
 def non_stream_proxy(request: Request, endpoint: str):
+    origin = request.headers.get("origin")
+    print(f"Request Origin: {origin}")
+
+    # # You can now use 'origin' to implement custom logic
+    # if origin not in ["https://testsmanager.com"] and not origin.startswith("http://192.168.0."):
+    #     return {"error": "Origin not allowed"}
+
     url = f"{OLLAMA_URL}/{endpoint}"
     if request.method == "GET":
         response = requests.get(url, params=request.query_params, timeout=10)
@@ -46,7 +59,7 @@ def non_stream_proxy(request: Request, endpoint: str):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000) # host="0.0.0.0" listning to all interfaces
+    uvicorn.run(app, host="0.0.0.0", port=7000) # host="0.0.0.0" listning to all interfaces
 
-# for swagger API http://127.0.0.1:8000/docs#/
-# for fastAPI http://127.0.0.1:8000/redoc
+# for swagger API http://127.0.0.1:7000/docs#/
+# for fastAPI http://127.0.0.1:7000/redoc
