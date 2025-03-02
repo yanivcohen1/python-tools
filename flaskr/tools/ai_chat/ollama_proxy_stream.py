@@ -3,7 +3,7 @@ from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
 import requests
-import asyncio
+# import asyncio
 
 # Start ollama first
 # in cmd type "ollama serve"
@@ -46,7 +46,7 @@ def non_stream_proxy(request: Request, endpoint: str):
 
     if origin == "http://localhost:9000": # for dev porpes
         if host not in ["testsmanager2.com:12443", "192.168.0.155:7000"]:
-          return {"error": "Origin not allowed"}
+            return {"error": "Origin not allowed"}
 
     url = f"{OLLAMA_URL}/{endpoint}"
     if request.method == "GET":
