@@ -11,8 +11,8 @@ app = FastAPI()
 
 origins = [
     "https://testsmanager.com",
-    "https://testsmanager2.com",
-    "http://192.168.0.103:9000",  # CIDR notation for 192.168.0.*
+    "https://testsmanager2.com:2443",
+    "http://localhost:9000",
 ]
 
 # Configure CORS
@@ -40,12 +40,13 @@ async def stream_proxy(request: Request):
 
 @app.api_route("/{endpoint:path}", methods=["GET", "POST", "OPTIONS"]) # for none stream
 def non_stream_proxy(request: Request, endpoint: str):
-    origin = request.headers.get("origin")
-    print(f"Request Origin: {origin}")
+    origin = request.headers.get("origin", "Unknown")
+    host = request.headers.get("host", "Unknown")
+    print(f"Request Origin: {origin}, host: {host}")
 
-    # # You can now use 'origin' to implement custom logic
-    # if origin not in ["https://testsmanager.com"] and not origin.startswith("http://192.168.0."):
-    #     return {"error": "Origin not allowed"}
+    if origin == "http://localhost:9000": # for dev porpes
+        if host not in ["testsmanager2.com:12443", "192.168.0.155:7000"]:
+          return {"error": "Origin not allowed"}
 
     url = f"{OLLAMA_URL}/{endpoint}"
     if request.method == "GET":
