@@ -12,7 +12,7 @@ app = FastAPI()
 origins = [
     "https://testsmanager.com",
     "https://testsmanager2.com",
-    "http://192.168.0.103:8000",  # CIDR notation for 192.168.0.*
+    "http://192.168.0.103:9000",  # CIDR notation for 192.168.0.*
 ]
 
 # Configure CORS
