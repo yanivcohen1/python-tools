@@ -45,8 +45,8 @@ def non_stream_proxy(request: Request, endpoint: str):
     print(f"Request Origin: {origin}, host: {host}")
 
     if origin == "http://localhost:9000": # for dev porpes
-        if host not in ["testsmanager2.com:12443", "192.168.0.155:7000"]:
-            return {"error": "Origin not allowed"}
+        if host not in ["testsmanager.com:12443", "192.168.0.155:7000"]:
+            return JSONResponse(content={"message": "Origin not allowed"}, status_code=405)
 
     url = f"{OLLAMA_URL}/{endpoint}"
     if request.method == "GET":
