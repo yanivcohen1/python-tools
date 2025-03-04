@@ -46,18 +46,20 @@ def capture_usb_keyboard(pcap_file):
                     # using wireshark copy -> fildName: usbhid.data
                     hid_data = packet.data.usbhid_data.split(':')
                     # Convert hex string to integer
-                    keybord.append(parse_hid_data(hid_data))
+                    keys = parse_hid_data(hid_data)
+                    if keys:
+                        keybord.append(keys)
         except Exception as e:
             print(f"Error processing packet: {e}")
 
-    print(keybord)
+    return keybord
 
 if __name__ == "__main__":
     # pcap_file = "/mnt/data/mouse.pcap"
     current_directory = os.path.dirname(__file__)
     # pcap_file = current_directory + "/mouse.pcap"
     pcap_file = current_directory + "/keybord_yaniv.pcapng"
-    capture_usb_keyboard(pcap_file)
+    print("user write:", ''.join(capture_usb_keyboard(pcap_file)))
     # save_position_to_file(x_data, y_data)
     # print(x_data, y_data)
     # plot_mouse_movements(x_data, y_data)
