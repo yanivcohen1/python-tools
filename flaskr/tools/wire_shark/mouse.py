@@ -10,9 +10,10 @@ def extract_mouse_movements(pcap_file):
 
     for packet in cap:
         try:
-            # 0x01: Interrupt transfer (mouse movement) -> using wireshark copy -> fildName: usb.transfer_type
+            # 0x01: Interrupt transfer -> using wireshark copy -> fildName: usb.transfer_type
             if hasattr(packet, 'usb') and int(packet.usb.transfer_type, 0) == 1:
-                if hasattr(packet, 'DATA'):
+                # 2.5.1(keybord) 2.6.3(mouse)
+                if hasattr(packet, 'DATA'): # and packet.usb.src == "2.6.3":
                     # using wireshark copy -> fildName: usbhid.data
                     hid_data = packet.data.usbhid_data
                     # Convert hex string to integer
