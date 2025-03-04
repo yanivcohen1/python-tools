@@ -61,18 +61,3 @@ if __name__ == "__main__":
     # pcap_file = current_directory + "/mouse.pcap"
     pcap_file = current_directory + "/keybord_yaniv.pcapng"
     print("user write:", ''.join(capture_usb_keyboard(pcap_file)))
-    # save_position_to_file(x_data, y_data)
-    # print(x_data, y_data)
-    # plot_mouse_movements(x_data, y_data)
-
-# https://www.amazon.com/Wacom-Bamboo-Splash-Tablet-CTL471/dp/B0089VGPII
-
-# Byte Index	Value (Hex)	Meaning
-# 0	01	Button state (1 means left button pressed)
-# 1	80	X movement (0x80 in signed 8-bit is -128)
-# 2	00	Y movement (0x00 in signed 8-bit is 0)
-# 3	FD	Wheel movement (0xFD in signed 8-bit is -3)
-# Mouse Position Movement:
-# X movement: 0x80 (interpreted as -128 in signed 8-bit format)
-# Y movement: 0x00 (interpreted as 0)
-# Scroll movement: -3 (if relevant)
