@@ -55,7 +55,7 @@ if __name__ == "__main__":
     # pcap_file = "/mnt/data/mouse.pcap"
     current_directory = os.path.dirname(__file__)
     # pcap_file = current_directory + "/mouse.pcap"
-    pcap_file = current_directory + "/yaniv.pcapng"
+    pcap_file = current_directory + "/mouse_yaniv.pcapng"
     x_data, y_data = extract_mouse_movements(pcap_file)
     # save_position_to_file(x_data, y_data)
     # print(x_data, y_data)
