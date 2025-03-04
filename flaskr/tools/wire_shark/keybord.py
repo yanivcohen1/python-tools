@@ -40,8 +40,9 @@ def capture_usb_keyboard(pcap_file):
     keybord = []
     for packet in cap:
         try:
-            # 0x01: Interrupt transfer (mouse movement) -> using wireshark copy -> fildName: usb.transfer_type
+            # 0x01: Interrupt transfer -> using wireshark copy -> fildName: usb.transfer_type
             if hasattr(packet, 'usb') and int(packet.usb.transfer_type, 0) == 1:
+                # 2.5.1(keybord) 2.7.3(mouse)
                 if packet.usb.src == "2.5.1" and hasattr(packet, 'DATA'):
                     # using wireshark copy -> fildName: usbhid.data
                     hid_data = packet.data.usbhid_data.split(':')
