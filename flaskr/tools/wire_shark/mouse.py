@@ -10,23 +10,26 @@ def extract_mouse_movements(pcap_file):
 
     for packet in cap:
         try:
-            if hasattr(packet, 'usb') and int(packet.usb.function, 0) == 9:
-                hid_data = packet.data.usbhid_data
-                # Convert hex string to integer
-                data_bytes = bytes(int(b, 16) for b in hid_data.split(':'))
-                if len(data_bytes) < 3 or len(data_bytes) > 5:
-                    raise ValueError("Invalid HID data format")
-                # Extract X and Y movement values (signed 8-bit integers)
-                # Return the integer represented by the given array of bytes
-                left_button = int.from_bytes([data_bytes[0]], byteorder='little', signed=True)
-                dx = int.from_bytes([data_bytes[1]], byteorder='little', signed=True)
-                dy = int.from_bytes([data_bytes[2]], byteorder='little', signed=True)
-                wheel = int.from_bytes([data_bytes[3]], byteorder='little', signed=True)
-                x += dx
-                y -= dy
-                if left_button == 1: # left button pressed
-                    x_data.append(x)
-                    y_data.append(y)
+            # 0x01: Interrupt transfer (mouse movement) -> using wireshark copy -> fildName: usb.transfer_type
+            if hasattr(packet, 'usb') and int(packet.usb.transfer_type, 0) == 1:
+                if hasattr(packet, 'DATA'):
+                    # using wireshark copy -> fildName: usbhid.data
+                    hid_data = packet.data.usbhid_data
+                    # Convert hex string to integer
+                    data_bytes = bytes(int(b, 16) for b in hid_data.split(':'))
+                    if len(data_bytes) < 3 : # or len(data_bytes) > 5:
+                        raise ValueError("Invalid HID data format")
+                    # Extract X and Y movement values (signed 8-bit integers)
+                    # Return the integer represented by the given array of bytes
+                    left_button = int.from_bytes([data_bytes[0]], byteorder='little', signed=True)
+                    dx = int.from_bytes([data_bytes[1]], byteorder='little', signed=True)
+                    dy = int.from_bytes([data_bytes[2]], byteorder='little', signed=True)
+                    wheel = int.from_bytes([data_bytes[3]], byteorder='little', signed=True)
+                    x += dx
+                    y -= dy
+                    if left_button == 1: # left button pressed
+                        x_data.append(x)
+                        y_data.append(y)
         except Exception as e:
             print(f"Error processing packet: {e}")
 
