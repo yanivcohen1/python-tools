@@ -42,7 +42,8 @@ async def stream_proxy(request: Request):
 def non_stream_proxy(request: Request, endpoint: str):
     origin = request.headers.get("origin", "Unknown")
     host = request.headers.get("host", "Unknown")
-    print(f"Request Origin: {origin}, host: {host}")
+    cookie_value = request.cookies # .get("your_cookie_name", None)  # Replace with actual cookie name
+    print(f"Request:, Origin: {origin}, host: {host}, cookie: {cookie_value}")
 
     if origin == "http://localhost:9000": # for dev porpes
         if host not in ["testsmanager.com:12443", "192.168.0.155:7000"]:
