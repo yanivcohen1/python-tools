@@ -154,9 +154,10 @@
                 const lines = text.split('\n');
                 for (const line of lines) {
                     if (line.startsWith("data: ")) {
-                        const data = line.substring("data: ".length);
-                        if (data !== '[DONE]') {
+                        const jsonString = line.substring("data: ".length);
+                        if (jsonString !== '[DONE]') {
 							try {
+								const data = jsonString.replace(/[\u0000-\u001F]/g, "");
 								let jsonData = JSON.parse(data);
 								const delta = jsonData['choices'][0]['delta'];
 								if ('content' in delta) {
