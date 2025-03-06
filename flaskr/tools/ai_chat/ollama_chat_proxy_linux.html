@@ -86,7 +86,7 @@
         }
 
         async function fetchCompletion() {
-			
+
 			const modelSelect = document.getElementById('modelSelect')
             if (!modelSelect || !modelSelect.value) {
                 alert('No model selected. Please select a model first.');
@@ -161,10 +161,12 @@
                 }
             }
             send_btn.innerHTML = "Send";
-			calc_time(content, startTime);
+            send_btn.style.backgroundColor = "#e7e7e7"; // gray
+				    send_btn.style.color = "black" // text color
+            calc_time(content, startTime);
             return content;
         }
-		
+
 		function calc_time(content, startTime){
 			let wordsArray = content.trim().split(/\s+/);
             wordCount = wordsArray.length;
