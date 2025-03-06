@@ -2,197 +2,199 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ollama-DeepSeek-r1</title>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-	<!-- Optional: Include CSS for Markdown styling -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ollama-DeepSeek-r1</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <!-- Optional: Include CSS for Markdown styling -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    #output {
+      background-color: #f4f4f4;
+      padding: 20px;
+      border-radius: 10px;
+      color: #333;
+    }
+
+    code {
+      background-color: #e8e8e8;
+      color: #d6336c;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    pre code {
+      background-color: #2d2d2d;
+      color: #f8f8f2;
+      padding: 10px;
+      border-radius: 10px;
+      display: block;
+    }
+  </style>
+  <script>
+    let controller;
+    let startTime = null;
+    let content = "";
+    // const code_highlight = ", the code in response will be like this ```{program_language_name}"
+    async function getModelList() {
+      try {
+        document.getElementById('output').innerHTML = ""
+        const response = await fetch('http://192.168.0.155:7000/v1/models');
+        if (!response.ok) {
+          throw new Error('Failed to fetch model list');
         }
+        const data = await response.json();
 
-        #output {
-            background-color: #f4f4f4;
-            padding: 20px;
-            border-radius: 10px;
-            color: #333;
-        }
+        const models = data.data;
+        const modelListDiv = document.getElementById('modelList');
+        modelListDiv.innerHTML = '';  // Clear any previous content
 
-        code {
-            background-color: #e8e8e8;
-            color: #d6336c;
-            padding: 2px 4px;
-            border-radius: 4px;
-        }
+        // Create a select dropdown with model options
+        const select = document.createElement('select');
+        select.id = 'modelSelect';
 
-        pre code {
-            background-color: #2d2d2d;
-            color: #f8f8f2;
-            padding: 10px;
-            border-radius: 10px;
-            display: block;
-        }
-    </style>
-    <script>
-        let controller;
-		let startTime = null;
-		let content = "";
-        // const code_highlight = ", the code in response will be like this ```{program_language_name}"
-        async function getModelList() {
-            try {
-				document.getElementById('output').innerHTML = ""
-                const response = await fetch('http://192.168.0.155:7000/v1/models');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch model list');
-                }
-                const data = await response.json();
+        // Create a default option
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.text = 'Select a model';
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        select.appendChild(defaultOption);
 
-                const models = data.data;
-                const modelListDiv = document.getElementById('modelList');
-                modelListDiv.innerHTML = '';  // Clear any previous content
+        models.forEach((model) => {
+          const option = document.createElement('option');
+          option.value = model.id;
+          option.text = model.id;
+          select.appendChild(option);
+        });
 
-                // Create a select dropdown with model options
-                const select = document.createElement('select');
-                select.id = 'modelSelect';
+        modelListDiv.appendChild(select);
+        document.getElementById("refresh_models").style.display = "none";
 
-                // Create a default option
-                const defaultOption = document.createElement('option');
-                defaultOption.value = '';
-                defaultOption.text = 'Select a model';
-                defaultOption.disabled = true;
-                defaultOption.selected = true;
-                select.appendChild(defaultOption);
+      } catch (error) {
+        document.getElementById('output').innerHTML = 'Error on read ollama models:  ' + error
+        console.error('Error:', error);
+      }
+    }
 
-                models.forEach((model) => {
-                    const option = document.createElement('option');
-                    option.value = model.id;
-                    option.text = model.id;
-                    select.appendChild(option);
+    async function fetchCompletion() {
+
+      const modelSelect = document.getElementById('modelSelect')
+      if (!modelSelect || !modelSelect.value) {
+        alert('No model selected. Please select a model first.');
+        return
+      }
+      const selectedModel = modelSelect.value;
+      const send_btn = document.getElementById('send')
+      send = send_btn.innerHTML
+      if (send == "Send") {
+        send_btn.innerHTML = "Stop"
+        send_btn.style.backgroundColor = "#555555"; // Black
+        send_btn.style.color = "white" // text color
+        startTime = Date.now();
+        document.getElementById("count").innerHTML = "";
+        content = ""
+      } else {
+        // stop the call
+        controller.abort();
+        send_btn.innerHTML = "Send"
+        send_btn.style.backgroundColor = "#e7e7e7"; // gray
+        send_btn.style.color = "black" // text color
+        calc_time(content, startTime)
+        return
+      }
+      let myMsg = document.getElementById('inputMessage').value;
+      controller = new AbortController();
+      const signal = controller.signal;
+      const response = await fetch('http://192.168.0.155:7000/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          'model': selectedModel,//'deepseek-r1:8b',
+          'messages': [
+            { "role": "system", "content": "" },
+            { "role": "user", "content": myMsg }
+          ],
+          'temperature': 0.7,
+          'max_tokens': -1, // -1 for unlimited
+          'stream': true
+        }),
+        signal // Add signal here to support aborting
+      });
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      const displayHandle = document.getElementById('output');
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const text = decoder.decode(value);
+        const lines = text.split('\n');
+        for (const line of lines) {
+          if (line.startsWith("data: ")) {
+            const data = line.substring("data: ".length);
+            if (data !== '[DONE]') {
+              const jsonData = JSON.parse(data);
+              const delta = jsonData['choices'][0]['delta'];
+              if ('content' in delta) {
+                content += delta['content'];
+                displayHandle.innerHTML = marked.parse(content);
+                // Syntax highlighting
+                document.querySelectorAll('pre code').forEach((block) => {
+                  hljs.highlightBlock(block);
                 });
-
-                modelListDiv.appendChild(select);
-				document.getElementById("refresh_models").style.display = "none";
-
-            } catch (error) {
-				document.getElementById('output').innerHTML = 'Error on read ollama models:  ' + error
-                console.error('Error:', error);
+              }
             }
+          }
         }
+      }
+      send_btn.innerHTML = "Send";
+      send_btn.style.backgroundColor = "#e7e7e7"; // gray
+      send_btn.style.color = "black" // text color
+      calc_time(content, startTime);
+      return content;
+    }
 
-        async function fetchCompletion() {
+    function calc_time(content, startTime) {
+      let wordsArray = content.trim().split(/\s+/);
+      wordCount = wordsArray.length;
 
-			const modelSelect = document.getElementById('modelSelect')
-            if (!modelSelect || !modelSelect.value) {
-                alert('No model selected. Please select a model first.');
-                return
-            }
-			const selectedModel = modelSelect.value;
-            const send_btn = document.getElementById('send')
-            send = send_btn.innerHTML
-            if (send == "Send"){
-                send_btn.innerHTML = "Stop"
-				send_btn.style.backgroundColor = "#555555"; // Black
-				send_btn.style.color = "white"
-				startTime = Date.now();
-				document.getElementById("count").innerHTML = "";
-				content = ""
-            } else{
-                // stop the call
-                controller.abort();
-                send_btn.innerHTML = "Send"
-				send_btn.style.color = "black"
-				send_btn.style.backgroundColor = "#e7e7e7"; // gray
-				calc_time(content, startTime)
-                return
-            }
-            let myMsg = document.getElementById('inputMessage').value;
-            controller = new AbortController();
-            const signal = controller.signal;
-            const response = await fetch('http://192.168.0.155:7000/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'model': selectedModel,//'deepseek-r1:8b',
-                    'messages': [
-                        { "role": "system", "content": "" },
-                        { "role": "user", "content": myMsg }
-                    ],
-                    'temperature': 0.7,
-                    'max_tokens': -1, // -1 for unlimited
-                    'stream': true
-                }),
-                signal // Add signal here to support aborting
-            });
+      // Calculate elapsed time in minutes
+      let elapsedTimeSec = (Date.now() - startTime) / 1000;
+      let elapsedTimeMin = elapsedTimeSec / 60;
 
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder();
-            const displayHandle = document.getElementById('output');
+      // Calculate words per minute (avoid division by zero)
+      let wpm = elapsedTimeSec > 0 ? (wordCount / elapsedTimeSec).toFixed(2) : 0;
 
-            while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-
-                const text = decoder.decode(value);
-                const lines = text.split('\n');
-                for (const line of lines) {
-                    if (line.startsWith("data: ")) {
-                        const data = line.substring("data: ".length);
-                        if (data !== '[DONE]') {
-                            const jsonData = JSON.parse(data);
-                            const delta = jsonData['choices'][0]['delta'];
-                            if ('content' in delta) {
-                                content += delta['content'];
-                                displayHandle.innerHTML = marked.parse(content);
-                                // Syntax highlighting
-                                document.querySelectorAll('pre code').forEach((block) => {
-                                    hljs.highlightBlock(block);
-                                });
-                            }
-                        }
-                    }
-                }
-            }
-            send_btn.innerHTML = "Send";
-            send_btn.style.backgroundColor = "#e7e7e7"; // gray
-				    send_btn.style.color = "black" // text color
-            calc_time(content, startTime);
-            return content;
-        }
-
-		function calc_time(content, startTime){
-			let wordsArray = content.trim().split(/\s+/);
-            wordCount = wordsArray.length;
-
-            // Calculate elapsed time in minutes
-            let elapsedTimeSec = (Date.now() - startTime) / 1000;
-            let elapsedTimeMin = elapsedTimeSec / 60;
-
-            // Calculate words per minute (avoid division by zero)
-            let wpm = elapsedTimeSec > 0 ? (wordCount / elapsedTimeSec).toFixed(2) : 0;
-
-            // Update the output div
-            document.getElementById("count").innerHTML = `Time: ${elapsedTimeSec.toFixed(2)} sec, Words: ${wordCount}, WPS: ${wpm}`;
-		}
-    </script>
+      // Update the output div
+      document.getElementById("count").innerHTML = `Time: ${elapsedTimeSec.toFixed(2)} sec, Words: ${wordCount}, WPS: ${wpm}`;
+    }
+  </script>
 </head>
 
 <body onload="getModelList()">
-    <h1>Ask Ollama</h1>
-    <div><div id="modelList"></div>
-	<button id="refresh_models" onclick="getModelList()">refresh module list</button></div>
-    <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here..."></textarea>
-    <br>
-    <button id="send" onclick="fetchCompletion()">Send</button>
-	<span id="count"></span>
-    <div id="output"></div>
+  <h1>Ask Ollama</h1>
+  <div>
+    <div id="modelList"></div>
+    <button id="refresh_models" onclick="getModelList()">refresh module list</button>
+  </div>
+  <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here..."></textarea>
+  <br>
+  <button id="send" onclick="fetchCompletion()">Send</button>
+  <span id="count"></span>
+  <div id="output"></div>
 </body>
 
 </html>
