@@ -38,11 +38,28 @@
             border-radius: 10px;
             display: block;
         }
-
+		
 		think {
 			color: gray;
-      /* display: none; */
+			display: none; /* display: none; */
 		}
+
+		/* hr {
+		  border: none;
+		  border-top: 3px double #333;
+		  color: #333;
+		  overflow: visible;
+		  text-align: center;
+		  height: 5px;
+		}
+
+		hr::after {
+		  background: #fff;
+		  content: "End Thinking";
+		  padding: 0 4px;
+		  position: relative;
+		  top: -13px;
+		} */
 
     </style>
     <script>
@@ -64,7 +81,7 @@
                 if (!response.ok) {
                     throw new Error('Failed to fetch model list');
                 }
-
+				
                 const data = await response.json();
 
                 const models = data.data;
@@ -100,7 +117,7 @@
                 console.error('Error:', error);
             }
         }
-
+		
         async function fetchCompletion() {
 			const modelSelect = document.getElementById('modelSelect')
             if (!modelSelect || !modelSelect.value) {
@@ -169,7 +186,7 @@
 								if ('content' in delta) {
 									let contents = delta['content'];
 									if (contents.includes("</think>"))
-										contents = "\n</think>\n"
+										contents = "\n</think>\n" // "\n</think>\n <hr />\n "
 									content += contents;
 									displayHandle.innerHTML = marked.parse(content);
 									// Syntax highlighting
@@ -190,7 +207,7 @@
 			calc_time(content, startTime);
             return content;
         }
-
+		
 		function calc_time(content, startTime){
 			let wordsArray = content.trim().split(/\s+/);
             wordCount = wordsArray.length;
