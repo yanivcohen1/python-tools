@@ -38,9 +38,10 @@
             border-radius: 10px;
             display: block;
         }
-		
+
 		think {
 			color: gray;
+      /* display: none; */
 		}
 
     </style>
@@ -63,7 +64,7 @@
                 if (!response.ok) {
                     throw new Error('Failed to fetch model list');
                 }
-				
+
                 const data = await response.json();
 
                 const models = data.data;
@@ -99,7 +100,7 @@
                 console.error('Error:', error);
             }
         }
-		
+
         async function fetchCompletion() {
 			const modelSelect = document.getElementById('modelSelect')
             if (!modelSelect || !modelSelect.value) {
@@ -189,7 +190,7 @@
 			calc_time(content, startTime);
             return content;
         }
-		
+
 		function calc_time(content, startTime){
 			let wordsArray = content.trim().split(/\s+/);
             wordCount = wordsArray.length;
