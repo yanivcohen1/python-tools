@@ -38,6 +38,11 @@
             border-radius: 10px;
             display: block;
         }
+		
+		think {
+			color: gray;
+		}
+
     </style>
     <script>
         let controller;
@@ -161,7 +166,10 @@
 								let jsonData = JSON.parse(data);
 								const delta = jsonData['choices'][0]['delta'];
 								if ('content' in delta) {
-									content += delta['content'];
+									let contents = delta['content'];
+									if (contents.includes("</think>"))
+										contents = "\n</think>\n"
+									content += contents;
 									displayHandle.innerHTML = marked.parse(content);
 									// Syntax highlighting
 									document.querySelectorAll('pre code').forEach((block) => {
