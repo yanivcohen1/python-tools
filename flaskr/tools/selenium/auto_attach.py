@@ -4,7 +4,7 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 import os
-from get_driver import connect_to_driver
+from flaskr.tools.selenium.get_selenium_driver import connect_to_driver
 # you need first to run the chrome driver in cmd (.\chromedriver.exe --port=5000)
 
 # 1. open a driver
