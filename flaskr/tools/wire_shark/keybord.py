@@ -24,7 +24,21 @@ def parse_hid_data(hid_data):
         0x33: ';', 0x34: "'", 0x35: '`', 0x36: ',', 0x37: '.', 0x38: '/',
         0x39: 'CapsLock', 0x3A: 'F1', 0x3B: 'F2', 0x3C: 'F3', 0x3D: 'F4',
         0x3E: 'F5', 0x3F: 'F6', 0x40: 'F7', 0x41: 'F8', 0x42: 'F9',
-        0x43: 'F10', 0x44: 'F11', 0x45: 'F12'
+        0x43: 'F10', 0x44: 'F11', 0x45: 'F12',
+
+        # Modifier keys
+        0xE0: 'LeftCtrl', 0xE1: 'LeftShift', 0xE2: 'LeftAlt', 0xE3: 'LeftMeta',
+        0xE4: 'RightCtrl', 0xE5: 'RightShift', 0xE6: 'RightAlt', 0xE7: 'RightMeta',
+
+        # Navigation keys
+        0x49: 'Insert', 0x4A: 'Home', 0x4B: 'PageUp',
+        0x4C: 'Delete', 0x4D: 'End', 0x4E: 'PageDown',
+
+        # Arrow keys
+        0x4F: 'RightArrow', 0x50: 'LeftArrow', 0x51: 'DownArrow', 0x52: 'UpArrow',
+
+        # Other function keys
+        0x53: 'NumLock', 0x54: 'ScrollLock'
     }
 
     keys = []
