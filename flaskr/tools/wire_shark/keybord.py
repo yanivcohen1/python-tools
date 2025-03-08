@@ -33,7 +33,7 @@ def parse_hid_data(hid_data):
         if key_code in HID_KEYCODES:
             keys.append(HID_KEYCODES[key_code])
 
-    return ''.join(keys)
+    return '+'.join(keys) # ctrl+alt+delete
 
 def capture_usb_keyboard(pcap_file):
     cap = pyshark.FileCapture(pcap_file) # display_filter="usb.capdata"
@@ -60,4 +60,4 @@ if __name__ == "__main__":
     current_directory = os.path.dirname(__file__)
     # pcap_file = current_directory + "/mouse.pcap"
     pcap_file = current_directory + "/keybord_yaniv.pcapng"
-    print("user write:", ''.join(capture_usb_keyboard(pcap_file)))
+    print("user write:", capture_usb_keyboard(pcap_file))
