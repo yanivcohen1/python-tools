@@ -19,7 +19,7 @@ app.add_middleware(
 )
 
 genai.configure(api_key="AIzaSyB2GXiEd1eV95qPkFMUaz8vndME1cYFByk") #replace with your api key
-model = genai.GenerativeModel('gemini-2.0-flash') # gemini-2.0-flash-thinking-exp
+model = genai.GenerativeModel('gemini-2.0-flash-thinking-exp') # gemini-2.0-flash
 
 class QueryData(BaseModel):
     query: str
