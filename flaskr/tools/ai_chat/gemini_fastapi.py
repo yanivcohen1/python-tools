@@ -34,6 +34,10 @@ def generate_stream(query: str):
 async def stream_content(query_data: QueryData = Body(...)):
     return StreamingResponse(generate_stream(query_data.query), media_type="text/event-stream")
 
+@app.get("/live")
+def live():
+    return Response(content="Live", media_type="text/plain")
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=7000) # host="0.0.0.0" listning to all interfaces
