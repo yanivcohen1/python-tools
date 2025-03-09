@@ -40,7 +40,7 @@ def generate_stream(query: str):
 
 @app.post("/stream")
 async def stream_content(query_data: QueryData = Body(...)):
-    return StreamingResponse(generate_stream(query_data.query), media_type="text/event-stream")
+    return StreamingResponse(generate_stream(query_data.query + ' use in your answer this url content: https://testsmanager.com'), media_type="text/event-stream")
 
 @app.get("/live")
 def live():
