@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gemini Stream (Fetch POST)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #output {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 10px;
+            color: #333;
+        }
+
+        code {
+            background-color: #e8e8e8;
+            color: #d6336c;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        pre code {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gemini Stream (Fetch POST)</h1>
+    <textarea id="userInput" rows="4" cols="50" placeholder="Enter your message here..."></textarea><br>
+    <button id="startButton">Start Stream</button>
+    <button id="stopButton" disabled>Stop Stream</button>
+    <div id="output"></div>
+
+    <script>
+        const outputDiv = document.getElementById('output');
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+        const userInput = document.getElementById('userInput');
+        let controller;
+
+        startButton.addEventListener('click', async () => {
+            const query = userInput.value;
+            if (query) {
+				stopButton.disabled = false;
+                outputDiv.innerHTML = "";
+                controller = new AbortController();
+                const signal = controller.signal;
+
+                try {
+                    const response = await fetch('http://127.0.0.1:7000/stream', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ query: query }),
+                        signal: signal,
+                    });
+
+                    const reader = response.body.getReader();
+                    const decoder = new TextDecoder();
+					let content = ''
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) {
+                            break;
+                        }
+						
+						const text = decoder.decode(value);
+						str = parse_stream(text); // Remove "data: " and newlines .replace(/\n+/g, " ").trim()
+						content += str;
+						let html = marked.parse(content);
+						outputDiv.innerHTML = html;
+						// Syntax highlighting
+						document.querySelectorAll('pre code').forEach((block) => {
+							hljs.highlightBlock(block);
+						});
+						
+                        
+					}
+                } catch (error) {
+                    if (error.name === 'AbortError') {
+                        console.log('Fetch aborted.');
+                    } else {
+                        console.error('Fetch error:', error);
+                    }
+                } finally {
+                    stopButton.disabled = true;
+                    startButton.disabled = false;
+                    userInput.disabled = false;
+                }
+
+                // stopButton.disabled = false;
+                // startButton.disabled = true;
+                // userInput.disabled = true;
+            } else {
+                alert("Please enter a query.");
+            }
+        });
+
+        stopButton.addEventListener('click', () => {
+            if (controller) {
+                controller.abort();
+                console.log("Stream stopped.");
+                controller = null;
+            }
+        });
+		
+		function parse_stream(input){
+			// Split the input into blocks (using one or more blank lines as separator)
+			const blocks = input.trim().split(/\n\s*\n/);
+
+			const resultBlocks = [];
+			let currentDataGroup = [];
+
+			// Process each block: if it starts with "data:" then remove the prefix and add it to the current group;
+			// if not, flush any accumulated "data:" lines and push the block as its own paragraph.
+			blocks.forEach(block => {
+			  if (block.startsWith("data:")) {
+				// Remove "data:" and trim the rest
+				currentDataGroup.push(block.replace(/^data:\s*/, '').trim());
+			  } else {
+				if (currentDataGroup.length) {
+				  // Join the accumulated "data:" lines with a space and push them as one block.
+				  resultBlocks.push(currentDataGroup.join(' '));
+				  currentDataGroup = [];
+				}
+				resultBlocks.push(block.trim());
+			  }
+			});
+			if (currentDataGroup.length) {
+			  resultBlocks.push(currentDataGroup.join(' '));
+			}
+
+			// Join the blocks with a newline.
+			const output = resultBlocks.join('\n');
+			return output;
+		}
+		
+    </script>
+</body>
+</html>
