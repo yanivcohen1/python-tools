@@ -10,9 +10,15 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+origins = [
+    "https://testsmanager.com",
+    "https://testsmanager2.com:2443",
+    "http://localhost:9000",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins, # ["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
