@@ -28,7 +28,7 @@ def generate_stream(query: str):
     response = model.generate_content(query, stream=True)  # No await needed
     for chunk in response:  # Regular for loop, not async
         print(chunk.text, end="")
-        yield f"data: {chunk.text}\n\n"
+        yield chunk.text
 
 @app.post("/stream")
 async def stream_content(query_data: QueryData = Body(...)):

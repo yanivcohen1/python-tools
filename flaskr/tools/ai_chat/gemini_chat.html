@@ -76,8 +76,8 @@
                         }
 						
 						const text = decoder.decode(value);
-						str = parse_stream(text); // Remove "data: " and newlines .replace(/\n+/g, " ").trim()
-						content += str;
+						// str = parse_stream(text); // Remove "data: " and newlines .replace(/\n+/g, " ").trim()
+						content += text;
 						let html = marked.parse(content);
 						outputDiv.innerHTML = html;
 						// Syntax highlighting
@@ -114,37 +114,6 @@
                 controller = null;
             }
         });
-		
-		function parse_stream(input){
-			// Split the input into blocks (using one or more blank lines as separator)
-			const blocks = input.trim().split(/\n\s*\n/);
-
-			const resultBlocks = [];
-			let currentDataGroup = [];
-
-			// Process each block: if it starts with "data:" then remove the prefix and add it to the current group;
-			// if not, flush any accumulated "data:" lines and push the block as its own paragraph.
-			blocks.forEach(block => {
-			  if (block.startsWith("data:")) {
-				// Remove "data:" and trim the rest
-				currentDataGroup.push(block.replace(/^data:\s*/, '').trim());
-			  } else {
-				if (currentDataGroup.length) {
-				  // Join the accumulated "data:" lines with a space and push them as one block.
-				  resultBlocks.push(currentDataGroup.join(' '));
-				  currentDataGroup = [];
-				}
-				resultBlocks.push(block.trim());
-			  }
-			});
-			if (currentDataGroup.length) {
-			  resultBlocks.push(currentDataGroup.join(' '));
-			}
-
-			// Join the blocks with a newline.
-			const output = resultBlocks.join('\n');
-			return output;
-		}
 		
     </script>
 </body>
