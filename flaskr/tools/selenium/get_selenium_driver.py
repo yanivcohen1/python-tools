@@ -1,3 +1,4 @@
+# download driver from https://googlechromelabs.github.io/chrome-for-testing/
 import socket
 import os
 # import subprocess
