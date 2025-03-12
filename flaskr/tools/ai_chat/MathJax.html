@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marked.js with KaTeX</title>
+    
+    <!-- KaTeX Stylesheet (MUST be loaded before using KaTeX) -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+
+	<!-- KaTeX Script -->
+	<script src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js"></script>
+
+	<!-- Marked.js -->
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 10px;
+        }
+        #output {
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Markdown Editor with KaTeX</h2>
+    <textarea id="markdown-input">This is an inline equation one: $E = mc^2$ and equation two: $F = ma$
+
+This is a block equation:
+
+$$
+f(x) = \int_{-\infty}^{\infty} e^{-x^2} dx
+$$
+    </textarea>
+    <button onclick="renderMarkdown()">Render</button>
+
+    <h3>Output:</h3>
+    <div id="output"></div>
+
+    <script>
+        // Custom renderer for KaTeX
+        const renderer = new marked.Renderer();
+
+        // Block Math
+        renderer.paragraph = function(data) {
+			text = data.text.trim() // Ensure text is a string
+			// Block Math (using $$...$$)
+            if (text.startsWith("$$") && text.endsWith("$$")) {
+                return `<p>${katex.renderToString(text.slice(2, -2), { displayMode: true, throwOnError: false })}</p>`;
+            } else {
+				// Block inline Math (using $...$)
+				const match = text.match(/\$([^$]+)\$/);
+				if (match) {
+					const output = text.replace(/\$([^$]+)\$/g, match => katex.renderToString(match.slice(1, -1), { throwOnError: false }));
+					return output;
+				}
+            }
+            return `<p>${text}</p>`;
+        };
+
+        // Configure Marked
+        marked.setOptions({
+            renderer: renderer,
+            breaks: true
+        });
+
+        // Function to render Markdown
+        function renderMarkdown() {
+            const input = document.getElementById("markdown-input").value;
+            const output = document.getElementById("output");
+            output.innerHTML = marked.parse(input);
+        }
+
+        // Initial rendering
+        renderMarkdown();
+    </script>
+
+</body>
+</html>

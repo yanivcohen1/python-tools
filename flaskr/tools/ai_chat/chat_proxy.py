@@ -26,7 +26,7 @@ app.add_middleware(
 
 @app.get("/live")
 def live():
-    return Response(content="Live", media_type="text/plain")
+    return JSONResponse(content={"status": "Live"})
 
 # gemini proxy ---------------------------------------------------------
 
@@ -51,10 +51,10 @@ async def stream_content(query_data: GeminiQueryData = Body(...)):
 OLLAMA_URL = "http://127.0.0.1:11434"
 OLLAMA_CHAT = "/v1/chat/completions"
 
-async def stream_ollama_response(request_body: dict):
-    async with httpx.AsyncClient(timeout=60) as client:
-        async with client.stream("POST", OLLAMA_URL + OLLAMA_CHAT, json=request_body) as response:
-            async for chunk in response.aiter_bytes():
+def stream_ollama_response(request_body: dict):
+    with requests.post(OLLAMA_URL + OLLAMA_CHAT, json=request_body, stream=True, timeout=60) as response:
+        for chunk in response.iter_content(chunk_size=8192):
+            if chunk:
                 yield chunk
 
 @app.post(f"/ollama{OLLAMA_CHAT}") # for stream

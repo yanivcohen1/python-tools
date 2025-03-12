@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solving Trigonometric Equation with MathJax</title>
+    <!-- Load MathJax from CDN -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Solving \( 3 \sin(2x) + 4 \cos(2x) = 5 \)</h1>
+    
+    <p>To solve the equation \( 3 \sin(2x) + 4 \cos(2x) = 5 \), follow these steps:</p>
+    
+    <h2>Step 1: Substitute \( \theta = 2x \)</h2>
+    <p>Let \( \theta = 2x \), so the equation becomes:</p>
+    \[ 3 \sin \theta + 4 \cos \theta = 5 \]
+
+    <h2>Step 2: Express as a Single Trigonometric Function</h2>
+    <p>Rewrite \( 3 \sin \theta + 4 \cos \theta \) as \( R \sin(\theta + \phi) \), where:</p>
+    \[ R = \sqrt{3^2 + 4^2} = \sqrt{25} = 5 \]
+    \[ \phi = \arctan\left(\frac{4}{3}\right) \]
+    <p>Thus:</p>
+    \[ 3 \sin \theta + 4 \cos \theta = 5 \sin\left(\theta + \arctan\left(\frac{4}{3}\right)\right) \]
+    <p>The equation is now:</p>
+    \[ 5 \sin\left(\theta + \arctan\left(\frac{4}{3}\right)\right) = 5 \]
+    \[ \sin\left(\theta + \arctan\left(\frac{4}{3}\right)\right) = 1 \]
+
+    <h2>Step 3: Solve for \( \theta \)</h2>
+    <p>Since \( \sin \alpha = 1 \) when \( \alpha = \frac{\pi}{2} + 2k\pi \):</p>
+    \[ \theta + \arctan\left(\frac{4}{3}\right) = \frac{\pi}{2} + 2k\pi \]
+    \[ \theta = \frac{\pi}{2} - \arctan\left(\frac{4}{3}\right) + 2k\pi \]
+
+    <h2>Step 4: Substitute Back and Simplify</h2>
+    <p>Since \( \theta = 2x \):</p>
+    \[ 2x = \frac{\pi}{2} - \arctan\left(\frac{4}{3}\right) + 2k\pi \]
+    \[ x = \frac{1}{2} \left( \frac{\pi}{2} - \arctan\left(\frac{4}{3}\right) \right) + k\pi \]
+    <p>Use the identity \( \frac{\pi}{2} - \arctan\left(\frac{4}{3}\right) = \arctan\left(\frac{3}{4}\right) \):</p>
+    \[ x = \frac{1}{2} \arctan\left(\frac{3}{4}\right) + k\pi \]
+
+    <h2>Final Solution</h2>
+    <p>The general solution is:</p>
+    \[ x = \frac{1}{2} \arctan\left(\frac{3}{4}\right) + k\pi \]
+    <p>where \( k \) is any integer.</p>
+</body>
+</html>
