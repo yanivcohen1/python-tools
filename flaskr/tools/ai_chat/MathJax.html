@@ -1,108 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marked.js with KaTeX</title>
-    
-    <!-- KaTeX Stylesheet (MUST be loaded before using KaTeX) -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
-
-	<!-- KaTeX Script -->
-	<script src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js"></script>
-
-	<!-- Marked.js -->
-	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        textarea {
-            width: 100%;
-            height: 150px;
-            margin-bottom: 10px;
-        }
-        #output {
-            border: 1px solid #ccc;
-            padding: 10px;
-            min-height: 100px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Markdown and LaTeX Render</title>
+  <!-- Include Marked for Markdown parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- Configure MathJax for LaTeX rendering using $ delimiters -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <!-- Include MathJax -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+    }
+  </style>
 </head>
+
 <body>
+  <!-- Container for the rendered Markdown -->
+  <div id="content"></div>
 
-    <h2>Markdown Editor with KaTeX</h2>
-    <textarea id="markdown-input">
-\n\n\nTo find the value of \\( x \\) that satisfies the equation \\( 3x + 4x = 5 \\), follow these steps:\n\n1. **Combine like terms:**\n   \n   \\[\n   3x + 4x = 7x\n   \\]\n   \n   So, the equation becomes:\n   \n   \\[\n   7x = 5\n   \\]\n\n2. **Solve for \\( x \\):**\n   \n   To isolate \\( x \\), divide both sides of the equation by 7:\n   \n   \\[\n   x = \\frac{5}{7}\n   \\]\n\n3. **Verify the solution:**\n   \n   Substitute \\( x = \\frac{5}{7} \\) back into the original equation:\n   \n   \\[\n   3\\left(\\frac{5}{7}\\right) + 4\\left(\\frac{5}{7}\\right) = \\frac{15}{7} + \\frac{20}{7} = \\frac{35}{7} = 5\n   \\]\n   \n   Since both sides of the equation are equal, the solution is correct.\n\n**Final Answer:**\n\n\\[\n\\boxed{\\dfrac{5}{7}}\n\\]
-	
-	To solve the equation \\( 3 \\sin(2x) = 5 \\), we start \\[\nx = \\frac{5}{7}\n\\]
-	
-	This is an inline equation one: $E = mc^2$ and equation two: $F = ma$
+  <script>
+    // Disable mangling so that any needed backslashes remain intact.
+    marked.setOptions({
+      mangle: false
+    });
 
-This is a block equation:
+    // Markdown content using $ for inline math and $$ for display math.
+    const txt1 = `
+To find the value of $x$ that satisfies the equation $3x + 4x = 5$, follow these steps:
+
+1. **Combine like terms:**
 
 $$
-f(x) = \int_{-\infty}^{\infty} e^{-x^2} dx
+3x + 4x = 7x
 $$
 
-    </textarea>
-    <button onclick="renderMarkdown()">Render</button>
+So, the equation becomes:
 
-    <h3>Output:</h3>
-    <div id="output"></div>
+$$
+7x = 5
+$$
 
-    <script>
-        // Custom renderer for KaTeX
-        const renderer = new marked.Renderer();
+2. **Solve for $x$:**
 
-        // Block Math
-        renderer.paragraph = function(data) {
-			let output = data.text;
-			// Block inline Math (using $$...$$)
-			let match = output.match(/$$(.*?)$$/g);
-			if (match) {
-				output = output.replace(/\$$(.*?)\$$/g, match => katex.renderToString(match.slice(2, -2), { throwOnError: false }));
-			}
-			// Block inline Math (using $...$)
-			match = output.match(/\$([^$]+)\$/g);
-			if (match) {
-				output = output.replace(/\$([^$]+)\$/g, match => katex.renderToString(match.slice(1, -1), { throwOnError: false }));
-			}
-			
-			// Block inline Math ( using \\(...\\) )
-			match = output.match(/\\\((.*?)\\\)/g);
-			if (match) {
-				output = output.replace(/\\\((.*?)\\\)/g, match => 
-					katex.renderToString(match.slice(3, -3).replace(/\\\\/g, '\\'), { throwOnError: false }));
-			}
-			// Block inline Math ( using \\[...\\] )
-			match = output.match(/\\\[(.*?)\\\]/g);
-			if (match) {
-				output = output.replace(/\\\[(.*?)\\\]/g, match => 
-					katex.renderToString(match.slice(2, -3).replace(/\\\\/g, '\\'), { throwOnError: false }));
-			}
-			return output
-        };
+To isolate $x$, divide both sides of the equation by 7:
 
-        // Configure Marked
-        marked.setOptions({
-            renderer: renderer,
-            breaks: true
-        });
+$$
+x = \\frac{5}{7}
+$$
 
-        // Function to render Markdown
-        function renderMarkdown() {
-            const input = document.getElementById("markdown-input").value;
-            const output = document.getElementById("output");
-            output.innerHTML = marked.parse(input);
-        }
+**Final Answer:**
 
-        // Initial rendering
-        renderMarkdown();
-    </script>
+$$
+\\boxed{\\dfrac{5}{7}}
+$$
+    `;
 
+    const txt = '\n\nTo find the value of \\( x \\) that satisfies equation \\( 3x + 4x = 5 \\), follow these steps:\n\n1.**Combine like terms:**\n   \n   \\[\n   3x + 4x = 7x\n   \\]\n   \n   So, the equation becomes:\n   \n   \\[\n   7x = 5\n   \\]\n\n2. **Solve for \\( x \\):**\n   \n   To isolate \\( x \\), divide both sides of the equation by 7:\n   \n   \\[\n   x = \\frac{5}{7}\n   \\]\n\n**Final Answer:**\n\n\\[\n\\boxed{\\dfrac{5}{7}}\n\\]';
+
+    // Step 1: Replace inline math delimiters:
+    // Replace "\(" with "$" and "\)" with "$".
+    let new_txt = txt
+      .replace(/\\\(/g, '$')
+      .replace(/\\\)/g, '$');
+
+    // Step 2: Replace display math delimiters:
+    // Replace "\[" with "$$" and "\]" with "$$".
+    new_txt = new_txt
+      .replace(/\\\[/g, '$$')
+      .replace(/\\\]/g, '$$');
+
+    // Step 3: (Optional) Fix list formatting—insert a space after a digit followed by a period if missing.
+    new_txt = new_txt.replace(/(\d+)\.(\S)/g, '$1. $2');
+
+    // (Optional) Step 4: Trim extra whitespace inside math delimiters.
+    // For inline math ($ ... $):
+    new_txt = new_txt.replace(/(?<!\$)\$([\s\S]*?)\$(?!\$)/g, (match, p1) => {
+      return '$' + p1.trim() + '$';
+    });
+    // For display math ($$ ... $$):
+    new_txt = new_txt.replace(/\$\$([\s\S]*?)\$\$/g, (match, p1) => {
+      return '$$' + p1.trim() + '$$';
+    });
+
+    // Now, new_txt contains the converted content. For example:
+    console.log(new_txt);
+
+    // Convert Markdown to HTML
+    const contentHtml = marked.parse(new_txt);
+    document.getElementById('content').innerHTML = contentHtml;
+
+    // Trigger MathJax to process the math in the inserted HTML
+    MathJax.typesetPromise();
+  </script>
 </body>
+
 </html>
