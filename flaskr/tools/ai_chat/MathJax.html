@@ -35,7 +35,10 @@
 <body>
 
     <h2>Markdown Editor with KaTeX</h2>
-    <textarea id="markdown-input">To solve the equation \\( 3 \\sin(2x) = 5 \\), we start \\[\nx = \\frac{5}{7}\n\\]
+    <textarea id="markdown-input">
+\n\n\nTo find the value of \\( x \\) that satisfies the equation \\( 3x + 4x = 5 \\), follow these steps:\n\n1. **Combine like terms:**\n   \n   \\[\n   3x + 4x = 7x\n   \\]\n   \n   So, the equation becomes:\n   \n   \\[\n   7x = 5\n   \\]\n\n2. **Solve for \\( x \\):**\n   \n   To isolate \\( x \\), divide both sides of the equation by 7:\n   \n   \\[\n   x = \\frac{5}{7}\n   \\]\n\n3. **Verify the solution:**\n   \n   Substitute \\( x = \\frac{5}{7} \\) back into the original equation:\n   \n   \\[\n   3\\left(\\frac{5}{7}\\right) + 4\\left(\\frac{5}{7}\\right) = \\frac{15}{7} + \\frac{20}{7} = \\frac{35}{7} = 5\n   \\]\n   \n   Since both sides of the equation are equal, the solution is correct.\n\n**Final Answer:**\n\n\\[\n\\boxed{\\dfrac{5}{7}}\n\\]
+	
+	To solve the equation \\( 3 \\sin(2x) = 5 \\), we start \\[\nx = \\frac{5}{7}\n\\]
 	
 	This is an inline equation one: $E = mc^2$ and equation two: $F = ma$
 
@@ -44,6 +47,7 @@ This is a block equation:
 $$
 f(x) = \int_{-\infty}^{\infty} e^{-x^2} dx
 $$
+
     </textarea>
     <button onclick="renderMarkdown()">Render</button>
 
@@ -78,7 +82,7 @@ $$
 			match = output.match(/\\\[(.*?)\\\]/g);
 			if (match) {
 				output = output.replace(/\\\[(.*?)\\\]/g, match => 
-					katex.renderToString(match.slice(4, -5).replace(/\\\\/g, '\\'), { throwOnError: false }));
+					katex.renderToString(match.slice(2, -3).replace(/\\\\/g, '\\'), { throwOnError: false }));
 			}
 			return output
         };
