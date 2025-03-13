@@ -35,7 +35,9 @@
 <body>
 
     <h2>Markdown Editor with KaTeX</h2>
-    <textarea id="markdown-input">This is an inline equation one: $E = mc^2$ and equation two: $F = ma$
+    <textarea id="markdown-input">To solve the equation \\( 3 \\sin(2x) = 5 \\), we start \\[\nx = \\frac{5}{7}\n\\]
+	
+	This is an inline equation one: $E = mc^2$ and equation two: $F = ma$
 
 This is a block equation:
 
@@ -54,19 +56,31 @@ $$
 
         // Block Math
         renderer.paragraph = function(data) {
-			text = data.text.trim() // Ensure text is a string
-			// Block Math (using $$...$$)
-            if (text.startsWith("$$") && text.endsWith("$$")) {
-                return `<p>${katex.renderToString(text.slice(2, -2), { displayMode: true, throwOnError: false })}</p>`;
-            } else {
-				// Block inline Math (using $...$)
-				const match = text.match(/\$([^$]+)\$/);
-				if (match) {
-					const output = text.replace(/\$([^$]+)\$/g, match => katex.renderToString(match.slice(1, -1), { throwOnError: false }));
-					return output;
-				}
-            }
-            return `<p>${text}</p>`;
+			let output = data.text;
+			// Block inline Math (using $$...$$)
+			let match = output.match(/$$(.*?)$$/g);
+			if (match) {
+				output = output.replace(/\$$(.*?)\$$/g, match => katex.renderToString(match.slice(2, -2), { throwOnError: false }));
+			}
+			// Block inline Math (using $...$)
+			match = output.match(/\$([^$]+)\$/g);
+			if (match) {
+				output = output.replace(/\$([^$]+)\$/g, match => katex.renderToString(match.slice(1, -1), { throwOnError: false }));
+			}
+			
+			// Block inline Math ( using \\(...\\) )
+			match = output.match(/\\\((.*?)\\\)/g);
+			if (match) {
+				output = output.replace(/\\\((.*?)\\\)/g, match => 
+					katex.renderToString(match.slice(3, -3).replace(/\\\\/g, '\\'), { throwOnError: false }));
+			}
+			// Block inline Math ( using \\[...\\] )
+			match = output.match(/\\\[(.*?)\\\]/g);
+			if (match) {
+				output = output.replace(/\\\[(.*?)\\\]/g, match => 
+					katex.renderToString(match.slice(4, -5).replace(/\\\\/g, '\\'), { throwOnError: false }));
+			}
+			return output
         };
 
         // Configure Marked
