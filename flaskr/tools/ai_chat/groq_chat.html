@@ -15,8 +15,8 @@
 	<script>
 	window.MathJax = {
 	  tex: {
-		inlineMath: [['$', '$']],
-		displayMath: [['$$', '$$']]
+		inlineMath: [['$', '$'], ['\\(', '\\)'], ['\(', '\)'], ['\\begin{math}', '\\end{math}']], // for inline math patterns
+        displayMath: [['$$', '$$'], ['\\[', '\\]'], ['\[', '\]'], ['\\begin{displaymath}', '\\end{displaymath}']], // for new line math patterns
 	  },
 	  svg: {
 		fontCache: 'global'
@@ -213,35 +213,8 @@
 									}
 									if (!think){
 										content += contents;
-
-										// Step 1: Replace inline math delimiters:
-										// Replace "\(" with "$" and "\)" with "$".
-										let new_txt = content
-										  .replace(/\\\(/g, '$')
-										  .replace(/\\\)/g, '$');
-
-										// Step 2: Replace display math delimiters:
-										// Replace "\[" with "$$" and "\]" with "$$".
-										new_txt = new_txt
-										  .replace(/\\\[/g, '$$')
-										  .replace(/\\\]/g, '$$');
-
-										// Step 3: (Optional) Fix list formatting—insert a space after a digit followed by a period if missing.
-										new_txt = new_txt.replace(/(\d+)\.(\S)/g, '$1. $2');
-
-										// (Optional) Step 4: Trim extra whitespace inside math delimiters.
-										// For inline math ($ ... $):
-										new_txt = new_txt.replace(/(?<!\$)\$([\s\S]*?)\$(?!\$)/g, (match, p1) => {
-										  return '$' + p1.trim() + '$';
-										});
-										
-										// For display math ($$ ... $$):
-										new_txt = new_txt.replace(/\$\$([\s\S]*?)\$\$/g, (match, p1) => {
-										  return '$$' + p1.trim() + '$$';
-										});
-										
 										// marked parse
-										displayHandle.innerHTML = marked.parse(new_txt);
+										displayHandle.innerHTML = marked.parse(content);
 										
 										// Syntax highlighting
 										document.querySelectorAll('pre code').forEach((block) => {
@@ -249,7 +222,7 @@
 										});
 										
 										// Trigger MathJax to process the math in the inserted HTML
-										MathJax.typesetPromise();
+										MathJax.typesetPromise([displayHandle]);
 									}
 								}
 							} catch (error) {
@@ -286,7 +259,10 @@
 <body  onload="getModelList()">
     <h1>Ask Groq</h1>
     <div><div id="modelList"></div>
-    <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here..."></textarea>
+    <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here...">
+find the value of ( x ) that satisfies the equation ( 3 \sin(2x) + 4 \cos(2x) = 5 ).
+and also write py that read json from url and explain it
+	</textarea>
     <br>
     <button id="send" onclick="fetchCompletion()">Send</button>
 	<span id="count"></span>
