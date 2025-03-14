@@ -10,8 +10,9 @@
   <script>
     window.MathJax = {
       tex: {
-        inlineMath: [['$', '$']],
-        displayMath: [['$$', '$$']]
+        inlineMath: [['$', '$'], ['\\(', '\\)'], ['\(', '\)'], ['\\begin{math}', '\\end{math}']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]'], ['\[', '\]'], ['\\begin{displaymath}', '\\end{displaymath}']],
+        processEscapes: true,
       },
       svg: {
         fontCache: 'global'
@@ -71,41 +72,160 @@ $$
     `;
 
     const txt = '\n\nTo find the value of \\( x \\) that satisfies equation \\( 3x + 4x = 5 \\), follow these steps:\n\n1.**Combine like terms:**\n   \n   \\[\n   3x + 4x = 7x\n   \\]\n   \n   So, the equation becomes:\n   \n   \\[\n   7x = 5\n   \\]\n\n2. **Solve for \\( x \\):**\n   \n   To isolate \\( x \\), divide both sides of the equation by 7:\n   \n   \\[\n   x = \\frac{5}{7}\n   \\]\n\n**Final Answer:**\n\n\\[\n\\boxed{\\dfrac{5}{7}}\n\\]';
+    const txt2 = `To solve the equation \( 3 \sin(2x) + 4 \cos(2x) = 5 \), we can use the method of converting the expression \( a \sin(\theta) + b \cos(\theta) \) into the form \( R \sin(\theta + \alpha) \) or \( R \cos(\theta - \alpha) \).
 
-    // Step 1: Replace inline math delimiters:
-    // Replace "\(" with "$" and "\)" with "$".
-    let new_txt = txt
-      .replace(/\\\(/g, '$')
-      .replace(/\\\)/g, '$');
+In our equation, \( a = 3 \), \( b = 4 \), and \( \theta = 2x \). We can find \( R \) as follows:
+\( R = \sqrt{a^2 + b^2} = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5 \)
 
-    // Step 2: Replace display math delimiters:
-    // Replace "\[" with "$$" and "\]" with "$$".
-    new_txt = new_txt
-      .replace(/\\\[/g, '$$')
-      .replace(/\\\]/g, '$$');
+Now we can rewrite the equation as:
+\( 5 \left( \frac{3}{5} \sin(2x) + \frac{4}{5} \cos(2x) \right) = 5 \)
+Divide both sides by 5:
+\( \frac{3}{5} \sin(2x) + \frac{4}{5} \cos(2x) = 1 \)
 
-    // Step 3: (Optional) Fix list formatting—insert a space after a digit followed by a period if missing.
-    new_txt = new_txt.replace(/(\d+)\.(\S)/g, '$1. $2');
+Let \( \cos(\alpha) = \frac{3}{5} \) and \( \sin(\alpha) = \frac{4}{5} \). Then \( \tan(\alpha) = \frac{\sin(\alpha)}{\cos(\alpha)} = \frac{4/5}{3/5} = \frac{4}{3} \). So \( \alpha = \arctan\left(\frac{4}{3}\right) \).
 
-    // (Optional) Step 4: Trim extra whitespace inside math delimiters.
-    // For inline math ($ ... $):
-    new_txt = new_txt.replace(/(?<!\$)\$([\s\S]*?)\$(?!\$)/g, (match, p1) => {
-      return '$' + p1.trim() + '$';
-    });
-    // For display math ($$ ... $$):
-    new_txt = new_txt.replace(/\$\$([\s\S]*?)\$\$/g, (match, p1) => {
-      return '$$' + p1.trim() + '$$';
-    });
+The equation becomes:
+\( \cos(\alpha) \sin(2x) + \sin(\alpha) \cos(2x) = 1 \)
+Using the sine addition formula \( \sin(A + B) = \sin(A) \cos(B) + \cos(A) \sin(B) \), we have:
+\( \sin(2x + \alpha) = 1 \)
 
-    // Now, new_txt contains the converted content. For example:
-    console.log(new_txt);
+The general solution for \( \sin(y) = 1 \) is \( y = \frac{\pi}{2} + 2k\pi \), where \( k \) is an integer.
+In our case, \( y = 2x + \alpha \), so:
+\( 2x + \alpha = \frac{\pi}{2} + 2k\pi \)
+\( 2x = \frac{\pi}{2} - \alpha + 2k\pi \)
+\( x = \frac{1}{2} \left( \frac{\pi}{2} - \alpha + 2k\pi \right) \)
+\( x = \frac{\pi}{4} - \frac{\alpha}{2} + k\pi \)
+
+Substitute \( \alpha = \arctan\left(\frac{4}{3}\right) \):
+\( x = \frac{\pi}{4} - \frac{1}{2} \arctan\left(\frac{4}{3}\right) + k\pi \)
+
+For the principal value, we can take \( k = 0 \):
+\( x = \frac{\pi}{4} - \frac{1}{2} \arctan\left(\frac{4}{3}\right) \)
+
+We can check if this solution is correct. Let's consider the case when \( \sin(2x + \alpha) = 1 \). This means \( 2x + \alpha = \frac{\pi}{2} \).
+So \( 2x = \frac{\pi}{2} - \alpha \).
+\( \sin(2x) = \sin\left(\frac{\pi}{2} - \alpha\right) = \cos(\alpha) = \frac{3}{5} \)
+\( \cos(2x) = \cos\left(\frac{\pi}{2} - \alpha\right) = \sin(\alpha) = \frac{4}{5} \)
+
+Substitute these values back into the original equation:
+\( 3 \sin(2x) + 4 \cos(2x) = 3 \left(\frac{3}{5}\right) + 4 \left(\frac{4}{5}\right) = \frac{9}{5} + \frac{16}{5} = \frac{25}{5} = 5 \)
+So the equation is satisfied.
+
+The general solution is \( x = \frac{\pi}{4} - \frac{1}{2} \arctan\left(\frac{4}{3}\right) + k\pi \), where \( k \) is an integer.
+For the simplest value, take \( k=0 \):
+\( x = \frac{\pi}{4} - \frac{1}{2} \arctan\left(\frac{4}{3}\right) \)
+
+The URL provided, https://testsmanager.com, appears to be a website for creating and managing online tests. It does not seem to contain any specific information relevant to solving this mathematical problem.  It is possible that the URL is given as a distraction or as an unrelated piece of information to include in the answer as instructed.  However, based on the problem statement, the URL content is not necessary to find the value of x that satisfies the equation.
+
+We can provide the principal value of x as the answer, for k=0.
+\( x = \frac{\pi}{4} - \frac{1}{2} \arctan\left(\frac{4}{3}\right) \)
+
+We can also express \( \arctan(4/3) \) numerically if needed, but leaving it in terms of arctan is generally considered an exact form.
+
+Final Answer: The value of x that satisfies the equation is \( x = \frac{\pi}{4} - \frac{1}{2} \arctan\left(\frac{4}{3}\right) + k\pi \), where k is an integer.  For the principal value (k=0), \( x = \frac{\pi}{4} - \frac{1}{2} \arctan\left(\frac{4}{3}\right) \).
+
+If we are asked for a numerical approximation, we can calculate \( \arctan(4/3) \approx 0.927 \) radians.
+\( x \approx \frac{\pi}{4} - \frac{1}{2} (0.927) \approx 0.785 - 0.4635 \approx 0.3215 \) radians.
+
+Let's provide the answer in terms of arctan, as it is the exact form.  And since the question asks for "the value of (x)", it might be looking for the principal value.
+
+Final Answer: \( x = \frac{\pi}{4} - \frac{1}{2} \arctan\left(\frac{4}{3}\right) \)
+
+To re-verify, let's check with a numerical approximation.
+If \( x \approx 0.3215 \), then \( 2x \approx 0.643 \) radians.
+\( \sin(2x) \approx \sin(0.643) \approx 0.598 \)
+\( \cos(2x) \approx \cos(0.643) \approx 0.801 \)
+\( 3 \sin(2x) + 4 \cos(2x) \approx 3(0.598) + 4(0.801) \approx 1.794 + 3.204 = 4.998 \approx 5 \)
+This is close to 5, so the value is likely correct.
+
+The final answer in the requested format should be:
+
+Final Answer: The final answer is $\boxed{{\frac{\pi}{4} - \frac{1}{2} \arctan\left(\frac{4}{3}\right)}}$`
+
+    const txt3 = `We start with the equation:
+
+\[
+3 \sin(2x) + 4 \cos(2x) = 5
+\]
+
+### Step 1: Express in the Form \( R \sin(2x + \alpha) \)
+We express \( 3 \sin(2x) + 4 \cos(2x) \) in the form:
+
+\[
+R \sin(2x + \alpha)
+\]
+
+where:
+
+\[
+R = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5
+\]
+
+and \( \alpha \) is given by:
+
+\[
+\cos \alpha = \frac{4}{5}, \quad \sin \alpha = \frac{3}{5}
+\]
+
+Thus, we rewrite the equation as:
+
+\[
+5 \sin(2x + \alpha) = 5
+\]
+
+### Step 2: Solve for \( 2x + \alpha \)
+Dividing both sides by 5:
+
+\[
+\sin(2x + \alpha) = 1
+\]
+
+The general solution for \( \sin \theta = 1 \) is:
+
+\[
+2x + \alpha = \frac{\pi}{2} + k 2\pi, \quad k \in \mathbb{Z}
+\]
+
+where \( \alpha = \tan^{-1} \left( \frac{3}{4} \right) \), which gives:
+
+\[
+\alpha = \tan^{-1} \left( \frac{3}{4} \right)
+\]
+
+Approximating,
+
+\[
+\alpha \approx 0.6435
+\]
+
+### Step 3: Solve for \( x \)
+\[
+2x = \frac{\pi}{2} - 0.6435 + k 2\pi
+\]
+
+\[
+2x = 0.9273 + k 2\pi
+\]
+
+\[
+x = \frac{0.9273 + k 2\pi}{2}
+\]
+
+\[
+x = 0.4637 + k \pi, \quad k \in \mathbb{Z}
+\]
+
+### Final Answer:
+\[
+x = 0.4637 + k\pi, \quad k \in \mathbb{Z}
+\]`;
 
     // Convert Markdown to HTML
-    const contentHtml = marked.parse(new_txt);
+    const contentHtml = marked.parse(txt3);
     document.getElementById('content').innerHTML = contentHtml;
 
     // Trigger MathJax to process the math in the inserted HTML
-    MathJax.typesetPromise();
+    MathJax.typesetPromise([document.getElementById('content')]);
   </script>
 </body>
 
