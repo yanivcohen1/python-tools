@@ -206,15 +206,7 @@
     let think = true;
 
     intervalID = setInterval(() => {
-      // Re-render MathJax content
-      displayHandle.innerHTML = content;
-      MathJax.typesetPromise([displayHandle]);
-      // marked parse
-      displayHandle.innerHTML = marked.parse(displayHandle.innerHTML);
-      // Syntax highlighting
-      document.querySelectorAll('pre code').forEach((block) => {
-        hljs.highlightElement(block);
-      });
+      update_display();
     }, 200); // Update every 2 seconds
 
     while (true) {
@@ -251,17 +243,21 @@
     finish_and_calc_time();
   }
 
-  function finish_and_calc_time() {
-    clearInterval(intervalID);
+  function update_display(){
+    // Re-render MathJax content
     displayHandle.innerHTML = content;
-    // Trigger MathJax to process the math in the inserted HTML
-    MathJax.typeset([displayHandle]);
+    MathJax.typesetPromise([displayHandle]);
     // marked parse
     displayHandle.innerHTML = marked.parse(displayHandle.innerHTML);
     // Syntax highlighting
     document.querySelectorAll('pre code').forEach((block) => {
       hljs.highlightElement(block);
     });
+  }
+
+  function finish_and_calc_time() {
+    clearInterval(intervalID);
+    update_display();
 
     // button reset
     send_btn.innerHTML = "Send"
