@@ -52,6 +52,10 @@
       display: block;
     }
 
+    h2 {
+      margin: 10px 0; /* Adjust top and bottom margins as needed */
+    }
+
     think {
       color: gray;
       display: none;
@@ -82,8 +86,8 @@
   <div>
     <div id="modelList"></div>
     <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here...">
-  find the value of ( x ) that satisfies the equation ( 3 \sin(2x) + 4 \cos(2x) = 5 ).
-  and also write py that read json from url and explain it
+find the value of ( x ) that satisfies the equation ( 3 \sin(2x) + 4 \cos(2x) = 5 ).
+and also write py that read json from url and explain it
     </textarea>
     <br>
     <button id="send" onclick="fetchCompletion()">Send</button>
