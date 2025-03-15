@@ -40,7 +40,7 @@
     });
 
     // Markdown content with LaTeX math
-    const txt3 = `We start with the equation:
+    const chat_gpt = `We start with the equation:
 
 \[
 3 \sin(2x) + 4 \cos(2x) = 5
@@ -118,8 +118,9 @@ x = 0.4637 + k \pi, \quad k \in \mathbb{Z}
 x = 0.4637 + k\pi, \quad k \in \mathbb{Z}
 \]`;
 
+    const deepseek_70b = '\n</think>\n\n\nTo solve the equation \\( 3 \\sin(2x) + 4 \\cos(2x) = 5 \\), we can rewrite the left-hand side as a single sine function using the amplitude-phase form. \n\nFirst, we recognize that any linear combination of sine and cosine functions can be written as \\( C \\sin(2x + \\phi) \\) where \\( C \\) is the amplitude and \\( \\phi \\) is the phase shift. The amplitude \\( C \\) is calculated as:\n\\[ C = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5 \\]\n\nNext, we find the phase shift \\( \\phi \\) using:\n\\[ \\tan \\phi = \\frac{4}{3} \\]\nThus, \\( \\phi = \\arctan\\left(\\frac{4}{3}\\right) \\).\n\nRewriting the equation, we have:\n\\[ 5 \\sin(2x + \\phi) = 5 \\]\nDividing both sides by 5, we get:\n\\[ \\sin(2x + \\phi) = 1 \\]\n\nThe sine function equals 1 at:\n\\[ 2x + \\phi = \\frac{\\pi}{2} + 2\\pi k \\]\nwhere \\( k \\) is any integer. Solving for \\( x \\), we get:\n\\[ 2x = \\frac{\\pi}{2} - \\phi + 2\\pi k \\]\n\\[ x = \\frac{\\pi}{2} - \\phi + \\pi k \\]\n\nSince \\( \\phi = \\arctan\\left(\\frac{4}{3}\\right) \\), we use the identity:\n\\[ \\frac{\\pi}{2} - \\arctan\\left(\\frac{4}{3}\\right) = \\arctan\\left(\\frac{3}{4}\\right) \\]\n\nThus, the solution for \\( x \\) is:\n\\[ x = \\frac{1}{2} \\arctan\\left(\\frac{3}{4}\\right) + \\pi k \\]\n\nTherefore, the value of \\( x \\) that satisfies the equation is:\n\\[ \\boxed{\\frac{1}{2} \\arctan\\left(\\frac{3}{4}\\right) + \\pi k} \\]\nwhere \\( k \\) is any integer.';
     // Convert Markdown to HTML
-    const contentHtml = marked.parse(txt3);
+    const contentHtml = marked.parse(deepseek_70b);
     document.getElementById('content').innerHTML = contentHtml;
 
     // Trigger MathJax to process the math in the inserted HTML
