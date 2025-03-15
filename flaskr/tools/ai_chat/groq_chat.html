@@ -1,64 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Groq chat</title>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-    <!-- Optional: Include CSS for Markdown styling -->
-    <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <!-- Configure MathJax for LaTeX rendering using $ delimiters -->
-    <script>
-      window.MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)'], ['\\begin{math}', '\\end{math}']], // for inline math patterns
-          displayMath: [['$$', '$$'], ['\\[', '\\]'], ['\\begin{displaymath}', '\\end{displaymath}']], // for new line math patterns
-        },
-        svg: {
-          fontCache: 'global'
-        }
-      };
-    </script>
-    <!-- Include MathJax for svg use: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js-->
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Groq chat</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <!-- Optional: Include CSS for Markdown styling -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <!-- Configure MathJax for LaTeX rendering using $ delimiters -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)'], ['\\begin{math}', '\\end{math}']], // for inline math patterns
+        displayMath: [['$$', '$$'], ['\\[', '\\]'], ['\\begin{displaymath}', '\\end{displaymath}']], // for new line math patterns
+      },
+      svg: {
+        fontCache: 'global'
       }
+    };
+  </script>
+  <!-- Include MathJax for svg use: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js-->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
 
-      #output {
-        background-color: #f4f4f4;
-        padding: 20px;
-        border-radius: 10px;
-        color: #333;
-      }
+    #output {
+      background-color: #f4f4f4;
+      padding: 20px;
+      border-radius: 10px;
+      color: #333;
+    }
 
-      code {
-        background-color: #e8e8e8;
-        color: #d6336c;
-        padding: 2px 4px;
-        border-radius: 4px;
-      }
+    code {
+      background-color: #e8e8e8;
+      color: #d6336c;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
 
-      pre code {
-        background-color: #2d2d2d;
-        color: #f8f8f2;
-        padding: 10px;
-        border-radius: 10px;
-        display: block;
-      }
+    pre code {
+      background-color: #2d2d2d;
+      color: #f8f8f2;
+      padding: 10px;
+      border-radius: 10px;
+      display: block;
+    }
 
-      think {
-        color: gray;
-        display: none;
-        /* display: none; */
-      }
+    think {
+      color: gray;
+      display: none;
+      /* display: none; */
+    }
 
-      /* hr {
+    /* hr {
         border: none;
         border-top: 3px double #333;
         color: #333;
@@ -74,189 +74,143 @@
         position: relative;
         top: -13px;
       } */
-    </style>
-  </head>
+  </style>
+</head>
 
-  <body onload="getModelList()">
-    <h1>Ask Groq</h1>
-    <div>
-      <div id="modelList"></div>
-      <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here...">
+<body onload="getModelList()">
+  <h1>Ask Groq</h1>
+  <div>
+    <div id="modelList"></div>
+    <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here...">
   find the value of ( x ) that satisfies the equation ( 3 \sin(2x) + 4 \cos(2x) = 5 ).
   and also write py that read json from url and explain it
     </textarea>
-      <br>
-      <button id="send" onclick="fetchCompletion()">Send</button>
-      <span id="count"></span>
-      <div id="output"></div>
-  </body>
+    <br>
+    <button id="send" onclick="fetchCompletion()">Send</button>
+    <span id="count"></span>
+    <div id="output"></div>
+</body>
 
-  <script>
-    let controller;
-    let startTime = null;
-    let content = "";
-    const API_KEY = "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"
-    const displayHandle = document.getElementById('output');
-    // Disable mangling so that any needed backslashes remain intact.
-    marked.setOptions({
-      mangle: false
-    });
+<script>
+  let controller;
+  let startTime = null;
+  let content = "";
+  const API_KEY = "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"
+  const displayHandle = document.getElementById('output');
+  let intervalID = null;
+  // Disable mangling so that any needed backslashes remain intact.
+  marked.setOptions({
+    mangle: false
+  });
 
-    async function getModelList() {
-      try {
-        document.getElementById('output').innerHTML = ""
-        const response = await fetch('https://api.groq.com/openai/v1/models', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${API_KEY}`
-          }
-        });
-        if (!response.ok) {
-          throw new Error('Failed to fetch model list');
-        }
-
-        const data = await response.json();
-
-        const models = data.data;
-        const modelListDiv = document.getElementById('modelList');
-        modelListDiv.innerHTML = '';  // Clear any previous content
-
-        // Create a select dropdown with model options
-        const select = document.createElement('select');
-        select.id = 'modelSelect';
-
-        // Create a default option
-        const defaultOption = document.createElement('option');
-        defaultOption.value = '';
-        defaultOption.text = 'Select a model';
-        defaultOption.disabled = true;
-        // defaultOption.selected = true;
-        select.appendChild(defaultOption);
-
-        // sort
-        models.sort((a, b) => a.id.localeCompare(b.id))
-        models.forEach((model) => {
-          const option = document.createElement('option');
-          option.value = model.id;
-          option.text = model.id;
-          if (model.id == 'deepseek-r1-distill-llama-70b')
-            option.selected = true;
-          select.appendChild(option);
-        });
-
-        modelListDiv.appendChild(select);
-        // document.getElementById("refresh_models").style.display = "none";
-
-      } catch (error) {
-        document.getElementById('output').innerHTML = 'Error on read ollama models:  ' + error
-        console.error('Error:', error);
-      }
-    }
-
-    async function fetchCompletion() {
-      const modelSelect = document.getElementById('modelSelect')
-      if (!modelSelect || !modelSelect.value) {
-        alert('No model selected. Please select a model first.');
-        return
-      }
-      const selectedModel = modelSelect.value;
-      const send_btn = document.getElementById('send')
-      send = send_btn.innerHTML
-      if (send == "Send") {
-        send_btn.innerHTML = "Stop"
-        send_btn.style.backgroundColor = "#555555"; // Black
-        send_btn.style.color = "white"
-        startTime = Date.now();
-        document.getElementById("count").innerHTML = "";
-        content = ""
-      } else {
-        // stop the call
-        controller.abort();
-        send_btn.innerHTML = "Send"
-        send_btn.style.backgroundColor = "#e7e7e7"; // gray
-        send_btn.style.color = "black" // text color
-        finish_and_calc_time();
-        return
-      }
-      let myMsg = document.getElementById('inputMessage').value;
-      controller = new AbortController();
-      const signal = controller.signal;
-      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method: 'POST',
-        keepalive: true,
+  async function getModelList() {
+    try {
+      document.getElementById('output').innerHTML = ""
+      const response = await fetch('https://api.groq.com/openai/v1/models', {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${API_KEY}`
-        },
-        body: JSON.stringify({
-          'model': selectedModel,//'deepseek-r1:8b',
-          'messages': [
-            { "role": "system", "content": "" },
-            { "role": "user", "content": myMsg }
-          ],
-          'temperature': 0.7,
-          'top_p': 0.95,
-          'max_tokens': 32768, // 4096, // -1 for unlimited
-          'stream': true
-        }),
-        signal // Add signal here to support aborting
+        }
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch model list');
+      }
+
+      const data = await response.json();
+
+      const models = data.data;
+      const modelListDiv = document.getElementById('modelList');
+      modelListDiv.innerHTML = '';  // Clear any previous content
+
+      // Create a select dropdown with model options
+      const select = document.createElement('select');
+      select.id = 'modelSelect';
+
+      // Create a default option
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.text = 'Select a model';
+      defaultOption.disabled = true;
+      // defaultOption.selected = true;
+      select.appendChild(defaultOption);
+
+      // sort
+      models.sort((a, b) => a.id.localeCompare(b.id))
+      models.forEach((model) => {
+        const option = document.createElement('option');
+        option.value = model.id;
+        option.text = model.id;
+        if (model.id == 'deepseek-r1-distill-llama-70b')
+          option.selected = true;
+        select.appendChild(option);
       });
 
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let think = true;
+      modelListDiv.appendChild(select);
+      // document.getElementById("refresh_models").style.display = "none";
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
+    } catch (error) {
+      document.getElementById('output').innerHTML = 'Error on read ollama models:  ' + error
+      console.error('Error:', error);
+    }
+  }
 
-        const text = decoder.decode(value);
-        const lines = text.split('\n');
-        for (const line of lines) {
-          if (line.startsWith("data: ")) {
-            const jsonString = line.substring("data: ".length);
-            if (jsonString !== '[DONE]') {
-              try {
-                const data = jsonString.replace(/[\u0000-\u001F]/g, "");
-                let jsonData = JSON.parse(data);
-                const delta = jsonData['choices'][0]['delta'];
-                if ('content' in delta) {
-                  let contents = delta['content'];
-                  if (contents.includes("</think>")) {
-                    contents = "\n</think>\n" // "\n</think>\n <hr />\n "
-                    think = false;
-                  }
-                  if (!think) {
-                    content += contents;
-                    displayHandle.innerHTML = content;
-                    // Trigger MathJax to process the math in the inserted HTML
-                    // MathJax.typesetPromise([displayHandle]);
-                    // marked parse
-                    displayHandle.innerHTML = marked.parse(displayHandle.innerHTML);
-                    // Syntax highlighting
-                    document.querySelectorAll('pre code').forEach((block) => {
-                      hljs.highlightBlock(block);
-                    });
-                  }
-                }
-              } catch (error) {
-                console.error("An error occurred:", error.message);
-              }
-            }
-          }
-        }
-      }
-      send_btn.innerHTML = "Send";
+  async function fetchCompletion() {
+    const modelSelect = document.getElementById('modelSelect')
+    if (!modelSelect || !modelSelect.value) {
+      alert('No model selected. Please select a model first.');
+      return
+    }
+    const selectedModel = modelSelect.value;
+    const send_btn = document.getElementById('send')
+    send = send_btn.innerHTML
+    if (send == "Send") {
+      send_btn.innerHTML = "Stop"
+      send_btn.style.backgroundColor = "#555555"; // Black
+      send_btn.style.color = "white"
+      startTime = Date.now();
+      document.getElementById("count").innerHTML = "";
+      content = ""
+    } else {
+      // stop the call
+      controller.abort();
+      send_btn.innerHTML = "Send"
       send_btn.style.backgroundColor = "#e7e7e7"; // gray
       send_btn.style.color = "black" // text color
       finish_and_calc_time();
-      return content;
+      return
     }
+    let myMsg = document.getElementById('inputMessage').value;
+    controller = new AbortController();
+    const signal = controller.signal;
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      keepalive: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${API_KEY}`
+      },
+      body: JSON.stringify({
+        'model': selectedModel,//'deepseek-r1:8b',
+        'messages': [
+          { "role": "system", "content": "" },
+          { "role": "user", "content": myMsg }
+        ],
+        'temperature': 0.7,
+        'top_p': 0.95,
+        'max_tokens': 32768, // 4096, // -1 for unlimited
+        'stream': true
+      }),
+      signal // Add signal here to support aborting
+    });
 
-    function finish_and_calc_time() {
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let think = true;
+
+    intervalID = setInterval(() => {
+      // Re-render MathJax content
       displayHandle.innerHTML = content;
-      // Trigger MathJax to process the math in the inserted HTML
       MathJax.typesetPromise([displayHandle]);
       // marked parse
       displayHandle.innerHTML = marked.parse(displayHandle.innerHTML);
@@ -264,20 +218,76 @@
       document.querySelectorAll('pre code').forEach((block) => {
         hljs.highlightBlock(block);
       });
+    }, 200); // Update every 2 seconds
 
-      let wordsArray = content.trim().split(/\s+/);
-      wordCount = wordsArray.length;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
 
-      // Calculate elapsed time in minutes
-      let elapsedTimeSec = (Date.now() - startTime) / 1000;
-      let elapsedTimeMin = elapsedTimeSec / 60;
+      const text = decoder.decode(value);
+      const lines = text.split('\n');
+      for (const line of lines) {
+        if (line.startsWith("data: ")) {
+          const jsonString = line.substring("data: ".length);
+          if (jsonString !== '[DONE]') {
+            try {
+              const data = jsonString.replace(/[\u0000-\u001F]/g, "");
+              let jsonData = JSON.parse(data);
+              const delta = jsonData['choices'][0]['delta'];
+              if ('content' in delta) {
+                let contents = delta['content'];
+                if (contents.includes("</think>")) {
+                  contents = "\n</think>\n" // "\n</think>\n <hr />\n "
+                  think = false;
+                }
+                if (!think) {
+                  content += contents;
+                  // displayHandle.innerHTML = content;
+                  // Trigger MathJax to process the math in the inserted HTML
+                  // MathJax.typesetPromise([displayHandle]);
 
-      // Calculate words per minute (avoid division by zero)
-      let wpm = elapsedTimeSec > 0 ? (wordCount / elapsedTimeSec).toFixed(2) : 0;
 
-      // Update the output div
-      document.getElementById("count").innerHTML = `Time: ${elapsedTimeSec.toFixed(2)} sec, Words: ${wordCount}, WPS: ${wpm}`;
+                }
+              }
+            } catch (error) {
+              console.error("An error occurred:", error.message);
+            }
+          }
+        }
+      }
     }
-  </script>
+    send_btn.innerHTML = "Send";
+    send_btn.style.backgroundColor = "#e7e7e7"; // gray
+    send_btn.style.color = "black" // text color
+    finish_and_calc_time();
+    return content;
+  }
+
+  function finish_and_calc_time() {
+    clearInterval(intervalID);
+    displayHandle.innerHTML = content;
+    // Trigger MathJax to process the math in the inserted HTML
+    MathJax.typesetPromise([displayHandle]);
+    // marked parse
+    displayHandle.innerHTML = marked.parse(displayHandle.innerHTML);
+    // Syntax highlighting
+    document.querySelectorAll('pre code').forEach((block) => {
+      hljs.highlightBlock(block);
+    });
+
+    let wordsArray = content.trim().split(/\s+/);
+    wordCount = wordsArray.length;
+
+    // Calculate elapsed time in minutes
+    let elapsedTimeSec = (Date.now() - startTime) / 1000;
+    let elapsedTimeMin = elapsedTimeSec / 60;
+
+    // Calculate words per minute (avoid division by zero)
+    let wpm = elapsedTimeSec > 0 ? (wordCount / elapsedTimeSec).toFixed(2) : 0;
+
+    // Update the output div
+    document.getElementById("count").innerHTML = `Time: ${elapsedTimeSec.toFixed(2)} sec, Words: ${wordCount}, WPS: ${wpm}`;
+  }
+</script>
 
 </html>
