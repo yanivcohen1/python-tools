@@ -15,8 +15,8 @@
   <script>
     window.MathJax = {
       tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)'], ['\(', '\)'], ['\\begin{math}', '\\end{math}']], // for inline math patterns
-        displayMath: [['$$', '$$'], ['\\[', '\\]'], ['\[', '\]'], ['\\begin{displaymath}', '\\end{displaymath}']], // for new line math patterns
+        inlineMath: [['$', '$'], ['\\(', '\\)'], ['\\begin{math}', '\\end{math}']], // for inline math patterns
+        displayMath: [['$$', '$$'], ['\\[', '\\]'], ['\\begin{displaymath}', '\\end{displaymath}']], // for new line math patterns
       },
       svg: {
         fontCache: 'global'
@@ -213,16 +213,19 @@
                   }
                   if (!think) {
                     content += contents;
+                    displayHandle.innerHTML = content;
+
+                    // Trigger MathJax to process the math in the inserted HTML
+                    MathJax.typesetPromise([displayHandle]);
+
                     // marked parse
-                    displayHandle.innerHTML = marked.parse(content);
+                    displayHandle.innerHTML = marked.parse(displayHandle.innerHTML);
 
                     // Syntax highlighting
                     document.querySelectorAll('pre code').forEach((block) => {
                       hljs.highlightBlock(block);
                     });
 
-                    // Trigger MathJax to process the math in the inserted HTML
-                    MathJax.typesetPromise([displayHandle]);
                   }
                 }
               } catch (error) {
