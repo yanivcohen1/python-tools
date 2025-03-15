@@ -1,85 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Groq chat</title>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-  <!-- Optional: Include CSS for Markdown styling -->
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-  <!-- Configure MathJax for LaTeX rendering using $ delimiters -->
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)'], ['\\begin{math}', '\\end{math}']], // for inline math patterns
-        displayMath: [['$$', '$$'], ['\\[', '\\]'], ['\\begin{displaymath}', '\\end{displaymath}']], // for new line math patterns
-      },
-      svg: {
-        fontCache: 'global'
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groq chat</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <!-- Optional: Include CSS for Markdown styling -->
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Configure MathJax for LaTeX rendering using $ delimiters -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)'], ['\\begin{math}', '\\end{math}']], // for inline math patterns
+          displayMath: [['$$', '$$'], ['\\[', '\\]'], ['\\begin{displaymath}', '\\end{displaymath}']], // for new line math patterns
+        },
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    <!-- Include MathJax for svg use: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js-->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
       }
-    };
-  </script>
-  <!-- Include MathJax for svg use: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js-->
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
 
-    #output {
-      background-color: #f4f4f4;
-      padding: 20px;
-      border-radius: 10px;
-      color: #333;
-    }
+      #output {
+        background-color: #f4f4f4;
+        padding: 20px;
+        border-radius: 10px;
+        color: #333;
+      }
 
-    code {
-      background-color: #e8e8e8;
-      color: #d6336c;
-      padding: 2px 4px;
-      border-radius: 4px;
-    }
+      code {
+        background-color: #e8e8e8;
+        color: #d6336c;
+        padding: 2px 4px;
+        border-radius: 4px;
+      }
 
-    pre code {
-      background-color: #2d2d2d;
-      color: #f8f8f2;
-      padding: 10px;
-      border-radius: 10px;
-      display: block;
-    }
+      pre code {
+        background-color: #2d2d2d;
+        color: #f8f8f2;
+        padding: 10px;
+        border-radius: 10px;
+        display: block;
+      }
 
-    think {
-      color: gray;
-      display: none;
-      /* display: none; */
-    }
+      think {
+        color: gray;
+        display: none;
+        /* display: none; */
+      }
 
-    /* hr {
-		  border: none;
-		  border-top: 3px double #333;
-		  color: #333;
-		  overflow: visible;
-		  text-align: center;
-		  height: 5px;
-		}
+      /* hr {
+        border: none;
+        border-top: 3px double #333;
+        color: #333;
+        overflow: visible;
+        text-align: center;
+        height: 5px;
+      }
 
-		hr::after {
-		  background: #fff;
-		  content: "End Thinking";
-		  padding: 0 4px;
-		  position: relative;
-		  top: -13px;
-		} */
-  </style>
+      hr::after {
+        background: #fff;
+        content: "End Thinking";
+        padding: 0 4px;
+        position: relative;
+        top: -13px;
+      } */
+    </style>
+  </head>
+
+  <body onload="getModelList()">
+    <h1>Ask Groq</h1>
+    <div>
+      <div id="modelList"></div>
+      <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here...">
+  find the value of ( x ) that satisfies the equation ( 3 \sin(2x) + 4 \cos(2x) = 5 ).
+  and also write py that read json from url and explain it
+    </textarea>
+      <br>
+      <button id="send" onclick="fetchCompletion()">Send</button>
+      <span id="count"></span>
+      <div id="output"></div>
+  </body>
+
   <script>
     let controller;
     let startTime = null;
     let content = "";
     const API_KEY = "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"
+    const displayHandle = document.getElementById('output');
     // Disable mangling so that any needed backslashes remain intact.
     marked.setOptions({
       mangle: false
@@ -159,7 +176,7 @@
         send_btn.innerHTML = "Send"
         send_btn.style.backgroundColor = "#e7e7e7"; // gray
         send_btn.style.color = "black" // text color
-        calc_time(content, startTime)
+        finish_and_calc_time();
         return
       }
       let myMsg = document.getElementById('inputMessage').value;
@@ -188,7 +205,6 @@
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      const displayHandle = document.getElementById('output');
       let think = true;
 
       while (true) {
@@ -214,18 +230,14 @@
                   if (!think) {
                     content += contents;
                     displayHandle.innerHTML = content;
-
                     // Trigger MathJax to process the math in the inserted HTML
-                    MathJax.typesetPromise([displayHandle]);
-
+                    // MathJax.typesetPromise([displayHandle]);
                     // marked parse
                     displayHandle.innerHTML = marked.parse(displayHandle.innerHTML);
-
                     // Syntax highlighting
                     document.querySelectorAll('pre code').forEach((block) => {
                       hljs.highlightBlock(block);
                     });
-
                   }
                 }
               } catch (error) {
@@ -238,11 +250,21 @@
       send_btn.innerHTML = "Send";
       send_btn.style.backgroundColor = "#e7e7e7"; // gray
       send_btn.style.color = "black" // text color
-      calc_time(content, startTime);
+      finish_and_calc_time();
       return content;
     }
 
-    function calc_time(content, startTime) {
+    function finish_and_calc_time() {
+      displayHandle.innerHTML = content;
+      // Trigger MathJax to process the math in the inserted HTML
+      MathJax.typesetPromise([displayHandle]);
+      // marked parse
+      displayHandle.innerHTML = marked.parse(displayHandle.innerHTML);
+      // Syntax highlighting
+      document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightBlock(block);
+      });
+
       let wordsArray = content.trim().split(/\s+/);
       wordCount = wordsArray.length;
 
@@ -257,20 +279,5 @@
       document.getElementById("count").innerHTML = `Time: ${elapsedTimeSec.toFixed(2)} sec, Words: ${wordCount}, WPS: ${wpm}`;
     }
   </script>
-</head>
-
-<body onload="getModelList()">
-  <h1>Ask Groq</h1>
-  <div>
-    <div id="modelList"></div>
-    <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here...">
-find the value of ( x ) that satisfies the equation ( 3 \sin(2x) + 4 \cos(2x) = 5 ).
-and also write py that read json from url and explain it
-	</textarea>
-    <br>
-    <button id="send" onclick="fetchCompletion()">Send</button>
-    <span id="count"></span>
-    <div id="output"></div>
-</body>
 
 </html>
