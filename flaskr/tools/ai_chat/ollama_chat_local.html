@@ -52,11 +52,15 @@
       border-radius: 10px;
       display: block;
     }
+
+    h2 {
+      margin: 5px 0; /* Adjust top and bottom margins as needed */
+    }
   </style>
 </head>
 
 <body onload="getModelList()">
-  <h1>Ask Ollama</h1>
+  <h2>Ask Ollama</h2>
   <div>
     <div id="modelList"></div>
     <button id="refresh_models" onclick="getModelList()">refresh module list</button>

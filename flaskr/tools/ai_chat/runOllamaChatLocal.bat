@@ -9,7 +9,7 @@ REM python -m http.server 8000
 start "" "http://localhost:9000/ollama_chat_local.html"
 
 :: Start the proxy HTML page
-start "" "http://192.168.0.103:9000/linux/ollama_chat_proxy_linux.html"
+start "" "http://localhost:9000/ollama_chat_linux.html"
 
 :: Start the Python HTTP server on port 9000
 py -m http.server 9000
