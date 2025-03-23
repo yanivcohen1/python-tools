@@ -161,6 +161,7 @@
     const signal = controller.signal;
     const response = await fetch('http://192.168.0.155:7000/ollama/v1/chat/completions', {
       method: 'POST',
+      keepalive: true,
       headers: {
         'Content-Type': 'application/json'
       },
