@@ -87,7 +87,7 @@
     <div id="modelList"></div>
     <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here...">
 find the value of ( x ) that satisfies the equation ( 3 \sin(2x) + 4 \cos(2x) = 5 ).
-and also write py that read json from url and explain it
+and also write py that plot the solved equation and the solutions using scipy
     </textarea>
     <br>
     <button id="send" onclick="fetchCompletion()">Send</button>
@@ -146,7 +146,7 @@ and also write py that read json from url and explain it
         const option = document.createElement('option');
         option.value = model.id;
         option.text = model.id;
-        if (model.id == 'deepseek-r1-distill-llama-70b')
+        if (model.id == 'DeepSeek-R1-Distill-Llama-70B')
           option.selected = true;
         select.appendChild(option);
       });
