@@ -6,15 +6,15 @@ def filter_array(arr, tolerance):
     Processes a sorted numpy array (or list) and for any group of
     consecutive numbers where the difference between adjacent elements
     is <= tolerance, only one representative is kept.
-    
+
     For a group with a single element, that element is output.
     For a group with multiple elements, the median (middle element) is chosen.
-    
+
     Parameters:
         arr (list or np.array): Sorted array of numbers.
-        tolerance (int or float): The maximum allowed difference to consider two 
+        tolerance (int or float): The maximum allowed difference to consider two
                                   adjacent numbers as "neighbors".
-    
+
     Returns:
         np.array: The filtered array.
     """
@@ -69,7 +69,7 @@ x = np.linspace(-np.pi, np.pi, 500)
 y = equation(x)
 
 # Define a small tolerance for considering y to be near 0
-tolerance = 0.1
+tolerance = 0.1 # min space beween points
 
 # Extract the x and y values near zero
 x_near_zero1 = x[np.abs(y) < tolerance]
