@@ -1,6 +1,25 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+def max_adjacent_diff_in_continuous_function(arr):
+    # Initialize maximum difference
+    max_diff = 0
+
+    # Iterate through adjacent elements
+    for i in range(len(arr) - 1):
+        # Calculate the absolute difference
+        diff = abs(arr[i] - arr[i + 1])
+        # Update max_diff if this difference is larger
+        max_diff = max(max_diff, diff)
+
+    return max_diff
+
+# Example usage
+# arr = [1, 2, 4, 8, 5]
+# result = max_adjacent_diff(arr)
+# print(result)  # Expected output: 4
+
+
 def filter_array(arr, tolerance):
     """
     Processes a sorted numpy array (or list) and for any group of
@@ -69,7 +88,7 @@ x = np.linspace(-np.pi, np.pi, 500)
 y = equation(x)
 
 # Define a small tolerance for considering y to be near 0
-tolerance = 0.1 # min space beween points
+tolerance = max_adjacent_diff_in_continuous_function(y) # 0.1 # min space beween points
 
 # Extract the x and y values near zero
 x_near_zero1 = x[np.abs(y) < tolerance]
@@ -81,7 +100,7 @@ plt.figure(figsize=(10, 6))
 plt.plot(x, y, label='y = 3 sin(2x) + 4 cos(x) - 5')
 
 # Plot the points near zero
-plt.scatter(x_near_zero, y_near_zero, color='green', marker='o', label=f'Points Near y=0 (Tolerance < {tolerance})')
+plt.scatter(x_near_zero, y_near_zero, color='green', marker='o', label=f'Points Near y=0 (Tolerance < {tolerance:.2f})')
 
 # Add a horizontal line at y=0
 plt.axhline(0, color='r', linestyle='--', label='y = 0')
