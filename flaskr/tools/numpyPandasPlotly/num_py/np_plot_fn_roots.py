@@ -16,7 +16,7 @@ def max_adjacent_diff_in_continuous_function(arr):
 
 # Example usage
 # arr = [1, 2, 4, 8, 5]
-# result = max_adjacent_diff(arr)
+# result = max_adjacent_diff_in_continuous_function(arr)
 # print(result)  # Expected output: 4
 
 
