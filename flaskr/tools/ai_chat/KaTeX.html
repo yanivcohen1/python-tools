@@ -45,11 +45,13 @@
 <body>
 
   <h2>Markdown Editor with KaTeX</h2>
-  <textarea id="markdown-input">This is an inline equation one: $E = mc^2$ and equation two: $F = ma$,
+  <textarea id="markdown-input">This is an inline equation one: $E = mc^2$ and equation two: $F = ma$
 
 This is a block equation: $$f(x) = \int_{-\infty}^{\infty} e^{-x^2} dx$$
 
 This is an inline equation one: \(E = mc^2\) and equation two: \(F = ma\)
+
+This is a block equation: \[f(x) = \int_{-\infty}^{\infty} e^{-x^2} dx\]
 
 Below is a Python code snippet that uses NumPy, Matplotlib, and SciPy to plot the function
 
@@ -139,16 +141,19 @@ This script will display a plot showing the function curve, the line \(y=5\), an
       // const match = text.match(match_dolar) || text.match(match_two_dolars) || text.match(match_brackets) || text.match(match_square_brackets);
       if (text.match(match_two_dolars)) {
         const output = text.replace(match_two_dolars, match => katex.renderToString(match.slice(2, -2), { throwOnError: false }));
-        return `<br> ${output} <br>`;
-      } else if (text.match(match_dolar)) {
+        text = `<br> ${output} <br>`;
+      }
+      if (text.match(match_dolar)) {
         const output = text.replace(match_dolar, match => katex.renderToString(match.slice(1, -1), { throwOnError: false }));
-        return output;
-      } else if (text.match(match_brackets)) {
+        text = `<br> ${output} <br>`;
+      }
+      if (text.match(match_brackets)) {
         const output = text.replace(match_brackets, match => katex.renderToString(match.slice(2, -2), { throwOnError: false }));
-        return output;
-      } else if (text.match(match_square_brackets)) {
+        text = `<br> ${output} <br>`;
+      }
+      if (text.match(match_square_brackets)) {
         const output = text.replace(match_square_brackets, match => katex.renderToString(match.slice(2, -2), { throwOnError: false }));
-        return `<br> ${output} <br>`;
+        text = `<br> ${output} <br>`;
       }
       return text;
     };
