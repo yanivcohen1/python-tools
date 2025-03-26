@@ -23,7 +23,7 @@ plt.ylabel('sin(x)')
 for i in range(n):
     x0 = x[i]
     y0 = y[i]
-    red_circle.set_data(x0, y0)
+    red_circle.set_data([x0], [y0])
     plt.pause(0.01)
 
 plt.show()
