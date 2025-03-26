@@ -6,6 +6,7 @@ altair==5.5.0
 aniso8601==10.0.0
 annotated-types==0.7.0
 anyio==4.8.0
+anywidget==0.9.18
 appdirs==1.4.4
 argon2-cffi==23.1.0
 argon2-cffi-bindings==21.2.0
@@ -69,7 +70,7 @@ Flask-SocketIO==5.5.1
 Flask-SQLAlchemy==3.1.1
 flask-swagger-ui==4.11.1
 Flask-WTF==1.2.2
--e git+https://testsmanager.com:6443/yaniv/python-flask.git@27e1b135b06215d60c3401031369ee77593a7d2b#egg=flaskr
+-e git+https://testsmanager.com:6443/yaniv/python-flask.git@5b44454e8849af1a133f91f5b7461693069a1980#egg=flaskr
 flexcache==0.3
 flexparser==0.4
 fonttools==4.55.8
@@ -157,6 +158,7 @@ mistune==3.1.1
 moderngl==5.12.0
 moderngl-window==3.1.1
 mongoengine==0.29.1
+motor==3.0.0
 MouseInfo==0.1.3
 mpmath==1.3.0
 msgpack==1.1.0
@@ -190,7 +192,7 @@ pillow==11.1.0
 Pint==0.24.4
 pkg_about==1.2.8
 platformdirs==2.6.2
-plotly==6.0.0
+plotly==5.24.0
 pluggy==1.5.0
 prometheus_client==0.21.1
 prompt_toolkit==3.0.50
@@ -198,6 +200,7 @@ propcache==0.2.1
 proto-plus==1.26.0
 protobuf==5.29.3
 psutil==6.1.1
+psygnal==0.12.0
 pure_eval==0.2.3
 pyarrow==19.0.0
 pyasn1==0.6.1
@@ -221,7 +224,7 @@ pylint==3.3.4
 pylint-flask==0.6
 pylint-flask-sqlalchemy==0.2.0
 pylint-plugin-utils==0.8.2
-pymongo==4.0.1
+pymongo==4.1.1
 PyMsgBox==1.0.9
 pymunk==6.11.0
 PyMySQL==1.1.1
