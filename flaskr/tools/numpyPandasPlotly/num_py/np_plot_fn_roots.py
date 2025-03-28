@@ -34,7 +34,8 @@ if len(crossings) > 0:
     # Plot the function
     plt.plot(x, y, label='3sin(2x) + 4cos(x) - 5')
     plt.axhline(0, color='r', linestyle='--', label='y=0 (Target)') # Mark y=0
-    plt.plot(crossings, np.zeros_like(crossings), 'go', markersize=8, label='Solution (root)') # Mark the solution point
+    # Mark the solutions as green o points
+    plt.plot(crossings, np.zeros_like(crossings), 'go', markersize=8, label='Solution (root)')
     plt.xlabel('x')
     plt.ylabel('3sin(2x) + 4cos(x) - 5')
     plt.title('Plot of the equation and the solution')
