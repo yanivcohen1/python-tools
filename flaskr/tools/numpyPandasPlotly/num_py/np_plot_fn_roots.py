@@ -10,19 +10,26 @@ x = np.linspace(-np.pi, np.pi, 500) # Range for plotting (0 to 2pi for trigonome
 y = equation_to_solve(x)
 # Find indices where the sign of y changes.
 # This means consecutive points where y values have opposite signs.
-sign_changes = np.where(np.diff(np.sign(y)))[0]
+# Find indices where the sign changes
+crossing_indices = np.where(np.diff(np.sign(y)) != 0)[0]
+# print("Indices where sign changes:", crossing_indices)
 
-# List to hold the crossing points (x values where y=0)
+# Compute the zero crossing points via linear interpolation
 x_crossings = []
+for idx in crossing_indices:
+    # Get points on either side of the crossing
+    x1, x2 = x[idx], x[idx+1]
+    y1, y2 = y[idx], y[idx+1]
 
-# For each sign change, perform a linear interpolation to find the crossing x-coordinate.
-for i in sign_changes:
-    x0, y0 = x[i], y[i]
-    x1, y1 = x[i + 1], y[i+1]
-    # Linear interpolation formula to find x where y = 0:
-    # x_cross = x0 - y0 * (x1 - x0) / (y1 - y0)
-    x_cross = x0 - y0 * (x1 - x0) / (y1 - y0)
-    x_crossings.append(x_cross)
+    # Avoid division by zero (if y2 == y1, it might need special handling)
+    if y2 - y1 == 0:
+        continue
+
+    # Linear interpolation formula
+    x_zero = x1 + (0 - y1) * (x2 - x1) / (y2 - y1)
+    x_crossings.append(x_zero)
+
+print("Zero crossings (x-coordinates):", x_crossings)
 
 # Plotting the equation and the solutions
 if len(x_crossings) > 0:
