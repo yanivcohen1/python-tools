@@ -21,6 +21,7 @@ for i in range(2):
 
     x_crossings = []
 
+    # for y not crossing the zero ----------------------------------------------------------
     zero_indices = np.where(np.round(y, 2) == 0)[0]
     diff = np.diff(zero_indices)
 
@@ -37,6 +38,7 @@ for i in range(2):
     for index in np.unique(result):
         x_crossings.append(x[index])
 
+    # for y crossing the zero --------------------------------------------------------------
     # Find indices where the sign of y changes.
     # This means consecutive points where y values have opposite signs.
     # Find indices where the sign changes
@@ -59,7 +61,7 @@ for i in range(2):
 
     print("Zero crossings (x-coordinates):", x_crossings)
 
-    # Plotting the equation and the solutions
+    # Plotting the equation and the solutions ------------------------------------------------
     if len(x_crossings) > 0:
         plt.figure(figsize=(10, 6))
         # Show the solutionss on the plot
