@@ -61,6 +61,7 @@ for i in range(2):
     #     x_crossings.append(x_zero)
 
     # x_crossings = np.unique(np.round(x_crossings, 2)) # Remove duplicates
+
     if len(x_crossings) > 0:
         print("Zero crossings (x-coordinates):", x_crossings)
     else:
