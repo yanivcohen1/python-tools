@@ -21,7 +21,7 @@ for i in range(2):
 
     x_crossings = []
 
-    # for y not crossing the zero ----------------------------------------------------------
+    # for y not crossing the zero but tangent it ------------------------------------------
     zero_indices = np.where(np.round(y, 2) == 0)[0]
     diff = np.diff(zero_indices)
 
