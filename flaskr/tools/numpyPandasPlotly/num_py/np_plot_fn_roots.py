@@ -41,7 +41,6 @@ for i in range(2):
     # for y crossing the zero --------------------------------------------------------------
     # Find indices where the sign of y changes.
     # This means consecutive points where y values have opposite signs.
-    # Find indices where the sign changes
     crossing_indices = np.where(np.diff(np.sign(y)) != 0)[0]
     # print("Indices where sign changes:", crossing_indices)
 
