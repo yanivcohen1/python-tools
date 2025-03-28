@@ -22,7 +22,7 @@ for i in range(2):
     x_crossings = []
 
     # for y not crossing the zero but tangent it ------------------------------------------
-    zero_indices = np.where(np.round(y, 1) == 0)[0]
+    zero_indices = np.where(np.round(y, 2) == 0)[0]
 
     if len(zero_indices) > 0:
         diff = np.diff(zero_indices)
@@ -40,27 +40,27 @@ for i in range(2):
         for index in np.unique(result):
             x_crossings.append(x[index])
 
-    # # for y crossing the zero --------------------------------------------------------------
-    # # Find indices where the sign of y changes.
-    # # This means consecutive points where y values have opposite signs.
-    # crossing_indices = np.where(np.diff(np.sign(y)) != 0)[0]
-    # # print("Indices where sign changes:", crossing_indices)
+    # for y crossing the zero --------------------------------------------------------------
+    # Find indices where the sign of y changes.
+    # This means consecutive points where y values have opposite signs.
+    crossing_indices = np.where(np.diff(np.sign(y)) != 0)[0]
+    # print("Indices where sign changes:", crossing_indices)
 
-    # # Compute the zero crossing points via linear interpolation
-    # for idx in crossing_indices:
-    #     # Get points on either side of the crossing
-    #     x1, x2 = x[idx], x[idx+1]
-    #     y1, y2 = y[idx], y[idx+1]
+    # Compute the zero crossing points via linear interpolation
+    for idx in crossing_indices:
+        # Get points on either side of the crossing
+        x1, x2 = x[idx], x[idx+1]
+        y1, y2 = y[idx], y[idx+1]
 
-    #     # Avoid division by zero (if y2 == y1, it might need special handling)
-    #     if y2 - y1 == 0:
-    #         continue
+        # Avoid division by zero (if y2 == y1, it might need special handling)
+        if y2 - y1 == 0:
+            continue
 
-    #     # Linear interpolation formula
-    #     x_zero = x1 + (0 - y1) * (x2 - x1) / (y2 - y1)
-    #     x_crossings.append(x_zero)
+        # Linear interpolation formula
+        x_zero = x1 + (0 - y1) * (x2 - x1) / (y2 - y1)
+        x_crossings.append(x_zero)
 
-    # x_crossings = np.unique(np.round(x_crossings, 2)) # Remove duplicates
+    x_crossings = np.unique(np.round(x_crossings, 2)) # Remove duplicates
 
     if len(x_crossings) > 0:
         print("Zero crossings (x-coordinates):", x_crossings)
@@ -68,7 +68,6 @@ for i in range(2):
         print("No zero crossings found.")
 
     # Plotting the equation and the solutions ------------------------------------------------
-
     plt.figure(figsize=(10, 6))
     # Show the solutionss on the plot
     if len(x_crossings) > 0:
