@@ -25,24 +25,37 @@ app.add_middleware(
 )
 
 genai.configure(api_key="AIzaSyB2GXiEd1eV95qPkFMUaz8vndME1cYFByk") #replace with your api key
-model = genai.GenerativeModel('gemini-2.0-flash-thinking-exp') # gemini-2.0-flash
+models_ = genai.list_models()
+models_list = []
+for m in models_:
+    # Check if the model supports the standard 'generateContent' method
+    if 'generateContent' in m.supported_generation_methods:
+        models_list.append(m.name[7:])
+class GeminiQueryData(BaseModel):
+    prompt: str
+    model: str
 
-class QueryData(BaseModel):
-    query: str
-
-def generate_stream(query: str):
-    response = model.generate_content(query, stream=True)  # No await needed
+def generate_stream(prompt: str, model_name: str = 'gemini-2.0-flash-thinking-exp'):
+    model = genai.GenerativeModel(model_name) # 'gemini-2.0-flash-thinking-exp')
+    response = model.generate_content(prompt, stream=True)  # No await needed
     for chunk in response:  # Regular for loop, not async
         # print(chunk.text, end="")
         yield chunk.text
 
 @app.post("/stream")
-async def stream_content(query_data: QueryData = Body(...)):
-    return StreamingResponse(generate_stream(query_data.query), media_type="text/event-stream")
+async def stream_content(query_data: GeminiQueryData = Body(...)):
+    return StreamingResponse(generate_stream(query_data.prompt +
+                                  ' use in your answer this url content: https://testsmanager.com',
+                                  query_data.model),
+                              media_type="text/event-stream")
+
+@app.get("/models")
+def models():
+    return JSONResponse(content=models_list)
 
 @app.get("/live")
 def live():
-    return Response(content="Live", media_type="text/plain")
+    return JSONResponse(content={"status": "Live"})
 
 if __name__ == "__main__":
     import uvicorn
