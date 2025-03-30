@@ -25,12 +25,7 @@ app.add_middleware(
 )
 
 genai.configure(api_key="AIzaSyB2GXiEd1eV95qPkFMUaz8vndME1cYFByk") #replace with your api key
-models_ = genai.list_models()
-models_list = []
-for m in models_:
-    # Check if the model supports the standard 'generateContent' method
-    if 'generateContent' in m.supported_generation_methods:
-        models_list.append(m.name[7:])
+
 class GeminiQueryData(BaseModel):
     prompt: str
     model: str
@@ -51,6 +46,12 @@ async def stream_content(query_data: GeminiQueryData = Body(...)):
 
 @app.get("/models")
 def models():
+    models = genai.list_models()
+    models_list = []
+    for m in models:
+        # Check if the model supports the standard 'generateContent' method
+        if 'generateContent' in m.supported_generation_methods:
+            models_list.append(m.name[7:])
     return JSONResponse(content=models_list)
 
 @app.get("/live")
