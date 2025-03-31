@@ -1,6 +1,19 @@
 import os
 from pathlib import Path
 
+currentDir = os.path.join(os.path.dirname(__file__))
+print("current dir:", currentDir) # c:\Users\yaniv\OneDrive\python-flask\flaskr
+print('current file name:', os.path.basename(__file__)) # currentDir.py
+reletive_file_path = "/../dst/target_2.txt"
+full_file_path = currentDir + reletive_file_path
+print('full file path:    ',os.path.normpath(full_file_path))
+
+# for parent dir
+target_path_2 = os.path.join(currentDir, '../dst/target_2.txt')
+print('normalize    : ', os.path.normpath(target_path_2))
+print('file name:    ', os.path.basename(target_path_2))
+
+
 print(os.__file__) # tells you where the os module is for current python path
 
 cwd_module = os.getcwd()

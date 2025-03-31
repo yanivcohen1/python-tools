@@ -1,7 +1,9 @@
 import re
+import os
 
 # Replace with your actual file name
-filename = "./flaskr/tools/ai_chat/ex5.md"
+current_directory = os.path.dirname(__file__)
+filename = current_directory + "/ex5.md"
 
 # Read the file content
 with open(filename, "r", encoding="utf-8") as file:
@@ -28,7 +30,7 @@ content = re.sub(
 )
 
 
-filename = "./flaskr/tools/ai_chat/ex6.md"
+filename = current_directory + "/ex6.md"
 # Write the modified content back to the same file
 with open(filename, "w", encoding="utf-8") as file:
     file.write(content)
