@@ -132,6 +132,6 @@ if __name__ == "__main__":
 # 1. Use curl or Postman to send a POST request to the /ai endpoint with a query.
 # curl -X POST -H "Content-Type: application/json" -d '{"query": "What is france capital?"}' http://localhost:8000/ai
 # 2. Use curl or Postman to send a POST request to the /pdf endpoint with a PDF file.
-# curl -X POST -F "file=@./test.pdf" http://localhost:8000/pdf
+# curl -X POST -F "file=@./alice.pdf" http://localhost:8000/pdf
 # 3. Use curl or Postman to send a POST request to the /ask_pdf endpoint with a query.
-# curl -X POST -H "Content-Type: application/json" -d '{"query": "What is the main topic of the document?"}' http://localhost:8000/ask_pdf
+# curl -X POST -H "Content-Type: application/json" -d '{"query": "who is Alice?"}' http://localhost:8000/ask_pdf
