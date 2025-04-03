@@ -5,9 +5,8 @@ description = "The basic blog app built in the Flask tutorial"
 readme = "README.rst"
 requires-python = ">=3.10" # "~=3.10"
 license = {text = "MIT"}
-# "flask==1.1.2", "marshmallow-dataclass==8.4.1", "marshmallow-enum==1.5.1", "marshmallow_sqlalchemy==1.0.0", "flask-jsonpify==1.5.0",
-#  "flask-sqlalchemy==2.5.1", "flask-restful==0.3.8", "flask-cors==3.0.10", "Flask-JWT==0.3.2", "itsdangerous==1.1.0",
-#  "flask-socketio==5.0.1", "schedule==1.1.0", "Jinja2==2.11.3", "markupsafe==1.1.1", "werkzeug==1.0.1",
+# manim 0.19.0 requires numpy>=2.1; python_version >= "3.10", but you have numpy 1.26.4 which is incompatible.
+# pyscript 0.2.5 requires typer<0.5.0,>=0.4.1, but you have typer 0.15.2 which is incompatible.
 # flask-mongoengine==1.0.0 for mongo 3.6 need also flask==2.2.5
 # pymongo==4.1.1 for mongo 3.6 and motor==3.0.0 (for asnyc mongo)
 dependencies = [
