@@ -24,7 +24,7 @@ while True:
     if question == "q":
         break
 
-    reviews = retriever.invoke(question)
+    reviews = retriever.invoke(question) # return 5 reviews
     # result = chain.invoke({"reviews": reviews, "question": question})
     for chunk in chain.stream({"reviews": reviews, "question": question, "chat_history": chat_history}):
         # This will print each token as it is generated
