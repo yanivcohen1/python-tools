@@ -36,6 +36,7 @@ Create a virtualenv and activate it::
     $ . .venv/bin/activate
 
     # windows
+    $ py -3.12 -m venv venv
     $ py -m venv venv
 	$ python -m venv venv
     # Create a virtual environment using the full path to the Python executable version X.Y
