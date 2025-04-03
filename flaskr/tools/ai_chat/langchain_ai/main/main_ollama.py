@@ -1,0 +1,36 @@
+from langchain_ollama.llms import OllamaLLM
+from langchain_core.prompts import ChatPromptTemplate
+from vector import retriever
+
+model = OllamaLLM(model="deepseek-coder-v2:16b", temperature=0.8) # gemma3:4b phi4-mini:3.8b
+
+template = """
+You are an exeprt in answering questions about a pizza restaurant
+
+Here are some relevant reviews: {reviews}
+
+Here is the question to answer: {question}
+
+Previous conversation: {chat_history}
+"""
+prompt = ChatPromptTemplate.from_template(template)
+chain = prompt | model
+
+chat_history = ""
+while True:
+    print("\n\n-------------------------------")
+    question = input("Ask your question (q to quit): ")
+    print("\n")
+    if question == "q":
+        break
+
+    reviews = retriever.invoke(question)
+    # result = chain.invoke({"reviews": reviews, "question": question})
+    for chunk in chain.stream({"reviews": reviews, "question": question, "chat_history": chat_history}):
+        # This will print each token as it is generated
+        if chunk is not None:
+            msg = chunk
+            # chat_history += msg
+            # Print the token without a newline
+            print(msg, end="")
+    chat_history += question
