@@ -4,7 +4,11 @@ from langchain_chroma import Chroma
 from langchain_core.documents import Document
 import pandas as pd
 
-df = pd.read_csv("realistic_restaurant_reviews.csv")
+current_path = os.path.dirname(os.path.abspath(__file__))
+df = pd.read_csv(current_path + "/../realistic_restaurant_reviews.csv")
+df = df.dropna() # Remove missing values.
+df = df.drop_duplicates() # Remove duplicates.
+# df = df.reset_index(drop=True) # Reset index.
 embeddings = OllamaEmbeddings(model="mxbai-embed-large:335m")
 
 db_location = "./chrome_langchain_db"

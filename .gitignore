@@ -50,3 +50,4 @@ Thumbs.db
 media/
 package-lock.json
 yarn.lock
+chrome_langchain_db/
