@@ -21,7 +21,7 @@ dependencies = [
   "websockets", "pyyaml", "beautifulsoup4","aiohttp", "nest_asyncio", "elasticsearch==2.4.1", "elasticsearch-dsl==2.2.0",
   "fastapi", "fastapi_sqlalchemy", "sqlmodel", "passlib", "uvicorn", "locust", "textblob", "flask-swagger-ui",
   "pyscript", "pytest" , "coverage", "python-multipart", "pyshark", "motor==3.0.0", "pymongo==4.1.1"
-  # , "langchain", "langchain-ollama", "langchain-chroma", "langchain-openai" ,"langchain_community","langgraph",
+  # , "langchain", "langchain-ollama", "langchain-chroma", "langchain-openai" ,"langchain-community","langgraph",
   ]
 
 [project.urls]
