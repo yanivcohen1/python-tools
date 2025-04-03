@@ -1,3 +1,5 @@
+import os
+import json
 from flask import Flask, request
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains.retrieval import create_retrieval_chain
@@ -11,6 +13,8 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 app = Flask(__name__)
 
 folder_path = "./chrome_langchain_db"
+
+current_path = os.path.dirname(os.path.abspath(__file__))
 
 cached_llm = OllamaLLM(model="llama3:8b")
 
@@ -88,7 +92,8 @@ def askPDFPost():
 def pdfPost():
     file = request.files["file"]
     file_name = file.filename
-    save_file = "pdf/" + file_name
+
+    save_file = current_path + "/../pdf/" + file_name
     file.save(save_file)
     print(f"filename: {file_name}")
 
