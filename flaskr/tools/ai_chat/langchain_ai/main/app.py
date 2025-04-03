@@ -21,7 +21,7 @@ text_splitter = RecursiveCharacterTextSplitter(
 )
 
 raw_prompt = PromptTemplate.from_template(
-    """ 
+    """
     <s>[INST] You are a technical assistant good at searching docuemnts. If you do not have an answer from the provided information say so. [/INST] </s>
     [INST] {input}
            Context: {context}
@@ -124,9 +124,9 @@ if __name__ == "__main__":
     start_app()
 
 # Example usage:
-# 1. Use curl or Postman to send a POST request to the /pdf endpoint with a PDF file.
+# 1. Use curl or Postman to send a POST request to the /ai endpoint with a query.
+# curl -X POST -H "Content-Type: application/json" -d '{"query": "What is france capital?"}' http://localhost:8000/ai
+# 2. Use curl or Postman to send a POST request to the /pdf endpoint with a PDF file.
 # curl -X POST -F "file=@./test.pdf" http://localhost:8000/pdf
-# 2. Use curl or Postman to send a POST request to the /ask_pdf endpoint with a query.
+# 3. Use curl or Postman to send a POST request to the /ask_pdf endpoint with a query.
 # curl -X POST -H "Content-Type: application/json" -d '{"query": "What is the main topic of the document?"}' http://localhost:8000/ask_pdf
-# 3. Use curl or Postman to send a POST request to the /ai endpoint with a query.
-# curl -X POST -H "Content-Type: application/json" -d '{"query": "What is the main topic of the document?"}' http://localhost:8000/ai
