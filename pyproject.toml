@@ -17,11 +17,12 @@ dependencies = [
   "plotly==5.24", "cufflinks", "ipykernel", "selenium", "webdriver-manager", "sympy==1.6.2", "scipy", "pycryptodome",
   "ipywidgets", "IPython", "anywidget", "seaborn", "nbformat", "openpyxl", "jupyterlab-mathjax3", "google-generativeai",
   "pint", "scikit-image", "streamlit", "vpython", "pygame", "numba", "pymunk", "opencv-python", "pyautogui",
-  "yfinance", "openai", "igraph", "wget", "manim", "pyhid-usb-relay", "pywin32", "pynput",
+  "yfinance", "openai", "igraph", "wget", "pyhid-usb-relay", "pywin32", "pynput",
   "websockets", "pyyaml", "beautifulsoup4","aiohttp", "nest_asyncio", "elasticsearch==2.4.1", "elasticsearch-dsl==2.2.0",
   "fastapi", "fastapi_sqlalchemy", "sqlmodel", "passlib", "uvicorn", "locust", "textblob", "flask-swagger-ui",
-  "pyscript", "pytest" , "coverage", "python-multipart", "pyshark", "motor==3.0.0", "pymongo==4.1.1"
-  # , "langchain", "langchain-ollama", "langchain-chroma", "langchain-openai" ,"langchain-community","langgraph", "fastembed", "pdfplumber"
+  "pytest" , "coverage", "python-multipart", "pyshark", "motor==3.0.0", "pymongo==4.1.1",
+  "langchain", "langchain-ollama", "langchain-chroma", "langchain-openai", "langchain-community", "langgraph", "fastembed", "pdfplumber"
+  # "manim", "pyscript"
   ]
 
 [project.urls]
