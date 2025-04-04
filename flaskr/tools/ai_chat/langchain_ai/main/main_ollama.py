@@ -27,10 +27,8 @@ while True:
     reviews = retriever.invoke(question) # return 5 reviews
     # result = chain.invoke({"reviews": reviews, "question": question})
     for chunk in chain.stream({"reviews": reviews, "question": question, "chat_history": chat_history}):
-        # This will print each token as it is generated
         if chunk is not None:
             msg = chunk
             # chat_history += msg
-            # Print the token without a newline
             print(msg, end="")
     chat_history += question
