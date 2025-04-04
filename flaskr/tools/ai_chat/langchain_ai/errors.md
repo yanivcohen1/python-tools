@@ -7,3 +7,5 @@ pyscript 0.2.5 requires typer<0.5.0,>=0.4.1, but you have typer 0.15.2 which is 
 ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
 chromadb 0.6.3 requires typer>=0.9.0, but you have typer 0.4.2 which is incompatible.
 langchain-chroma 0.2.2 requires numpy<2.0.0,>=1.26.2; python_version >= "3.12", but you have numpy 2.1.3 which is incompatible.
+
+אליס היא נערה צעירה שמוצאת את עצמה במקום יוצא דופן וקסום בשם ארץ הפלאות. היא מקיימת אינטראקציה עם דמויות אחרות כמו החתול, הכובען וארנבת מרץ, מה שמעיד על תפקידה כגיבורה או כדמות מרכזית בנרטיב זה
