@@ -39,11 +39,8 @@ def aiPost():
 
 
 def askPDFPost(file_name: str):
-    print("Post /ask_pdf called")
-
-    # print(f"query: {query}")
     collection_name = file_name.replace(".", "_")
-    print("Loading vector store")
+    # Loading vector store
     vector_store = Chroma(persist_directory=folder_path, embedding_function=embedding, collection_name=collection_name)
 
     retriever = vector_store.as_retriever(
