@@ -1,8 +1,7 @@
 import os
-from flask import Flask, request
-from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain.chains.retrieval import create_retrieval_chain
-from langchain.prompts import PromptTemplate
+# from langchain.chains.combine_documents import create_stuff_documents_chain
+# from langchain.chains.retrieval import create_retrieval_chain
+# from langchain.prompts import PromptTemplate
 from langchain_community.document_loaders import PDFPlumberLoader
 from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
 from langchain_chroma import Chroma
@@ -23,10 +22,7 @@ text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=384, chunk_overlap=80, length_function=len, is_separator_regex=False
 )
 
-def aiPost():
-    print("Post /ai called")
-    json_content = request.json
-    query = json_content.get("query")
+def ask_ai(query: str):
 
     print(f"query: {query}")
 
