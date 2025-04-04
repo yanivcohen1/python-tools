@@ -1,8 +1,10 @@
 from langchain_ollama.llms import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
-from pdf import askPDFPost
+from pdf_vector import ask_PDF
 
 model = OllamaLLM(model="deepseek-coder-v2:16b", temperature=0.8) # gemma3:4b phi4-mini:3.8b
+
+pdf ="alice.pdf"
 
 template = """
 You are an exeprt in answering questions about a pizza restaurant
@@ -24,7 +26,7 @@ while True:
     if question == "q":
         break
 
-    reviews = askPDFPost("alice.pdf").invoke(question) # return 20 documents
+    reviews = ask_PDF(pdf).invoke(question) # return 20 documents
     # result = chain.invoke({"reviews": reviews, "question": question})
     for chunk in chain.stream({"reviews": reviews, "question": question, "chat_history": chat_history}):
         if chunk is not None:

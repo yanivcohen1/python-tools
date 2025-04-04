@@ -38,7 +38,7 @@ def aiPost():
     return response_answer
 
 
-def askPDFPost(file_name: str):
+def ask_PDF(file_name: str):
     collection_name = file_name.replace(".", "_")
     # Loading vector store
     vector_store = Chroma(persist_directory=folder_path, embedding_function=embedding, collection_name=collection_name)
@@ -50,7 +50,7 @@ def askPDFPost(file_name: str):
     return retriever
 
 
-def pdfPost(file_name: str):
+def pdf_to_vector(file_name: str):
     save_file = current_path + "/../pdf/" + file_name
     print(f"filename: {file_name}")
 
@@ -90,8 +90,16 @@ def del_collection(collection_name: str):
     print(f"deleted collection: {collection_name}")
     return True
 
+def get_chanks_len(collection_name: str):
+    vector_store = Chroma(persist_directory=folder_path, embedding_function=embedding, collection_name=collection_name)
+    collection = vector_store._client.get_collection(collection_name)
+    all_ids = collection.get()
+    num_docs = len(all_ids["ids"])
+    print(f"num_docs(chanks): {num_docs}")
+
 if __name__ == "__main__":
     get_collection_names()
+    # get_chanks_len("alice_pdf")
     # del_collection("alice_pdf")
-    # pdfPost("alice.pdf")
+    # pdf_to_vector("alice.pdf")
     # get_collection_names()
