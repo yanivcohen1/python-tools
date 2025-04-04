@@ -19,7 +19,7 @@ chain = prompt | model
 chat_history = ""
 while True:
     print("\n\n-------------------------------")
-    question = input("Ask your question (q to quit): ")
+    question = input("Ask your question (q to quit): ") # who is Alice?
     print("\n")
     if question == "q":
         break
