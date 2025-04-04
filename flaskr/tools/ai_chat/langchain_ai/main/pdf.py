@@ -38,7 +38,6 @@ def aiPost():
     return response_answer
 
 
-# @app.route("/ask_pdf", methods=["POST"])
 def askPDFPost(file_name: str):
     print("Post /ask_pdf called")
 
@@ -54,12 +53,8 @@ def askPDFPost(file_name: str):
     return retriever
 
 
-# @app.route("/pdf", methods=["POST"])
 def pdfPost(file_name: str):
-    # file = request.files["file"]
-    # file_name = file.filename
     save_file = current_path + "/../pdf/" + file_name
-    # file.save(save_file)
     print(f"filename: {file_name}")
 
     loader = PDFPlumberLoader(save_file)
@@ -103,11 +98,3 @@ if __name__ == "__main__":
     # del_collection("alice_pdf")
     # pdfPost("alice.pdf")
     # get_collection_names()
-
-# Example usage:
-# 1. Use curl or Postman to send a POST request to the /ai endpoint with a query.
-# curl -X POST -H "Content-Type: application/json" -d '{"query": "What is france capital?"}' http://localhost:8000/ai
-# 2. Use curl or Postman to send a POST request to the /pdf endpoint with a PDF file.
-# curl -X POST -F "file=@./alice.pdf" http://localhost:8000/pdf
-# 3. Use curl or Postman to send a POST request to the /ask_pdf endpoint with a query.
-# curl -X POST -H "Content-Type: application/json" -d '{"query": "who is Alice?"}' http://localhost:8000/ask_pdf
