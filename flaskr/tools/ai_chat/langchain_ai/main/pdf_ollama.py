@@ -26,7 +26,7 @@ while True:
     if question == "q":
         break
 
-    reviews = ask_PDF(pdf).invoke(question) # returtn 25 chanks is 5% of chanks
+    reviews = ask_PDF(pdf).invoke(question) # returtn 25 chanks is 5% of chanks, 3 pages of 80 pages
     # result = chain.invoke({"reviews": reviews, "question": question})
     for chunk in chain.stream({"reviews": reviews, "question": question, "chat_history": chat_history}):
         if chunk is not None:
