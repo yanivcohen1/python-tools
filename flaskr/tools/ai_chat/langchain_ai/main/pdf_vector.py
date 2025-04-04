@@ -5,7 +5,7 @@ from langchain.chains.retrieval import create_retrieval_chain
 from langchain.prompts import PromptTemplate
 from langchain_community.document_loaders import PDFPlumberLoader
 from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from langchain_ollama.llms import OllamaLLM
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
@@ -66,7 +66,7 @@ def pdf_to_vector(file_name: str):
         documents=chunks, embedding=embedding, persist_directory=folder_path, collection_name=collection_name
     )
 
-    vector_store.persist()
+    # vector_store.persist()
 
     response = {
         "status": "Successfully Uploaded",
