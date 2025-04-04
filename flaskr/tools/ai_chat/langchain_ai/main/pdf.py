@@ -121,6 +121,7 @@ def pdfPost(file_name: str):
         "doc_len": len(docs),
         "chunks": len(chunks),
     }
+    print(f"response: {response}")
     return response
 
 
