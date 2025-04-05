@@ -1,6 +1,6 @@
 from langchain_ollama.llms import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
-from vector import retriever
+from csv_vector import retriever
 
 model = OllamaLLM(model="deepseek-coder-v2:16b", temperature=0.8) # gemma3:4b phi4-mini:3.8b
 

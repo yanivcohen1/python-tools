@@ -16,6 +16,8 @@ folder_path = "./chrome_langchain_db"
 
 current_path = os.path.dirname(os.path.abspath(__file__))
 
+docs_path = current_path + "/../content/docs/"
+
 cached_llm = OllamaLLM(model="llama3:8b")
 
 embedding = FastEmbedEmbeddings()
@@ -93,7 +95,7 @@ def pdfPost():
     file = request.files["file"]
     file_name = file.filename
 
-    save_file = current_path + "/../pdf/" + file_name
+    save_file = docs_path + file_name
     file.save(save_file)
     print(f"filename: {file_name}")
 

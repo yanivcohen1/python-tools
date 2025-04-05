@@ -12,6 +12,8 @@ folder_path = "./chrome_langchain_db"
 
 current_path = os.path.dirname(os.path.abspath(__file__))
 
+docs_path = current_path + "/../content/docs/"
+
 cached_llm = OllamaLLM(model="mxbai-embed-large:335m")
 
 embedding = FastEmbedEmbeddings()
@@ -47,7 +49,7 @@ def ask_PDF(file_name: str):
 
 
 def pdf_to_vector(file_name: str):
-    save_file = current_path + "/../pdf/" + file_name
+    save_file = docs_path + file_name
     print(f"filename: {file_name}")
 
     loader = PDFPlumberLoader(save_file)

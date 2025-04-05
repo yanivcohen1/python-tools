@@ -5,7 +5,7 @@ from langchain_core.documents import Document
 import pandas as pd
 
 current_path = os.path.dirname(os.path.abspath(__file__))
-df = pd.read_csv(current_path + "/../realistic_restaurant_reviews.csv")
+df = pd.read_csv(current_path + "/../content/docs/realistic_restaurant_reviews.csv")
 df = df.dropna() # Remove missing values.
 df = df.drop_duplicates() # Remove duplicates.
 # df = df.reset_index(drop=True) # Reset index.

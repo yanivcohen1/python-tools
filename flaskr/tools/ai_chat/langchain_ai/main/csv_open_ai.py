@@ -1,6 +1,6 @@
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
-from vector import retriever
+from csv_vector import retriever
 
 chat_model = ChatOpenAI(
         api_key="your_api_key_here",  # Replace with your actual API key
