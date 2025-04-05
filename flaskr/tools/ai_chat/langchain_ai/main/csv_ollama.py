@@ -20,6 +20,8 @@ chat_history = ""
 while True:
     print("\n\n-------------------------------")
     question = input("Ask your question (q to quit): ")
+    if question == "":
+        question = "what is the pizza quality?  answer in few sentences"
     print("\n")
     if question == "q":
         break
