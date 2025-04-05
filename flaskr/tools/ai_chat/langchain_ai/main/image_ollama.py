@@ -2,10 +2,7 @@ import os
 import base64
 from langchain_ollama.llms import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
-from langchain.schema.messages import HumanMessage
-
-from langchain.schema import HumanMessage, SystemMessage
-from langchain.schema.messages import AIMessage, HumanMessage, SystemMessage
+from langchain.schema.messages import HumanMessage, AIMessage, SystemMessage
 
 # Read your local image and base64 encode it
 def encode_image_to_base64(image_path):
@@ -14,12 +11,15 @@ def encode_image_to_base64(image_path):
 
 
 current_path = os.path.dirname(os.path.abspath(__file__))
-docs_path = current_path + "/../content/images/"
-image_name = "transparency_demonstration.png"# "transparency_demonstration.png"
-image_base64 = encode_image_to_base64(docs_path + image_name)
+images_path = current_path + "/../content/images/"
+
+image_name = "cube.png" # "transparency_demonstration.png"# "smail_face.png"#  # "objectdetection.png"
+model_name = "gemma3:4b" # "llava:7b" #
+image_url = images_path + image_name
+image_base64 = encode_image_to_base64(image_url)
 
 # Use Ollama with llava
-model = OllamaLLM(model="gemma3:4b", temperature=0.8) #  phi4-mini:3.8b
+model = OllamaLLM(model=model_name, temperature=0.8) #  phi4-mini:3.8b
 
 chat_history = ""
 while True:
@@ -36,7 +36,7 @@ while True:
             content=[
                 {"type": "text", "text": question},
                 {"type": "text", "text": "Previous conversation: " + chat_history},
-                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{image_base64}"}}
+                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{image_base64}"}} # image_url}
             ]
         )
     ]
