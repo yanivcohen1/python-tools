@@ -36,8 +36,8 @@ while True:
         HumanMessage(
             content=[
                 {"type": "text", "text": question},
-                {"type": "text", "text": "Previous conversation: " + chat_history},
-                {"type": "image_url", "image_url": images_path + pic_name} # {"url": f"data:image/png;base64,{image_base64}"}} # image_url}
+                {"type": "image_url", "image_url": images_path + pic_name}, # {"url": f"data:image/png;base64,{image_base64}"}} # image_url}
+                {"type": "text", "text": "Previous conversation: " + chat_history}
             ]
         )
     ]
