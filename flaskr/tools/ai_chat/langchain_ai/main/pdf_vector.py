@@ -42,7 +42,7 @@ def ask_PDF(file_name: str):
     vector_store = Chroma(persist_directory=folder_path, embedding_function=embedding, collection_name=collection_name)
 
     retriever = vector_store.as_retriever(
-        search_kwargs={"k": 25} # 25 chanks is 5% of chanks
+        search_kwargs={"k": 50} # 20 chanks is 10% of chanks, 8 pages of 80 pages
     )
 
     return retriever
