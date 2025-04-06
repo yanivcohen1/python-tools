@@ -39,7 +39,7 @@ def del_collection(collection_name: str):
 def get_chanks_len(collection_name: str):
     vector_store = Chroma(persist_directory=folder_path, embedding_function=embedding, collection_name=collection_name)
     collection = vector_store._client.get_collection(collection_name)
-    result = collection.get()
+    result = collection.get() # limit=1, offset=0)
     doc_size = len(result["documents"][0])
     num_docs = len(result["ids"])
     print(f"chank(doc) size: {doc_size}")
@@ -47,7 +47,7 @@ def get_chanks_len(collection_name: str):
 
 if __name__ == "__main__":
     get_collection_names()
-    # get_chanks_len("alice_pdf") # 573 * 386
+    get_chanks_len("alice_pdf") # 573 * 386
     # get_chanks_len("pdf") # 205 * 1024
     # get_chanks_len("restaurant_reviews") # 123 * 386
     # del_collection("alice_pdf")
