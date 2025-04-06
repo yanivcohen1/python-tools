@@ -42,8 +42,8 @@ def get_chanks_len(collection_name: str):
     result = collection.get() # limit=1, offset=0)
     doc_size = len(result["documents"][0])
     num_docs = len(result["ids"])
-    print(f"chank(doc) size: {doc_size}")
-    print(f"docs(chanks) size: {num_docs}")
+    print(f"single chank(doc) size: {doc_size}")
+    print(f"number of docs(chanks): {num_docs}")
 
 if __name__ == "__main__":
     get_collection_names()
