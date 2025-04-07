@@ -37,7 +37,7 @@ chat_history = ""
 while True:
     print("\n\n-------------------------------")
     pic_name = input("pic name (q to quit): ")
-    if pic_name == "": pic_name = "pet.jpg"
+    if pic_name == "": pic_name = "cow.jpg"
     if pic_name == "q": break
     question = input("Ask your question (q to quit): ")
     if question == "": question = "What is in this picture?"  # answer in few sentences"
