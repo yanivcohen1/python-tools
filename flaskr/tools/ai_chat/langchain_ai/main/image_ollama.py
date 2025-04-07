@@ -13,10 +13,9 @@ def convert_to_base64(pil_image):
     img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
     return img_str
 
-
+model_name = "gemma3:4b" # "llava:7b"
 current_path = os.path.dirname(os.path.abspath(__file__))
 images_path = os.path.abspath(current_path + "/../content/images/")
-model_name = "gemma3:4b"  # "gemma3:4b" # "llava:7b" #
 model = OllamaLLM(model=model_name, temperature=0.8)  #  phi4-mini:3.8b
 
 chat_history = ""
@@ -28,7 +27,7 @@ while True:
     question = input("Ask your question (q to quit): ")
     if question == "q":
         break
-    if pic_name == "":  # pic_name = "cow.jpg"
+    if pic_name == "": # "cow.jpg":
         llm_with_image_context = model
     else:
         image_url = os.path.abspath(f"{images_path}/{pic_name}")
