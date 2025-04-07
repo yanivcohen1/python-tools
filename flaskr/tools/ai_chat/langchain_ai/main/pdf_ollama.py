@@ -7,8 +7,6 @@ model = OllamaLLM(model="deepseek-coder-v2:16b", temperature=0.8) # gemma3:4b ph
 pdf ="alice.pdf"
 
 template = """
-You are an exeprt in answering questions about a pizza restaurant
-
 Here are some relevant reviews: {reviews}
 
 Here is the question to answer: {question}
