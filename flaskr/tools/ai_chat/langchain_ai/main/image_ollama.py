@@ -39,10 +39,10 @@ while True:
             question = "What is in this picture?"  # answer in few sentences"
     # Set up the message with image and text prompt
     template = """
-    Here is the question to answer: {question}
+Here is the question to answer: {question}
 
-    Previous conversation: {chat_history}
-    """
+Previous conversation: {chat_history}
+"""
     prompt = ChatPromptTemplate.from_template(template)
     chain = prompt | llm_with_image_context
 
