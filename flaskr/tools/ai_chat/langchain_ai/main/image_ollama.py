@@ -20,7 +20,7 @@ def convert_to_base64(pil_image):
 chat_history = ""
 while True:
     print("\n\n-------------------------------")
-    pic_name = input("pic name (q to quit): ")
+    pic_name = input("enter pic name or empty for chat only (q to quit): ")
     if pic_name == "q":
         break
     question = input("Ask your question (q to quit): ")
