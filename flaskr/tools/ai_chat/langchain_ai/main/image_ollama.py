@@ -16,33 +16,37 @@ def convert_to_base64(pil_image):
 
 current_path = os.path.dirname(os.path.abspath(__file__))
 images_path = os.path.abspath(current_path + "/../content/images/")
-model_name = "gemma3:4b" # "gemma3:4b" # "llava:7b" #
-model = OllamaLLM(model=model_name, temperature=0.8) #  phi4-mini:3.8b
+model_name = "gemma3:4b"  # "gemma3:4b" # "llava:7b" #
+model = OllamaLLM(model=model_name, temperature=0.8)  #  phi4-mini:3.8b
 
 chat_history = ""
 while True:
     print("\n\n-------------------------------")
     pic_name = input("pic name (q to quit): ")
-    if pic_name == "": pic_name = "cow.jpg"
-    if pic_name == "q": break
+    if pic_name == "q":
+        break
     question = input("Ask your question (q to quit): ")
-    if question == "": question = "What is in this picture?"  # answer in few sentences"
-    if question == "q": break
-    print("\n")
-    image_url = os.path.abspath(f'{images_path}/{pic_name}')
-    pil_image = Image.open(image_url)
-    image_b64 = convert_to_base64(pil_image)
-    llm_with_image_context = model.bind(images=[image_b64])
+    if question == "q":
+        break
+    if pic_name == "":  # pic_name = "cow.jpg"
+        llm_with_image_context = model
+    else:
+        image_url = os.path.abspath(f"{images_path}/{pic_name}")
+        pil_image = Image.open(image_url)
+        image_b64 = convert_to_base64(pil_image)
+        llm_with_image_context = model.bind(images=[image_b64])
+        if question == "":
+            question = "What is in this picture?"  # answer in few sentences"
     # Set up the message with image and text prompt
-    messages = [
-        HumanMessage(
-            content=[
-                {"type": "text", "text": question},
-                {"type": "text", "text": "Previous conversation: " + chat_history}
-            ]
-        )
-    ]
-    for chunk in llm_with_image_context.stream(messages): # {"reviews": reviews, "question": question, "chat_history": chat_history}):
+    template = """
+    Here is the question to answer: {question}
+
+    Previous conversation: {chat_history}
+    """
+    prompt = ChatPromptTemplate.from_template(template)
+    chain = prompt | llm_with_image_context
+
+    for chunk in chain.stream({"question": question, "chat_history": chat_history}):
         if chunk is not None:
             msg = chunk
             # chat_history += msg
