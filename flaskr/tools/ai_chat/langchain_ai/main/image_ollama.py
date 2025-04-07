@@ -3,7 +3,7 @@ import base64
 from io import BytesIO
 from langchain_ollama.llms import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
-from langchain.schema.messages import HumanMessage, AIMessage, SystemMessage
+# from langchain.schema.messages import HumanMessage, AIMessage, SystemMessage
 from PIL import Image
 
 
@@ -37,7 +37,7 @@ while True:
         llm_with_image_context = model.bind(images=[image_b64])
         if question == "":
             question = "What is in this picture?"  # answer in few sentences"
-    # Set up the message with image and text prompt
+    print("")
     template = """
 Here is the question to answer: {question}
 
