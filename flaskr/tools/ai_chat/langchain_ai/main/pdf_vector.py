@@ -8,7 +8,7 @@ from langchain_chroma import Chroma
 from langchain_ollama.llms import OllamaLLM
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-folder_path = "./chrome_langchain_db"
+db_location = "./chrome_langchain_db"
 
 current_path = os.path.dirname(os.path.abspath(__file__))
 
@@ -24,6 +24,8 @@ text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=384, chunk_overlap=80, length_function=len, is_separator_regex=False
 )
 
+collection_name="restaurant_reviews"
+
 def ask_ai(query: str):
 
     print(f"query: {query}")
@@ -38,8 +40,10 @@ def ask_ai(query: str):
 
 def ask_PDF(file_name: str):
     collection_name = file_name.replace(".", "_")
+
     # Loading vector store
-    vector_store = Chroma(persist_directory=folder_path, embedding_function=embedding, collection_name=collection_name)
+    vector_store = Chroma(persist_directory=db_location,
+                          embedding_function=embedding, collection_name=collection_name)
 
     retriever = vector_store.as_retriever(
         search_kwargs={"k": 60} # 60 chanks is 10% of chanks, 8 pages of 80 pages
@@ -55,13 +59,23 @@ def pdf_to_vector(file_name: str):
     loader = PDFPlumberLoader(save_file)
     docs = loader.load_and_split()
     print(f"docs len={len(docs)}")
+    collection_name = file_name.replace(".", "_")
+
+    collections = get_collection_names()
+    collection_exist = True if collection_name in collections else False
+
+    if collection_exist:
+        print(f"collection {collection_name} already exist")
+        # del_collection(collection_name)
+        return False
 
     chunks = text_splitter.split_documents(docs)
     print(f"chunks len={len(chunks)}")
 
-    collection_name = file_name.replace(".", "_")
+    # save chunks(docs) to collection_name
     vector_store = Chroma.from_documents(
-        documents=chunks, embedding=embedding, persist_directory=folder_path, collection_name=collection_name
+        documents=chunks, embedding=embedding,
+        persist_directory=db_location, collection_name=collection_name
     )
 
     # vector_store.persist()
@@ -77,19 +91,19 @@ def pdf_to_vector(file_name: str):
 
 
 def get_collection_names():
-    vector_store = Chroma(persist_directory=folder_path) # , embedding_function=embedding
+    vector_store = Chroma(persist_directory=db_location) # , embedding_function=embedding
     collections = vector_store._client.list_collections()
     print(f"collections: {collections}")
     return collections
 
 def del_collection(collection_name: str):
-    vector_store = Chroma(persist_directory=folder_path) # , embedding_function=embedding
+    vector_store = Chroma(persist_directory=db_location) # , embedding_function=embedding
     vector_store._client.delete_collection(collection_name)
     print(f"deleted collection: {collection_name}")
     return True
 
 def get_chanks_len(collection_name: str):
-    vector_store = Chroma(persist_directory=folder_path, embedding_function=embedding, collection_name=collection_name)
+    vector_store = Chroma(persist_directory=db_location, embedding_function=embedding, collection_name=collection_name)
     collection = vector_store._client.get_collection(collection_name)
     all_ids = collection.get()
     num_docs = len(all_ids["ids"])

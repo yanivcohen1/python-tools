@@ -13,8 +13,19 @@ embeddings = OllamaEmbeddings(model="mxbai-embed-large:335m")
 
 db_location = "./chrome_langchain_db"
 add_documents = not os.path.exists(db_location)
+collection_name="restaurant_reviews"
 
-if add_documents:
+vector_store = Chroma(persist_directory=db_location)
+collections = vector_store._client.list_collections()
+collection_exist = True if collection_name in collections else False
+
+vector_store = Chroma(
+    collection_name=collection_name,
+    persist_directory=db_location,
+    embedding_function=embeddings
+)
+
+if not collection_exist:
     documents = []
     ids = []
 
@@ -27,13 +38,6 @@ if add_documents:
         ids.append(str(i))
         documents.append(document)
 
-vector_store = Chroma(
-    collection_name="restaurant_reviews",
-    persist_directory=db_location,
-    embedding_function=embeddings
-)
-
-if add_documents:
     vector_store.add_documents(documents=documents, ids=ids)
 
 retriever = vector_store.as_retriever(
