@@ -121,7 +121,7 @@ def get_chanks_len(collection_name: str):
 
 if __name__ == "__main__":
     # get_collection_names()
-    get_chanks_len("alices_adventures_in_wonderland_html") # 573
+    # get_chanks_len("alices_adventures_in_wonderland_html") # 573
     # del_collection("alices_adventures_in_wonderland_html")
     # txt_to_vector("alices_adventures_in_wonderland.html")
     get_collection_names()

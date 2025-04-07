@@ -24,12 +24,12 @@ while True:
     question = input("Ask your question (q to quit): ")
     if question == "":
         question = "who is Alice? answer in few sentences"
-    print("\n")
     if question == "q":
         break
 
     reviews = ask_PDF(pdf).invoke(question) # returtn 60 chanks is 10% of chanks, 8 pages of 80 pages
     # result = chain.invoke({"reviews": reviews, "question": question})
+    print("")
     for chunk in chain.stream({"reviews": reviews, "question": question, "chat_history": chat_history}):
         if chunk is not None:
             msg = chunk

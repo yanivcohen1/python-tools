@@ -45,8 +45,11 @@ def ask_PDF(file_name: str):
     vector_store = Chroma(persist_directory=db_location,
                           embedding_function=embedding, collection_name=collection_name)
 
+    chanks_len = get_chanks_len(collection_name)
+    chanks_seg = chanks_len//10+1
+    print(f"chanks_seg: {chanks_seg}")
     retriever = vector_store.as_retriever(
-        search_kwargs={"k": 60} # 60 chanks is 10% of chanks, 8 pages of 80 pages
+        search_kwargs={"k": chanks_seg} # 10% of chanks
     )
 
     return retriever
@@ -108,10 +111,11 @@ def get_chanks_len(collection_name: str):
     all_ids = collection.get()
     num_docs = len(all_ids["ids"])
     print(f"num_docs(chanks): {num_docs}")
+    return num_docs
 
 if __name__ == "__main__":
-    get_collection_names()
+    # get_collection_names()
     # get_chanks_len("alice_pdf") # 573
     # del_collection("alice_pdf")
     # pdf_to_vector("alice.pdf")
-    # get_collection_names()
+    get_collection_names()
