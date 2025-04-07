@@ -6,17 +6,16 @@ from langchain_core.prompts import ChatPromptTemplate
 # from langchain.schema.messages import HumanMessage, AIMessage, SystemMessage
 from PIL import Image
 
+model_name = "gemma3:4b" # "llava:7b"
+current_path = os.path.dirname(os.path.abspath(__file__))
+images_path = os.path.abspath(current_path + "/../content/images/")
+model = OllamaLLM(model=model_name, temperature=0.8)  #  phi4-mini:3.8b
 
 def convert_to_base64(pil_image):
     buffered = BytesIO()
     pil_image.save(buffered, format="JPEG")  # You can change the format if needed
     img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
     return img_str
-
-model_name = "gemma3:4b" # "llava:7b"
-current_path = os.path.dirname(os.path.abspath(__file__))
-images_path = os.path.abspath(current_path + "/../content/images/")
-model = OllamaLLM(model=model_name, temperature=0.8)  #  phi4-mini:3.8b
 
 chat_history = ""
 while True:
@@ -44,7 +43,6 @@ Previous conversation: {chat_history}
 """
     prompt = ChatPromptTemplate.from_template(template)
     chain = prompt | llm_with_image_context
-
     for chunk in chain.stream({"question": question, "chat_history": chat_history}):
         if chunk is not None:
             msg = chunk
