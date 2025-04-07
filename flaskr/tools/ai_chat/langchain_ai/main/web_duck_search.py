@@ -27,8 +27,10 @@ while True:
 
     # search the web using duckduckgo
     reviews = search.invoke(question)
+    print("web search:\n" + reviews + "\n")
+    print("AI answer (from web search data):")
     # result = chain.invoke({"reviews": reviews, "question": question})
-    print("")
+
     for chunk in chain.stream({"reviews": reviews, "question": question, "chat_history": chat_history}):
         if chunk is not None:
             msg = chunk
