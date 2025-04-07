@@ -60,8 +60,8 @@ def pdf_to_vector(file_name: str):
     print(f"filename: {file_name}")
 
     loader = PDFPlumberLoader(save_file)
-    docs = loader.load_and_split()
-    print(f"docs len={len(docs)}")
+    chunks = loader.load_and_split(text_splitter=text_splitter)
+    print(f"docs len={len(chunks)}")
     collection_name = file_name.replace(".", "_")
 
     collections = get_collection_names()
@@ -69,11 +69,11 @@ def pdf_to_vector(file_name: str):
 
     if collection_exist:
         print(f"collection {collection_name} already exist")
-        # del_collection(collection_name)
-        return False
+        del_collection(collection_name)
+        # return False
 
-    chunks = text_splitter.split_documents(docs)
-    print(f"chunks len={len(chunks)}")
+    # chunks = text_splitter.split_documents(docs)
+    # print(f"chunks len={len(chunks)}")
 
     # save chunks(docs) to collection_name
     vector_store = Chroma.from_documents(
@@ -86,7 +86,6 @@ def pdf_to_vector(file_name: str):
     response = {
         "status": "Successfully Uploaded",
         "filename": file_name,
-        "doc_len": len(docs),
         "chunks": len(chunks),
     }
     print(f"response: {response}")
@@ -117,5 +116,5 @@ if __name__ == "__main__":
     # get_collection_names()
     # get_chanks_len("alice_pdf") # 573
     # del_collection("alice_pdf")
-    # pdf_to_vector("alice.pdf")
+    pdf_to_vector("alice.pdf")
     get_collection_names()

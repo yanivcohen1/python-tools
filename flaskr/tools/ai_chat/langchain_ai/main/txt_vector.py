@@ -60,19 +60,15 @@ def txt_to_vector(file_name: str):
     print(f"filename: {file_name}")
 
     loader = TextLoader(save_file, encoding='utf-8')
-    docs = loader.load_and_split()
-    print(f"docs len={len(docs)}")
+    chunks = loader.load_and_split(text_splitter=text_splitter)
     collection_name = file_name.replace(".", "_")
 
     collections = get_collection_names()
-    collection_exist = True if collection_name in collections else False
-
-    if collection_exist:
+    if collection_name in collections:
         print(f"collection {collection_name} already exist")
         del_collection(collection_name)
         # return False
 
-    chunks = text_splitter.split_documents(docs)
     print(f"chunks len={len(chunks)}")
 
     ids = []
@@ -93,7 +89,6 @@ def txt_to_vector(file_name: str):
     response = {
         "status": "Successfully Uploaded",
         "filename": file_name,
-        "doc_len": len(docs),
         "chunks": len(chunks),
     }
     print(f"response: {response}")
