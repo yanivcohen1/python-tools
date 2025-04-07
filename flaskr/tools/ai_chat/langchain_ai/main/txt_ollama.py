@@ -4,7 +4,7 @@ from txt_vector import ask_txt
 
 model = OllamaLLM(model="deepseek-coder-v2:16b", temperature=0.8) # gemma3:4b phi4-mini:3.8b
 
-pdf ="alices_adventures_in_wonderland.html"
+txt ="alices_adventures_in_wonderland.html"
 
 template = """
 You are an exeprt in answering questions about a pizza restaurant
@@ -28,7 +28,7 @@ while True:
     if question == "q":
         break
 
-    reviews = ask_txt(pdf).invoke(question) # returtn 60 chanks is 10% of chanks, 8 pages of 80 pages
+    reviews = ask_txt(txt).invoke(question) # returtn 60 chanks is 10% of chanks, 8 pages of 80 pages
     # result = chain.invoke({"reviews": reviews, "question": question})
     for chunk in chain.stream({"reviews": reviews, "question": question, "chat_history": chat_history}):
         if chunk is not None:
