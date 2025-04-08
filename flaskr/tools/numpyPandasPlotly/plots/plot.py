@@ -74,6 +74,8 @@ plt.ylabel('Wave function')
 plt.axvline(2, color="k", ls="--", label="start")
 plt.axvline(4, color="k", ls="-.", label="end")
 plt.text(2, 0.5, 'start limit', ha='left', va='bottom', color="green")
+plt.annotate(f'P={2.0:.2f}', xy=(2, 0.2), xytext=(0, 10), # xytext is the text offset point [2, (0.2 + 10)]
+                textcoords='offset points', ha='center', color='red')
 plt.title('plot for numpy data')
 plt.legend()
 plt.grid(True)
