@@ -56,7 +56,7 @@ for i in range(2):
         if y2 - y1 == 0:
             continue
 
-        # Linear interpolation formula (x_zero - x1) / (0 - y1) = (x2 - x1) / (y2 - y1)
+        # Linear interpolation formula (x_zero - x1) / (0 - y1) = (x2 - x1) / (y2 - y1) = שיפוע הישר
         x_zero = x1 + (0 - y1) * (x2 - x1) / (y2 - y1)
         x_crossings.append(x_zero)
 
