@@ -70,18 +70,12 @@ def pdf_to_vector(file_name: str):
     if collection_exist:
         print(f"collection {collection_name} already exist")
         del_collection(collection_name)
-        # return False
-
-    # chunks = text_splitter.split_documents(docs)
-    # print(f"chunks len={len(chunks)}")
 
     # save chunks(docs) to collection_name
     vector_store = Chroma.from_documents(
         documents=chunks, embedding=embedding,
         persist_directory=db_location, collection_name=collection_name
     )
-
-    # vector_store.persist()
 
     response = {
         "status": "Successfully Uploaded",
