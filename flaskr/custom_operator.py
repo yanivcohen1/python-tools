@@ -6,7 +6,7 @@ overloading = [
     {'Operator': '*', 'Method': '__mul__', 'Example': 'a * b'},
     {'Operator': '/', 'Method': '__truediv__', 'Example': 'a / b'},
     {'Operator': '//', 'Method': '__floordiv__', 'Example': 'a // b'},
-    {'Operator': '%', 'Method': '__mod__', 'Example': 'a % b'},
+    {'Operator': '%', 'Method': '__mod__', 'Example': r'a % b'},
     {'Operator': '**', 'Method': '__pow__', 'Example': 'a ** b'},
 
     # Reverse Arithmetic
@@ -15,7 +15,7 @@ overloading = [
     {'Operator': 'r*', 'Method': '__rmul__', 'Example': 'b * a'},
     {'Operator': 'r/', 'Method': '__rtruediv__', 'Example': 'b / a'},
     {'Operator': 'r//', 'Method': '__rfloordiv__', 'Example': 'b // a'},
-    {'Operator': 'r%', 'Method': '__rmod__', 'Example': 'b % a'},
+    {'Operator': 'r%', 'Method': '__rmod__', 'Example': r'b % a'},
     {'Operator': 'r**', 'Method': '__rpow__', 'Example': 'b ** a'},
 
     # Bitwise
