@@ -3,10 +3,10 @@ import ollama
 import chromadb
 
 # --- Configuration ---
-OLLAMA_EMBED_MODEL = "nomic-embed-text" # mxbai-embed-large:335m
+OLLAMA_EMBED_MODEL = "bge-m3" # mxbai-embed-large:335m
 OLLAMA_LLM = "deepseek-coder-v2:16b" # "llama3"  # Or mistral, phi3, etc. (make sure it's pulled)
 CHROMA_PATH = "./chrome_langchain_db" # "./chroma_db" # Directory to store Chroma data
-COLLECTION_NAME = "big_data_docs"
+COLLECTION_NAME = "big_data_docs_bge"
 TOP_K_RESULTS = 3 # How many relevant chunks to retrieve
 
 # --- Sample Big Data Documents (Replace with your actual data loading) ---

@@ -14,14 +14,14 @@ current_path = os.path.dirname(os.path.abspath(__file__))
 
 docs_path = current_path + "/../content/docs/"
 
-cached_llm = OllamaLLM(model="mxbai-embed-large:335m")
+cached_llm = OllamaLLM(model="bge-m3") # mxbai-embed-large:335m
 
 embedding = FastEmbedEmbeddings()
 
 collection_name = "alice_pdf"
 
 text_splitter = RecursiveCharacterTextSplitter( # 80 characters overlap between chunks (for not cut sentences)
-    chunk_size=384, chunk_overlap=80, length_function=len, is_separator_regex=False
+    chunk_size=1024, chunk_overlap=80, length_function=len, is_separator_regex=False
 )
 
 collection_name="restaurant_reviews"
@@ -110,5 +110,5 @@ if __name__ == "__main__":
     # get_collection_names()
     # get_chanks_len("alice_pdf") # 573
     # del_collection("alice_pdf")
-    pdf_to_vector("alice.pdf")
+    # pdf_to_vector("alice.pdf")
     get_collection_names()
