@@ -20,7 +20,7 @@ embedding = FastEmbedEmbeddings()
 
 collection_name = "alice_pdf"
 
-text_splitter = RecursiveCharacterTextSplitter(
+text_splitter = RecursiveCharacterTextSplitter( # 80 characters overlap between chunks
     chunk_size=384, chunk_overlap=80, length_function=len, is_separator_regex=False
 )
 
