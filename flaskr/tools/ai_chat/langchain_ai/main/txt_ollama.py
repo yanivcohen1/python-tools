@@ -25,7 +25,7 @@ while True:
     if question == "q":
         break
 
-    # for attation and nlp for search
+    # for attation and nlp for search (not just similarity search)
     reviews = ask_txt(txt).invoke(question) # returtn 60 chanks is 10% of chanks, 8 pages of 80 pages
     # result = chain.invoke({"reviews": reviews, "question": question})
     print("")
