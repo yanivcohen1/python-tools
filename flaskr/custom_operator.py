@@ -79,5 +79,7 @@ class MyData:
 if __name__ == '__main__':
     data1 = MyData(5)
     data2 = MyData(10)
-    result = data1 | data2
+    data3 = MyData(15)
+    result = data1 | data2 | data3  # This will use the overloaded __or__ method
+    # result = data1.__or__(data2).__or__(data3)  # Equivalent to the above line
     print(result)  # Output: MyData is 15
