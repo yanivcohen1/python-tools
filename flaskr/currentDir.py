@@ -7,6 +7,7 @@ print('current file name:', os.path.basename(__file__)) # currentDir.py
 reletive_file_path = "/../dst/target_2.txt"
 full_file_path = currentDir + reletive_file_path
 print('full file path:    ',os.path.normpath(full_file_path))
+# full file path:     c:\Users\yaniv\OneDrive\python-flask\dst\target_2.txt
 
 # for parent dir
 target_path_2 = os.path.join(currentDir, '../dst/target_2.txt')
