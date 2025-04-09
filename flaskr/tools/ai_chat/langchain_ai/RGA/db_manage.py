@@ -45,11 +45,21 @@ def get_chanks_len(collection_name: str):
     print(f"single chank(doc) size: {doc_size}")
     print(f"number of docs(chanks): {num_docs}")
 
+def is_collection_exist(collection_name: str) -> bool:
+    vector_store = Chroma(persist_directory=folder_path)
+    try:
+        collection = vector_store._client.get_collection(collection_name)
+        print(f"Collection '{collection_name}' found.")
+        return True
+    except Exception as e:
+        print(f"Collection '{collection_name}' not found.")
+        return False
 if __name__ == "__main__":
-    get_collection_names()
-    get_chanks_len("alice_pdf") # 573 * 386
+    is_collection_exist("alice_pdf")
+    # get_collection_names()
+    # get_chanks_len("alice_pdf") # 573 * 386
     # get_chanks_len("pdf") # 205 * 1024
     # get_chanks_len("restaurant_reviews") # 123 * 386
-    # del_collection("alice_pdf")
+    # del_collection("big_data_docs_bge_m3_1")
     # pdf_to_vector("alice.pdf")
     # get_collection_names()

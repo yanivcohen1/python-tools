@@ -1,5 +1,3 @@
-import ollama
-import chromadb
 import os
 from langchain_chroma import Chroma
 from langchain_ollama.llms import OllamaLLM
@@ -15,7 +13,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 OLLAMA_EMBED_MODEL = "bge-m3"
 OLLAMA_LLM = "deepseek-coder-v2:16b"
 CHROMA_PATH = "./chrome_langchain_db" # Use a different path for clarity
-COLLECTION_NAME = "big_data_docs_bge_m3" # Name of the collection in Chroma
+COLLECTION_NAME = "big_data_docs_bge_m3_2" # Name of the collection in Chroma
 TOP_K_RESULTS = 3 # How many relevant chunks to retrieve
 
 # --- Sample Big Data Documents (Source Data) ---
@@ -56,12 +54,19 @@ embeddings = OllamaEmbeddings(model=OLLAMA_EMBED_MODEL)
 # --- Setup Chroma Vector Store ---
 print(f"--- Setting up Chroma Vector Store (Collection: {COLLECTION_NAME}) ---")
 # Check if the database directory exists to decide whether to load or create
-if os.path.exists(CHROMA_PATH):
+vector_store = Chroma(persist_directory=CHROMA_PATH)
+try:
+    collection = vector_store._client.get_collection(COLLECTION_NAME)
+    exist_collection = True
+except Exception as e:
+    exist_collection = False
+
+if exist_collection:
     print(f"Loading existing Chroma database from: {CHROMA_PATH}")
     vectorstore = Chroma(
-        persist_directory=CHROMA_PATH,
-        embedding_function=embeddings,
-        collection_name=COLLECTION_NAME
+      persist_directory=CHROMA_PATH,
+      embedding_function=embeddings,
+      collection_name=COLLECTION_NAME
     )
     # Optional: Add new chunks if needed (more complex logic required to check for existing content)
     # current_doc_count = vectorstore._collection.count() # Access Chroma client directly if needed
