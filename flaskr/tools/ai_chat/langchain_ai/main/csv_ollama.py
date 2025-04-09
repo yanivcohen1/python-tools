@@ -26,6 +26,7 @@ while True:
     if question == "q":
         break
 
+    # for attation and nlp for search
     reviews = retriever.invoke(question) # return 5 reviews
     # result = chain.invoke({"reviews": reviews, "question": question})
     for chunk in chain.stream({"reviews": reviews, "question": question, "chat_history": chat_history}):
