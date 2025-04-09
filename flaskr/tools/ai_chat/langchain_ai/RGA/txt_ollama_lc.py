@@ -13,7 +13,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 OLLAMA_EMBED_MODEL = "bge-m3"
 OLLAMA_LLM = "deepseek-coder-v2:16b"
 CHROMA_PATH = "./chrome_langchain_db" # Use a different path for clarity
-COLLECTION_NAME = "big_data_docs_bge_m3_2" # Name of the collection in Chroma
+COLLECTION_NAME = "big_data_docs_bge_m3" # Name of the collection in Chroma
 TOP_K_RESULTS = 3 # How many relevant chunks to retrieve
 
 # --- Sample Big Data Documents (Source Data) ---
