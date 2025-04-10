@@ -1,12 +1,12 @@
 import base64
 import os
-from io import BytesIO
-from PIL import Image
 import httpx
 from langchain_core.messages import HumanMessage
 # Import the updated Ollama model from the new package
 from langchain_ollama.llms import OllamaLLM
 from langchain_openai import ChatOpenAI
+from typing import Literal
+from langchain_core.tools import tool
 
 current_path = os.path.dirname(os.path.abspath(__file__))
 images_path = os.path.abspath(current_path + "/../content/images/")
@@ -19,6 +19,14 @@ model = ChatOpenAI(
         # stream_usage=True,
         # callback_manager=callback_manager
 )
+
+@tool
+def weather_tool(weather: Literal["sunny", "cloudy", "rainy"]) -> None:
+    """Describe the weather"""
+    pass
+
+
+model_with_tools = model.bind_tools([weather_tool])
 
 def convert_to_base64(image_path: str) -> str:
     """
@@ -49,5 +57,10 @@ message_url = HumanMessage(
     ],
 )
 
+# response = model_with_tools.invoke([message_embed])
 response = model.invoke([message_embed])
 print(response.content)
+
+# print("calling tool: weather_tool")
+# print(response.tool_calls)
+# [{'name': 'weather_tool', 'args': {'weather': 'sunny'}, 'id': 'call_BSX4oq4SKnLlp2WlzDhToHBr'}]
