@@ -11,11 +11,20 @@ current_path = os.path.dirname(os.path.abspath(__file__))
 images_path = os.path.abspath(current_path + "/../content/images/")
 model = OllamaLLM(model=model_name, temperature=0.8)  #  phi4-mini:3.8b
 
-def convert_to_base64(pil_image):
-    buffered = BytesIO()
-    pil_image.save(buffered, format="JPEG")  # You can change the format if needed
-    img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
-    return img_str
+# def convert_to_base64(image_url):
+#     pil_image = Image.open(image_url)
+#     buffered = BytesIO()
+#     pil_image.save(buffered, format="JPEG")  # You can change the format if needed
+#     img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
+#     return img_str
+
+def convert_to_base64(image_path: str) -> str:
+    """
+    Opens an image file and converts it to a base64-encoded string.
+    """
+    with open(image_path, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read()).decode("utf-8")
+    return encoded_string
 
 chat_history = ""
 while True:
@@ -30,9 +39,9 @@ while True:
         llm_with_image_context = model
     else:
         image_url = os.path.abspath(f"{images_path}/{pic_name}")
-        pil_image = Image.open(image_url)
-        image_b64 = convert_to_base64(pil_image)
-        llm_with_image_context = model.bind(images=[image_b64])
+        image_b64 = convert_to_base64(image_url)
+        # can use multiple images
+        llm_with_image_context = model.bind(images=[image_b64]) # can use multiple images
         if question == "":
             question = "What is in this picture?"  # answer in few sentences"
     print("")
