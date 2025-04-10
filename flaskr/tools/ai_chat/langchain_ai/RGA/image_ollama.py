@@ -11,8 +11,8 @@ current_path = os.path.dirname(os.path.abspath(__file__))
 images_path = os.path.abspath(current_path + "/../content/images/")
 model = OllamaLLM(model=model_name, temperature=0.8)  #  phi4-mini:3.8b
 
-# def convert_to_base64(image_url):
-#     pil_image = Image.open(image_url)
+# def convert_to_base64(image_path: str) -> str:
+#     pil_image = Image.open(image_path)
 #     buffered = BytesIO()
 #     pil_image.save(buffered, format="JPEG")  # You can change the format if needed
 #     img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
