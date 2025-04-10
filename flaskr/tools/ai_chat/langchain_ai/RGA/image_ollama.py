@@ -39,9 +39,9 @@ while True:
         llm_with_image_context = model
     else:
         image_url = os.path.abspath(f"{images_path}/{pic_name}")
-        image_b64 = convert_to_base64(image_url)
+        image_b64_pic1 = convert_to_base64(image_url)
         # can use multiple images
-        llm_with_image_context = model.bind(images=[image_b64]) # can use multiple images
+        llm_with_image_context = model.bind(images=[image_b64_pic1])
         if question == "":
             question = "What is in this picture?"  # answer in few sentences"
     print("")
