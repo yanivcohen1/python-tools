@@ -49,7 +49,7 @@ def ask_PDF(file_name: str):
     chanks_seg = chanks_len//10+1
     print(f"chanks_seg: {chanks_seg}")
     retriever = vector_store.as_retriever(
-        search_kwargs={"k": chanks_seg} # 10% of chanks
+        search_kwargs={"k": 20} # 10% of chanks
     )
 
     return retriever

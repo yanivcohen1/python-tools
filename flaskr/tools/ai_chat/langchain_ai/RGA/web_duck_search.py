@@ -21,7 +21,7 @@ while True:
     print("\n\n-------------------------------")
     question = input("Ask your question (q to quit): ")
     if question == "":
-        question = "Obama's first name? answer in one sentences"
+        question = "what is former president Obama's first name" # "Obama's first name? answer in one sentences"
     if question == "q":
         break
 
