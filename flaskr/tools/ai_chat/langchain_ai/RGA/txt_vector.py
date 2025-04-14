@@ -8,6 +8,7 @@ from langchain_chroma import Chroma
 from langchain_ollama.llms import OllamaLLM
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
+from fastembed import TextEmbedding
 
 db_location = "./chrome_langchain_db"
 
