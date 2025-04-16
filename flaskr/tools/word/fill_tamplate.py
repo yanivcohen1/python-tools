@@ -21,6 +21,7 @@ todos_df = pd.DataFrame(
         "notes": ["", "", "Also MySQL", "Compare alternatives"],
     }
 )
+
 current_path = os.path.dirname(os.path.abspath(__file__))
 doc = DocxTemplate(current_path+"\\template.docx")
 Logo = InlineImage(doc, current_path+"\\image.png", width=Mm(30))
@@ -29,6 +30,8 @@ context = {
     "project_deadline": "01-04-2025",
     "person_in_charge": "Mike Smith",
     "dedicated_budget": "$5,000",
+    # convert dataframe to list of dicts array
+    # records = [{'title': 'Buy Domain', 'description': 'Buy domain for company', 'notes': ''}, ...]
     "todos": todos_df.to_dict(orient="records"),
     "logo": Logo,
 }
