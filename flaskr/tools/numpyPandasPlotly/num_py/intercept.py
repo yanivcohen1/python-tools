@@ -12,6 +12,15 @@ region = (X**2 + Y**2 < 1) & (Y > X)
 # Convert boolean to integer (1 for True, 0 for False)
 region_int = region.astype(int)
 
+plt.figure(figsize=(6, 6))
+plt.contour(X, Y, region_int, colors=["blue"])
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title("Region: $x^2 + y^2 < 1$ and $y > x$")
+plt.axis("equal")
+plt.grid(True)
+plt.show()
+
 # Automatically calculate contour levels based on region_int data
 min_val = region_int.min()   # will be 0
 max_val = region_int.max()   # will be 1
@@ -37,10 +46,4 @@ plt.axis("equal")
 plt.grid(True)
 plt.show()
 
-plt.contour(X, Y, region_int, colors=["blue"])
-plt.xlabel("x")
-plt.ylabel("y")
-plt.title("Region: $x^2 + y^2 < 1$ and $y > x$")
-plt.axis("equal")
-plt.grid(True)
-plt.show()
+
