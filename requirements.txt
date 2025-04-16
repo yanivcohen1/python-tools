@@ -56,6 +56,9 @@ dill==0.3.9
 distro==1.9.0
 dnspython==2.7.0
 docutils==0.21.2
+docxcompose==1.4.0
+docxtpl==0.19.1
+duckduckgo_search==2025.4.4
 durationpy==0.9
 elasticsearch==2.4.1
 elasticsearch-dsl==2.2.0
@@ -82,7 +85,7 @@ Flask-SocketIO==5.5.1
 Flask-SQLAlchemy==3.1.1
 flask-swagger-ui==4.11.1
 Flask-WTF==1.2.2
--e git+https://testsmanager.com:6443/yaniv/python-flask.git@62c157a8e649720890ed1d875ea65208b8e9591f#egg=flaskr
+-e git+https://testsmanager.com:6443/yaniv/python-flask.git@9413d897e908c6105f2bad87987ed9e3055585a6#egg=flaskr
 flatbuffers==25.2.10
 flexcache==0.3
 flexparser==0.4
@@ -248,6 +251,7 @@ platformdirs==2.6.2
 plotly==5.24.0
 pluggy==1.5.0
 posthog==3.23.0
+primp==0.14.0
 prometheus_client==0.21.1
 prompt_toolkit==3.0.50
 propcache==0.2.1
@@ -298,6 +302,7 @@ pyshark==0.6
 PySocks==1.7.1
 pytest==8.3.4
 python-dateutil==2.9.0.post0
+python-docx==1.1.2
 python-dotenv==1.0.1
 python-engineio==4.11.2
 python-json-logger==3.2.1
