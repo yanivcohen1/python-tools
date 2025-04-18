@@ -24,11 +24,7 @@ contex_df = pd.DataFrame(
             "Banana",
             "Cherry",
         ],
-        "qty": [
-            10,
-            20,
-            15,
-        ],
+        "qty": [10, 20, 15],
         "price": [0.5, 0.2, 1.0,],
     }
 )
