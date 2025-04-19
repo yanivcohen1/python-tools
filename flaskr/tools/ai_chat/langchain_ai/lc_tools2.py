@@ -45,10 +45,12 @@ llm_with_tools = llm.bind_tools(tools)
 agent = create_react_agent(llm_with_tools, tools)
 
 # 5. Invoke the agent
-response = agent.invoke({
+for chunk in agent.stream({
     "messages": [("user", "What's the weather in Cairo and what's 42 divided by 7?")]
-})
+}, stream_mode="messages"):
+    if chunk[0].content:
+        print(chunk[1]["langgraph_node"],':', chunk[0].content, end="\n")
 
 # 6. Print out the step‑by‑step reasoning and final answer
-for msg in response["messages"]:
-    print(msg.content)
+#for msg in response["messages"]:
+#    print(msg.content)
