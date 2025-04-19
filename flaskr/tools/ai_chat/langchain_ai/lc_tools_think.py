@@ -81,7 +81,7 @@ agent = create_react_agent(llm=llm, tools=tools, prompt=prompt)
 agent_executor = AgentExecutor(
     agent=agent,
     tools=tools,
-    verbose=True, # Set to True to see the agent's thought process
+    # verbose=True, # Set to True to see the agent's thought process
     # handle_parsing_errors=True # Helps if the LLM output isn't perfectly formatted
 )
 # 5. Invoke the agent
@@ -93,8 +93,8 @@ while True:
                 if chank['messages'][0].content == 'Agent stopped due to iteration limit or time limit':
                     continue
                 print(chank['messages'][0].content, end="\n")
-            if 'output' in chank:
-                print(chank['output'], end="\n")
+            # elif 'output' in chank:
+            #     print(chank['output'], end="\n")
     except Exception as e:
         continue
     break
