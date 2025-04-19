@@ -48,7 +48,7 @@ while True:
     print("\n-------------------------------")
     try:
         response = agent.invoke("what is a cat and What is the weather in Cairo and what's 42 divided by 7 and what is a dog?")
-        print(response)
+        print(response['output'])
     except Exception as e:
         continue
     break
