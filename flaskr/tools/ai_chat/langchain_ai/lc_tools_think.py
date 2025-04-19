@@ -39,11 +39,6 @@ tools = [
         func=calculator,
         description="Useful for math operations. Input should be a valid Python math expression."
     ),
-    # Tool(
-    #     name="WeatherInfo",
-    #     func=weather_tool,
-    #     description="Gives current weather for a city in Celsius. Input should be a city name."
-    # ),
     Tool(
         name="WeatherInfoJSON",
         func=weather_tool_input_parser,
