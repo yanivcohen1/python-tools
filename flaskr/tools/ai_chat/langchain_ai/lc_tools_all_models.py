@@ -63,7 +63,7 @@ while True:
     print("\n-------------------------------")
     try:
         # response = agent.invoke("what is a cat and What is the weather in Cairo use WeatherInfo and what's 42 divided by 7 use Calculator?")
-        response = agent.invoke("what is a cat and What is the weather in Cairo in Celsius and convert it to Fahrenheit?") # what's 42 divided by 7
+        response = agent.invoke("what is a Pencil and What is the weather in Cairo in Celsius and convert it to Fahrenheit?") # what's 42 divided by 7
         print(response['output'])
     except Exception as e:
         continue

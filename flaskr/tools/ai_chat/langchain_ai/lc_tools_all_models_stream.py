@@ -67,7 +67,7 @@ while True:
     print("\n-------------------------------")
     try:
         for chunk in agent.stream(
-            "what is a cat and What is the weather in Cairo and convert it to Fahrenheit?"
+            "what is a Pencil and What is the weather in Cairo and convert it to Fahrenheit?"
         ):
             if chunk["messages"]:
                 print(chunk["messages"][0].content, end="\n\n")

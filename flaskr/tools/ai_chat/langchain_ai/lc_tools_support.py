@@ -55,7 +55,7 @@ agent = create_react_agent(llm_with_tools, tools)
 
 # 5. Invoke the agent
 for chunk in agent.stream({
-    "messages": [("user", "what is a cat and What is the weather in Cairo in Celsius and convert it to Fahrenheit?")]
+    "messages": [("user", "what is a Pencil and What is the weather in Cairo in Celsius and convert it to Fahrenheit?")]
 }, stream_mode="messages"):
     if chunk[0].content:
         print(chunk[1]["langgraph_node"],':', chunk[0].content, end="\n")

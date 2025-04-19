@@ -78,7 +78,7 @@ for chunk in agent.stream(
               "Then at the end print:\n"
               "  Final Answer: …"
             ),
-            ("user", "what is a cat and What is the weather in Cairo in Celsius and convert it to Fahrenheit?")
+            ("user", "what is a Pencil and What is the weather in Cairo in Celsius and convert it to Fahrenheit?")
         ]
     },
     stream_mode="messages"   # only get the LLM’s token stream
