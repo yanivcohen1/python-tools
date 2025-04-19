@@ -6,12 +6,12 @@ from langchain_ollama.llms import OllamaLLM
 llm = OllamaLLM(model="deepseek-coder-v2:16b")  # mistral you can also use "llama2", "gemma", etc.
 
 # 2. Define tools the agent can use
-def simple_calculator(query: str) -> str:
+def simple_calculator(expr: str) -> str:
     try:
-        result = eval(query)
+        result = eval(expr)
         return str(result)
     except Exception as e:
-        return f"Error: {e}"
+        return f"Error: {e}, expr: {expr}"
 
 def weather_tool(city: str) -> str:
     fake_data = {

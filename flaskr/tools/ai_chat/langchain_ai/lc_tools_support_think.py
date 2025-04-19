@@ -20,7 +20,7 @@ def calculator(expr: str) -> str:
     try:
         return str(eval(expr))
     except Exception as e:
-        return f"Error: {e}"
+        return f"Error: {e}, expr: {expr}"
 
 def weather(city: str) -> str:
     data = {"cairo": "28°C, sunny", "london": "10°C, rainy", "new york": "15°C, cloudy"}
@@ -66,7 +66,7 @@ for chunk in agent.stream(
               "Then at the end print:\n"
               "  Final Answer: …"
             ),
-            ("user", "what is a cat and What's the weather in Cairo city and what's 42 divided by 7 and what is a dog?")
+            ("user", "what is a cat and What is the weather in Cairo and convert it to Fahrenheit?")
         ]
     },
     stream_mode="messages"   # only get the LLM’s token stream

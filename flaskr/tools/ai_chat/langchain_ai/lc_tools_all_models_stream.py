@@ -9,12 +9,12 @@ llm = OllamaLLM(
 
 
 # 2. Define tools the agent can use
-def simple_calculator(query: str) -> str:
+def simple_calculator(expr: str) -> str:
     try:
-        result = eval(query)
+        result = eval(expr)
         return str(result)
     except Exception as e:
-        return f"Error: {e}"
+        return f"Error: {e}, expr: {expr}"
 
 
 def weather_tool(city: str) -> str:

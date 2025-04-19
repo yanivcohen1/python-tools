@@ -13,7 +13,7 @@ def calculator(expr: str) -> str:
     try:
         return str(eval(expr))
     except Exception as e:
-        return f"Calculation error: {e}"
+        return f"Calculation Error: {e}, expr: {expr}"
 
 def weather(city: str) -> str:
     """Return fake weather info for demo purposes."""
@@ -46,7 +46,7 @@ agent = create_react_agent(llm_with_tools, tools)
 
 # 5. Invoke the agent
 for chunk in agent.stream({
-    "messages": [("user", "what is a cat and What's the weather in Cairo and what's 42 divided by 7 and what is a dog?")]
+    "messages": [("user", "what is a cat and What is the weather in Cairo and convert it to Fahrenheit?")]
 }, stream_mode="messages"):
     if chunk[0].content:
         print(chunk[1]["langgraph_node"],':', chunk[0].content, end="\n")
