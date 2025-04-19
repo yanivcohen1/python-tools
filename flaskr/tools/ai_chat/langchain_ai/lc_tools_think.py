@@ -16,13 +16,7 @@ def calculator(expr: str) -> str:
     except Exception as e:
         return f"Calculation Error: {e}, expr: {expr}"
 
-def weather_tool(raw_input: str) -> str:
-    # Basic parsing from raw input like "Paris in Celsius" or "Tokyo in Fahrenheit"
-    parts = raw_input.strip().split(" in ")
-    if len(parts) == 2:
-        city, format = parts[0], parts[1].capitalize()
-    else:
-        city, format = raw_input.strip(), "Celsius"  # Default to Celsius
+def weather_tool(city: str, format: str = "Celsius") -> str:
     fake_data = {
         "new york": "15°C, cloudy",
         "london": "10°C, rainy",
@@ -30,16 +24,30 @@ def weather_tool(raw_input: str) -> str:
     }
     return fake_data.get(city.lower(), "Weather data not available.")
 
+def weather_tool_input_parser(json_str: str) -> str:
+    try:
+        data = json.loads(json_str)
+        city = data.get("city")
+        format = data.get("format", "Celsius")
+        return weather_tool(city, format)
+    except Exception as e:
+        return f"Invalid input format. Please provide JSON like {{'city': 'Paris', 'format': 'Fahrenheit'}}. Error: {e}, json is {json_str}"
+
 tools = [
     Tool(
         name="Calculator",
         func=calculator,
         description="Useful for math operations. Input should be a valid Python math expression."
     ),
+    # Tool(
+    #     name="WeatherInfo",
+    #     func=weather_tool,
+    #     description="Gives current weather for a city in Celsius. Input should be a city name."
+    # ),
     Tool(
-        name="WeatherInfo",
-        func=weather_tool,
-        description="Provides current weather info. Input should be like 'Paris in Celsius' or 'New York in Fahrenheit'"
+        name="WeatherInfoJSON",
+        func=weather_tool_input_parser,
+        description="Gives current weather for a city. Input should be a JSON string with 'city' and optional 'format' (Celsius or Fahrenheit)."
     )
 ]
 
@@ -82,8 +90,11 @@ agent_executor = AgentExecutor(
     handle_parsing_errors=True # Helps if the LLM output isn't perfectly formatted
 )
 # 5. Invoke the agent
-response = agent_executor.invoke({"input": "what is a Pencil and What is the weather in Cairo in Celsius and convert it to Fahrenheit?"})
-print(response['output'], end="\n")
+for chank in agent_executor.stream({"input": "what is a Pencil and What is the weather in Cairo in Celsius and convert it to Fahrenheit?"}):
+    if 'messages' in chank:
+        print(chank['messages'][0].content, end="\n")
+    if 'output' in chank:
+        print(chank['output'], end="\n")
 
 # 6. Print out the step‑by‑step reasoning and final answer
 #for msg in response["messages"]:
