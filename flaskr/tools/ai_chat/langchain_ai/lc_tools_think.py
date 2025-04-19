@@ -90,6 +90,8 @@ while True:
     try:
         for chank in agent_executor.stream({"input": "what is a Pencil and What is the weather in Cairo in Celsius and convert it to Fahrenheit?"}):
             if 'messages' in chank:
+                if chank['messages'][0].content == 'Agent stopped due to iteration limit or time limit':
+                    continue
                 print(chank['messages'][0].content, end="\n")
             if 'output' in chank:
                 print(chank['output'], end="\n")
