@@ -27,8 +27,16 @@ def weather(city: str) -> str:
     return data.get(city.lower(), "Weather data unavailable")
 
 tools = [
-    Tool(name="Weather", func=weather, description="Get weather for a city."),
-    Tool(name="Calculator", func=calculator, description="Eval a Python math expression."),
+    Tool(
+        name="Calculator",
+        func=calculator,
+        description="Useful for math operations. Input should be a valid Python expression."
+    ),
+    Tool(
+        name="Weather",
+        func=weather,
+        description="Gives current weather for a city; input should be the city name."
+    ),
 ]
 
 # 4) Ollama LLM with streaming + our token‑printer
@@ -58,7 +66,7 @@ for chunk in agent.stream(
               "Then at the end print:\n"
               "  Final Answer: …"
             ),
-            ("user", "what is a cat and What's the weather in Cairo and what's 42 divided by 7 and what is a dog?")
+            ("user", "what is a cat and What's the weather in Cairo city and what's 42 divided by 7 and what is a dog?")
         ]
     },
     stream_mode="messages"   # only get the LLM’s token stream
