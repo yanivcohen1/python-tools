@@ -50,13 +50,13 @@ for chunk in agent.stream(
     {
         "messages": [
             ("system",
-             "You are a ReAct agent. Always think step-by-step and emit lines prefixed with:\n"
-             "  Thought: …\n"
-             "  Action: …\n"
-             "  Action Input: …\n"
-             "  Observation: …\n"
-             "Then at the end print:\n"
-             "  Final Answer: …"
+              "You are a ReAct agent. Always think step-by-step and emit lines prefixed with:\n"
+              "  Thought: …\n"
+              "  Action: …\n"
+              "  Action Input: …\n"
+              "  Observation: …\n"
+              "Then at the end print:\n"
+              "  Final Answer: …"
             ),
             ("user", "What's the weather in Cairo and what's 42 divided by 7 and what is a dog?")
         ]
