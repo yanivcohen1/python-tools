@@ -1,4 +1,5 @@
 import logging
+import json
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain.callbacks.manager import CallbackManager
 from langchain.tools import Tool
@@ -22,22 +23,33 @@ def calculator(expr: str) -> str:
     except Exception as e:
         return f"Error: {e}, expr: {expr}"
 
-def weather(city: str) -> str:
-    data = {"cairo": "28°C, sunny", "london": "10°C, rainy", "new york": "15°C, cloudy"}
-    return data.get(city.lower(), "Weather data unavailable")
+def weather_tool(raw_input: str) -> str:
+    # Basic parsing from raw input like "Paris in Celsius" or "Tokyo in Fahrenheit"
+    parts = raw_input.strip().split(" in ")
+    if len(parts) == 2:
+        city, format = parts[0], parts[1].capitalize()
+    else:
+        city, format = raw_input.strip(), "Celsius"  # Default to Celsius
+    fake_data = {
+        "new york": "15°C, cloudy",
+        "london": "10°C, rainy",
+        "cairo": "28°C, sunny"
+    }
+    return fake_data.get(city.lower(), "Weather data not available.")
 
 tools = [
     Tool(
         name="Calculator",
         func=calculator,
-        description="Useful for math operations. Input should be a valid Python expression."
+        description="Useful for math operations. Input should be a valid Python math expression."
     ),
     Tool(
-        name="Weather",
-        func=weather,
-        description="Gives current weather for a city; input should be the city name."
-    ),
+        name="WeatherInfo",
+        func=weather_tool,
+        description="Provides current weather info. Input should be like 'Paris in Celsius' or 'New York in Fahrenheit'"
+    )
 ]
+
 
 # 4) Ollama LLM with streaming + our token‑printer
 llm = ChatOllama(
@@ -66,7 +78,7 @@ for chunk in agent.stream(
               "Then at the end print:\n"
               "  Final Answer: …"
             ),
-            ("user", "what is a cat and What is the weather in Cairo and convert it to Fahrenheit?")
+            ("user", "what is a cat and What is the weather in Cairo in Celsius and convert it to Fahrenheit?")
         ]
     },
     stream_mode="messages"   # only get the LLM’s token stream

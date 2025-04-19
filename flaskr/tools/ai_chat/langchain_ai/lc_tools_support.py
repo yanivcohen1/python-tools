@@ -1,6 +1,6 @@
 # 1. Install dependencies
 #    pip install -U langgraph langchain-openai langchain-ollama semantic-router
-
+import json
 from langchain.tools import Tool
 from langchain_ollama.llms import OllamaLLM
 # from langchain_community.chat_models import ChatOllama
@@ -15,22 +15,31 @@ def calculator(expr: str) -> str:
     except Exception as e:
         return f"Calculation Error: {e}, expr: {expr}"
 
-def weather(city: str) -> str:
-    """Return fake weather info for demo purposes."""
-    data = {"cairo": "28°C, sunny", "london": "10°C, rainy", "new york": "15°C, cloudy"}
-    return data.get(city.lower(), "Weather data unavailable")
+def weather_tool(raw_input: str) -> str:
+    # Basic parsing from raw input like "Paris in Celsius" or "Tokyo in Fahrenheit"
+    parts = raw_input.strip().split(" in ")
+    if len(parts) == 2:
+        city, format = parts[0], parts[1].capitalize()
+    else:
+        city, format = raw_input.strip(), "Celsius"  # Default to Celsius
+    fake_data = {
+        "new york": "15°C, cloudy",
+        "london": "10°C, rainy",
+        "cairo": "28°C, sunny"
+    }
+    return fake_data.get(city.lower(), "Weather data not available.")
 
 tools = [
     Tool(
         name="Calculator",
         func=calculator,
-        description="Useful for math operations. Input should be a valid Python expression."
+        description="Useful for math operations. Input should be a valid Python math expression."
     ),
     Tool(
-        name="Weather",
-        func=weather,
-        description="Gives current weather for a city; input should be the city name."
-    ),
+        name="WeatherInfo",
+        func=weather_tool,
+        description="Provides current weather info. Input should be like 'Paris in Celsius' or 'New York in Fahrenheit'"
+    )
 ]
 
 # 3. Spin up your Ollama‑powered LLM
@@ -46,7 +55,7 @@ agent = create_react_agent(llm_with_tools, tools)
 
 # 5. Invoke the agent
 for chunk in agent.stream({
-    "messages": [("user", "what is a cat and What is the weather in Cairo and convert it to Fahrenheit?")]
+    "messages": [("user", "what is a cat and What is the weather in Cairo in Celsius and convert it to Fahrenheit?")]
 }, stream_mode="messages"):
     if chunk[0].content:
         print(chunk[1]["langgraph_node"],':', chunk[0].content, end="\n")
