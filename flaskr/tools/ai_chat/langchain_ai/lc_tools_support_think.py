@@ -58,7 +58,7 @@ for chunk in agent.stream(
               "Then at the end print:\n"
               "  Final Answer: …"
             ),
-            ("user", "What's the weather in Cairo and what's 42 divided by 7 and what is a dog?")
+            ("user", "what is a cat and What's the weather in Cairo and what's 42 divided by 7 and what is a dog?")
         ]
     },
     stream_mode="messages"   # only get the LLM’s token stream
