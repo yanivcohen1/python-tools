@@ -20,7 +20,7 @@ def weather_tool(city: str, format: str = "Celsius") -> str:
     fake_data = {
         "new york": "15°C, cloudy",
         "london": "10°C, rainy",
-        "cairo": "28°C, sunny"
+        "cairo": "28°C",
     }
     return fake_data.get(city.lower(), "Weather data not available.")
 
@@ -39,11 +39,6 @@ tools = [
         func=calculator,
         description="Useful for math operations. Input should be a valid Python math expression."
     ),
-    # Tool(
-    #     name="WeatherInfo",
-    #     func=weather_tool,
-    #     description="Gives current weather for a city in Celsius. Input should be a city name."
-    # ),
     Tool(
         name="WeatherInfoJSON",
         func=weather_tool_input_parser,
@@ -88,12 +83,15 @@ agent_executor = AgentExecutor(
     agent=agent,
     tools=tools,
     verbose=True, # Set to True to see the agent's thought process
-    handle_parsing_errors=True # Helps if the LLM output isn't perfectly formatted
+    # handle_parsing_errors=True # Helps if the LLM output isn't perfectly formatted
 )
 # 5. Invoke the agent
-response = agent_executor.invoke({"input": "what is a Pencil and What is the weather in Cairo in Celsius and convert it to Fahrenheit?"})
-print(response['output'], end="\n")
-
-# 6. Print out the step‑by‑step reasoning and final answer
-#for msg in response["messages"]:
-#    print(msg.content)
+while True:
+    print("\n-------------------------------")
+    try:
+        # response = agent.invoke("what is a cat and What is the weather in Cairo use WeatherInfo and what's 42 divided by 7 use Calculator?")
+        response = agent_executor.invoke({"input": "what is a Pencil and What is the weather in Cairo in Celsius and convert it to Fahrenheit?"})
+        print(response['output'])
+    except Exception as e:
+        continue
+    break
