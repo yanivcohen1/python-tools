@@ -2,7 +2,7 @@
 #    pip install -U langgraph langchain-openai langchain-ollama semantic-router
 
 from langchain.tools import Tool
-# from langchain_ollama.llms import OllamaLLM
+from langchain_ollama.llms import OllamaLLM
 # from langchain_community.chat_models import ChatOllama
 from langchain_ollama.chat_models import ChatOllama
 from langgraph.prebuilt import create_react_agent
@@ -35,7 +35,7 @@ tools = [
 
 # 3. Spin up your Ollama‑powered LLM
 llm = ChatOllama(
-    model="mistral", #  gemma3:4b deepseek-coder-v2:16b
+    model="mistral", #  deepseek-coder-v2:16b gemma3:4b
     # api_key="ollama",
     # base_url="http://localhost:11434/v1",
 )
@@ -46,7 +46,7 @@ agent = create_react_agent(llm_with_tools, tools)
 
 # 5. Invoke the agent
 for chunk in agent.stream({
-    "messages": [("user", "What's the weather in Cairo and what's 42 divided by 7?")]
+    "messages": [("user", "What's the weather in Cairo and what's 42 divided by 7 and what is a dog?")]
 }, stream_mode="messages"):
     if chunk[0].content:
         print(chunk[1]["langgraph_node"],':', chunk[0].content, end="\n")
