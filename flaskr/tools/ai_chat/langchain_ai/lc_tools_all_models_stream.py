@@ -38,11 +38,13 @@ tools = [
 agent = initialize_agent(
     tools,
     llm,
-    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,  # uses ReAct reasoning pattern
-    verbose=True,
     # handle_parsing_errors=True
+    # agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,  # uses ReAct reasoning pattern
+    # verbose=True
 )
 
+print()
 # 4. Ask the agent something
-response = agent.invoke("What is the weather in Cairo and what's 42 divided by 7 and what is a dog?")
-print(response)
+for chunk in agent.stream("What is the weather in Cairo and what's 42 divided by 7 and what is a dog?"):
+    if chunk['messages']:
+        print(chunk['messages'][0].content, end="\n\n")
