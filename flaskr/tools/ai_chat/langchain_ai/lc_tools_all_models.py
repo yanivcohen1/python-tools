@@ -47,7 +47,8 @@ agent = initialize_agent(
 while True:
     print("\n-------------------------------")
     try:
-        response = agent.invoke("what is a cat and What is the weather in Cairo and what's 42 divided by 7 and what is a dog?")
+        # response = agent.invoke("what is a cat and What is the weather in Cairo use WeatherInfo and what's 42 divided by 7 use Calculator?")
+        response = agent.invoke("what is a cat and What is the weather in Cairo and what's 42 divided by 7?")
         print(response['output'])
     except Exception as e:
         continue
