@@ -30,7 +30,7 @@ tools = [
     Tool(
         name="WeatherInfo",
         func=weather_tool,
-        description="Gives current weather for a city. Input should be a city name."
+        description="Gives current weather for a city in Celsius. Input should be a city name."
     )
 ]
 
@@ -48,7 +48,7 @@ while True:
     print("\n-------------------------------")
     try:
         # response = agent.invoke("what is a cat and What is the weather in Cairo use WeatherInfo and what's 42 divided by 7 use Calculator?")
-        response = agent.invoke("what is a cat and What is the weather in Cairo and what's 42 divided by 7?")
+        response = agent.invoke("what is a cat and What is the weather in Cairo and convert it to Fahrenheit?") # what's 42 divided by 7
         print(response['output'])
     except Exception as e:
         continue
