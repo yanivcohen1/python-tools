@@ -1,27 +1,20 @@
-import logging
+# 1. Install dependencies
+#    pip install -U langgraph langchain-openai langchain-ollama semantic-router
 import json
-from langchain.callbacks.base import BaseCallbackHandler
-from langchain.callbacks.manager import CallbackManager
 from langchain.tools import Tool
-from langchain_ollama import ChatOllama
-from langgraph.prebuilt import create_react_agent
+from langchain_ollama.llms import OllamaLLM
+# from langchain_community.chat_models import ChatOllama
+from langchain_ollama.chat_models import ChatOllama
+from langchain.agents import AgentExecutor, create_react_agent
+from langchain_core.prompts import PromptTemplate
 
-# 1) Silence httpx logs
-logging.getLogger("httpx").setLevel(logging.WARNING)
-
-# 2) Simple token‑printer callback
-class TokenPrinter(BaseCallbackHandler):
-    def on_llm_new_token(self, token: str, **kwargs):
-        print(token, end="", flush=True)
-
-cb_manager = CallbackManager([TokenPrinter()])
-
-# 3) Define tools
+# 2. Define your “tools” as Python callables:
 def calculator(expr: str) -> str:
+    """Evaluate a math expression."""
     try:
         return str(eval(expr))
     except Exception as e:
-        return f"Error: {e}, expr: {expr}"
+        return f"Calculation Error: {e}, expr: {expr}"
 
 def weather_tool(raw_input: str) -> str:
     # Basic parsing from raw input like "Paris in Celsius" or "Tokyo in Fahrenheit"
@@ -50,38 +43,51 @@ tools = [
     )
 ]
 
-
-# 4) Ollama LLM with streaming + our token‑printer
-llm = ChatOllama(
-    model="mistral",
+# 3. Spin up your Ollama‑powered LLM
+llm = OllamaLLM(
+    model="deepseek-coder-v2:16b", # mistral  gemma3:4b
     # api_key="ollama",
     # base_url="http://localhost:11434/v1",
-    # streaming=True,
-    # callback_manager=cb_manager,
 )
 
-# 5) Build the ReAct agent
-agent = create_react_agent(llm.bind_tools(tools), tools)
+template = """Answer the following questions as best you can. You have access to the following tools:
 
-# 6) Invoke with a system prompt that *forces* ReAct formatting
-print("=== Agent reasoning trace ===")
-# Replace agent.invoke(...) with agent.stream(...)
-for chunk in agent.stream(
-    {
-        "messages": [
-            ("system",
-              "You are a ReAct agent. Always think step-by-step and emit lines prefixed with:\n"
-              "  Thought: …\n"
-              "  Action: …\n"
-              "  Action Input: …\n"
-              "  Observation: …\n"
-              "Then at the end print:\n"
-              "  Final Answer: …"
-            ),
-            ("user", "what is a Pencil and What is the weather in Cairo in Celsius and convert it to Fahrenheit?")
-        ]
-    },
-    stream_mode="messages"   # only get the LLM’s token stream
-):
-    if chunk[0].content:
-        print(chunk[0].content, end="\n")
+{tools}
+
+Use the following format:
+
+Question: the input question you must answer
+Thought: you should always think about what to do
+Action: the action to take, should be one of [{tool_names}]
+Action Input: the input to the action
+Observation: the result of the action
+... (this Thought/Action/Action Input/Observation can repeat N times)
+Thought: I now know the final answer
+Final Answer: the final answer to the original input question
+
+Begin!
+
+Question: {input}
+Thought:{agent_scratchpad}"""
+
+prompt = PromptTemplate.from_template(template)
+
+# 4. Bind the tools and build a ReAct agent graph
+# llm_with_tools = llm.bind_tools(tools)
+agent = create_react_agent(llm=llm, tools=tools, prompt=prompt)
+agent_executor = AgentExecutor(
+    agent=agent,
+    tools=tools,
+    verbose=True, # Set to True to see the agent's thought process
+    handle_parsing_errors=True # Helps if the LLM output isn't perfectly formatted
+)
+# 5. Invoke the agent
+for chank in agent_executor.stream({"input": "what is a Pencil and What is the weather in Cairo in Celsius and convert it to Fahrenheit?"}):
+    if 'messages' in chank:
+        print(chank['messages'][0].content, end="\n")
+    if 'output' in chank:
+        print(chank['output'], end="\n")
+
+# 6. Print out the step‑by‑step reasoning and final answer
+#for msg in response["messages"]:
+#    print(msg.content)

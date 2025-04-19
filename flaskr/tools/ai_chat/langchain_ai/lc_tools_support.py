@@ -5,7 +5,8 @@ from langchain.tools import Tool
 from langchain_ollama.llms import OllamaLLM
 # from langchain_community.chat_models import ChatOllama
 from langchain_ollama.chat_models import ChatOllama
-from langgraph.prebuilt import create_react_agent
+from langchain.agents import AgentExecutor, create_react_agent
+from langchain_core.prompts import PromptTemplate
 
 # 2. Define your “tools” as Python callables:
 def calculator(expr: str) -> str:
@@ -43,22 +44,46 @@ tools = [
 ]
 
 # 3. Spin up your Ollama‑powered LLM
-llm = ChatOllama(
-    model="mistral", #  deepseek-coder-v2:16b gemma3:4b
+llm = OllamaLLM(
+    model="deepseek-coder-v2:16b", # mistral  gemma3:4b
     # api_key="ollama",
     # base_url="http://localhost:11434/v1",
 )
 
-# 4. Bind the tools and build a ReAct agent graph
-llm_with_tools = llm.bind_tools(tools)
-agent = create_react_agent(llm_with_tools, tools)
+template = """Answer the following questions as best you can. You have access to the following tools:
 
+{tools}
+
+Use the following format:
+
+Question: the input question you must answer
+Thought: you should always think about what to do
+Action: the action to take, should be one of [{tool_names}]
+Action Input: the input to the action
+Observation: the result of the action
+... (this Thought/Action/Action Input/Observation can repeat N times)
+Thought: I now know the final answer
+Final Answer: the final answer to the original input question
+
+Begin!
+
+Question: {input}
+Thought:{agent_scratchpad}"""
+
+prompt = PromptTemplate.from_template(template)
+
+# 4. Bind the tools and build a ReAct agent graph
+# llm_with_tools = llm.bind_tools(tools)
+agent = create_react_agent(llm=llm, tools=tools, prompt=prompt)
+agent_executor = AgentExecutor(
+    agent=agent,
+    tools=tools,
+    verbose=True, # Set to True to see the agent's thought process
+    handle_parsing_errors=True # Helps if the LLM output isn't perfectly formatted
+)
 # 5. Invoke the agent
-for chunk in agent.stream({
-    "messages": [("user", "what is a Pencil and What is the weather in Cairo in Celsius and convert it to Fahrenheit?")]
-}, stream_mode="messages"):
-    if chunk[0].content:
-        print(chunk[1]["langgraph_node"],':', chunk[0].content, end="\n")
+response = agent_executor.invoke({"input": "what is a Pencil and What is the weather in Cairo in Celsius and convert it to Fahrenheit?"})
+print(response['output'], end="\n")
 
 # 6. Print out the step‑by‑step reasoning and final answer
 #for msg in response["messages"]:
