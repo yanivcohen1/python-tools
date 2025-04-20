@@ -99,6 +99,8 @@ while True:
     try:
         # response = agent.invoke("what is a cat and What is the weather in Cairo use WeatherInfo and what's 42 divided by 7 use Calculator?")
         response = agent_executor.invoke({"input": "what is a Pencil and What is the weather in Cairo in Celsius and convert it to Fahrenheit?"})
+        if 'Agent stopped due to iteration limit or time limit' in response['output']:
+            continue
         print(response['output'])
     except Exception as e:
         continue
