@@ -83,7 +83,7 @@ agent_executor = AgentExecutor(
     agent=agent,
     tools=tools,
     verbose=True, # Set to True to see the agent's thought process
-    # handle_parsing_errors=True # Helps if the LLM output isn't perfectly formatted
+    handle_parsing_errors=True # Helps if the LLM output isn't perfectly formatted
 )
 # 5. Invoke the agent
 while True:
