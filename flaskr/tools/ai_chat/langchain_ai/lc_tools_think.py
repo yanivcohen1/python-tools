@@ -7,6 +7,7 @@ from langchain_ollama.llms import OllamaLLM
 from langchain_ollama.chat_models import ChatOllama
 from langchain.agents import AgentExecutor, create_react_agent
 from langchain_core.prompts import PromptTemplate
+from langchain_community.tools import DuckDuckGoSearchRun
 
 # 2. Define your “tools” as Python callables:
 def calculator(expr: str) -> str:
@@ -33,6 +34,9 @@ def weather_tool_input_parser(json_str: str) -> str:
     except Exception as e:
         return f"Invalid input format. Please provide JSON like {{'city': 'Paris', 'format': 'Fahrenheit'}}. Error: {e}, json is {json_str}"
 
+# Initialize DuckDuckGo search tool
+search_tool = DuckDuckGoSearchRun()
+
 tools = [
     Tool(
         name="Calculator",
@@ -43,6 +47,11 @@ tools = [
         name="WeatherInfoJSON",
         func=weather_tool_input_parser,
         description="Gives current weather for a city. Input should be a JSON string with 'city' and optional 'format' (Celsius or Fahrenheit)."
+    ),
+    Tool(
+        name="DuckDuckGo Search",
+        func=search_tool.run,
+        description="Useful for when you need to answer questions about current events. Input should be a search query.",
     )
 ]
 
