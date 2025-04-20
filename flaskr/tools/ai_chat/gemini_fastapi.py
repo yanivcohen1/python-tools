@@ -40,7 +40,7 @@ def generate_stream(prompt: str, model_name: str = 'gemini-2.0-flash-thinking-ex
 @app.post("/stream")
 async def stream_content(query_data: GeminiQueryData = Body(...)):
     return StreamingResponse(generate_stream(query_data.prompt +
-                                  ' use in your answer this url content: https://testsmanager.com',
+                                  # ' use in your answer this url content: https://testsmanager.com',
                                   query_data.model),
                               media_type="text/event-stream")
 
