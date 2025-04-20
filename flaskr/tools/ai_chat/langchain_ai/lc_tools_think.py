@@ -46,7 +46,9 @@ tools = [
     Tool(
         name="WeatherInfoJSON",
         func=weather_tool_input_parser,
-        description="Gives current weather for a city. Input should be a JSON string with 'city' and optional 'format' (Celsius or Fahrenheit)."
+        description='''Gives current weather for a city.
+                        Input should be a JSON string with 'city' and optional 'format' (Celsius or Fahrenheit).
+                        for example: {"city": "london","format": "Fahrenheit"}'''
     ),
     Tool(
         name="DuckDuckGo Search",
