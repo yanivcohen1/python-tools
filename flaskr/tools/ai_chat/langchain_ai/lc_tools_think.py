@@ -85,6 +85,8 @@ Begin!
 
 Question: {input}
 Thought:{agent_scratchpad}"""
+# agent_scratchpad helps by inserting the history of tool calls, observations, and thoughts back into the prompt.
+# Action: the action to take, should be one of [{tool_names}] if possible, otherwise "I don't know"
 
 prompt = PromptTemplate.from_template(template_reAct)
 
