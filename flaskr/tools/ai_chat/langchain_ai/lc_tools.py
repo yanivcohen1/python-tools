@@ -64,7 +64,8 @@ llm = OllamaLLM(
     # base_url="http://localhost:11434/v1",
 )
 
-template = """Answer the following questions as best you can. You have access to the following tools:
+# https://www.promptingguide.ai/techniques/react
+template_reAct = """Answer the following questions as best you can. You have access to the following tools:
 
 {tools}
 
@@ -84,7 +85,7 @@ Begin!
 Question: {input}
 Thought:{agent_scratchpad}"""
 
-prompt = PromptTemplate.from_template(template)
+prompt = PromptTemplate.from_template(template_reAct)
 
 # 4. Bind the tools and build a ReAct agent graph
 # llm_with_tools = llm.bind_tools(tools)
