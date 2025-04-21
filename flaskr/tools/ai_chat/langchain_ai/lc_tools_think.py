@@ -65,6 +65,7 @@ llm = OllamaLLM(
 )
 
 # https://www.promptingguide.ai/techniques/react
+# both reasoning traces and task-specific actions
 template_reAct = """Answer the following questions as best you can. You have access to the following tools:
 
 {tools}
