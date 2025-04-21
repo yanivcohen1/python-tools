@@ -21,7 +21,9 @@ def weather_tool(city: str, format: str = "Celsius") -> str:
     fake_data = {
         "new york": "15°C, cloudy",
         "london": "10°C, rainy",
-        "cairo": "28"
+        "cairo": "28C, sunny",
+        "paris": "12",# °C, windy
+        "tokyo": "20°C, clear",
     }
     return fake_data.get(city.lower(), "Weather data not available.")
 
@@ -103,7 +105,7 @@ agent_executor = AgentExecutor(
 while True:
     print("\n-------------------------------")
     try:
-        for chank in agent_executor.stream({"input": "what is a Pencil and What is the weather in Cairo in Celsius and convert it to Fahrenheit?"}):
+        for chank in agent_executor.stream({"input": "what is a Pencil and What is the weather in Paris in Celsius and convert it to Fahrenheit?"}):
             if 'messages' in chank:
                 if 'Agent stopped due to iteration limit or time limit' in chank['messages'][0].content:
                     continue

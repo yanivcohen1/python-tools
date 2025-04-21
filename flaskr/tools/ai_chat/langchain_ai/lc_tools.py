@@ -21,7 +21,9 @@ def weather_tool(city: str, format: str = "Celsius") -> str:
     fake_data = {
         "new york": "15°C, cloudy",
         "london": "10°C, rainy",
-        "cairo": "28",
+        "cairo": "28C, sunny",
+        "paris": "12",# °C, windy
+        "tokyo": "20°C, clear",
     }
     return fake_data.get(city.lower(), "Weather data not available.")
 
@@ -104,7 +106,7 @@ while True:
     print("\n-------------------------------")
     try:
         # response = agent.invoke("what is a cat and What is the weather in Cairo use WeatherInfo and what's 42 divided by 7 use Calculator?")
-        response = agent_executor.invoke({"input": "what is a Pencil and What is the weather in Cairo in Celsius and convert it to Fahrenheit?"})
+        response = agent_executor.invoke({"input": "what is a Pencil and What is the weather in Paris in Celsius and convert it to Fahrenheit?"})
         if 'Agent stopped due to iteration limit or time limit' in response['output']:
             continue
         print(response['output'])
