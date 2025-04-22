@@ -4,7 +4,7 @@ from txt_vector import ask_txt
 
 model = OllamaLLM(model="deepseek-coder-v2:16b", temperature=0.8) # gemma3:4b phi4-mini:3.8b
 
-txt ="alices_adventures_in_wonderland.html"
+table_name ="alices_adventures_in_wonderland.html"
 
 template = """
 Here are some relevant reviews: {reviews}
@@ -26,7 +26,7 @@ while True:
         break
 
     # for attation and nlp for search (not just similarity search)
-    reviews = ask_txt(txt).invoke(question) # returtn 60 chanks is 10% of chanks, 8 pages of 80 pages
+    reviews = ask_txt(table_name).invoke(question) # returtn 60 chanks is 10% of chanks, 8 pages of 80 pages
     # result = chain.invoke({"reviews": reviews, "question": question})
     print("")
     for chunk in chain.stream({"reviews": reviews, "question": question, "chat_history": chat_history}):
