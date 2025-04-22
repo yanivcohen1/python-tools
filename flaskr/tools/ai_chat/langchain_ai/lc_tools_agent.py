@@ -59,14 +59,14 @@ tools = [
         description="Useful for math operations. Input should be a valid Python math expression."
     ),
     Tool(
-        name="WeatherInfoJSON",
+        name="Weather",
         func=weather_tool_input_parser,
         description='''Gives current weather for a city.
                         Input should be a JSON string with 'city' and optional 'format' (Celsius).
                         for example: {"city": "london","format": "Celsius"}'''
     ),
     Tool(
-        name="DuckDuckGo Search",
+        name="Search",
         func=search,
         description="Useful for when you need to answer questions to Search info. Input should be a search query.",
     )
