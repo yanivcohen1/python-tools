@@ -8,6 +8,7 @@ from langchain_ollama.chat_models import ChatOllama
 from langchain.agents import AgentExecutor, create_react_agent
 from langchain_core.prompts import PromptTemplate
 from langchain_community.tools import DuckDuckGoSearchRun
+from langchain.schema import Document, HumanMessage, AIMessage
 from RGA.pdf_vector import ask_PDF
 
 table_name ="alice.pdf"
@@ -80,6 +81,8 @@ llm = OllamaLLM(
 
 # https://www.promptingguide.ai/techniques/react
 # both reasoning traces and task-specific actions
+# Pull the standard RAG chat prompt
+# retrieval_qa_chat_prompt = hub.pull("langchain-ai/retrieval-qa-chat")
 template_reAct = """Answer the following questions as best you can. You have access to the following tools:
 
 {tools}
@@ -134,4 +137,6 @@ while True:
             continue
     print(response['output'])
     chat_history += question
+    # chat_history.append(HumanMessage(content=question))
+    # chat_history.append(AIMessage(content=response['output']))
     # break
