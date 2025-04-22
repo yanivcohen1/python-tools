@@ -1,6 +1,7 @@
 # 1. Install dependencies
 #    pip install -U langgraph langchain-openai langchain-ollama semantic-router
 import json
+from langchain import hub
 from langchain.tools import Tool
 from langchain_ollama.llms import OllamaLLM
 # from langchain_community.chat_models import ChatOllama
