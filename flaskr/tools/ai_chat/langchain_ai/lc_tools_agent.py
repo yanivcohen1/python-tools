@@ -92,7 +92,7 @@ Use the following format:
 
 Question: the input question you must answer
 Thought: you should always think about what to do
-Action: the action to take, should be one of [{tool_names}] or from {chat_history}, otherwise "I don't know"
+Action: the action to take, should be one of [{tool_names}], otherwise "I don't know"
 Action Input: the input to the action
 Observation: the result of the action
 ... (this Thought/Action/Action Input/Observation can repeat N times)
@@ -102,6 +102,7 @@ Final Answer: the final answer to the original input question
 Begin!
 
 Question: {input}
+previous question: {chat_history}
 Thought:{agent_scratchpad}"""
 # agent_scratchpad helps by inserting the history of tool calls, observations, and thoughts back into the prompt.
 # Action: the action to take, should be one of [{tool_names}] if possible, otherwise "I don't know"
@@ -118,7 +119,7 @@ agent_executor = AgentExecutor(
     # handle_parsing_errors=True # Helps if the LLM output isn't perfectly formatted
 )
 # 5. Invoke the agent
-chat_history = ""
+chat_history = []
 while True:
     print("\n-------------------------------")
     # response = agent.invoke("what is a cat and What is the weather in Cairo use WeatherInfo and what's 42 divided by 7 use Calculator?")
@@ -137,7 +138,6 @@ while True:
         except Exception as e:
             continue
     print(response['output'])
-    chat_history += question
-    # chat_history.append(HumanMessage(content=question))
+    chat_history.append(HumanMessage(content=question))
     # chat_history.append(AIMessage(content=response['output']))
     # break
