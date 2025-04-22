@@ -38,7 +38,7 @@ def ask_ai(query: str):
     return response_answer
 
 
-def ask_PDF(file_name: str):
+def ask_PDF(file_name: str, chanks_size: int = 20):
     collection_name = file_name.replace(".", "_")
 
     # Loading vector store
@@ -46,10 +46,10 @@ def ask_PDF(file_name: str):
                           embedding_function=embedding, collection_name=collection_name)
 
     chanks_len = get_chanks_len(collection_name)
-    chanks_seg = chanks_len//10+1
+    chanks_seg = chanks_size if chanks_len > chanks_size else chanks_len
     print(f"chanks_seg: {chanks_seg}")
     retriever = vector_store.as_retriever(
-        search_kwargs={"k": 20 if chanks_len > 20 else chanks_len} # 10% of chanks
+        search_kwargs={"k": chanks_seg} # 10% of chanks
     )
 
     return retriever

@@ -8,6 +8,10 @@ from langchain_ollama.chat_models import ChatOllama
 from langchain.agents import AgentExecutor, create_react_agent
 from langchain_core.prompts import PromptTemplate
 from langchain_community.tools import DuckDuckGoSearchRun
+from RGA.pdf_vector import ask_PDF
+
+table_name ="alice.pdf"
+search_result = ""
 
 # 2. Define your “tools” as Python callables:
 def calculator(expr: str) -> str:
@@ -36,8 +40,17 @@ def weather_tool_input_parser(json_str: str) -> str:
     except Exception as e:
         return f"Invalid input format. Please provide JSON like {{'city': 'Paris', 'format': 'Fahrenheit'}}. Error: {e}, json is {json_str}"
 
-# Initialize DuckDuckGo search tool
-search_tool = DuckDuckGoSearchRun()
+def search(query: str) -> str:
+    """Evaluate a math expression."""
+    response = ""
+    try:
+        global search_result
+        if search_result:
+            for res in search_result:
+                response += res.page_content
+        return response
+    except Exception as e:
+        return f"Search Error: {e}, query: {search_result}"
 
 tools = [
     Tool(
@@ -46,7 +59,7 @@ tools = [
         description="Useful for math operations. Input should be a valid Python math expression."
     ),
     Tool(
-        name="Weather",
+        name="WeatherInfoJSON",
         func=weather_tool_input_parser,
         description='''Gives current weather for a city.
                         Input should be a JSON string with 'city' and optional 'format' (Celsius or Fahrenheit).
@@ -54,8 +67,8 @@ tools = [
     ),
     Tool(
         name="DuckDuckGo Search",
-        func=search_tool.run,
-        description="Useful for when you need to answer questions about current events. Input should be a search query.",
+        func=search,
+        description="Useful for when you need to answer questions to Search info. Input should be a search query.",
     )
 ]
 
@@ -87,7 +100,6 @@ Begin!
 
 Question: {input}
 Thought:{agent_scratchpad}"""
-# you provided with the Previous conversation: {chat_history}
 # agent_scratchpad helps by inserting the history of tool calls, observations, and thoughts back into the prompt.
 # Action: the action to take, should be one of [{tool_names}] if possible, otherwise "I don't know"
 
@@ -107,12 +119,14 @@ chat_history = ""
 while True:
     print("\n-------------------------------")
     try:
-        question = input("Ask your question (q to quit): ")
+        # response = agent.invoke("what is a cat and What is the weather in Cairo use WeatherInfo and what's 42 divided by 7 use Calculator?")
+        question = input("Ask your question (q to quit): ") # who is Alice?
         if question == "q":
             break
         if question == "":
-            question = "what is a Pencil and What is the weather in Paris in Celsius and convert it to Fahrenheit?"
+            question = '''What is the weather in Paris in Celsius and convert it to Fahrenheit?'''
             print("question is: ", question, "\n")
+        search_result = ask_PDF(table_name, 5).invoke(question)
         response = agent_executor.invoke({"input": question, "chat_history": chat_history})
         if 'Agent stopped due to iteration limit or time limit' in response['output']:
             continue

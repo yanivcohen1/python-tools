@@ -68,7 +68,8 @@ llm = OllamaLLM(
 
 # https://www.promptingguide.ai/techniques/react
 # both reasoning traces and task-specific actions
-template_reAct = """Answer the following questions as best you can. You have access to the following tools:
+template_reAct = """you provided with the Previous conversation: {chat_history}
+Answer the following questions as best you can. You have access to the following tools:
 
 {tools}
 
@@ -76,7 +77,7 @@ Use the following format:
 
 Question: the input question you must answer
 Thought: you should always think about what to do
-Action: the action to take, should be one of [{tool_names}] if possible
+Action: the action to take, should be one of [{tool_names}] or from {chat_history}, otherwise "I don't know"
 Action Input: the input to the action
 Observation: the result of the action
 ... (this Thought/Action/Action Input/Observation can repeat N times)
@@ -102,16 +103,26 @@ agent_executor = AgentExecutor(
     # handle_parsing_errors=True # Helps if the LLM output isn't perfectly formatted
 )
 # 5. Invoke the agent
+chat_history = ""
 while True:
     print("\n-------------------------------")
     try:
-        for chank in agent_executor.stream({"input": "what is a Pencil and What is the weather in Paris in Celsius and convert it to Fahrenheit?"}):
+        question = input("Ask your question (q to quit): ")
+        if question == "q":
+            break
+        if question == "":
+            question = "what is a Pencil and What is the weather in Paris in Celsius and convert it to Fahrenheit?"
+            print("question is: ", question, "\n")
+        ans = ''
+        for chank in agent_executor.stream({"input": question, "chat_history": chat_history}):
             if 'messages' in chank:
                 if 'Agent stopped due to iteration limit or time limit' in chank['messages'][0].content:
                     continue
+                ans += chank['messages'][0].content
                 print(chank['messages'][0].content, end="\n")
             # elif 'output' in chank:
             #     print(chank['output'], end="\n")
+        chat_history += question
     except Exception as e:
         continue
-    break
+    # break
