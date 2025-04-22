@@ -106,23 +106,25 @@ agent_executor = AgentExecutor(
 chat_history = ""
 while True:
     print("\n-------------------------------")
-    try:
-        question = input("Ask your question (q to quit): ")
+    question = input("Ask your question (q to quit): ")
+    while True:
         if question == "q":
             break
         if question == "":
             question = "what is a Pencil and What is the weather in Paris in Celsius and convert it to Fahrenheit?"
             print("question is: ", question, "\n")
         ans = ''
-        for chank in agent_executor.stream({"input": question, "chat_history": chat_history}):
-            if 'messages' in chank:
-                if 'Agent stopped due to iteration limit or time limit' in chank['messages'][0].content:
-                    continue
-                ans += chank['messages'][0].content
-                print(chank['messages'][0].content, end="\n")
-            # elif 'output' in chank:
-            #     print(chank['output'], end="\n")
-        chat_history += question
-    except Exception as e:
-        continue
+        try:
+            for chank in agent_executor.stream({"input": question, "chat_history": chat_history}):
+                if 'messages' in chank:
+                    if 'Agent stopped due to iteration limit or time limit' in chank['messages'][0].content:
+                        continue
+                    ans += chank['messages'][0].content
+                    print(chank['messages'][0].content, end="\n")
+                # elif 'output' in chank:
+                #     print(chank['output'], end="\n")
+            break
+        except Exception as e:
+            continue
+    chat_history += question
     # break

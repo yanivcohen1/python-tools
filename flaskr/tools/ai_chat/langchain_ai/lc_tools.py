@@ -106,18 +106,20 @@ agent_executor = AgentExecutor(
 chat_history = ""
 while True:
     print("\n-------------------------------")
-    try:
-        question = input("Ask your question (q to quit): ")
+    question = input("Ask your question (q to quit): ")
+    while True:
         if question == "q":
             break
         if question == "":
             question = "what is a Pencil and What is the weather in Paris in Celsius and convert it to Fahrenheit?"
             print("question is: ", question, "\n")
-        response = agent_executor.invoke({"input": question, "chat_history": chat_history})
-        if 'Agent stopped due to iteration limit or time limit' in response['output']:
+        try:
+            response = agent_executor.invoke({"input": question, "chat_history": chat_history})
+            if 'Agent stopped due to iteration limit or time limit' in response['output']:
+                continue
+            break
+        except Exception as e:
             continue
-        print(response['output'])
-        chat_history += question
-    except Exception as e:
-        continue
+    print(response['output'])
+    chat_history += question
     # break

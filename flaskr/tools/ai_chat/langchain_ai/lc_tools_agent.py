@@ -118,20 +118,22 @@ agent_executor = AgentExecutor(
 chat_history = ""
 while True:
     print("\n-------------------------------")
-    try:
-        # response = agent.invoke("what is a cat and What is the weather in Cairo use WeatherInfo and what's 42 divided by 7 use Calculator?")
-        question = input("Ask your question (q to quit): ") # who is Alice?
+    # response = agent.invoke("what is a cat and What is the weather in Cairo use WeatherInfo and what's 42 divided by 7 use Calculator?")
+    question = input("Ask your question (q to quit): ") # who is Alice?
+    while True:
         if question == "q":
             break
         if question == "":
             question = '''who is Alice, What is the weather in Paris in Celsius and convert it to Fahrenheit?'''
             print("question is: ", question, "\n")
-        search_result = ask_PDF(table_name, 5).invoke(question)
-        response = agent_executor.invoke({"input": question, "chat_history": chat_history})
-        if 'Agent stopped due to iteration limit or time limit' in response['output']:
+        try:
+            search_result = ask_PDF(table_name, 5).invoke(question)
+            response = agent_executor.invoke({"input": question, "chat_history": chat_history})
+            if 'Agent stopped due to iteration limit or time limit' in response['output']:
+                continue
+            break
+        except Exception as e:
             continue
-        print(response['output'])
-        chat_history += question
-    except Exception as e:
-        continue
+    print(response['output'])
+    chat_history += question
     # break
