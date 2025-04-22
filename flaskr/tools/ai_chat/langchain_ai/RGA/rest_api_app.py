@@ -18,7 +18,7 @@ current_path = os.path.dirname(os.path.abspath(__file__))
 
 docs_path = current_path + "/../content/docs/"
 
-cached_llm = OllamaLLM(model="llama3:8b")
+cached_llm = OllamaLLM(model="bge-m3")
 
 embedding = FastEmbedEmbeddings()
 
