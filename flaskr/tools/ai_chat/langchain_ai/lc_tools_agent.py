@@ -124,7 +124,7 @@ while True:
         if question == "q":
             break
         if question == "":
-            question = '''who is Alice, What is the weather in Paris in Celsius and convert it to Fahrenheit?'''
+            question = '''who is Alice and What is the weather in Paris in Celsius and convert it to Fahrenheit?'''
             print("question is: ", question, "\n")
         try:
             search_result = ask_PDF(table_name, 5).invoke(question)

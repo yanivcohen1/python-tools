@@ -34,7 +34,7 @@ def weather_tool_input_parser(json_str: str) -> str:
         format = data.get("format", "Celsius")
         return weather_tool(city, format)
     except Exception as e:
-        return f"Invalid input format. Please provide JSON like {{'city': 'Paris', 'format': 'Fahrenheit'}}. Error: {e}, json is {json_str}"
+        return f"Invalid input format. Please provide JSON like {{'city': 'Paris', 'format': 'Celsius'}}. Error: {e}, json is {json_str}"
 
 # Initialize DuckDuckGo search tool
 search_tool = DuckDuckGoSearchRun()
