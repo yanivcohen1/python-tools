@@ -44,10 +44,9 @@ def search(query: str) -> str:
     """Evaluate a math expression."""
     response = ""
     try:
-        global search_result
-        if search_result:
-            for res in search_result:
-                response += res.page_content
+        search_result = ask_PDF(table_name, 5).invoke(str(query))
+        for res in search_result:
+            response += res.page_content
         return response
     except Exception as e:
         return f"Search Error: {e}, query: {search_result}"
@@ -127,7 +126,6 @@ while True:
             question = '''who is Alice and What is the weather in Paris in Celsius and convert it to Fahrenheit?'''
             print("question is: ", question, "\n")
         try:
-            search_result = ask_PDF(table_name, 5).invoke(question)
             response = agent_executor.invoke({"input": question, "chat_history": chat_history})
             if 'Agent stopped due to iteration limit or time limit' in response['output']:
                 continue
