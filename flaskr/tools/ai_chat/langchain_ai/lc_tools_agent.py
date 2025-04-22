@@ -62,8 +62,8 @@ tools = [
         name="WeatherInfoJSON",
         func=weather_tool_input_parser,
         description='''Gives current weather for a city.
-                        Input should be a JSON string with 'city' and optional 'format' (Celsius or Fahrenheit).
-                        for example: {"city": "london","format": "Fahrenheit"}'''
+                        Input should be a JSON string with 'city' and optional 'format' (Celsius).
+                        for example: {"city": "london","format": "Celsius"}'''
     ),
     Tool(
         name="DuckDuckGo Search",
@@ -124,7 +124,7 @@ while True:
         if question == "q":
             break
         if question == "":
-            question = '''What is the weather in Paris in Celsius and convert it to Fahrenheit?'''
+            question = '''who is Alice, What is the weather in Paris in Celsius and convert it to Fahrenheit?'''
             print("question is: ", question, "\n")
         search_result = ask_PDF(table_name, 5).invoke(question)
         response = agent_executor.invoke({"input": question, "chat_history": chat_history})
