@@ -55,7 +55,7 @@ tools = [
     Tool(
         name="DuckDuckGo Search",
         func=search_tool.run,
-        description="Useful for when you need to answer questions about current events. Input should be a search query.",
+        description="Useful for when you need to answer questions about current events or general knowledge. Input should be a search query.",
     )
 ]
 
