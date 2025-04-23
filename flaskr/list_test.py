@@ -49,5 +49,17 @@ for index, num in enumerate([2, 4, 6]): print('index:', index, ' num:', num) # i
 lst = [{"id":2, "name": "yan"}, {"id":1, "name": "tam"}]
 print(sorted(lst, key=lambda lst_i: lst_i['id']))
 
+# list comprehension
 a = [0 if i % 2 == 0 else i * 2 for i in range(6) if i < 4]
 print(a)
+
+# 2d list comprehension
+c = [[(i+1)*(j+1) for i in range(9) if i % 2 == 0] for j in range(9) if j % 2 == 0]
+for a in c:
+    print(a)
+
+# print as a matrix with 2 spaces between each number
+for a in c:
+    for b in a:
+        print(b if b>9 else ' ' + str(b), end=' ')
+    print()
