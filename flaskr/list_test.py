@@ -77,7 +77,7 @@ zipped = list(zip(names, ages))
 print(zipped)  # [('Alice', 24), ('Bob', 30), ('Charlie', 29)]
 print(*zipped)  # from list of 3 to tuples of 3 elements ('Alice', 24) ('Bob', 30) ('Charlie', 29)
 # Unzipping the list of tuples back into two lists
-unzipped = zip(*zipped)
+unzipped = zip(*zipped) # transpose the list of tuples to list of lists
 names_unzip, ages_unzip = unzipped
 print("names:",names_unzip, "ages:",ages_unzip)
 # names: ('Alice', 'Bob', 'Charlie') ages: (24, 30, 29)
