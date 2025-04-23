@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Upload & Display HTML</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    label, iframe {
+      display: block;
+      width: 100%;
+      margin-top: 1rem;
+    }
+    iframe {
+      height: 100%;
+      /* height: 500px; */
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Upload an HTML File</h1>
+  <p>Select an HTML file (with its own JS/CSS). It will be rendered below.</p>
+
+  <label for="fileInput">Choose HTML file:
+    <input type="file" id="fileInput" accept=".html,text/html" />
+  </label>
+
+  <iframe id="viewer" sandbox="allow-scripts allow-same-origin"></iframe>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const viewer = document.getElementById('viewer');
+    let currentUrl = null;
+
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+      if (currentUrl) {
+        URL.revokeObjectURL(currentUrl);
+        currentUrl = null;
+      }
+      // Create a blob URL from the uploaded file
+      currentUrl = URL.createObjectURL(new Blob([file], { type: 'text/html' }));
+      // Set the iframe src to the blob URL to render it fully (CSS & JS included)
+      viewer.src = currentUrl;
+    });
+  </script>
+
+</body>
+</html>
