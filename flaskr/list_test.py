@@ -63,3 +63,21 @@ for a in c:
     for b in a:
         print(b if b>9 else ' ' + str(b), end=' ')
     print()
+
+# zip
+names = ['Alice', 'Bob', 'Charlie']
+ages = [24, 30, 29]
+
+combined = zip(names, ages)
+print(list(combined))
+# [('Alice', 24), ('Bob', 30), ('Charlie', 29)]
+
+# unzip
+zipped = list(zip(names, ages))
+print(zipped)  # [('Alice', 24), ('Bob', 30), ('Charlie', 29)]
+print(*zipped)  # from list of 3 to tuples of 3 elements ('Alice', 24) ('Bob', 30) ('Charlie', 29)
+# Unzipping the list of tuples back into two lists
+unzipped = zip(*zipped)
+names_unzip, ages_unzip = unzipped
+print("names:",names_unzip, "ages:",ages_unzip)
+# names: ('Alice', 'Bob', 'Charlie') ages: (24, 30, 29)
