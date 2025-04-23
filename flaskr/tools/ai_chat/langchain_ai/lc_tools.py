@@ -8,6 +8,7 @@ from langchain_ollama.chat_models import ChatOllama
 from langchain.agents import AgentExecutor, create_react_agent
 from langchain_core.prompts import PromptTemplate
 from langchain_community.tools import DuckDuckGoSearchRun
+from langchain_community.utilities import WikipediaAPIWrapper
 
 # 2. Define your “tools” as Python callables:
 def calculator(expr: str) -> str:
@@ -38,6 +39,8 @@ def weather_tool_input_parser(json_str: str) -> str:
 
 # Initialize DuckDuckGo search tool
 search_tool = DuckDuckGoSearchRun()
+# Initialize Wikipedia API
+wiki = WikipediaAPIWrapper()
 
 tools = [
     Tool(
@@ -53,9 +56,14 @@ tools = [
                         for example: {"city": "london","format": "Celsius"}'''
     ),
     Tool(
-        name="DuckDuckGo Search",
+        name="Web Search",
         func=search_tool.run,
-        description="Useful for when you need to answer questions about current events or general knowledge. Input should be a search query.",
+        description="Useful for when you need to answer questions about current events. Input should be a search query.",
+    ),
+    Tool(
+        name="Wikipedia Search",
+        func=wiki.run,
+        description="Useful for when you need to answer questions from Wikipedia for general knowledge. Input should be a search query.",
     )
 ]
 
@@ -111,7 +119,7 @@ while True:
         if question == "q":
             break
         if question == "":
-            question = "what is a Pencil and What is the weather in Paris in Celsius and convert it to Fahrenheit?"
+            question = "What is the weather in Paris in Celsius and convert it to Fahrenheit, and what is a Pencil used for, and who is the current US presedent?"
             print("question is: ", question, "\n")
         try:
             response = agent_executor.invoke({"input": question, "chat_history": chat_history})
