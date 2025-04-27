@@ -56,13 +56,13 @@ ax1.grid(True)
 
 # Configure secondary y-axis (for script memory in MB)
 ax2 = ax1.twinx() # instantiate a second axes that shares the same x-axis
-ax2.set_ylabel(f"process: {script_process.name()}({script_pid}), Memory RSS (MB)", color='tab:red')
+ax2.set_ylabel(f"Memory RSS (MB)", color='tab:red')
 ax2.tick_params(axis='y', labelcolor='tab:red')
 ax2.set_ylim(bottom=0) # Start y-axis at 0
 line_script_mem, = ax2.plot([], [], 'r-', label='Script Memory RSS (MB)', marker='.')
 ax2.legend(loc='upper right')
 
-fig.suptitle('System Resource Monitor')
+fig.suptitle(f'System Resource Monitor for process: {script_process.name()}({script_pid})')
 fig.autofmt_xdate() # Auto format dates on x-axis
 
 last_plot_time = time.time()
@@ -87,7 +87,7 @@ try:
         script_memory_rss_mb = 0 # Default to 0
         if script_process:
             try:
-                cpu_usage = script_process.cpu_percent(interval=0.5) # psutil.cpu_percent(interval=0.5) # Shorter interval for responsiveness
+                cpu_usage = script_process.cpu_percent(interval=0.1) # psutil.cpu_percent(interval=0.5) # Shorter interval for responsiveness
                 # Get memory info for the specific script process
                 script_mem_info = script_process.memory_info()
                 # RSS (Resident Set Size) is often a good measure of actual physical memory used
