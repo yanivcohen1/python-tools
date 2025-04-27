@@ -50,16 +50,16 @@ ax1.set_ylabel("Usage (%)", color='tab:blue')
 ax1.tick_params(axis='y', labelcolor='tab:blue')
 ax1.set_ylim(0, 105) # Set Y limit slightly above 100%
 line_cpu, = ax1.plot([], [], 'b-', label='CPU Usage (%)', marker='.')
-line_sys_mem, = ax1.plot([], [], 'g-', label='System Memory Usage (%)', marker='.')
+line_sys_mem, = ax1.plot([], [], 'g-', label='Memory Usage (%)', marker='.')
 ax1.legend(loc='upper left')
 ax1.grid(True)
 
 # Configure secondary y-axis (for script memory in MB)
 ax2 = ax1.twinx() # instantiate a second axes that shares the same x-axis
-ax2.set_ylabel("Script Memory RSS (MB)", color='tab:red')
+ax2.set_ylabel(f"process: {script_process.name()}({script_pid}), Memory RSS (MB)", color='tab:red')
 ax2.tick_params(axis='y', labelcolor='tab:red')
 ax2.set_ylim(bottom=0) # Start y-axis at 0
-line_script_mem, = ax2.plot([], [], 'r-', label='Script Memory RSS (MB)')
+line_script_mem, = ax2.plot([], [], 'r-', label='Script Memory RSS (MB)', marker='.')
 ax2.legend(loc='upper right')
 
 fig.suptitle('System Resource Monitor')
@@ -70,7 +70,7 @@ last_plot_time = time.time()
 # --- Monitoring Loop ---
 print(f"Starting monitoring... Logging to '{log_file}' every {log_interval_seconds}s.")
 print("Press Ctrl+C to stop.")
-
+cpu_usage = 0 # Default to 0 before first read
 try:
     while True:
         current_time = time.time()
@@ -78,15 +78,16 @@ try:
         timestamp_str = now.strftime("%Y-%m-%d %H:%M:%S")
 
         # --- Get System Metrics ---
-        cpu_usage = psutil.cpu_percent(interval=0.5) # Shorter interval for responsiveness
-        memory_info = psutil.virtual_memory()
-        system_memory_usage_percent = memory_info.percent
-        system_memory_used_mb = memory_info.used / (1024 * 1024)
+        memory_info = script_process.memory_info().vms if script_process else None # virtual memory size (vms)
+        memory_info_all = psutil.virtual_memory().used # Total used memory in bytes
+        system_memory_usage_percent = memory_info / memory_info_all
+        system_memory_used_mb = memory_info / (1024 * 1024)
 
         # --- Get Specific Script Metrics ---
         script_memory_rss_mb = 0 # Default to 0
         if script_process:
             try:
+                cpu_usage = script_process.cpu_percent(interval=0.5) # psutil.cpu_percent(interval=0.5) # Shorter interval for responsiveness
                 # Get memory info for the specific script process
                 script_mem_info = script_process.memory_info()
                 # RSS (Resident Set Size) is often a good measure of actual physical memory used
@@ -103,13 +104,13 @@ try:
             'cpu_percent': cpu_usage,
             'system_memory_percent': system_memory_usage_percent,
             'system_memory_used_mb': round(system_memory_used_mb, 2),
-            'script_pid': script_pid,
+            'script_pid': f"{script_process.name()}({script_pid})" if script_process else 'N/A',
             'script_memory_rss_mb': round(script_memory_rss_mb, 2)
         }
         writer.writerow(log_data)
         # csvfile.flush() # Flushing frequently can impact performance, rely on buffering=1
 
-        print(f"{timestamp_str} - Logged: CPU {cpu_usage:.1f}%, Sys Mem {system_memory_usage_percent:.1f}%, Script Mem {script_memory_rss_mb:.2f} MB")
+        print(f"{timestamp_str} - Logged: CPU {cpu_usage:.2f}%, Sys Mem {system_memory_usage_percent:.2f}%, Script Mem {script_memory_rss_mb:.2f} MB")
 
         # --- Update Plot Data ---
         timestamps.append(now) # Use datetime objects for plotting
@@ -136,7 +137,10 @@ try:
             ax1.set_ylim(0, 105)
             # Ensure secondary y-axis starts at 0
             ax2_ylim = ax2.get_ylim()
-            ax2.set_ylim(0, ax2_ylim[1] * 1.1) # Add 10% padding to top
+            # ax2.set_ylim(0, ax2_ylim[1] * 1.1) # Add 10% padding to top
+            # ax2.set_ylim(bottom=0)
+            ax2.autoscale(axis='y', enable=True)
+            ax1.autoscale(axis='y', enable=True)
 
 
             # Redraw the figure

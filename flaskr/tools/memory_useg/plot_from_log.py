@@ -41,17 +41,17 @@ def plot_csv_data(filename):
 
         # Configure secondary y-axis (for script memory in MB)
         ax2 = ax1.twinx() # instantiate a second axes that shares the same x-axis
-        ax2.set_ylabel("Script Memory RSS (MB)", color='tab:red')
+        ax2.set_ylabel(f"Process Memory RSS (MB)", color='tab:red')
         ax2.tick_params(axis='y', labelcolor='tab:red')
         # Plot Script Memory against the secondary axis
-        line_script_mem = ax2.plot(df['timestamp'], df['script_memory_rss_mb'], 'r-', label='Script Memory RSS (MB)', alpha=0.8)
+        line_script_mem = ax2.plot(df['timestamp'], df['script_memory_rss_mb'], 'r-', label='Script Memory RSS (MB)', alpha=0.8, marker='.')
         ax2.legend(loc='upper right')
         # Set bottom limit for secondary axis, let top autoscale
         ax2.set_ylim(bottom=0)
 
 
         # --- Formatting ---
-        fig.suptitle('System Resource Usage from Log File', fontsize=16)
+        fig.suptitle(f'System Resource Usage for process {df['script_pid'][0]} from Log File', fontsize=16)
 
         # Improve x-axis date formatting
         locator = mdates.AutoDateLocator(minticks=5, maxticks=10) # Auto-choose tick locations
@@ -60,7 +60,10 @@ def plot_csv_data(filename):
         ax1.xaxis.set_major_formatter(formatter)
         fig.autofmt_xdate() # Auto format dates to prevent overlap
 
+        ax2.autoscale(axis='y', enable=True)
+        ax1.autoscale(axis='y', enable=True)
         plt.tight_layout(rect=[0, 0.03, 1, 0.95]) # Adjust layout to prevent title overlap
+        # plt.title(f"system resource for process {df['script_pid'][0]}", fontsize=14)
         plt.show() # Display the plot
 
     except FileNotFoundError:
