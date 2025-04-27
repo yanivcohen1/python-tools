@@ -110,7 +110,7 @@ try:
         writer.writerow(log_data)
         # csvfile.flush() # Flushing frequently can impact performance, rely on buffering=1
 
-        print(f"{timestamp_str} - Logged: CPU {cpu_usage:.2f}%, Sys Mem {system_memory_usage_percent:.2f}%, Script Mem {script_memory_rss_mb:.2f} MB")
+        print(f"{timestamp_str} - Logged: CPU {cpu_usage:.2f}%, Mem {system_memory_usage_percent:.2f}%, Mem {script_memory_rss_mb:.2f} MB")
 
         # --- Update Plot Data ---
         timestamps.append(now) # Use datetime objects for plotting

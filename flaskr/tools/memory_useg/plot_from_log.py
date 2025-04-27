@@ -35,7 +35,7 @@ def plot_csv_data(filename):
         ax1.set_ylim(0, 105) # Set Y limit slightly above 100%
         # Plot CPU and System Memory percentages against the primary axis
         line_cpu = ax1.plot(df['timestamp'], df['cpu_percent'], 'b-', label='CPU Usage (%)', alpha=0.8, marker='.')
-        line_sys_mem = ax1.plot(df['timestamp'], df['system_memory_percent'], 'g-', label='System Memory Usage (%)', alpha=0.8, marker='.')
+        line_sys_mem = ax1.plot(df['timestamp'], df['system_memory_percent'], 'g-', label='Memory Usage (%)', alpha=0.8, marker='.')
         ax1.legend(loc='upper left')
         ax1.grid(True, axis='y', linestyle='--', alpha=0.6) # Grid lines for primary axis
 
