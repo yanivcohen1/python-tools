@@ -29,7 +29,7 @@ def weather_tool(city: str, format: str = "Celsius") -> str:
         "new york": "15°C, cloudy",
         "london": "10°C, rainy",
         "cairo": "28C, sunny",
-        "paris": "12",# °C, windy
+        "paris": "12°C",# °C, windy
         "tokyo": "20°C, clear",
     }
     return fake_data.get(city.lower(), "Weather data not available.")
