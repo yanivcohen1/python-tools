@@ -118,6 +118,9 @@ agent_executor = AgentExecutor(
     tools=tools,
     verbose=True, # Set to True to see the agent's thought process
     # handle_parsing_errors=True # Helps if the LLM output isn't perfectly formatted
+    # memory=None,
+    # agent_kwargs={"system_prompt": "You are a helpful AI assistant."},
+    # max_iterations=3
 )
 # 5. Invoke the agent
 chat_history = []
