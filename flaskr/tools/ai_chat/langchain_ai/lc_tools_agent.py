@@ -1,6 +1,7 @@
 # 1. Install dependencies
 #    pip install -U langgraph langchain-openai langchain-ollama semantic-router
 import json
+import time
 from langchain import hub
 from langchain.tools import Tool
 from langchain_ollama.llms import OllamaLLM
@@ -75,7 +76,7 @@ tools = [
 
 # 3. Spin up your Ollama‑powered LLM
 llm = OllamaLLM(
-    model="deepseek-coder-v2:16b", # mistral  gemma3:4b
+    model="deepseek-coder-v2:16b", # qwen3:8b mistral  gemma3:4b
     # api_key="ollama",
     # base_url="http://localhost:11434/v1",
 )
@@ -124,6 +125,7 @@ while True:
     print("\n-------------------------------")
     # response = agent.invoke("what is a cat and What is the weather in Cairo use WeatherInfo and what's 42 divided by 7 use Calculator?")
     question = input("Ask your question (q to quit): ") # who is Alice?
+    start = time.time()
     while True:
         if question == "q":
             break
@@ -138,6 +140,7 @@ while True:
         except Exception as e:
             continue
     print(response['output'])
+    print("Time taken: ", int(time.time() - start), " seconds")
     chat_history.append(HumanMessage(content=question))
     # chat_history.append(AIMessage(content=response['output']))
     # break
