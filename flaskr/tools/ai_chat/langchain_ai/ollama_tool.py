@@ -50,7 +50,7 @@ tools_schema = [
     'type': 'function',
     'function': {
         "name": "get_current_weather",
-        "description": "Get the current weather for a given location.",
+        "description": "Get the current weather for a given location.", # the json return describe itself
         "parameters": {
             "type": "object",
             "properties": {
