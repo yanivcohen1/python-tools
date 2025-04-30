@@ -3,10 +3,13 @@ import os
 import pypandoc
 import update_math
 
+# this is after pip install this download_pandoc
+# pypandoc.download_pandoc()
+
 def md_to_docx(input_md: str, output_docx: str):
     """
     Convert a Markdown file to a Word (.docx) file using pypandoc.
-    
+
     Requirements:
         • pip install pypandoc
         • Pandoc installed on your system (https://pandoc.org/installing.html)
