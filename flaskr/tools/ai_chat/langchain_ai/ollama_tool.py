@@ -78,7 +78,7 @@ tools_schema = [
 ]
 
 # 1. Send a user message and register tools with Ollama
-query = "What's the weather in Tel Aviv in Celsius and how mach is 2 + 4?" # calculate it in Fahrenheit using calculator
+query = "What's the weather in Tel Aviv in Celsius and how much is 2 + 4?" # calculate it in Fahrenheit using calculator
 initial_response = ollama.chat(
     model=model,  # or your Ollama-pulled model llama3.2
     messages=[{"role": "user", "content": query}],
