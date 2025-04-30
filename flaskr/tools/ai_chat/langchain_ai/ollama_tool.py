@@ -27,7 +27,7 @@ available_functions = {"get_current_weather": get_current_weather,
                       }
 
 # 1. Send a user message and register tools with Ollama
-query = "What's the weather in Tel Aviv and calculate what's 15 + 27?"
+query = "What's the weather in Tel Aviv and what's 15 + 27?"
 initial_response = ollama.chat(
     model="qwen3:1.7b",  # or your Ollama-pulled model llama3.2
     messages=[{"role": "user", "content": query}],
@@ -42,9 +42,11 @@ for tool_call in initial_response.message.tool_calls or []: # pylint: disable=no
 
     # Execute the requested tool if available
     if func_name in available_functions:
+        print("-" * 20)
         print(f"Executing tool: {func_name} with args: {func_args}")
         result = available_functions[func_name](**func_args)
         print(f"Tool result: {result}")
+        print("-" * 20)
     else:
         raise ValueError(f"Requested tool '{func_name}' is not available.")
 
