@@ -119,7 +119,7 @@ while True:
         if question == "q":
             break
         if question == "":
-            question = "What is the weather in Paris in Celsius and convert it to Fahrenheit, and what is a Pencil used for, and who is the current US presedent?"
+            question = "What is the weather in Paris in Celsius and convert it to Fahrenheit, and what is a Pencil used for, and who is the current USA presedent?"
             print("question is: ", question, "\n")
         try:
             response = agent_executor.invoke({"input": question, "chat_history": chat_history})
