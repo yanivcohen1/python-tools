@@ -52,7 +52,7 @@ tools = [
 
 # 3. Spin up your Ollama‑powered LLM
 llm = ChatOllama(
-    model="qwen3:4b", # mistral deepseek-coder-v2:16b gemma3:4b
+    model="qwen3:1.7b", # qwen3:4 bmistral deepseek-coder-v2:16b gemma3:4b
     # api_key="ollama",
     # base_url="http://localhost:11434/v1",
 )
@@ -61,9 +61,10 @@ llm = ChatOllama(
 llm_with_tools = llm.bind_tools(tools)
 agent = create_react_agent(llm_with_tools, tools)
 
+query = "What is the weather in Cairo in Celsius and calculate the convertion to Fahrenheit?"
 # 5. Invoke the agent
 for chunk in agent.stream({
-    "messages": [("user", "What is the weather in Cairo in Celsius and convert it to Fahrenheit?")]
+    "messages": [("user", query),("system", "Please answer in a step-by-step manner. use only the tools you have.")],
 }, stream_mode="messages"):
     if chunk[0].content:
         print(chunk[1]["langgraph_node"],':', chunk[0].name, "-", chunk[0].content, end="\n")

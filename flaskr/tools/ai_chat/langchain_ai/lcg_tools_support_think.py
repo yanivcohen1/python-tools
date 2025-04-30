@@ -53,7 +53,7 @@ tools = [
 
 # 4) Ollama LLM with streaming + our token‑printer
 llm = ChatOllama(
-    model="qwen3:4b", # mistral
+    model="qwen3:1.7b", # qwen3:4b mistral
     # api_key="ollama",
     # base_url="http://localhost:11434/v1",
     # streaming=True,
@@ -63,6 +63,7 @@ llm = ChatOllama(
 # 5) Build the ReAct agent
 agent = create_react_agent(llm.bind_tools(tools), tools)
 
+query = "What is the weather in Cairo in Celsius and calculate the convertion to Fahrenheit?"
 # 6) Invoke with a system prompt that *forces* ReAct formatting
 print("=== Agent reasoning trace ===")
 # Replace agent.invoke(...) with agent.stream(...)
@@ -78,7 +79,7 @@ for chunk in agent.stream(
               "Then at the end print:\n"
               "  Final Answer: …"
             ),
-            ("user", "What is the weather in Cairo in Celsius and convert it to Fahrenheit?")
+            ("user", query)
         ]
     },
     stream_mode="messages"   # only get the LLM’s token stream
