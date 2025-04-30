@@ -36,7 +36,7 @@ tools = [
     Tool(
         name="Calculator",
         func=calculator,
-        description="Useful for math operations. Input should be a valid Python math expression."
+        description="Useful for math operations. Input should be a valid Python math expression without variables."
     ),
     Tool(
         name="Weather",
