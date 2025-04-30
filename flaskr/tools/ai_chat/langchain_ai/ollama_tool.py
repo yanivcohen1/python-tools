@@ -41,7 +41,7 @@ def calculate(expression: str) -> dict:
 
 # Map tool names to function references
 available_functions = {"get_current_weather": get_current_weather,
-                        "calculate": calculate
+                        "calculator": calculate
                       }
 
 # JSON schema metadata list for tools
@@ -64,12 +64,12 @@ tools_schema = [
   {
     'type': 'function',
     'function': {
-        "name": "calculate",
+        "name": "calculator",
         "description": "Compute a simple arithmetic expression.",
         "parameters": {
             "type": "object",
             "properties": {
-                "expression": {"type": "string", "description": "Arithmetic expression, e.g., '15 + 27'"}
+                "expression": {"type": "string", "description": "Input should be a valid Python math expression, e.g., '15 + 27'"}
             },
             "required": ["expression"]
         }
@@ -78,7 +78,7 @@ tools_schema = [
 ]
 
 # 1. Send a user message and register tools with Ollama
-query = "What's the weather in Tel Aviv in Fahrenheit and what's 15 + 27?"
+query = "What's the weather in Tel Aviv in Celsius and how mach is 2 + 4?" # calculate it in Fahrenheit using calculator
 initial_response = ollama.chat(
     model=model,  # or your Ollama-pulled model llama3.2
     messages=[{"role": "user", "content": query}],
@@ -113,11 +113,3 @@ for tool_call in initial_response.message.tool_calls or []: # pylint: disable=no
     # 4. Final assistant reply incorporating the tool output
     print(followup_response.message.content) # pylint: disable=no-member
     # This will print the final response from the assistant after processing the tool output.
-    # 5. Print out the step‑by‑step reasoning and final answer
-    # for msg in response["messages"]:
-    #    print(msg.content)
-
-print("-" * 20)
-print("End of tool execution")
-print(initial_response.message.content) # pylint: disable=no-member
-print("-" * 20)
