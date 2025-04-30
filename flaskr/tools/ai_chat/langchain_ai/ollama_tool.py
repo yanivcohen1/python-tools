@@ -46,7 +46,8 @@ available_functions = {"get_current_weather": get_current_weather,
 
 # JSON schema metadata list for tools
 tools_schema = [
-  {'type': 'function',
+  {
+    'type': 'function',
     'function': {
         "name": "get_current_weather",
         "description": "Get the current weather for a given location.",
@@ -58,8 +59,10 @@ tools_schema = [
             },
             "required": ["location", "unit"]
         }
-    }},
-    {'type': 'function',
+    }
+  },
+  {
+    'type': 'function',
     'function': {
         "name": "calculate",
         "description": "Compute a simple arithmetic expression.",
@@ -70,7 +73,8 @@ tools_schema = [
             },
             "required": ["expression"]
         }
-    }}
+    }
+  }
 ]
 
 # 1. Send a user message and register tools with Ollama
