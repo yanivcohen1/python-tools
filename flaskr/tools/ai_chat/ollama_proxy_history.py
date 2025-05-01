@@ -1,51 +1,41 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 import httpx
 import uvicorn
-from typing import Dict, List
-import uuid
+from typing import List, Dict
+from fastapi.responses import FileResponse
+
 
 app = FastAPI()
-
-# In-memory storage for user conversation histories
-user_histories: Dict[str, List[Dict[str, str]]] = {}
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 MODEL_NAME = "mistral"
 
+# Serve a simple HTML client
+@app.get("/", response_class=FileResponse)
+async def get_client():
+    return FileResponse("templates/ollama_proxy_client.html")
+
+# Request model now expects structured messages
 class ChatRequest(BaseModel):
-    user_id: str
-    message: str
+    messages: List[Dict[str, str]]
 
 class ChatResponse(BaseModel):
     reply: str
-    user_id: str
 
-@app.post("/chat/", response_model=ChatResponse)
+@app.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
-    user_id = request.user_id
-    if not user_id:
-        # Generate a new user ID if not provided
-        user_id = str(uuid.uuid4())
-    user_msg = request.message
+    messages = request.messages
 
-    # Check if this is a new user
-    is_new_user = user_id not in user_histories
-    if is_new_user:
-        # Initialize history for new users
-        user_histories[user_id] = []
-
-    # Append user message to history
-    user_histories[user_id].append({"role": "user", "content": user_msg})
-
-    # Build prompt from history
+    # Reconstruct full prompt from messages
     prompt_lines = []
-    for msg in user_histories[user_id]:
-        speaker = "User" if msg["role"] == "user" else "Assistant"
+    for msg in messages:
+        speaker = 'User' if msg['role'] == 'user' else 'Assistant'
         prompt_lines.append(f"{speaker}: {msg['content']}")
-    prompt_lines.append("Assistant:")
+    prompt_lines.append('Assistant:')
     full_prompt = "\n".join(prompt_lines)
-    # this is the prompt format for the model
+    # the full prompt should look like this but in json format:
     # User: Hi!
     # Assistant: Hello, how can I help you today?
     # User: What's the weather like?
@@ -67,14 +57,10 @@ async def chat(request: ChatRequest):
 
     data = resp.json()
     assistant_reply = data.get("response")
-
     if not assistant_reply:
         raise HTTPException(status_code=500, detail="No response from Ollama")
 
-    # Append assistant reply to history
-    user_histories[user_id].append({"role": "assistant", "content": assistant_reply})
-
-    return ChatResponse(reply=assistant_reply, user_id=user_id)
+    return ChatResponse(reply=assistant_reply)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
