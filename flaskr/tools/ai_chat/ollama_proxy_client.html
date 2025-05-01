@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI Chat Request</title>
+</head>
+<body>
+    <h1>Chat API Test</h1>
+    <textarea id="messageInput" placeholder="Enter your message"></textarea>
+    <button onclick="sendChatRequest()">Send</button>
+    <p id="response"></p>
+
+    <script>
+        let user_id = "";
+
+        async function sendChatRequest() {
+            const message = document.getElementById("messageInput").value;
+
+            const requestData = {
+                message: message, // Assuming ChatRequest model has a `message` field
+                user_id: user_id // Example user ID, replace with actual user ID if needed
+            };
+
+            try {
+                const response = await fetch("http://127.0.0.1:8000/chat/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                const responseData = await response.json();
+                document.getElementById("response").innerText = responseData.reply;
+                user_id = responseData.user_id; // Update user_id with the response if needed
+            } catch (error) {
+                document.getElementById("response").innerText = "Error: " + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
