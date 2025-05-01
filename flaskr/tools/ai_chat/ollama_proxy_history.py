@@ -15,7 +15,7 @@ MODEL_NAME = "mistral"
 # Serve a simple HTML client
 @app.get("/", response_class=FileResponse)
 async def get_client():
-    return FileResponse("templates/ollama_proxy_client.html")
+    return FileResponse("templates/ollama_proxy_history.html")
 
 # Request model now expects structured messages
 class ChatRequest(BaseModel):
