@@ -124,17 +124,20 @@ tools_schema = [
 
 # --- 3. Initialize Client and Messages ---
 client = ollama.Client()
+
 # Prompt designed to potentially require multiple steps
+query = 'What is the capital of Canada, and what is the weather like in Celsius at this capital?'
 messages = [
-    {'role': 'user', 'content': 'What is the capital of Canada, and what is the weather like in Celsius at this city?'}
+    {'role': 'user', 'content': query}
 ]
 print(f"Initial User Prompt: {messages[-1]['content']}\n")
 
 # --- 4. Iterative Tool Call Loop ---
 final_answer_message = None
-
+current_iteration = 0
 for i in range(MAX_ITERATIONS):
-    print(f"--- Iteration {i + 1} ---")
+    print(f"\n--- Iteration {i + 1} ---")
+    current_iteration = i
     try:
         response = client.chat(
             model=MODEL_NAME,
@@ -146,7 +149,7 @@ for i in range(MAX_ITERATIONS):
 
         # Check if the model wants to call tools
         if not response_message.get('tool_calls'):
-            print("\nModel finished. No more tool calls requested.")
+            print("Model finished. No more tool calls requested.")
             final_answer_message = response_message # This is the final answer
             break # Exit the loop
 
@@ -205,43 +208,46 @@ for i in range(MAX_ITERATIONS):
         final_answer_message = {'role': 'assistant', 'content': f"An error occurred: {e}"}
         break
 
+if current_iteration == MAX_ITERATIONS - 1:
+    print("\n--- Max iterations reached. Final answer may be incomplete. ---")
+    # Optionally, you can handle this case differently based on your needs.
 # --- 5. Print Final Result ---
-print("\n--- Final Conversation History ---")
-for msg in messages:
-    role = msg.get('role', 'unknown')
-    content = msg.get('content', '')
-    tool_calls = msg.get('tool_calls') # This is the list of ToolCall-like objects/dicts
+# print("\n--- Final Conversation History ---")
+# for msg in messages:
+#     role = msg.get('role', 'unknown')
+#     content = msg.get('content', '')
+#     tool_calls = msg.get('tool_calls') # This is the list of ToolCall-like objects/dicts
 
-    print(f"[{role.upper()}]")
-    if content:
-        print(content)
-    if tool_calls:
-        # Convert tool_calls to a JSON-serializable format (list of dicts)
-        serializable_tool_calls = []
-        for tc in tool_calls:
-            # Assuming tc behaves like a dictionary or has accessible attributes
-            # Adjust keys ('id', 'type', 'function') if library representation differs
-            serializable_call = {
-                "id": tc.get("id") if isinstance(tc, dict) else getattr(tc, 'id', None), # Handle dict or object access
-                "type": tc.get("type", "function") if isinstance(tc, dict) else getattr(tc, 'type', 'function'),
-                "function": {
-                    "name": tc.get("function", {}).get("name") if isinstance(tc, dict) else getattr(getattr(tc, 'function', {}), 'name', None),
-                    "arguments": tc.get("function", {}).get("arguments") if isinstance(tc, dict) else getattr(getattr(tc, 'function', {}), 'arguments', None)
-                }
-            }
-            # Clean up None values if desired, though json.dumps handles them
-            serializable_call = {k: v for k, v in serializable_call.items() if v is not None}
-            if 'function' in serializable_call:
-                serializable_call['function'] = {k: v for k, v in serializable_call['function'].items() if v is not None}
+#     print(f"[{role.upper()}]")
+#     if content:
+#         print(content)
+#     if tool_calls:
+#         # Convert tool_calls to a JSON-serializable format (list of dicts)
+#         serializable_tool_calls = []
+#         for tc in tool_calls:
+#             # Assuming tc behaves like a dictionary or has accessible attributes
+#             # Adjust keys ('id', 'type', 'function') if library representation differs
+#             serializable_call = {
+#                 "id": tc.get("id") if isinstance(tc, dict) else getattr(tc, 'id', None), # Handle dict or object access
+#                 "type": tc.get("type", "function") if isinstance(tc, dict) else getattr(tc, 'type', 'function'),
+#                 "function": {
+#                     "name": tc.get("function", {}).get("name") if isinstance(tc, dict) else getattr(getattr(tc, 'function', {}), 'name', None),
+#                     "arguments": tc.get("function", {}).get("arguments") if isinstance(tc, dict) else getattr(getattr(tc, 'function', {}), 'arguments', None)
+#                 }
+#             }
+#             # Clean up None values if desired, though json.dumps handles them
+#             serializable_call = {k: v for k, v in serializable_call.items() if v is not None}
+#             if 'function' in serializable_call:
+#                 serializable_call['function'] = {k: v for k, v in serializable_call['function'].items() if v is not None}
 
-            serializable_tool_calls.append(serializable_call)
+#             serializable_tool_calls.append(serializable_call)
 
-        try:
-            # Now dump the serializable list
-            print(f"  Tool Calls: {json.dumps(serializable_tool_calls, indent=2)}")
-        except TypeError as e:
-            # Fallback if conversion still fails
-            print(f"  Tool Calls (raw representation, JSON failed: {e}): {tool_calls}")
+#         try:
+#             # Now dump the serializable list
+#             print(f"  Tool Calls: {json.dumps(serializable_tool_calls, indent=2)}")
+#         except TypeError as e:
+#             # Fallback if conversion still fails
+#             print(f"  Tool Calls (raw representation, JSON failed: {e}): {tool_calls}")
 
 
 print("\n--- Final Assistant Answer ---")
