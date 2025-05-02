@@ -127,7 +127,7 @@ client = ollama.Client()
 
 # Prompt designed to potentially require multiple steps
 # query = 'What is the capital of Canada, and what is the weather like in Celsius at this capital and multiply capital temperature in 10?'
-query = 'What is the weather in Ottawa in Celsius and calculate the convertion to Fahrenheit?'
+query = 'first step find the weather in Ottawa in Celsius, second step calculate the convertion to Fahrenheit?'
 messages = [
     {'role': 'user', 'content': query},
     {'role': 'system', 'content': 'You are a helpful assistant that can call tools to get information, all calculation will be with calculate tool.'},

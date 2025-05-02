@@ -61,10 +61,12 @@ llm = ChatOllama(
 llm_with_tools = llm.bind_tools(tools)
 agent = create_react_agent(llm_with_tools, tools)
 
-query = "What is the weather in Cairo in Celsius and calculate the convertion to Fahrenheit?"
+query = "first step find What is the weather in Cairo in Celsius, second step multiple the tempurture from first step in 10?"
 # 5. Invoke the agent
 for chunk in agent.stream({
-    "messages": [("user", query),("system", "Please answer in a step-by-step manner. use only the tools you have.")],
+    "messages": [("user", query),("system", "Please answer in a step-by-step manner. use only the tools you have,\
+                                  all calculation will be only with Calculator tool\
+                                  all weather information will be only with Weather tool")],
 }, stream_mode="messages"):
     if chunk[0].content:
         print(chunk[1]["langgraph_node"],':', chunk[0].name, "-", chunk[0].content, end="\n")
