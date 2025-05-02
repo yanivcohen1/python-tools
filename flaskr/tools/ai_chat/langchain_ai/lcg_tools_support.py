@@ -61,7 +61,7 @@ llm = ChatOllama(
 llm_with_tools = llm.bind_tools(tools)
 agent = create_react_agent(llm_with_tools, tools)
 
-query = "first step find What is the weather in Cairo in Celsius, second step multiple the tempurture from first step in 10?"
+query = "first step find What is the weather in Cairo, second step multiple the tempurture from first step in 10?"
 # 5. Invoke the agent
 for chunk in agent.stream({
     "messages": [("user", query),("system", "Please answer in a step-by-step manner. use only the tools you have,\

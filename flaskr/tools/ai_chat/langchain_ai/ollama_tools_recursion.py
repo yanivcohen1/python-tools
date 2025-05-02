@@ -37,6 +37,8 @@ def calculate(expression: str):
         return json.dumps({"expression": expression, "result": result})
     except Exception as e:
         print(f"Error evaluating expression '{expression}': {e}")
+
+
         return json.dumps({"expression": expression, "error": str(e) + " prehaps you inserted a variable in the expression?"})
 
 def get_capital(country: str):

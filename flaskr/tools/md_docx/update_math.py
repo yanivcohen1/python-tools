@@ -4,7 +4,7 @@ import os
 def update_math():
     # Replace with your actual file name
     current_directory = os.path.dirname(__file__)
-    filename = current_directory + "/ex5.md"
+    filename = current_directory + "/copilot.md"
 
     # Read the file content
     with open(filename, "r", encoding="utf-8") as file:

@@ -23,5 +23,5 @@ if __name__ == '__main__':
     # update the math expressions in the markdown file
     update_math.update_math()
     md_filename = current_directory + "/ex6.md"
-    docx_filename = current_directory + "/ex6.docx"
+    docx_filename = current_directory + "/copilot.docx"
     md_to_docx(md_filename, docx_filename)
