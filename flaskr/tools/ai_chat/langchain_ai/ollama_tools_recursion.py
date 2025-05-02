@@ -37,7 +37,7 @@ def calculate(expression: str):
         return json.dumps({"expression": expression, "result": result})
     except Exception as e:
         print(f"Error evaluating expression '{expression}': {e}")
-        return json.dumps({"expression": expression, "error": str(e)})
+        return json.dumps({"expression": expression, "error": str(e) + " prehaps you inserted a variable in the expression?"})
 
 def get_capital(country: str):
     """Gets the capital city of a given country. Returns JSON."""
@@ -90,7 +90,7 @@ tools_schema = [
         'type': 'function',
         'function': {
             'name': 'calculate',
-            'description': 'Evaluates a simple mathematical expression. Returns JSON.',
+            'description': 'Evaluates a simple mathematical expression (python eval syntax without variables). Returns JSON.',
             'parameters': {
                 'type': 'object',
                 'properties': {
@@ -126,9 +126,11 @@ tools_schema = [
 client = ollama.Client()
 
 # Prompt designed to potentially require multiple steps
-query = 'What is the capital of Canada, and what is the weather like in Celsius at this capital and calculate it in fahrenheit?'
+# query = 'What is the capital of Canada, and what is the weather like in Celsius at this capital and multiply capital temperature in 10?'
+query = 'What is the weather in Ottawa in Celsius and calculate the convertion to Fahrenheit?'
 messages = [
-    {'role': 'user', 'content': query}
+    {'role': 'user', 'content': query},
+    {'role': 'system', 'content': 'You are a helpful assistant that can call tools to get information, all calculation will be with calculate tool.'},
 ]
 print(f"Initial User Prompt: {messages[-1]['content']}\n")
 
