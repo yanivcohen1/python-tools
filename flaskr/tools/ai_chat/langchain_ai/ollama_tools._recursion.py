@@ -18,9 +18,9 @@ def get_current_weather(location: str, unit: str = "celsius"):
     elif "london" in location.lower():
         weather_data = {"location": location, "temperature": "10", "unit": unit, "forecast": "rainy"}
     elif "ottawa" in location.lower():
-         weather_data = {"location": location, "temperature": "3", "unit": unit, "forecast": "snowy"}
+        weather_data = {"location": location, "temperature": "3", "unit": unit, "forecast": "snowy"}
     elif "paris" in location.lower():
-         weather_data = {"location": location, "temperature": "12", "unit": unit, "forecast": "partly cloudy"}
+        weather_data = {"location": location, "temperature": "12", "unit": unit, "forecast": "partly cloudy"}
     else:
         weather_data = {"Error": "Location not found"}
     return json.dumps(weather_data)
@@ -32,7 +32,7 @@ def calculate(expression: str):
     try:
         allowed_chars = "0123456789+-*/(). "
         if not all(c in allowed_chars for c in expression):
-             raise ValueError("Expression contains invalid characters.")
+            raise ValueError("Expression contains invalid characters.")
         result = eval(expression, {"__builtins__": None}, {})
         return json.dumps({"expression": expression, "result": result})
     except Exception as e:
@@ -51,7 +51,7 @@ def get_capital(country: str):
     }
     capital = capitals.get(country.lower(), "Unknown")
     if capital == "Unknown":
-         return json.dumps({"country": country, "error": "Capital not found in database"})
+        return json.dumps({"country": country, "error": "Capital not found in database"})
     else:
         return json.dumps({"country": country, "capital": capital})
 
@@ -63,7 +63,7 @@ available_tools = {
 }
 
 # --- 2. Define Tool Schemas ---
-tools_definition = [
+tools_schema = [
     {
         'type': 'function',
         'function': {
@@ -96,7 +96,7 @@ tools_definition = [
                 'properties': {
                     'expression': {
                         'type': 'string',
-                        'description': 'The mathematical expression to evaluate.',
+                        'description': 'The mathematical expression to evaluate. (python eval syntax without variables)',
                     },
                 },
                 'required': ['expression'],
@@ -121,19 +121,6 @@ tools_definition = [
         }
     }
 ]
-# (Make sure parameter schemas are fully defined as in previous examples)
-# Example Parameter Schemas (ensure these are inside the dictionaries above)
-tools_definition[0]['function']['parameters'] = {
-    'type': 'object', 'properties': {
-        'location': {'type': 'string', 'description': 'The city and state/country (e.g., "San Francisco")'},
-        'unit': {'type': 'string', 'enum': ['celsius', 'fahrenheit'], 'description': 'The temperature unit to use.'}
-    }, 'required': ['location']}
-tools_definition[1]['function']['parameters'] = {
-    'type': 'object', 'properties': {
-        'expression': {'type': 'string', 'description': 'The mathematical expression to evaluate.'}
-    }, 'required': ['expression']}
-# get_capital schema is already defined inline above
-
 
 # --- 3. Initialize Client and Messages ---
 client = ollama.Client()
@@ -152,7 +139,7 @@ for i in range(MAX_ITERATIONS):
         response = client.chat(
             model=MODEL_NAME,
             messages=messages,
-            tools=tools_definition
+            tools=tools_schema,
         )
         response_message = response['message']
         messages.append(response_message) # Append assistant's response/request
@@ -240,12 +227,12 @@ for msg in messages:
                 "function": {
                     "name": tc.get("function", {}).get("name") if isinstance(tc, dict) else getattr(getattr(tc, 'function', {}), 'name', None),
                     "arguments": tc.get("function", {}).get("arguments") if isinstance(tc, dict) else getattr(getattr(tc, 'function', {}), 'arguments', None)
-                 }
+                }
             }
             # Clean up None values if desired, though json.dumps handles them
             serializable_call = {k: v for k, v in serializable_call.items() if v is not None}
             if 'function' in serializable_call:
-                 serializable_call['function'] = {k: v for k, v in serializable_call['function'].items() if v is not None}
+                serializable_call['function'] = {k: v for k, v in serializable_call['function'].items() if v is not None}
 
             serializable_tool_calls.append(serializable_call)
 
@@ -261,11 +248,11 @@ print("\n--- Final Assistant Answer ---")
 # (Rest of the final answer printing logic remains the same)
 # ...
 if final_answer_message and final_answer_message.get('content'):
-     print(final_answer_message['content'])
+    print(final_answer_message['content'])
 elif final_answer_message and final_answer_message.get('tool_calls'):
-     print("(Process ended with the model requesting further tool calls due to iteration limit)")
+    print("(Process ended with the model requesting further tool calls due to iteration limit)")
 elif not final_answer_message and messages and messages[-1]['role'] == 'assistant':
-     # Fallback if loop ended abruptly but last message was assistant
-     print(messages[-1]['content'])
+    # Fallback if loop ended abruptly but last message was assistant
+    print(messages[-1]['content'])
 else:
     print("(Could not determine final answer)")
