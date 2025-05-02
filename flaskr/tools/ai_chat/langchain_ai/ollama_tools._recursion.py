@@ -126,7 +126,7 @@ tools_schema = [
 client = ollama.Client()
 
 # Prompt designed to potentially require multiple steps
-query = 'What is the capital of Canada, and what is the weather like in Celsius at this capital?'
+query = 'What is the capital of Canada, and what is the weather like in Celsius at this capital and calculate it in fahrenheit?'
 messages = [
     {'role': 'user', 'content': query}
 ]
