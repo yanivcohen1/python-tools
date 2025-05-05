@@ -60,6 +60,7 @@
 </head>
 
 <body onload="getModelList()">
+  <div id="output"></div>
   <h2>Ask Ollama</h2>
   <div>
     <div id="modelList"></div>
@@ -69,7 +70,6 @@
   <br>
   <button id="send" onclick="fetchCompletion()">Send</button>
   <span id="count"></span>
-  <div id="output"></div>
 </body>
 
 <script>
@@ -80,6 +80,7 @@
   const send_btn = document.getElementById('send')
   let intervalID = null;
   let chatHistory = [];
+  let answer = "";
 
   // const code_highlight = ", the code in response will be like this ```{program_language_name}"
   async function getModelList() {
@@ -151,10 +152,11 @@
       send_btn.style.color = "white" // text color
       startTime = Date.now();
       document.getElementById("count").innerHTML = "";
-      content += "<hr><hr>" // clear content
+      content += content=="" ? "" : "<br><br><hr><hr>" // new conversation
       let myMsg = document.getElementById('inputMessage').value;
       content += "<span><b>User: </b>" + myMsg + "</span>"
       content += "<hr>"
+      answer = ""
     } else {
       // stop the call
       controller.abort();
@@ -206,6 +208,7 @@
             const delta = jsonData['choices'][0]['delta'];
             if ('content' in delta) {
               content += delta['content'];
+              answer += delta['content'];
               //displayHandle.innerHTML = marked.parse(content);
               // Syntax highlighting
               // document.querySelectorAll('pre code').forEach((block) => {
@@ -226,7 +229,7 @@
     update_display();
 
     // Add the final response to chat history
-    chatHistory.push({ role: 'assistant', content: content });
+    chatHistory.push({ role: 'assistant', content: answer });
 
     // button reset
     send_btn.innerHTML = "Send"
