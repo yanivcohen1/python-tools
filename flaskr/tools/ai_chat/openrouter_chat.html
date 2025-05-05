@@ -82,6 +82,7 @@
 </head>
 
 <body onload="getModelList()">
+  <div id="output"></div>
   <h2>Ask openrouter</h2>
   <div>
     <div id="modelList"></div>
@@ -92,7 +93,6 @@ and also write py that plot the solved equation and the solutions using scipy ro
     <br>
     <button id="send" onclick="fetchCompletion()">Send</button>
     <span id="count"></span>
-    <div id="output"></div>
 </body>
 
 <script>
@@ -103,6 +103,8 @@ and also write py that plot the solved equation and the solutions using scipy ro
   const displayHandle = document.getElementById('output');
   const send_btn = document.getElementById('send')
   let intervalID = null;
+  let chatHistory = [];
+  let answer = "";
   // Disable mangling so that any needed backslashes remain intact.
   marked.setOptions({
     mangle: false
@@ -174,7 +176,11 @@ and also write py that plot the solved equation and the solutions using scipy ro
       send_btn.style.color = "white"
       startTime = Date.now();
       document.getElementById("count").innerHTML = "";
-      content = ""
+      content += content=="" ? "" : "<br><br><hr><hr>" // new conversation
+      let myMsg = document.getElementById('inputMessage').value;
+      content += "<span><b>User: </b>" + myMsg + "</span>"
+      content += "<hr>"
+      answer = ""
     } else {
       // stop the call
       controller.abort();
@@ -182,6 +188,7 @@ and also write py that plot the solved equation and the solutions using scipy ro
       return
     }
     let myMsg = document.getElementById('inputMessage').value;
+    chatHistory.push({ role: 'user', content: myMsg });
     controller = new AbortController();
     const signal = controller.signal;
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -193,10 +200,7 @@ and also write py that plot the solved equation and the solutions using scipy ro
       },
       body: JSON.stringify({
         'model': selectedModel,//'deepseek-r1:8b',
-        'messages': [
-          { "role": "system", "content": "" },
-          { "role": "user", "content": myMsg }
-        ],
+        'messages': chatHistory,
         'temperature': 0.7,
         'top_p': 0.95,
         'max_tokens': 32768, // 4096, // -1 for unlimited
@@ -235,6 +239,7 @@ and also write py that plot the solved equation and the solutions using scipy ro
                 // }
                 // if (!think) {
                   content += contents;
+                  answer += contents;
                 // }
               }
             } catch (error) {
@@ -262,6 +267,9 @@ and also write py that plot the solved equation and the solutions using scipy ro
   function finish_and_calc_time() {
     clearInterval(intervalID);
     update_display();
+
+    // Add the final response to chat history
+    chatHistory.push({ role: 'assistant', content: answer });
 
     // button reset
     send_btn.innerHTML = "Send"
