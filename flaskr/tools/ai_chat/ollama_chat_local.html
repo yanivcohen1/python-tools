@@ -151,7 +151,10 @@
       send_btn.style.color = "white" // text color
       startTime = Date.now();
       document.getElementById("count").innerHTML = "";
-      content = ""
+      content += "<hr><hr>" // clear content
+      let myMsg = document.getElementById('inputMessage').value;
+      content += "<span><b>User: </b>" + myMsg + "</span>"
+      content += "<hr>"
     } else {
       // stop the call
       controller.abort();
@@ -219,6 +222,7 @@
 
   function finish_and_calc_time(content, startTime) {
     clearInterval(intervalID);
+    content += "<hr>"
     update_display();
 
     // Add the final response to chat history
