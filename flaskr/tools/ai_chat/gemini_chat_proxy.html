@@ -103,6 +103,7 @@ and also write py that plot the solved equation and the solutions using scipy ro
   const send_btn = document.getElementById('send')
   let intervalID = null;
   let chatHistory = [];
+  let answer = ""
   // Disable mangling so that any needed backslashes remain intact.
   marked.setOptions({
     mangle: false
@@ -173,10 +174,11 @@ and also write py that plot the solved equation and the solutions using scipy ro
       send_btn.style.color = "white"
       startTime = Date.now();
       document.getElementById("count").innerHTML = "";
-      content += "<hr>" // clear content
+      content += content=="" ? "" : "<br><br><hr><hr>" // new conversation
       let myMsg = document.getElementById('inputMessage').value;
       content += "<span><b>User: </b>" + myMsg + "</span>"
       content += "<hr>"
+      answer = ""
     } else {
       // stop the call
       controller.abort();
@@ -215,6 +217,7 @@ and also write py that plot the solved equation and the solutions using scipy ro
 
       const text = decoder.decode(value);
       content += text;
+      answer += text;
     }
     finish_and_calc_time();
   }
@@ -236,7 +239,7 @@ and also write py that plot the solved equation and the solutions using scipy ro
     update_display();
 
     // Add the final response to chat history
-    chatHistory.push({ role: 'model', parts: [content] });
+    chatHistory.push({ role: 'model', parts: [answer] });
 
     // button reset
     send_btn.innerHTML = "Send"
