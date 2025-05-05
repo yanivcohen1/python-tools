@@ -35,9 +35,9 @@ class PromptRequest(BaseModel):
     model: str
     prompt: List[Part]
 
-class GeminiQueryData(BaseModel):
-    model: str
-    prompt: List[str] = []
+# class GeminiQueryData(BaseModel):
+#     model: str
+#     prompt: List[str] = []
 
 def generate_stream(prompt: List[Part], model_name: str = 'gemini-2.0-flash-thinking-exp'):
     model = genai.GenerativeModel(model_name) # 'gemini-2.0-flash-thinking-exp')
