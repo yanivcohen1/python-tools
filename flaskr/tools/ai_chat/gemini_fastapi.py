@@ -1,12 +1,11 @@
 # FastAPI (main.py)
-from fastapi import FastAPI, Response
-# FastAPI (main.py)
 from fastapi import FastAPI, Response, Body
 from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import google.generativeai as genai
 # import asyncio
 from pydantic import BaseModel
+from typing import List, Optional
 
 app = FastAPI()
 
@@ -26,11 +25,21 @@ app.add_middleware(
 
 genai.configure(api_key="AIzaSyB2GXiEd1eV95qPkFMUaz8vndME1cYFByk") #replace with your api key
 
-class GeminiQueryData(BaseModel):
-    prompt: str
-    model: str
+from typing import List, Literal
 
-def generate_stream(prompt: str, model_name: str = 'gemini-2.0-flash-thinking-exp'):
+class Part(BaseModel):
+    role: Literal["user", "model"] # assistant
+    parts: List[str]
+
+class PromptRequest(BaseModel):
+    model: str
+    prompt: List[Part]
+
+class GeminiQueryData(BaseModel):
+    model: str
+    prompt: List[str] = []
+
+def generate_stream(prompt: List[Part], model_name: str = 'gemini-2.0-flash-thinking-exp'):
     model = genai.GenerativeModel(model_name) # 'gemini-2.0-flash-thinking-exp')
     response = model.generate_content(prompt, stream=True)  # No await needed
     for chunk in response:  # Regular for loop, not async
@@ -38,8 +47,10 @@ def generate_stream(prompt: str, model_name: str = 'gemini-2.0-flash-thinking-ex
         yield chunk.text
 
 @app.post("/stream")
-async def stream_content(query_data: GeminiQueryData = Body(...)):
-    return StreamingResponse(generate_stream(query_data.prompt +
+async def stream_content(query_data: PromptRequest = Body(...)):
+    # Convert to list of dicts
+    prompt = [p.model_dump() for p in query_data.prompt]
+    return StreamingResponse(generate_stream( prompt,
                                   # ' use in your answer this url content: https://testsmanager.com',
                                   query_data.model),
                               media_type="text/event-stream")

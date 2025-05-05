@@ -102,6 +102,7 @@ and also write py that plot the solved equation and the solutions using scipy ro
   const displayHandle = document.getElementById('output');
   const send_btn = document.getElementById('send')
   let intervalID = null;
+  let chatHistory = [];
   // Disable mangling so that any needed backslashes remain intact.
   marked.setOptions({
     mangle: false
@@ -172,7 +173,10 @@ and also write py that plot the solved equation and the solutions using scipy ro
       send_btn.style.color = "white"
       startTime = Date.now();
       document.getElementById("count").innerHTML = "";
-      content = ""
+      content += "<hr>" // clear content
+      let myMsg = document.getElementById('inputMessage').value;
+      content += "<span><b>User: </b>" + myMsg + "</span>"
+      content += "<hr>"
     } else {
       // stop the call
       controller.abort();
@@ -180,6 +184,8 @@ and also write py that plot the solved equation and the solutions using scipy ro
       return
     }
     let myMsg = document.getElementById('inputMessage').value;
+    chatHistory.push({ role: 'user', parts: [myMsg] });
+
     controller = new AbortController();
     const signal = controller.signal;
     const response = await fetch('http://localhost:7000/stream', {
@@ -190,7 +196,7 @@ and also write py that plot the solved equation and the solutions using scipy ro
       },
       body: JSON.stringify({
         'model': selectedModel,//'deepseek-r1:8b',
-        'prompt': myMsg,
+        'prompt': chatHistory,
       }),
       signal // Add signal here to support aborting
     });
@@ -228,6 +234,9 @@ and also write py that plot the solved equation and the solutions using scipy ro
   function finish_and_calc_time() {
     clearInterval(intervalID);
     update_display();
+
+    // Add the final response to chat history
+    chatHistory.push({ role: 'model', parts: [content] });
 
     // button reset
     send_btn.innerHTML = "Send"
