@@ -56,20 +56,31 @@
     h2 {
       margin: 5px 0; /* Adjust top and bottom margins as needed */
     }
+    div.sticky {
+      position: sticky;
+      z-index: 10;
+      bottom : 0;
+      background-color: white;
+      width: 100%;
+      /* padding: 50px; #343a40;
+         font-size: 20px; */
+    }
   </style>
 </head>
 
 <body onload="getModelList()">
   <div id="output"></div>
-  <h2>Ask Ollama</h2>
-  <div>
-    <div id="modelList"></div>
-    <button id="refresh_models" onclick="getModelList()">refresh module list</button>
+  <div class="sticky">
+    <h2>Ask Ollama</h2>
+    <div>
+      <div id="modelList"></div>
+      <button id="refresh_models" onclick="getModelList()">refresh module list</button>
+    </div>
+    <textarea id="inputMessage" rows="4" style="width: 100%;" placeholder="Enter your message here..."></textarea>
+    <br>
+    <button id="send" onclick="fetchCompletion()">Send</button>
+    <span id="count"></span>
   </div>
-  <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here..."></textarea>
-  <br>
-  <button id="send" onclick="fetchCompletion()">Send</button>
-  <span id="count"></span>
 </body>
 
 <script>
@@ -209,6 +220,8 @@
             if ('content' in delta) {
               content += delta['content'];
               answer += delta['content'];
+              // Scroll to the bottom of the page
+              window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
               //displayHandle.innerHTML = marked.parse(content);
               // Syntax highlighting
               // document.querySelectorAll('pre code').forEach((block) => {
