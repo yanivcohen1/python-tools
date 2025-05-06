@@ -89,6 +89,7 @@
   let content = "";
   const displayHandle = document.getElementById('output');
   const send_btn = document.getElementById('send')
+  const inputMessage = document.getElementById('inputMessage')
   let intervalID = null;
   let chatHistory = [];
   let answer = "";
@@ -164,7 +165,7 @@
       startTime = Date.now();
       document.getElementById("count").innerHTML = "";
       content += content=="" ? "" : "<br><br><hr><hr>" // new conversation
-      let myMsg = document.getElementById('inputMessage').value;
+      let myMsg = inputMessage.value;
       content += "<span><b>User: </b>" + myMsg + "</span>"
       content += "<hr>"
       answer = ""
@@ -174,7 +175,7 @@
       finish_and_calc_time(content, startTime)
       return
     }
-    let myMsg = document.getElementById('inputMessage').value;
+    let myMsg = inputMessage.value;
 
     chatHistory.push({ role: 'user', content: myMsg });
     //const fullPrompt = chatHistory.map(msg => {
@@ -238,6 +239,7 @@
     content += "<hr>"
     update_display();
 
+    inputMessage.value = ""; // Clear the input field
     // Add the final response to chat history
     chatHistory.push({ role: 'assistant', content: answer });
 

@@ -113,6 +113,7 @@ and also write py that plot the solved equation and the solutions using scipy ro
   const API_KEY = "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"
   const displayHandle = document.getElementById('output');
   const send_btn = document.getElementById('send')
+  const inputMessage = document.getElementById('inputMessage')
   let intervalID = null;
   let chatHistory = [];
   let answer = "";
@@ -188,7 +189,7 @@ and also write py that plot the solved equation and the solutions using scipy ro
       startTime = Date.now();
       document.getElementById("count").innerHTML = "";
       content += content=="" ? "" : "<br><br><hr><hr>" // new conversation
-      let myMsg = document.getElementById('inputMessage').value;
+      let myMsg = inputMessage.value;
       content += "<span><b>User: </b>" + myMsg + "</span>"
       content += "<hr>"
       answer = ""
@@ -198,7 +199,7 @@ and also write py that plot the solved equation and the solutions using scipy ro
       finish_and_calc_time();
       return
     }
-    let myMsg = document.getElementById('inputMessage').value;
+    let myMsg = inputMessage.value;
     chatHistory.push({ role: 'user', content: myMsg });
     controller = new AbortController();
     const signal = controller.signal;
@@ -281,6 +282,8 @@ and also write py that plot the solved equation and the solutions using scipy ro
     clearInterval(intervalID);
     update_display();
 
+    // clear msg
+    inputMessage.value = ""
     // Scroll to the bottom of the page
     window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight)
 
