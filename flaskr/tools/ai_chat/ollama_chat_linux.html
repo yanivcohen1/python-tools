@@ -56,20 +56,31 @@
     h2 {
       margin: 5px 0; /* Adjust top and bottom margins as needed */
     }
+    div.sticky {
+      position: sticky;
+      z-index: 10;
+      bottom : 0;
+      background-color: white;
+      width: 100%;
+      /* padding: 50px; #343a40;
+         font-size: 20px; */
+    }
   </style>
 </head>
 
 <body onload="getModelList()">
-  <h2>Ask Ollama linux</h2>
-  <div>
-    <div id="modelList"></div>
-    <button id="refresh_models" onclick="getModelList()">refresh module list</button>
-  </div>
-  <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here..."></textarea>
-  <br>
-  <button id="send" onclick="fetchCompletion()">Send</button>
-  <span id="count"></span>
   <div id="output"></div>
+  <div class="sticky">
+    <h2>Ask Ollama</h2>
+    <div>
+      <div id="modelList"></div>
+      <button id="refresh_models" onclick="getModelList()">refresh module list</button>
+    </div>
+    <textarea id="inputMessage" rows="4" style="width: 100%;" placeholder="Enter your message here..."></textarea>
+    <br>
+    <button id="send" onclick="fetchCompletion()">Send</button>
+    <span id="count"></span>
+  </div>
 </body>
 
 <script>
@@ -79,6 +90,8 @@
   const displayHandle = document.getElementById('output');
   const send_btn = document.getElementById('send')
   let intervalID = null;
+  let chatHistory = [];
+  let answer = "";
 
   // const code_highlight = ", the code in response will be like this ```{program_language_name}"
   async function getModelList() {
@@ -106,6 +119,7 @@
       defaultOption.selected = true;
       select.appendChild(defaultOption);
 
+      models.sort((a, b) => a.id.localeCompare(b.id))
       models.forEach((model) => {
         const option = document.createElement('option');
         option.value = model.id;
@@ -149,7 +163,11 @@
       send_btn.style.color = "white" // text color
       startTime = Date.now();
       document.getElementById("count").innerHTML = "";
-      content = ""
+      content += content=="" ? "" : "<br><br><hr><hr>" // new conversation
+      let myMsg = document.getElementById('inputMessage').value;
+      content += "<span><b>User: </b>" + myMsg + "</span>"
+      content += "<hr>"
+      answer = ""
     } else {
       // stop the call
       controller.abort();
@@ -157,6 +175,11 @@
       return
     }
     let myMsg = document.getElementById('inputMessage').value;
+
+    chatHistory.push({ role: 'user', content: myMsg });
+    //const fullPrompt = chatHistory.map(msg => {
+    //  return `${msg.role === 'user' ? "User" : "Assistant"}: ${msg.content}`;
+    //}).join('\n') + "\nAssistant:";
     controller = new AbortController();
     const signal = controller.signal;
     const response = await fetch('http://192.168.0.155:7000/ollama/v1/chat/completions', {
@@ -167,13 +190,7 @@
       },
       body: JSON.stringify({
         'model': selectedModel,//'deepseek-r1:8b',
-        'messages': [
-          { "role": "system", "content": "" },
-          { "role": "user", "content": myMsg }
-        ],
-        'temperature': 0.7,
-        'max_tokens': -1, // -1 for unlimited
-        'stream': true
+        'prompt': chatHistory,
       }),
       signal // Add signal here to support aborting
     });
@@ -199,6 +216,9 @@
             const delta = jsonData['choices'][0]['delta'];
             if ('content' in delta) {
               content += delta['content'];
+              answer += delta['content'];
+              // Scroll to the bottom of the page
+              window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
               //displayHandle.innerHTML = marked.parse(content);
               // Syntax highlighting
               // document.querySelectorAll('pre code').forEach((block) => {
@@ -215,7 +235,11 @@
 
   function finish_and_calc_time(content, startTime) {
     clearInterval(intervalID);
+    content += "<hr>"
     update_display();
+
+    // Add the final response to chat history
+    chatHistory.push({ role: 'assistant', content: answer });
 
     // button reset
     send_btn.innerHTML = "Send"
