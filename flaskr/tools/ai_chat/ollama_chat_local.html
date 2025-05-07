@@ -65,6 +65,9 @@
       /* padding: 50px; #343a40;
          font-size: 20px; */
     }
+    div.think {
+      background-color: rgb(150, 148, 148) !important;
+    }
   </style>
 </head>
 
@@ -219,8 +222,16 @@
             const jsonData = JSON.parse(data);
             const delta = jsonData['choices'][0]['delta'];
             if ('content' in delta) {
-              content += delta['content'];
-              answer += delta['content'];
+              contents = delta['content']
+              if (contents.includes("<think>")) {
+                contents = "\n<div class='think'>\n<br>------thinking-------<hr>\n"
+              }
+              if (contents.includes("</think>")) {
+                contents = "\n<br><hr>\n</div>\n" // "\n</think>\n <hr />\n "
+                think = false;
+              }
+              content += contents;
+              answer += contents;
               // Scroll to the bottom of the page
               window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
               //displayHandle.innerHTML = marked.parse(content);

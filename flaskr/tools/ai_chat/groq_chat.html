@@ -249,7 +249,7 @@ and also write py that plot the solved equation and the solutions using scipy ro
                   contents = "\n<div class='think'>\n<br>------thinking-------<hr>\n"
                 }
                 if (contents.includes("</think>")) {
-                  contents = "\n</div>\n<br>------End thinking-------<hr>\n" // "\n</think>\n <hr />\n "
+                  contents = "\n<br><hr>\n</div>\n" // "\n</think>\n <hr />\n "
                   think = false;
                 }
                 // if (!think) {
