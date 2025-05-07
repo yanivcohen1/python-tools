@@ -39,7 +39,7 @@ class Part(BaseModel):
     parts: List[str]
 
 class PromptRequest(BaseModel):
-    model: Optional[str] = 'gemini-2.0-flash' # 'gemini-2.0-flash-thinking-exp'
+    model: Optional[str] = 'gemini-2.0-flash-thinking-exp' # 'gemini-2.0-flash'
     prompt: List[Part]
 
 def generate_stream(query: str, model_name: str):
