@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Groq chat</title>
+  <title>groq chat</title>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
   <!-- Optional: Include CSS for Markdown styling -->
@@ -15,8 +15,8 @@
   <script>
     window.MathJax = {
       tex: {
-        inlineMath: [['\\(', '\\)'], ['\\begin{math}', '\\end{math}']], // for inline math patterns
-        displayMath: [['\\[', '\\]'], ['\\begin{displaymath}', '\\end{displaymath}']], // for new line math patterns
+        inlineMath: [['\\(', '\\)'], ['$', '$'], ['\\begin{math}', '\\end{math}']], // for inline math patterns
+        displayMath: [['\\[', '\\]'], ['$$', '$$'], ['\\begin{displaymath}', '\\end{displaymath}']], // for new line math patterns
       },
       svg: {
         fontCache: 'global'
@@ -57,8 +57,8 @@
     }
 
     think {
-      color: gray;
-      display: none;
+      background-color: #171717 !important;
+      color: #424141 !important;
       /* display: none; */
     }
 
@@ -78,21 +78,32 @@
         position: relative;
         top: -13px;
       } */
+      div.sticky {
+        position: sticky;
+        z-index: 10;
+        bottom : 0;
+        background-color: white;
+        width: 100%;
+        /* padding: 50px; #343a40;
+           font-size: 20px; */
+      }
   </style>
 </head>
 
 <body onload="getModelList()">
-  <h2>Ask Groq</h2>
-  <div>
+  <div id="output"></div>
+  <div class="sticky">
+    <h2>Ask groq</h2>
     <div id="modelList"></div>
-    <textarea id="inputMessage" rows="4" cols="50" placeholder="Enter your message here...">
+    <textarea id="inputMessage" rows="4" style="width: 100%;" placeholder="Enter your message here...">
 find the value of ( x ) that satisfies the equation ( 3 \sin(2x) + 4 \cos(2x) = 5 ).
 and also write py that plot the solved equation and the solutions using scipy root
     </textarea>
     <br>
     <button id="send" onclick="fetchCompletion()">Send</button>
     <span id="count"></span>
-    <div id="output"></div>
+  </div>
+
 </body>
 
 <script>
@@ -102,7 +113,10 @@ and also write py that plot the solved equation and the solutions using scipy ro
   const API_KEY = "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"
   const displayHandle = document.getElementById('output');
   const send_btn = document.getElementById('send')
+  const inputMessage = document.getElementById('inputMessage')
   let intervalID = null;
+  let chatHistory = [];
+  let answer = "";
   // Disable mangling so that any needed backslashes remain intact.
   marked.setOptions({
     mangle: false
@@ -174,14 +188,19 @@ and also write py that plot the solved equation and the solutions using scipy ro
       send_btn.style.color = "white"
       startTime = Date.now();
       document.getElementById("count").innerHTML = "";
-      content = ""
+      content += content=="" ? "" : "<br><br><hr><hr>" // new conversation
+      let myMsg = inputMessage.value;
+      content += "<span><b>User: </b>" + myMsg + "</span>"
+      content += "<hr>"
+      answer = ""
     } else {
       // stop the call
       controller.abort();
       finish_and_calc_time();
       return
     }
-    let myMsg = document.getElementById('inputMessage').value;
+    let myMsg = inputMessage.value;
+    chatHistory.push({ role: 'user', content: myMsg });
     controller = new AbortController();
     const signal = controller.signal;
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -193,10 +212,7 @@ and also write py that plot the solved equation and the solutions using scipy ro
       },
       body: JSON.stringify({
         'model': selectedModel,//'deepseek-r1:8b',
-        'messages': [
-          { "role": "system", "content": "" },
-          { "role": "user", "content": myMsg }
-        ],
+        'messages': chatHistory,
         'temperature': 0.7,
         'top_p': 0.95,
         'max_tokens': 32768, // 4096, // -1 for unlimited
@@ -215,8 +231,8 @@ and also write py that plot the solved equation and the solutions using scipy ro
 
     while (true) {
       const { done, value } = await reader.read();
-      if (done) break;
-
+      if (done)
+          break;
       const text = decoder.decode(value);
       const lines = text.split('\n');
       for (const line of lines) {
@@ -232,10 +248,15 @@ and also write py that plot the solved equation and the solutions using scipy ro
                 if (contents.includes("</think>")) {
                   contents = "\n</think>\n" // "\n</think>\n <hr />\n "
                   think = false;
+                } else if (contents.includes("<think>")) {
+                  contents = "\n<think>\n"
                 }
-                if (!think) {
-                  content += contents;
-                }
+                // if (!think) {
+                content += contents;
+                answer += contents;
+                // Scroll to the bottom of the page
+                window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
+                // }
               }
             } catch (error) {
               console.error("An error occurred:", error.message);
@@ -262,6 +283,14 @@ and also write py that plot the solved equation and the solutions using scipy ro
   function finish_and_calc_time() {
     clearInterval(intervalID);
     update_display();
+
+    // clear msg
+    inputMessage.value = ""
+    // Scroll to the bottom of the page
+    window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight)
+
+    // Add the final response to chat history
+    chatHistory.push({ role: 'assistant', content: answer });
 
     // button reset
     send_btn.innerHTML = "Send"
