@@ -152,6 +152,7 @@
     });
   }
 
+  let think = false;
   async function fetchCompletion() {
 
     const modelSelect = document.getElementById('modelSelect')
@@ -175,6 +176,10 @@
     } else {
       // stop the call
       controller.abort();
+      if (think) {
+        content += `\n<br><hr>\n</div>\n`;
+        think = false;
+      }
       finish_and_calc_time(content, startTime)
       return
     }
@@ -225,6 +230,7 @@
               contents = delta['content']
               if (contents.includes("<think>")) {
                 contents = "\n<div class='think'>\n<br>------thinking-------<hr>\n"
+                think = true;
               }
               if (contents.includes("</think>")) {
                 contents = "\n<br><hr>\n</div>\n" // "\n</think>\n <hr />\n "
