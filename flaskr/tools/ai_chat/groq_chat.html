@@ -56,10 +56,10 @@
       margin: 5px 0; /* Adjust top and bottom margins as needed */
     }
 
-    think {
-      background-color: #171717 !important;
-      color: #424141 !important;
-      /* display: none; */
+    div.think {
+      background-color: rgb(150, 148, 148) !important;
+      /* color: #f1eeee !important;
+      display: none; */
     }
 
     /* hr {
@@ -245,11 +245,12 @@ and also write py that plot the solved equation and the solutions using scipy ro
               const delta = jsonData['choices'][0]['delta'];
               if ('content' in delta) {
                 let contents = delta['content'];
+                if (contents.includes("<think>")) {
+                  contents = "\n<div class='think'>\n<br>------thinking-------<hr>\n"
+                }
                 if (contents.includes("</think>")) {
-                  contents = "\n</think>\n" // "\n</think>\n <hr />\n "
+                  contents = "\n</div>\n<br>------End thinking-------<hr>\n" // "\n</think>\n <hr />\n "
                   think = false;
-                } else if (contents.includes("<think>")) {
-                  contents = "\n<think>\n"
                 }
                 // if (!think) {
                 content += contents;
