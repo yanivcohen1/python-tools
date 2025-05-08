@@ -237,7 +237,6 @@ prompt_auto = (
 print(f"USER: {prompt_auto}")
 # ============== for none streaming ==============
 response_auto = chat_auto.send_message(prompt_auto)
-
 # The automatic mode directly gives you the final text response after completing calls
 print(f"MODEL (Final Text Response with Auto FC): {response_auto.text}")
 
