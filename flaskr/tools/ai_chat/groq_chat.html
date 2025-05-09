@@ -250,11 +250,11 @@ and also write py that plot the solved equation and the solutions using scipy ro
               if ('content' in delta) {
                 let contents = delta['content'];
                 if (contents.includes("<think>")) {
-                  contents = "\n<div class='think'>\n<br>------thinking-------<hr>\n"
+                  contents = "\n<div class='think'>------thinking-------\n"
                   think = true;
                 }
                 if (contents.includes("</think>")) {
-                  contents = "\n<br><hr>\n</div>\n" // "\n</think>\n <hr />\n "
+                  contents = "\n</div>\n" // "\n</think>\n <hr />\n "
                   think = false;
                 }
                 // if (!think) {
