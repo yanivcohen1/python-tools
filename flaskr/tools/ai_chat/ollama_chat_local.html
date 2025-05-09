@@ -168,9 +168,9 @@
       send_btn.style.color = "white" // text color
       startTime = Date.now();
       document.getElementById("count").innerHTML = "";
-      content += content=="" ? "" : "<br><br><hr><hr>" // new conversation
+      content += content=="" ? "" : "<br><br><hr>" // new conversation
       let myMsg = inputMessage.value;
-      content += "<span><b>User: </b>" + myMsg + "</span>"
+      content += "<span><b style='color: blue'>User: </b>" + myMsg + "</span>"
       content += "<hr>"
       answer = ""
     } else {
@@ -229,11 +229,11 @@
             if ('content' in delta) {
               contents = delta['content']
               if (contents.includes("<think>")) {
-                contents = "\n<div class='think'>\n<br>------thinking-------<hr>\n"
+                contents = "\n<div class='think'>------thinking-------\n"
                 think = true;
               }
               if (contents.includes("</think>")) {
-                contents = "\n<br><hr>\n</div>\n" // "\n</think>\n <hr />\n "
+                contents = "\n</div>\n" // "\n</think>\n <hr />\n "
                 think = false;
               }
               content += contents;
