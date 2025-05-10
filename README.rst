@@ -1,5 +1,5 @@
 # static type checking
-Pylance: command palette: Preferences: Open Settings (JSON) add "python.analysis.typeCheckingMode": "strict"
+Pylance: command palette: Preferences: Open User Settings (JSON) add "python.analysis.typeCheckingMode": "strict"
 
 // for testting python ident run
 python -tt
