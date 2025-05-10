@@ -1,5 +1,6 @@
 [MASTER]
 extension-pkg-whitelist=pydantic, mongoengine
+load-plugins=pylint.extensions.typing
 disable=
     C0114, # missing-module-docstring
     C0116, # missing-function-docstring

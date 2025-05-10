@@ -1,3 +1,6 @@
+# static type checking
+Pylance: command palette: Preferences: Open Settings (JSON) add "python.analysis.typeCheckingMode": "strict"
+
 // for testting python ident run
 python -tt
 Flaskr
