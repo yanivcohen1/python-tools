@@ -100,21 +100,21 @@ print("Dict sorted by values:", sorted_by_values)
 
 
 from sortedcontainers import SortedDict
-
 sd = SortedDict({"b": 2, "d": -3, "a": 1, "c": 1})  # sort by key
+print("sort dict:", sd)  # SortedDict({'a': 1, 'b': 2, 'c': 1, 'd': -3})
 print("print from the start:", sd.peekitem(0))  #  from the start ('a', 1)
 print("print from the end:", sd.popitem(index=-1))  # from the end ('d', -3)
 
 from collections import OrderedDict
-
-# insert to sort dict by key
+# insert to order dict
 od = OrderedDict()
 od["c"] = 3
-od["a"] = 1
 od["b"] = 2
+od["a"] = 1
 od["d"] = 4
-ret = od.pop('d', None)
+val = od.pop('d', None)
 od.move_to_end("b")
+print("ordere dict:", od)  # OrderedDict({'c': 3, 'a': 1, 'b': 2})
 lst = list(od.keys())
 print("print from the start:", lst[0])  # from the start ('a', 1)
 print("print from the end:", lst[-1])  # from the End ('d', 2)
