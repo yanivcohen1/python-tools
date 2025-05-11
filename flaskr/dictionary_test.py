@@ -86,8 +86,18 @@ myDict = {1: "2", 3: "4", 4: "3", 2: "1", 0: "0"}
 myKeys = list(myDict.keys())
 myKeys.sort()
 sorted_dict = {key: myDict[key] for key in myKeys}
-
 print(sorted_dict)
+
+my_dict = {'c': 3, 'a': 1, 'b': 2}
+# Sort by keys
+tuples = my_dict.items() # [('a', 1), ('b', 2), ('c', 3)]
+sorted_by_keys = dict(sorted(tuples, reverse=False)) # from tuples to dict
+print("Dict sorted by keys:", sorted_by_keys)
+
+# Sort by values
+sorted_by_values = dict(sorted(tuples, key=lambda item: item[1], reverse=False)) # item[1] are the values
+print("Dict sorted by values:", sorted_by_values)
+
 
 from sortedcontainers import SortedDict
 
@@ -107,16 +117,3 @@ print("print from the start:", lst[0])  # from the start ('a0', 1)
 print("print from the end:", lst[-1])  # from the End ('d', 2)
 print("pop from the start:", od.popitem(last=False))  # from the start ('c', 3)
 print("pop from the end:", od.popitem(last=True))  # from the End ('c', 3)
-
-
-my_dict = {'c': 3, 'a': 1, 'b': 2}
-
-# Sort by keys
-tuples = my_dict.items() # [('a', 1), ('b', 2), ('c', 3)]
-sorted_by_keys = dict(sorted(tuples, reverse=False)) # from tuples to dict
-print("Dict sorted by keys:", sorted_by_keys)
-
-# Sort by values
-sorted_by_values = dict(sorted(tuples, key=lambda item: item[1], reverse=False)) # item[1] are the values
-print("Dict sorted by values:", sorted_by_values)
-
