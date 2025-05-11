@@ -103,7 +103,7 @@ if __name__ == "__main__":
         for chunk in agent.stream(
             {"messages": [HumanMessage(content=user_input)]}
         ):
-            if "agent" in chunk and "messages" in chunk ["agent"]:
+            if "agent" in chunk and "messages" in chunk["agent"]:
                 for message in chunk ["agent"]["messages"]:
                     print(message.content, end="")
         print()
