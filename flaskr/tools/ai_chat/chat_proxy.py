@@ -36,11 +36,11 @@ genai.configure(api_key="AIzaSyB2GXiEd1eV95qPkFMUaz8vndME1cYFByk") #replace with
 
 class Part(BaseModel):
     role: Literal["user", "model"] # assistant
-    parts: List[str]
+    parts: list[str]
 
 class PromptRequest(BaseModel):
     model: Optional[str] = 'gemini-2.0-flash-thinking-exp' # 'gemini-2.0-flash'
-    prompt: List[Part]
+    prompt: list[Part]
 
 def generate_stream(query: str, model_name: str):
     model = genai.GenerativeModel(model_name, system_instruction=system_instructions) # 'gemini-2.0-flash-thinking-exp')
@@ -76,7 +76,7 @@ class PartOpenAI(BaseModel):
 
 class PromptRequestOpenAI(BaseModel):
     model: Optional[str]
-    prompt: List[PartOpenAI]
+    prompt: list[PartOpenAI]
 
 def stream_ollama_response(request_body: PromptRequestOpenAI):
     prompt = [p.model_dump() for p in request_body.prompt]
