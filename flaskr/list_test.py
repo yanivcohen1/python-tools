@@ -89,3 +89,24 @@ for i, value in enumerate(reversed(my_list)):
     # 2 c
     # 1 b
     # 0 a
+
+# insert to sorted list
+from sortedcontainers import SortedList, SortedSet
+
+tree_set = SortedList()
+tree_set.add(5)
+tree_set.add(2)
+tree_set.add(8)
+tree_set.add(9)
+tree_set.remove(9)
+tree_set.add(5)
+print("sort list:", tree_set)  # SortedSet([2, 5, 5, 8])
+
+tree_set = SortedSet()
+tree_set.add(5)
+tree_set.add(2)
+tree_set.add(8)
+tree_set.add(9)
+tree_set.remove(9)
+tree_set.add(5) # duplicate ignored
+print("sort set:", tree_set)  # SortedSet([2, 5, 8])
