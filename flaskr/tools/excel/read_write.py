@@ -15,7 +15,7 @@ df.columns = ['name', 'qty', 'price']
 # 2) Calculate revenue = 10% of price
 df['revenue'] = df['price'] * 0.10
 
-# 3) Load workbook and write back using openpyxl (preserve structure, start at column "F")
+# 3) Load workbook and write back using openpyxl (preserve structure, start at column "D")
 wb = load_workbook(file_path)
 ws = wb.active
 
