@@ -81,3 +81,11 @@ unzipped = zip(*zipped) # transpose the list of tuples to list of lists
 names_unzip, ages_unzip = unzipped
 print("names:",names_unzip, "ages:",ages_unzip)
 # names: ('Alice', 'Bob', 'Charlie') ages: (24, 30, 29)
+
+
+my_list = ['a', 'b', 'c']
+for i, value in enumerate(reversed(my_list)):
+    print(len(my_list) - 1 - i, value)
+    # 2 c
+    # 1 b
+    # 0 a
