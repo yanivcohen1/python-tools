@@ -6,7 +6,7 @@ from langchain.schema import HumanMessage
 
 # load_dotenv()
 
-@tool
+# @tool
 def get_current_weather(location: str, unit: str = "celsius") -> dict:
     """
     Get the current weather in a given location.
@@ -18,7 +18,7 @@ def get_current_weather(location: str, unit: str = "celsius") -> dict:
     Returns:
         dict: A dictionary containing the location, temperature, unit, and a brief forecast.
     """
-    print(f"PYTHON: Called get_current_weather(location='{location}', unit='{unit}')")
+    print(f"\nPYTHON: Called get_current_weather(location='{location}', unit='{unit}')")
     # In a real application, you would call a weather API here.
     # For this example, we'll return mock data.
     lower_location = location.lower()
@@ -35,14 +35,16 @@ def get_current_weather(location: str, unit: str = "celsius") -> dict:
         temp = "22" if unit == "celsius" else "72"
         forecast = "Pleasant weather."
 
-    return {
+    ansr = {
         "location": location,
         "temperature": temp,
         "unit": unit,
         "forecast": forecast,
     }
+    print("get_current_weather Answer:", ansr)
+    return ansr
 
-@tool
+# @tool
 def suggest_activity(weather_forecast: str, temperature: str, unit: str) -> dict:
     """
     Suggests an activity based on the current weather forecast and temperature.
@@ -56,7 +58,7 @@ def suggest_activity(weather_forecast: str, temperature: str, unit: str) -> dict
         dict: A dictionary containing the weather information and the suggested activity.
     """
     print(
-        f"PYTHON: Called suggest_activity(weather_forecast='{weather_forecast}', temperature='{temperature}', unit='{unit}')"
+        f"\nPYTHON: Called suggest_activity(weather_forecast='{weather_forecast}', temperature='{temperature}', unit='{unit}')"
     )
 
     temp_val = int(
@@ -79,12 +81,14 @@ def suggest_activity(weather_forecast: str, temperature: str, unit: str) -> dict
     elif "snow" in weather_forecast.lower():
         suggestion = "It's snowy! Perfect weather for staying cozy inside or maybe trying some winter sports if possible!"
 
-    return {
+    ansr = {
         "weather_forecast": weather_forecast,
         "temperature": temperature,
         "unit": unit,
         "suggested_activity": suggestion,
     }
+    print("Suggest_activity Answer:", ansr)
+    return ansr
 
 if __name__ == "__main__":
     model = ChatOllama(model="qwen3:1.7b")
