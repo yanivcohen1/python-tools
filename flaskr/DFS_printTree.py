@@ -131,12 +131,12 @@ def print_ascii_tree(node):
 
 if __name__ == '__main__':
     # print list
-    t = ListNode(1, ListNode(2, ListNode(3, ListNode(4))))
+    lists = ListNode(1, ListNode(2, ListNode(3, ListNode(4))))
     print("compare list")
-    print_res(printList(t), [1, 2, 3, 4])
+    print_res(printList(lists), [1, 2, 3, 4])
 
     # print tree
-    t = TreeNode(1,
+    tree = TreeNode(1,
                   TreeNode(2, # left
                           TreeNode(4, # left
                                     TreeNode(7)), # left
@@ -145,7 +145,7 @@ if __name__ == '__main__':
                           TreeNode(5), # left
                           TreeNode(6))) # right
     print("\ndrow tree in 90 degree rotation")
-    printTree(t)
+    printTree(tree)
 #         R-> 6
 #     R-> 3
 #         L-> 5
@@ -157,7 +157,7 @@ if __name__ == '__main__':
 
     # Print the tree with dynamic underscores
     print("\ndrow ascii_tree")
-    print_ascii_tree(t)
+    print_ascii_tree(tree)
 #              1
 #         /____ ____\
 #        2           3
@@ -166,10 +166,11 @@ if __name__ == '__main__':
 #   /_
 #  7
 
-    print("\ncompare tree")
-    print_res(returnTree(t), [1, 2, 3, 4, 9, 5, 6, 7, None])
+    # buld tree from list
+    tree_from_list = [1, 2, 3, 4, 9, 5, 6, 7, None]
+    tree2 = build_tree_from_list(tree_from_list)
 
-    level_list = [1, 2, 3, 4, 9, 5, 6, 7, None]
-    t = build_tree_from_list(level_list)
-    print("\ndrow ascii_tree from list")
-    print_ascii_tree(t)
+    # test tree from list
+    print("\ncompare tree")
+    print_res(returnTree(tree), tree_from_list)
+    print_res(returnTree(tree2), tree_from_list)
