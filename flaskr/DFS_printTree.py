@@ -7,15 +7,15 @@ class TreeNode(object):
         self.left = left
         self.right = right
 
-def printTree(node, level=0):
+def printTree(node, level=0, side=""):
     if node != None:
         # print(' ' * 4 * level + '-> ' + str(node.value)) # print from top to bottom, print left first
-        printTree(node.right, level + 1)
+        printTree(node.right, level + 1, side="R")
         val = ""
         try: val = node.value
         except: val = node.val
-        print(' ' * 4 * level + '-> ' + str(val)) # print from left to top and then to right, print left first
-        printTree(node.left, level + 1)
+        print(' ' * 4 * level + side + '-> ' + str(val)) # print from left to top and then to right, print left first
+        printTree(node.left, level + 1, side="L")
         # print(' ' * 4 * level + '-> ' + str(node.value)) # print from bottom to top, print left first
 
 def returnTree(root, level=0):
@@ -33,14 +33,14 @@ def returnTree(root, level=0):
             if node.right or node.left:
                 stack.append(node.left)
                 stack.append(node.right)
-            
+
     return res
 
 class ListNode:
     def __init__(self, x, next=None):
         self.val = x
         self.next = next
-        
+
 def printList(list: ListNode):
     res = []
     while list:
@@ -48,7 +48,7 @@ def printList(list: ListNode):
         # print(list.val, end=" ")
         list = list.next
     # print()
-    return res    
+    return res
 
 if __name__ == '__main__':
     t = TreeNode(1, TreeNode(2, TreeNode(4, TreeNode(7)),   TreeNode(9)),
