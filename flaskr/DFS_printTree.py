@@ -50,6 +50,18 @@ def printList(list: ListNode):
     # print()
     return res
 
+def build_tree_from_list(lst, index=0):
+    # Base case: out of bounds or placeholder
+    if index >= len(lst) or lst[index] is None:
+        return None
+    # Create node and recursively build subtrees
+    node = TreeNode(
+        lst[index],
+        build_tree_from_list(lst, 2 * index + 1),
+        build_tree_from_list(lst, 2 * index + 2)
+    )
+    return node
+
 def build_ascii_tree(node):
     if node is None:
         return [], 0, 0, 0
@@ -126,12 +138,12 @@ if __name__ == '__main__':
     # print tree
     t = TreeNode(1,
                   TreeNode(2, # left
-                          TreeNode(4,
-                                    TreeNode(7)),
-                          TreeNode(9)),
+                          TreeNode(4, # left
+                                    TreeNode(7)), # left
+                          TreeNode(9)), # right
                   TreeNode(3, # right
-                          TreeNode(5),
-                          TreeNode(6)))
+                          TreeNode(5), # left
+                          TreeNode(6))) # right
     print("\ndrow tree in 90 degree rotation")
     printTree(t)
 #         R-> 6
@@ -156,3 +168,8 @@ if __name__ == '__main__':
 
     print("\ncompare tree")
     print_res(returnTree(t), [1, 2, 3, 4, 9, 5, 6, 7, None])
+
+    level_list = [1, 2, 3, 4, 9, 5, 6, 7, None]
+    t = build_tree_from_list(level_list)
+    print("\ndrow ascii_tree from list")
+    print_ascii_tree(t)
