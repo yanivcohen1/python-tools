@@ -174,3 +174,4 @@ if __name__ == '__main__':
     print("\ncompare tree")
     print_res(returnTree(tree), tree_from_list)
     print_res(returnTree(tree2), tree_from_list)
+    print("is trees equals: ", returnTree(tree) == returnTree(tree2))
