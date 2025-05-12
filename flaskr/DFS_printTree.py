@@ -54,14 +54,14 @@ if __name__ == '__main__':
     t = TreeNode(1, TreeNode(2, TreeNode(4, TreeNode(7)),   TreeNode(9)),
             TreeNode(3, TreeNode(5),    TreeNode(6)))
     printTree(t)
-#             -> 7
-#         -> 4
-#     -> 2
-#         -> 9
+#         R-> 6
+#     R-> 3
+#         L-> 5
 # -> 1
-#         -> 5
-#     -> 3
-#         -> 6
+#         R-> 9
+#     L-> 2
+#         L-> 4
+#             L-> 7
 
     print_res(returnTree(t), [1, 2, 3, 4, 9, 5, 6, 7, None])
 
