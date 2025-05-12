@@ -88,3 +88,10 @@ if __name__ == "__main__":
 
     # Print the tree with dynamic underscores
     print_ascii_tree(t)
+#              1
+#         /____ ____\
+#        2           3
+#      /_ _\       /_ _\
+#     4     9     5     6
+#   /_
+#  7
