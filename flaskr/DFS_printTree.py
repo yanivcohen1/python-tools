@@ -124,9 +124,15 @@ if __name__ == '__main__':
     print_res(printList(t), [1, 2, 3, 4])
 
     # print tree
-    t = TreeNode(1, TreeNode(2, TreeNode(4, TreeNode(7)),   TreeNode(9)),
-            TreeNode(3, TreeNode(5),    TreeNode(6)))
-    print("\ndrow tree")
+    t = TreeNode(1,
+                  TreeNode(2, # left
+                          TreeNode(4,
+                                    TreeNode(7)),
+                          TreeNode(9)),
+                  TreeNode(3, # right
+                          TreeNode(5),
+                          TreeNode(6)))
+    print("\ndrow tree in 90 degree rotation")
     printTree(t)
 #         R-> 6
 #     R-> 3
