@@ -1,3 +1,4 @@
+import json
 import os
 import google.generativeai as genai
 from google.generativeai import types
@@ -192,7 +193,8 @@ while (
                 "name": function_name,
                 "response": {"error": f"Execution failed: {e}"}
             }
-            response = chat.send_message(error_response_part)
+            error_response_txt = json.dumps(error_response_part)
+            response = chat.send_message(error_response_txt)
             print(f"MODEL (After Error Parts): {response.parts}")
             break  # Exit loop on error
 
@@ -201,8 +203,9 @@ while (
             "name": function_name,
             "response": {"error": f"Unknown function: {function_name}"}
         }
+        error_response_txt = json.dumps(error_response_part)
         # name=function_name, response={"error": f"Unknown function: {function_name}"}
-        response = chat.send_message(error_response_part)
+        response = chat.send_message(error_response_txt)
         print(f"MODEL (After Error Parts): {response.parts}")
         break  # Exit loop if function is unknown
 
