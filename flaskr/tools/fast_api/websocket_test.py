@@ -21,7 +21,7 @@ async def websocket_endpoint(websocket: WebSocket, user_id: str):
             data = await websocket.receive_text()
             # Put the received data into the user's queue
             await user_queues[user_id].put(data)
-            await websocket.send_text(f"Message received: {data}")
+            # await websocket.send_text(f"Message received: {data}")
     except WebSocketDisconnect:
         print(f"Client {user_id} disconnected")
         websockets.pop(user_id, None)
@@ -29,13 +29,14 @@ async def websocket_endpoint(websocket: WebSocket, user_id: str):
 
 @app.get("/send_message")
 async def send_message(user_id: str, msg: str = "Hello from FastAPI!"):
-    websocket = websockets.get(user_id)
-    queue = user_queues.get(user_id)
+    websocket: WebSocket = websockets.get(user_id)
+    queue: asyncio.Queue = user_queues.get(user_id)
     if websocket and queue:
         await websocket.send_text(msg)
         try:
             # Wait for the next message from the client (with a timeout)
             response = await asyncio.wait_for(queue.get(), timeout=10)
+            # print(f"Received response from {user_id}: {response}")
             return {"message": f"Sent '{msg}' to {user_id}, received: {response}"}
         except asyncio.TimeoutError:
             return {"error": f"No response from client {user_id} within timeout"}
