@@ -37,7 +37,7 @@ def get_current_weather(location: str, unit: str = "celsius") -> dict:
     print(f"PYTHON: Called get_current_weather(location='{location}', unit='{unit}')")
     # in websocket_test.py.
     # msg = Called get_current_weather(location='{location}', unit='{unit}')
-    # is_user_approvel = asyncio.run( send_message(user_id: str, msg: str = msg) );
+    # is_user_approvel = call_async_send_message_from_none_async_in_concurncy_way(user_id, msg)
     # if not is_user_approvel:
     #     return {"error": f"opperation cancel by the user"}
 
@@ -84,7 +84,7 @@ def suggest_activity(weather_forecast: str, temperature: str, unit: str) -> dict
     # in websocket_test.py
     # @app.get("/send_message").
     # msg = Called suggest_activity(weather_forecast='{weather_forecast}', temperature='{temperature}', unit='{unit}')
-    # is_user_approvel = asyncio.run( send_message(user_id: str, msg: str = msg) );
+    # is_user_approvel = call_async_send_message_from_none_async_in_concurncy_way(user_id, msg)
     # if not is_user_approvel:
     #     return {"error": f"opperation cancel by the user"}
 
