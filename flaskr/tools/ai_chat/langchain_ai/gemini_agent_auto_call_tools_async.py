@@ -35,6 +35,13 @@ def get_current_weather(location: str, unit: str = "celsius") -> dict:
         dict: A dictionary containing the location, temperature, unit, and a brief forecast.
     """
     print(f"PYTHON: Called get_current_weather(location='{location}', unit='{unit}')")
+    # call requests.get() to get the weather data and user approvel first
+    # in websocket_test.py
+    # @app.get("/send_message").
+    # is_user_approvel = send_message(user_id: str, msg: str = "Hello from FastAPI!"):
+    # if not is_user_approvel:
+    #     return {"error": f"opperation cancel by the user"}
+
     # In a real application, you would call a weather API here.
     # For this example, we'll return mock data.
     lower_location = location.lower()
@@ -74,6 +81,12 @@ def suggest_activity(weather_forecast: str, temperature: str, unit: str) -> dict
     print(
         f"PYTHON: Called suggest_activity(weather_forecast='{weather_forecast}', temperature='{temperature}', unit='{unit}')"
     )
+    # call requests.get() to get the weather data and user approvel first
+    # in websocket_test.py
+    # @app.get("/send_message").
+    # is_user_approvel = send_message(user_id: str, msg: str = "Hello from FastAPI!"):
+    # if not is_user_approvel:
+    #     return {"error": f"opperation cancel by the user"}
 
     temp_val = int(
         temperature
