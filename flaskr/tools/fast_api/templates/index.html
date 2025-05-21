@@ -24,7 +24,7 @@
             const message = document.createElement("li");
             message.textContent = event.data;
             messages.appendChild(message);
-            ws.send(event.data+" client answer");
+            ws.send(event.data+" - from " + userId);
         };
 
         function sendMessage() {
