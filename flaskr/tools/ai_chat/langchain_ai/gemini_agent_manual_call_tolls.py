@@ -141,7 +141,7 @@ chat = model.start_chat(enable_automatic_function_calling=False)
 # --- 4. Send a prompt that requires sequential function calls ---
 # The prompt asks for weather AND an activity based on it,
 # guiding the model to understand the dependency.
-prompt = "What's the weather like in New York today, and based on the weather, what activity do you suggest I do?"
+prompt = "What's the weather like in London, and what activity should I do based on that?"
 print(f"USER: {prompt}")
 
 response = chat.send_message(prompt)
@@ -234,9 +234,7 @@ print("\n--- EXAMPLE WITH AUTOMATIC FUNCTION CALLING ---")
 # intermediate "MODEL wants to call function" and "PYTHON executed function"
 # steps directly in this part of the code flow.
 chat_auto = model.start_chat(enable_automatic_function_calling=True)
-prompt_auto = (
-    "What's the weather like in London, and what activity should I do based on that?"
-)
+prompt_auto = (prompt)
 print(f"USER: {prompt_auto}")
 # ============== for none streaming ==============
 response_auto = chat_auto.send_message(prompt_auto)
