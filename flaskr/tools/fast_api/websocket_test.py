@@ -67,53 +67,6 @@ async def send_message(user_id: str, msg: str = "Hello from FastAPI!"):
     else:
         return {"error": f"No WebSocket client connected for user_id {user_id}"}
 
-import random
-
-def get_greeting(messsage: str = "Hello") -> str:
-    """
-    This function returns greeting message
-
-    Args:
-        messsage (str): The greeting message to be sent to the user.
-
-    Returns:
-        dict: greeting message.
-    """
-    greetings = [
-        "Hello! Hope you're having a great day!",
-        "Hi there! Nice to see you!",
-        "Hey! How's everything going?",
-        "Greetings! Wishing you a wonderful day!",
-        "What's up? Hope you're doing well!",
-        "Hi! Just wanted to say hello!",
-        "Hello! Sending good vibes your way!",
-        "Hey there! Hope you're smiling today!",
-        "Good to see you! Have a fantastic day!",
-        "Hi! Stay awesome!",
-        "Hello! Hope you’re feeling amazing!",
-        "Hey! Keep up the great work!",
-        "Hi there! Stay positive and strong!",
-        "Hello! Let's make today amazing!",
-        "Hi! Wishing you lots of happiness!",
-        "Hey there! You’re doing great!",
-        "Hello! Keep shining!",
-        "Hi! Hope today brings you joy!",
-        "Hey! Don’t forget to smile!",
-        "Hi there! Enjoy every moment!",
-        "Hello! Hope your day is filled with laughter!",
-        "Hey! Sending you some cheer!",
-        "Hi! Take care and be kind to yourself!",
-        "Hello! Stay confident and bright!",
-        "Hi there! You've got this!",
-        "Hey! Today is your day!",
-        "Hello! Wishing you success in all you do!",
-        "Hi! Keep being awesome!",
-        "Hey there! You rock!",
-        "Hello! Keep moving forward!"
-    ]
-    # return random.choice(greetings)
-    return {"message": messsage}
-
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, port=7000) # host="0.0.0.0"
