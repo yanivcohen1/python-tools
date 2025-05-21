@@ -17,12 +17,12 @@ templates = Jinja2Templates(directory="./flaskr/tools/fast_api/templates")
 websockets = {}  # Maps user_id to websocket
 user_queues = {}  # Maps user_id to asyncio.Queue
 
-def compute_max_workers(multiplier: float = 1.0) -> int:
-    cpu_count = os.cpu_count() or 1
-    return max(1, int(cpu_count * multiplier))
+# def compute_max_workers(multiplier: float = 1.0) -> int:
+#     cpu_count = os.cpu_count() or 1
+#     return max(1, int(cpu_count * multiplier))
 
-# e.g. 5 threads per core for background I/O tasks
-executor = ThreadPoolExecutor(max_workers=compute_max_workers(5.0))
+# # e.g. 5 threads per core for background I/O tasks
+# executor = ThreadPoolExecutor(max_workers=compute_max_workers(5.0))
 
 @app.get("/send_message_sync")
 def call_async_send_message_from_none_async_in_concurncy_way(user_id: str, msg: str):
