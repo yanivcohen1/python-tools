@@ -21,7 +21,7 @@ dependencies = [
   "fastapi", "fastapi_sqlalchemy", "sqlmodel", "passlib", "uvicorn", "locust", "textblob", "flask-swagger-ui",
   "pytest" , "coverage", "python-multipart", "pyshark", "motor==3.0.0", "pymongo==4.1.1", "manim==0.18.1",
   "langchain", "langchain-ollama", "langchain-chroma", "langchain-openai", "langchain-community", "fastembed", "pdfplumber", "duckduckgo-search",
-  "python-docx", "docxtpl", "xltpl", "openpyxl", "pypandoc"
+  "python-docx", "docxtpl", "xltpl", "openpyxl", "pypandoc","janus"
   # "pyscript"
   ]
 
