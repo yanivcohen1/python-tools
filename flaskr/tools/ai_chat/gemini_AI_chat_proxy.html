@@ -102,11 +102,11 @@
       </textarea>
       <br>
       <button id="send" onclick="fetchCompletion()">Send</button>
-      <span id="count"></span>
+      <span id="count"></span><br><br>
 
-      <input type="text" id="messageInput" placeholder="Enter a message" />
+      <input type="text" id="messageInput" placeholder="Enter server simulte msg" />
       <button onclick="sendMessage()">Send</button>
-      <h3>Server Messages:</h3>
+      <h4>Server Messages:</h4>
       <ul id="messages"></ul>
     </div>
 </body>
@@ -283,7 +283,8 @@
       },
       body: JSON.stringify({
         'model': selectedModel,//'deepseek-r1:8b',
-        'prompt': chatHistory,
+        'prompt': myMsg,
+        'user_id': userId,
       }),
       signal // Add signal here to support aborting
     });

@@ -19,7 +19,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 templates = Jinja2Templates(directory="./flaskr/tools/ai_chat")
 
-class UserQueue(BaseModel):
+class UserQueue:
     queue: asyncio.Queue
     chat_sesion: genai.ChatSession
 
@@ -100,7 +100,7 @@ def get_greeting(user_id: str, messsage: str = "Hello") -> str:
     return {"message": messsage, "result": result}
 
 tools = [get_greeting] # Using a model expected to support tool use
-model = genai.GenerativeModel(
+app.state.model = genai.GenerativeModel(
     model_name=model_name,
     tools=tools,
     # system_instruction="use in your answer this url content: https://testsmanager.com",
@@ -113,6 +113,7 @@ async def get(request: Request):
 @app.get("/send_message_sync")
 def call_async_send_message_from_none_async_in_concurncy_way(user_id: str, msg: str):
     # Use the main loop to run the coroutine thread-safely
+    print(f"call_async_send_message_from_none_async_in_concurncy_way: {user_id}, {msg}")
     future = asyncio.run_coroutine_threadsafe(send_message(user_id, msg), app.state.loop)
     result = future.result()  # This blocks until result is ready
     return result
@@ -121,8 +122,9 @@ def call_async_send_message_from_none_async_in_concurncy_way(user_id: str, msg: 
 async def websocket_endpoint(websocket: WebSocket, user_id: str):
     await websocket.accept()
     websockets[user_id] = websocket
+    user_queues[user_id] = UserQueue()
     user_queues[user_id].queue = asyncio.Queue()
-    user_queues[user_id].chat_sesion = model.start_chat(enable_automatic_function_calling=True)
+    user_queues[user_id].chat_sesion = app.state.model.start_chat(enable_automatic_function_calling=True)
     try:
         while True:
             data = await websocket.receive_text()
@@ -163,7 +165,7 @@ async def stream_content(query_data: PromptRequest = Body(...)):
                               media_type="text/event-stream")
 
 @app.get("/models")
-def models():
+def get_models():
     models = genai.list_models()
     models_list = []
     for m in models:
@@ -172,10 +174,19 @@ def models():
             models_list.append(m.name[7:])
     return JSONResponse(content=models_list)
 
+@app.get("/set_model")
+def set_model(module_name: str):
+    app.state.model = genai.GenerativeModel(
+        model_name=module_name,
+        tools=tools,
+        # system_instruction="use in your answer this url content: https://testsmanager.com",
+    )
+    return JSONResponse(content={"model": module_name})
+
 @app.get("/live")
 def live():
     return JSONResponse(content={"status": "Live"})
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=7000) # host="0.0.0.0" listning to all interfaces
+    uvicorn.run(app, port=7000) # host="0.0.0.0" listning to all interfaces
