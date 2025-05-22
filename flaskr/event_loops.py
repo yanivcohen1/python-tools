@@ -1,66 +1,45 @@
 import asyncio
 import threading
-import janus
-from concurrent.futures import Future
+from asyncio import AbstractEventLoop
 
-# Run in loop2
-async def task_in_loop2_streaming(data, queue):
-    for i in range(3):
-        await asyncio.sleep(1)
-        await queue.put(f"{data} chunk {i}")
-    await queue.put(None)  # Sentinel value to indicate end
+# Shared queue between the loops (only main loop should interact with it directly)
+shared_queue = asyncio.Queue()
 
-# Starts loop2, creates queue, runs async task, returns sync_q to main thread
-def start_loop2_and_create_queue(data, result_future: Future):
-    loop2 = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop2)
+# Producer function running in its own event loop/thread
+async def loop2(n, queue: asyncio.Queue, main_loop: AbstractEventLoop):
+    loop2_loop = asyncio.get_running_loop()
+    print(f"loop2 is using loop: {id(loop2_loop)}")
 
-    async def loop2_task():
-        queue = janus.Queue()
-        result_future.set_result((loop2, queue.sync_q, queue.async_q))
-        await task_in_loop2_streaming(data, queue.async_q)
-        # Wait until loop1 has consumed all items
-        await loop2.run_in_executor(None, queue.sync_q.join)
-        queue.close()
-        await queue.wait_closed()
-        loop2.stop()
+    for i in range(n):
+        await asyncio.sleep(0.5)
+        print(f"loop2: yielding {i}")
+        main_loop.call_soon_threadsafe(queue.put_nowait, i)
 
-    loop2.create_task(loop2_task())
-    loop2.run_forever()
-    loop2.close()
+    main_loop.call_soon_threadsafe(queue.put_nowait, None)
 
-# In loop1 (main thread)
-async def run_loop2_task_from_loop1(data):
-    result_future = Future()
+def run_loop2_in_thread(n, queue, main_loop):
+    new_loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(new_loop)
+    new_loop.run_until_complete(loop2(n, queue, main_loop))
+    new_loop.close()
 
-    # Start loop2 in a thread
-    t = threading.Thread(target=start_loop2_and_create_queue, args=(data, result_future))
+# Consumer function (main loop)
+async def loop1():
+    loop1_loop = asyncio.get_running_loop()
+    print(f"loop1 is using loop: {id(loop1_loop)}")
+
+    # Start producer in a separate thread with its own loop
+    t = threading.Thread(target=run_loop2_in_thread, args=(5, shared_queue, loop1_loop))
     t.start()
 
-    # Wait for loop2 to give us the queues
-    loop2, sync_q, async_q = result_future.result()
+    while True:
+        item = await shared_queue.get()
+        if item is None:
+            break
+        print(f"loop1: received {item}")
 
-    async def result_stream():
-        loop1 = asyncio.get_running_loop()
-        try:
-            while True:
-                item = await loop1.run_in_executor(None, sync_q.get)
-                sync_q.task_done()  # Mark as consumed
-                if item is None:
-                    break
-                # print("Loop1: got item from loop2:", item)
-                yield item
-        except janus.ShutDown:
-            pass
-        finally:
-            t.join()
+    t.join()
+    print("loop1: done")
 
-    return result_stream()
-
-# loop1 Main function
-async def main():
-    print("Loop1: awaiting streaming result from loop2")
-    async for chunk in await run_loop2_task_from_loop1("DATA"):
-        print("Loop1 received:", chunk)
-
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(loop1())
