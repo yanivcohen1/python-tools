@@ -43,3 +43,7 @@ async def loop1():
 
 if __name__ == "__main__":
     asyncio.run(loop1())
+
+# run async function in a different thread run in fastapi main loop (app.state.loop)
+# future = asyncio.run_coroutine_threadsafe(send_message(user_id, msg), app.state.loop)
+# result = future.result()  # This blocks until result is ready
