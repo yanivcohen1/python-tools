@@ -6,21 +6,21 @@ from asyncio import AbstractEventLoop
 shared_queue = asyncio.Queue()
 
 # Producer function running in its own event loop/thread
-async def loop2(n, queue: asyncio.Queue, main_loop: AbstractEventLoop):
+async def loop2(n, main_loop: AbstractEventLoop):
     loop2_loop = asyncio.get_running_loop()
     print(f"loop2 is using loop: {id(loop2_loop)}")
 
     for i in range(n):
         await asyncio.sleep(0.5)
         print(f"loop2: yielding {i}")
-        main_loop.call_soon_threadsafe(queue.put_nowait, i)
+        main_loop.call_soon_threadsafe(shared_queue.put_nowait, i)
 
-    main_loop.call_soon_threadsafe(queue.put_nowait, None)
+    main_loop.call_soon_threadsafe(shared_queue.put_nowait, None)
 
-def run_loop2_in_thread(n, queue, main_loop):
+def run_loop2_in_thread(n, main_loop):
     new_loop = asyncio.new_event_loop()
     asyncio.set_event_loop(new_loop)
-    new_loop.run_until_complete(loop2(n, queue, main_loop))
+    new_loop.run_until_complete(loop2(n, main_loop))
     new_loop.close()
 
 # Consumer function (main loop)
@@ -29,7 +29,7 @@ async def loop1():
     print(f"loop1 is using loop: {id(loop1_loop)}")
 
     # Start producer in a separate thread with its own loop
-    t = threading.Thread(target=run_loop2_in_thread, args=(5, shared_queue, loop1_loop))
+    t = threading.Thread(target=run_loop2_in_thread, args=(5, loop1_loop))
     t.start()
 
     while True:
