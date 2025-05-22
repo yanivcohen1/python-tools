@@ -12,22 +12,22 @@ async def task_in_loop2_streaming(data, queue):
 
 # Starts loop2, creates queue, runs async task, returns sync_q to main thread
 def start_loop2_and_create_queue(data, result_future: Future):
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
+    loop2 = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop2)
 
-    async def setup():
+    async def loop2_task():
         queue = janus.Queue()
-        result_future.set_result((loop, queue.sync_q, queue.async_q))
+        result_future.set_result((loop2, queue.sync_q, queue.async_q))
         await task_in_loop2_streaming(data, queue.async_q)
         # Wait until loop1 has consumed all items
-        await loop.run_in_executor(None, queue.sync_q.join)
+        await loop2.run_in_executor(None, queue.sync_q.join)
         queue.close()
         await queue.wait_closed()
-        loop.stop()
+        loop2.stop()
 
-    loop.create_task(setup())
-    loop.run_forever()
-    loop.close()
+    loop2.create_task(loop2_task())
+    loop2.run_forever()
+    loop2.close()
 
 # In loop1 (main thread)
 async def run_loop2_task_from_loop1(data):
@@ -41,10 +41,10 @@ async def run_loop2_task_from_loop1(data):
     loop2, sync_q, async_q = result_future.result()
 
     async def result_stream():
-        loop = asyncio.get_running_loop()
+        loop1 = asyncio.get_running_loop()
         try:
             while True:
-                item = await loop.run_in_executor(None, sync_q.get)
+                item = await loop1.run_in_executor(None, sync_q.get)
                 sync_q.task_done()  # Mark as consumed
                 if item is None:
                     break
@@ -57,7 +57,7 @@ async def run_loop2_task_from_loop1(data):
 
     return result_stream()
 
-# Main
+# loop1 Main function
 async def main():
     print("Loop1: awaiting streaming result from loop2")
     async for chunk in await run_loop2_task_from_loop1("DATA"):
