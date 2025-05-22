@@ -1,5 +1,7 @@
 # FastAPI (main.py)
 import asyncio
+from asyncio import AbstractEventLoop
+import threading
 # from typing import List, Optional, Dict, Literal, Any
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request, Response, Body
@@ -17,7 +19,9 @@ async def lifespan(app: FastAPI):
     # Shutdown code (if needed)
 
 app = FastAPI(lifespan=lifespan)
+shared_queue = asyncio.Queue()
 templates = Jinja2Templates(directory="./flaskr/tools/ai_chat")
+model_name = ("gemini-2.0-flash-thinking-exp")
 
 class UserQueue:
     queue: asyncio.Queue
@@ -47,8 +51,6 @@ class PromptRequest(BaseModel):
     user_id: str
     prompt: str
     model: str
-
-model_name = ("gemini-2.0-flash-thinking-exp")
 
 # import random
 
@@ -97,7 +99,7 @@ def get_greeting(user_id: str, messsage: str = "Hello") -> str:
     ]
     # return random.choice(greetings)
     result = call_async_send_message_from_none_async_in_concurncy_way(user_id, messsage)
-    return {"message": messsage, "result": result}
+    return result
 
 tools = [get_greeting] # Using a model expected to support tool use
 app.state.model = genai.GenerativeModel(
@@ -110,7 +112,7 @@ app.state.model = genai.GenerativeModel(
 async def get(request: Request):
     return templates.TemplateResponse("gemini_AI_chat_proxy.html", {"request": request})
 
-@app.get("/send_message_sync")
+# @app.get("/send_message_sync")
 def call_async_send_message_from_none_async_in_concurncy_way(user_id: str, msg: str):
     # Use the main loop to run the coroutine thread-safely
     print(f"call_async_send_message_from_none_async_in_concurncy_way: {user_id}, {msg}")
@@ -129,7 +131,7 @@ async def websocket_endpoint(websocket: WebSocket, user_id: str):
         while True:
             data = await websocket.receive_text()
             # Put the received data into the user's queue
-            await user_queues[user_id].put(data)
+            await user_queues[user_id].queue.put(data)
             # await websocket.send_text(f"Message received: {data}")
     except WebSocketDisconnect:
         print(f"Client {user_id} disconnected")
@@ -152,10 +154,39 @@ async def send_message(user_id: str, msg: str = "Hello from FastAPI!"):
     else:
         return {"error": f"No WebSocket client connected for user_id {user_id}"}
 
-async def generate_stream(user_id: str, prompt: str):
+async def loop2(user_id, prompt, main_loop: AbstractEventLoop):
+    loop2_loop = asyncio.get_running_loop()
+    print(f"loop2 is using loop: {id(loop2_loop)}")
+
     chat_auto = user_queues.get(user_id).chat_sesion
     async for chunk in await chat_auto.send_message_async("user_id: "+user_id + ", query: "+prompt):
-        yield chunk.text
+        # yield chunk.text
+        main_loop.call_soon_threadsafe(shared_queue.put_nowait, chunk.text)
+    main_loop.call_soon_threadsafe(shared_queue.put_nowait, None)
+
+def run_stream_loop2_in_thread(user_id, prompt, main_loop):
+    new_loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(new_loop)
+    new_loop.run_until_complete(loop2(user_id, prompt, main_loop))
+    new_loop.close()
+
+async def generate_stream(user_id: str, prompt: str):
+    loop1_loop = asyncio.get_running_loop()
+    # print(f"loop1 is using loop: {id(loop1_loop)}")
+
+    # Start producer in a separate thread with its own loop
+    t = threading.Thread(target=run_stream_loop2_in_thread, args=(user_id, prompt, loop1_loop))
+    t.start()
+
+    while True:
+        item = await shared_queue.get()
+        if item is None:
+            break
+        yield item
+        # print(f"loop1: received {item}")
+
+    # t.join()
+    # print("loop1: done")
 
 @app.post("/stream")
 async def stream_content(query_data: PromptRequest = Body(...)):

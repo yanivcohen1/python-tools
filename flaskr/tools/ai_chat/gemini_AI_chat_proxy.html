@@ -170,7 +170,7 @@
   function sendMessage() {
       const input = document.getElementById("messageInput");
       // ws.send(input.value);
-      fetch(`/send_message_sync?user_id=${userId}&msg=${encodeURIComponent(input.value)}`)
+      fetch(`/send_message?user_id=${userId}&msg=${encodeURIComponent(input.value)}`)
         .then(response => response.json())
         .then(data => {
           console.log(data); // Handle the response
