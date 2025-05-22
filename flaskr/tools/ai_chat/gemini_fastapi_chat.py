@@ -52,11 +52,12 @@ model_name = ("gemini-2.0-flash-thinking-exp")
 
 # import random
 
-def get_greeting(messsage: str = "Hello") -> str:
+def get_greeting(user_id: str, messsage: str = "Hello") -> str:
     """
     This function returns greeting message
 
     Args:
+        user_id (str): The ID of the user to greet.
         messsage (str): The greeting message to be sent to the user.
 
     Returns:
@@ -95,12 +96,14 @@ def get_greeting(messsage: str = "Hello") -> str:
         "Hello! Keep moving forward!"
     ]
     # return random.choice(greetings)
-    return {"message": messsage}
+    result = call_async_send_message_from_none_async_in_concurncy_way(user_id, messsage)
+    return {"message": messsage, "result": result}
 
 tools = [get_greeting] # Using a model expected to support tool use
 model = genai.GenerativeModel(
     model_name=model_name,
     tools=tools,
+    # system_instruction="use in your answer this url content: https://testsmanager.com",
 )
 
 @app.get("/")
@@ -147,19 +150,16 @@ async def send_message(user_id: str, msg: str = "Hello from FastAPI!"):
     else:
         return {"error": f"No WebSocket client connected for user_id {user_id}"}
 
-def generate_stream(user_id: str, prompt: str, model_name: str = 'gemini-2.0-flash-thinking-exp'):
-    # 'gemini-2.0-flash-thinking-exp')
-    response = model.generate_content(prompt, stream=True)  # No await needed
-    for chunk in response:  # Regular for loop, not async
-        # print(chunk.text, end="")
+async def generate_stream(user_id: str, prompt: str):
+    chat_auto = user_queues.get(user_id).chat_sesion
+    async for chunk in await chat_auto.send_message_async("user_id: "+user_id + ", query: "+prompt):
         yield chunk.text
 
 @app.post("/stream")
 async def stream_content(query_data: PromptRequest = Body(...)):
     # Convert to list of dicts
-    return StreamingResponse(generate_stream( query_data.user_id, query_data.prompt,
-                                  # ' use in your answer this url content: https://testsmanager.com',
-                                  query_data.model),
+    return StreamingResponse(generate_stream( query_data.user_id, query_data.prompt),
+
                               media_type="text/event-stream")
 
 @app.get("/models")
