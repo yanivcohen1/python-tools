@@ -41,8 +41,12 @@ async def loop1():
     t.join()
     print("loop1: done")
 
+async def main():
+    async for chank in await loop1():
+        print(f"main: received {chank}")
+
 if __name__ == "__main__":
-    asyncio.run(loop1())
+    asyncio.run(main())
 
 # run async function in a different thread run in fastapi main loop (app.state.loop)
 # future = asyncio.run_coroutine_threadsafe(send_message(user_id, msg), app.state.loop)
