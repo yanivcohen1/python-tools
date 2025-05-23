@@ -29,7 +29,7 @@ async def loop1():
     print(f"loop1 is using loop: {id(loop1_loop)}")
 
     # Start producer in a separate thread with its own loop
-    t = threading.Thread(target=run_loop2_in_thread, args=(5, loop1_loop))
+    t = threading.Thread(target=run_loop2_in_thread, args=(3, loop1_loop))
     t.start()
 
     while True:
@@ -37,15 +37,15 @@ async def loop1():
         if item is None:
             break
         print(f"loop1: received {item}")
+        yield item
 
     t.join()
     print("loop1: done")
 
 async def main():
-    async for chank in await loop1():
-        print(f"main: received {chank}")
-        if chank is None:
-            break
+    for _ in range(2):
+        async for chank in loop1():
+            print(f"main: received {chank}")
 
 if __name__ == "__main__":
     asyncio.run(main())

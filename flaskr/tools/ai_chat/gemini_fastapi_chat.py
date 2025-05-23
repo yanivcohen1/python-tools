@@ -26,6 +26,7 @@ model_name = ("gemini-2.0-flash-thinking-exp")
 class UserQueue:
     queue: asyncio.Queue
     chat_sesion: genai.ChatSession
+    loop: AbstractEventLoop
 
 
 websockets: dict[str, WebSocket] = {}  # Maps user_id to websocket
@@ -159,16 +160,22 @@ async def loop2(user_id, prompt, main_loop: AbstractEventLoop):
     print(f"loop2 is using loop: {id(loop2_loop)}")
 
     chat_auto = user_queues.get(user_id).chat_sesion
+    # stream = await chat_auto.send_message_async("user_id: "+user_id + ", query: "+prompt)
     async for chunk in await chat_auto.send_message_async("user_id: "+user_id + ", query: "+prompt):
         # yield chunk.text
         main_loop.call_soon_threadsafe(shared_queue.put_nowait, chunk.text)
     main_loop.call_soon_threadsafe(shared_queue.put_nowait, None)
 
 def run_stream_loop2_in_thread(user_id, prompt, main_loop):
-    new_loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(new_loop)
-    new_loop.run_until_complete(loop2(user_id, prompt, main_loop))
-    new_loop.close()
+    loop = None
+    if hasattr(user_queues.get(user_id), "loop"):
+        loop = user_queues.get(user_id).loop
+    else:
+        loop = asyncio.new_event_loop()
+        user_queues.get(user_id).loop = loop
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(loop2(user_id, prompt, main_loop))
+    # new_loop.close()
 
 async def generate_stream(user_id: str, prompt: str):
     loop1_loop = asyncio.get_running_loop()
@@ -185,8 +192,8 @@ async def generate_stream(user_id: str, prompt: str):
         yield item
         # print(f"loop1: received {item}")
 
-    # t.join()
-    # print("loop1: done")
+    t.join()
+    print("loop1: done")
 
 @app.post("/stream")
 async def stream_content(query_data: PromptRequest = Body(...)):
