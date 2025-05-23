@@ -108,7 +108,7 @@ tools = [get_greeting] # Using a model expected to support tool use
 app.state.model = genai.GenerativeModel(
     model_name=model_name,
     tools=tools,
-    # system_instruction="use in your answer this url content: https://testsmanager.com",
+    system_instruction="befor you run any tool, please ask user for permission, can I run this tool {tool}? with the following parameters: {parameters}?",
 )
 
 @app.get("/")
@@ -177,7 +177,7 @@ def run_stream_loop2_in_thread(user_id, prompt, main_loop):
     if not user_queues[user_id].chat_sesion: # not hasattr(user_queues[user_id], 'chat_sesion'):
         user_queues[user_id].chat_sesion = app.state.model.start_chat(enable_automatic_function_calling=True)
     asyncio.set_event_loop(loop)
-    loop.run_until_complete(loop2(user_id, prompt, main_loop))
+    loop.run_until_complete(loop2(user_id, prompt, main_loop)) # this event loop is elready running error
     # new_loop.close()
 
 async def generate_stream(user_id: str, prompt: str):
