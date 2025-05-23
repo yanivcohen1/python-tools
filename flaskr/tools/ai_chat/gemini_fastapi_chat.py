@@ -204,7 +204,7 @@ async def generate_stream(user_id: str, prompt: str):
     t.join()
     print("loop1: done")
 
-@app.post("/stream")
+@app.post("/tools")
 async def stream_content(query_data: PromptRequest = Body(...)):
     # Convert to list of dicts
     return StreamingResponse(generate_stream( query_data.user_id, query_data.prompt),
