@@ -2,6 +2,7 @@
 import asyncio
 from asyncio import AbstractEventLoop
 import threading
+import time
 from dataclasses import dataclass
 # from typing import List, Optional, Dict, Literal, Any
 from contextlib import asynccontextmanager
@@ -170,15 +171,19 @@ async def loop2(user_id, prompt, main_loop: AbstractEventLoop):
 def run_stream_loop2_in_thread(user_id, prompt, main_loop):
     global chat_loop
     loop = None
+    first = False
     if chat_loop:
         loop = chat_loop
     else:
         loop = asyncio.new_event_loop()
         chat_loop = loop
+        first = True
     if not user_queues[user_id].chat_sesion: # not hasattr(user_queues[user_id], 'chat_sesion'):
         user_queues[user_id].chat_sesion = app.state.model.start_chat(enable_automatic_function_calling=True)
     asyncio.set_event_loop(loop)
-    loop.run_until_complete(loop2(user_id, prompt, main_loop)) # this event loop is elready running error
+    while loop.is_running():
+        time.sleep(0.1)
+    loop.run_until_complete(loop2(user_id, prompt, main_loop))
     # new_loop.close()
 
 async def generate_stream(user_id: str, prompt: str):
