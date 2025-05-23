@@ -143,7 +143,7 @@
           const message = document.createElement("li");
           message.textContent = event.data;
           messages.appendChild(message);
-          const is_confirm = confirm(event.data)
+          const is_confirm = alert(event.data)
           ws.send(is_confirm + " - from " + userId);
       };
 

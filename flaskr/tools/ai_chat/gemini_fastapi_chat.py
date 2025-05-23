@@ -63,7 +63,7 @@ def get_greeting(user_id: str, messsage: str = "Hello") -> str:
 
     Args:
         user_id (str): The ID of the user to greet.
-        messsage (str): The greeting message to be sent to the user.
+        messsage (str): The greeting message to be sent to the user at least 6 words you generated.
 
     Returns:
         dict: greeting message.
@@ -108,7 +108,8 @@ tools = [get_greeting] # Using a model expected to support tool use
 app.state.model = genai.GenerativeModel(
     model_name=model_name,
     tools=tools,
-    system_instruction="befor you run any tool, please ask user for permission, can I run this tool {tool}? with the following parameters: {parameters}?",
+    system_instruction="befor you run any tool, please ask user for permission, can I run this tool {tool}? \
+    with the following parameters: {parameters}? (yes or no)",
 )
 
 @app.get("/")
@@ -147,9 +148,9 @@ async def send_message(user_id: str, msg: str = "Hello from FastAPI!"):
         await websocket.send_text(msg)
         try:
             # Wait for the next message from the client (with a timeout)
-            response = await asyncio.wait_for(queue.get(), timeout=10)
+            # response = await asyncio.wait_for(queue.get(), timeout=10)
             # print(f"Received response from {user_id}: {response}")
-            return {"message": f"Sent '{msg}' to {user_id}, received: {response}"}
+            return {"message": f"Sent '{msg}' to {user_id}"}
         except asyncio.TimeoutError:
             return {"error": f"No response from client {user_id} within timeout"}
     else:
