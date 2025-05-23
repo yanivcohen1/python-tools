@@ -2,9 +2,10 @@
 import asyncio
 from asyncio import AbstractEventLoop
 import threading
+from dataclasses import dataclass
 # from typing import List, Optional, Dict, Literal, Any
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request, Response, Body
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request, Body
 from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.templating import Jinja2Templates
@@ -23,9 +24,11 @@ shared_queue = asyncio.Queue()
 templates = Jinja2Templates(directory="./flaskr/tools/ai_chat")
 model_name = ("gemini-2.0-flash-thinking-exp")
 chat_loop: AbstractEventLoop = None
+@dataclass
 class UserQueue:
     queue: asyncio.Queue
     chat_sesion: genai.ChatSession
+    chat_loop: AbstractEventLoop
 
 
 websockets: dict[str, WebSocket] = {}  # Maps user_id to websocket
@@ -124,8 +127,7 @@ def call_async_send_message_from_none_async_in_concurncy_way(user_id: str, msg: 
 async def websocket_endpoint(websocket: WebSocket, user_id: str):
     await websocket.accept()
     websockets[user_id] = websocket
-    user_queues[user_id] = UserQueue()
-    user_queues[user_id].queue = asyncio.Queue()
+    user_queues[user_id] = UserQueue(queue=asyncio.Queue(), chat_sesion=None, chat_loop=None)
     try:
         while True:
             data = await websocket.receive_text()
@@ -172,7 +174,7 @@ def run_stream_loop2_in_thread(user_id, prompt, main_loop):
     else:
         loop = asyncio.new_event_loop()
         chat_loop = loop
-    if not hasattr(user_queues[user_id], 'chat_sesion'):
+    if not user_queues[user_id].chat_sesion: # not hasattr(user_queues[user_id], 'chat_sesion'):
         user_queues[user_id].chat_sesion = app.state.model.start_chat(enable_automatic_function_calling=True)
     asyncio.set_event_loop(loop)
     loop.run_until_complete(loop2(user_id, prompt, main_loop))
