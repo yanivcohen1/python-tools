@@ -56,9 +56,9 @@ class PromptRequest(BaseModel):
     prompt: str
     model: str
 
-def get_greeting(user_id: str, messsage: str = "Hello") -> str:
+def greeting(user_id: str, messsage: str = "Hello") -> str:
     """
-    This function returns greeting message
+    This function send greeting message to the user
 
     Args:
         user_id (str): The ID of the user to greet.
@@ -72,7 +72,39 @@ def get_greeting(user_id: str, messsage: str = "Hello") -> str:
     result = call_async_send_message_from_none_async_in_concurncy_way(user_id, messsage)
     return result
 
-tools = [get_greeting] # Using a model expected to support tool use
+def send_user(user_id: str, messsage: str = "Hello") -> str:
+    """
+    This function send massage to the user
+
+    Args:
+        user_id (str): The ID of the user to greet.
+        messsage (str): The message to be sent to the user.
+
+    Returns:
+        dict: message.
+    """
+    # import random
+    # return random.choice(greetings)
+    result = call_async_send_message_from_none_async_in_concurncy_way(user_id, messsage)
+    return result
+
+def calculator(expr: str) -> str:
+    """
+    This function calculates a math expression
+
+    Args:
+        expr (str): valid Python math expression.
+
+    Returns:
+        str: the result.
+    """
+    try:
+        return str(eval(expr))
+    except Exception as e:
+        return f"Calculation Error: {e}, expr: {expr}"
+
+# calculate 14+5 and send the result to the user
+tools = [greeting, send_user, calculator] # Using a model expected to support tool use
 app.state.model = genai.GenerativeModel(
     model_name=model_name,
     tools=tools,
