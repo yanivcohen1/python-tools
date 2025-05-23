@@ -24,7 +24,7 @@ app = FastAPI(lifespan=lifespan)
 shared_queue = asyncio.Queue()
 templates = Jinja2Templates(directory="./flaskr/tools/ai_chat")
 model_name = ("gemini-2.0-flash-thinking-exp")
-chat_loop: AbstractEventLoop = None
+app.state.chat_loop = None
 @dataclass
 class UserQueue:
     queue: asyncio.Queue
@@ -56,8 +56,6 @@ class PromptRequest(BaseModel):
     prompt: str
     model: str
 
-# import random
-
 def get_greeting(user_id: str, messsage: str = "Hello") -> str:
     """
     This function returns greeting message
@@ -69,38 +67,7 @@ def get_greeting(user_id: str, messsage: str = "Hello") -> str:
     Returns:
         dict: greeting message.
     """
-    greetings = [
-        "Hello! Hope you're having a great day!",
-        "Hi there! Nice to see you!",
-        "Hey! How's everything going?",
-        "Greetings! Wishing you a wonderful day!",
-        "What's up? Hope you're doing well!",
-        "Hi! Just wanted to say hello!",
-        "Hello! Sending good vibes your way!",
-        "Hey there! Hope you're smiling today!",
-        "Good to see you! Have a fantastic day!",
-        "Hi! Stay awesome!",
-        "Hello! Hope you’re feeling amazing!",
-        "Hey! Keep up the great work!",
-        "Hi there! Stay positive and strong!",
-        "Hello! Let's make today amazing!",
-        "Hi! Wishing you lots of happiness!",
-        "Hey there! You’re doing great!",
-        "Hello! Keep shining!",
-        "Hi! Hope today brings you joy!",
-        "Hey! Don’t forget to smile!",
-        "Hi there! Enjoy every moment!",
-        "Hello! Hope your day is filled with laughter!",
-        "Hey! Sending you some cheer!",
-        "Hi! Take care and be kind to yourself!",
-        "Hello! Stay confident and bright!",
-        "Hi there! You've got this!",
-        "Hey! Today is your day!",
-        "Hello! Wishing you success in all you do!",
-        "Hi! Keep being awesome!",
-        "Hey there! You rock!",
-        "Hello! Keep moving forward!"
-    ]
+    # import random
     # return random.choice(greetings)
     result = call_async_send_message_from_none_async_in_concurncy_way(user_id, messsage)
     return result
@@ -169,15 +136,12 @@ async def loop2(user_id, prompt, main_loop: AbstractEventLoop):
     main_loop.call_soon_threadsafe(shared_queue.put_nowait, None)
 
 def run_stream_loop2_in_thread(user_id, prompt, main_loop):
-    global chat_loop
-    loop = None
-    first = False
-    if chat_loop:
-        loop = chat_loop
+    loop: AbstractEventLoop = None
+    if app.state.chat_loop:
+        loop = app.state.chat_loop
     else:
         loop = asyncio.new_event_loop()
-        chat_loop = loop
-        first = True
+        app.state.chat_loop = loop
     if not user_queues[user_id].chat_sesion: # not hasattr(user_queues[user_id], 'chat_sesion'):
         user_queues[user_id].chat_sesion = app.state.model.start_chat(enable_automatic_function_calling=True)
     asyncio.set_event_loop(loop)
