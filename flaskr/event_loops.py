@@ -44,6 +44,8 @@ async def loop1():
 async def main():
     async for chank in await loop1():
         print(f"main: received {chank}")
+        if chank is None:
+            break
 
 if __name__ == "__main__":
     asyncio.run(main())
