@@ -103,6 +103,7 @@ def calculator(expr: str) -> str:
     except Exception as e:
         return f"Calculation Error: {e}, expr: {expr}"
 
+# list me the tools you have
 # calculate 14+5 and send the result to the user
 tools = [greeting, send_user, calculator] # Using a model expected to support tool use
 app.state.model = genai.GenerativeModel(
