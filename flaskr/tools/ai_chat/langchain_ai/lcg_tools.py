@@ -1,12 +1,31 @@
-from langchain.tools import tool
-from langgraph.prebuilt import create_react_agent
+import os
+import json
+from typing import TypedDict
+
 from dotenv import load_dotenv
-from langchain_ollama.chat_models import ChatOllama
-from langchain.schema import HumanMessage
+# from imap_tools import MailBox, AND
+
+from langchain.chat_models import init_chat_model
+from langchain_core.tools import tool
+
+from langgraph.prebuilt import ToolNode
+from langgraph.graph import StateGraph, START, END
 
 # load_dotenv()
 
-# @tool
+# IMAP_HOST = os.getenv('IMAP_HOST')
+# IMAP_USER = os.getenv('IMAP_USER')
+# IMAP_PASSWORD = os.getenv('IMAP_PASSWORD')
+# IMAP_FOLDER = 'INBOX'
+
+CHAT_MODEL = 'qwen3:1.7b'
+
+
+class ChatState(TypedDict):
+    messages: list
+
+
+@tool
 def get_current_weather(location: str, unit: str = "celsius") -> dict:
     """
     Get the current weather in a given location.
@@ -44,7 +63,7 @@ def get_current_weather(location: str, unit: str = "celsius") -> dict:
     print("get_current_weather Answer:", ansr)
     return ansr
 
-# @tool
+@tool
 def suggest_activity(weather_forecast: str, temperature: str, unit: str) -> dict:
     """
     Suggests an activity based on the current weather forecast and temperature.
@@ -90,33 +109,63 @@ def suggest_activity(weather_forecast: str, temperature: str, unit: str) -> dict
     print("Suggest_activity Answer:", ansr)
     return ansr
 
-if __name__ == "__main__":
-    model = ChatOllama(model="qwen3:1.7b")
-    tools = [get_current_weather, suggest_activity]
-    agent = create_react_agent(model, tools)
-    query = "What's the weather like in London, and what activity should I do based on that?"
-    # 5. Invoke the agent
+
+
+llm = init_chat_model(CHAT_MODEL, model_provider='ollama')
+llm = llm.bind_tools([get_current_weather, suggest_activity])
+
+raw_llm = init_chat_model(CHAT_MODEL, model_provider='ollama')
+
+
+def llm_node(state):
+    response = llm.invoke(state['messages'])
+    return {'messages': state['messages'] + [response]}
+
+
+def router(state):
+    last_message = state['messages'][-1]
+    return 'tools' if getattr(last_message, 'tool_calls', None) else 'end'
+
+
+
+tool_node = ToolNode([get_current_weather, suggest_activity])
+
+
+def tools_node(state):
+    result = tool_node.invoke(state)
+
+    return {
+        'messages': state['messages'] + result['messages']
+    }
+
+
+
+builder = StateGraph(ChatState)
+builder.add_node('llm', llm_node)
+builder.add_node('tools', tools_node)
+builder.add_edge(START, 'llm')
+builder.add_edge('tools', 'llm')
+builder.add_conditional_edges('llm', router, {'tools': 'tools', 'end': END})
+
+graph = builder.compile()
+
+
+if __name__ == '__main__':
+    state = {'messages': []}
+
+    print('Type an instruction or "quit".\n')
+
     while True:
-        user_input = input("\nYou: ").strip()
-        if user_input == "quit":
+        user_message = input('> ')
+
+        if user_message.lower() == 'quit':
             break
-        if user_input == "":
-            user_input = query
-            print("Using default query:", user_input)
-        print("\nAssistant: ", end="")
-        for chunk in agent.stream(
-            {"messages": [HumanMessage(content=user_input)]}
-        ):
-            if "agent" in chunk and "messages" in chunk["agent"]:
-                for message in chunk ["agent"]["messages"]:
-                    print(message.content, end="")
-        print()
+        if user_message == '':
+            user_message = "What's the weather like in London, and what activity should I do based on that?"
+            print("Using default query:", user_message)
 
+        state['messages'].append({'role': 'user', 'content': user_message})
 
-    # for chunk in agent.stream({
-    #     "messages": [("user", query),("system", "Please answer in a step-by-step manner. use only the tools you have,\
-    #                                   all calculation will be only with Calculator tool\
-    #                                   all weather information will be only with Weather tool")],
-    # }, stream_mode="messages"):
-    #     if chunk[0].content:
-    #         print(chunk[1]["langgraph_node"],':', chunk[0].name, "-", chunk[0].content, end="\n")
+        state = graph.invoke(state)
+
+        print(state['messages'][-1].content, '\n')
