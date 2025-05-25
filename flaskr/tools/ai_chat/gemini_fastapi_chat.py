@@ -23,13 +23,12 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 shared_queue = asyncio.Queue()
 templates = Jinja2Templates(directory="./flaskr/tools/ai_chat")
-model_name = ("gemini-2.0-flash-thinking-exp")
 app.state.chat_loop = None
 @dataclass
 class UserQueue:
     queue: asyncio.Queue
     chat_sesion: genai.ChatSession
-    chat_loop: AbstractEventLoop
+    # chat_loop: AbstractEventLoop
 
 
 websockets: dict[str, WebSocket] = {}  # Maps user_id to websocket
@@ -107,7 +106,7 @@ def calculator(expr: str) -> str:
 # calculate 14+4 and send the result to the user
 tools = [greeting, send_user, calculator] # Using a model expected to support tool use
 app.state.model = genai.GenerativeModel(
-    model_name=model_name,
+    model_name=("gemini-2.0-flash-thinking-exp"),
     tools=tools,
     system_instruction="for all calculations use the tool also befor you run any tool, please ask user for permission, can I run this tool {tool}? \
     with the following parameters: {parameters}? (yes or no)",
@@ -129,7 +128,7 @@ def call_async_send_message_from_none_async_in_concurncy_way(user_id: str, msg: 
 async def websocket_endpoint(websocket: WebSocket, user_id: str):
     await websocket.accept()
     websockets[user_id] = websocket
-    user_queues[user_id] = UserQueue(queue=asyncio.Queue(), chat_sesion=None, chat_loop=None)
+    user_queues[user_id] = UserQueue(queue=asyncio.Queue(), chat_sesion=None)
     try:
         while True:
             data = await websocket.receive_text()
@@ -183,7 +182,7 @@ def run_stream_loop2_in_thread(user_id, prompt, main_loop):
     loop.run_until_complete(loop2(user_id, prompt, main_loop))
     # new_loop.close()
 
-async def generate_stream(user_id: str, prompt: str):
+async def generate_stream_chat(user_id: str, prompt: str):
     loop1_loop = asyncio.get_running_loop()
     # print(f"loop1 is using loop: {id(loop1_loop)}")
 
@@ -204,7 +203,7 @@ async def generate_stream(user_id: str, prompt: str):
 @app.post("/tools")
 async def stream_content(query_data: PromptRequest = Body(...)):
     # Convert to list of dicts
-    return StreamingResponse(generate_stream( query_data.user_id, query_data.prompt),
+    return StreamingResponse(generate_stream_chat( query_data.user_id, query_data.prompt),
 
                               media_type="text/event-stream")
 
@@ -218,7 +217,7 @@ def get_models():
             models_list.append(m.name[7:])
     return JSONResponse(content=models_list)
 
-@app.get("/set_model")
+@app.get("/set_chat_model")
 def set_model(module_name: str):
     app.state.model = genai.GenerativeModel(
         model_name=module_name,
