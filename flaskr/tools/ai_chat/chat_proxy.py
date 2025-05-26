@@ -3,15 +3,13 @@ from asyncio import AbstractEventLoop
 import threading
 import time
 from dataclasses import dataclass
-# from typing import List, Optional, Dict, Literal, Any
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request, Body
 from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import google.generativeai as genai
 from pydantic import BaseModel
-from typing import List, Literal, Optional
-# import asyncio
+from typing import Literal, Optional, Any
 import httpx
 import requests
 
@@ -37,7 +35,10 @@ user_queues: dict[str, UserQueue] = {}  # Maps user_id to asyncio.Queue
 
 origins = [
     "https://testsmanager.com",
+    "wss://testsmanager.com",
+    "wss://testsmanager2.com",
     "https://testsmanager2.com:2443",
+    "wss://testsmanager2.com:2443",
     "http://localhost:9000",
 ]
 
