@@ -22,7 +22,7 @@ async def lifespan(app: FastAPI):
     # Shutdown code (if needed)
 
 app = FastAPI(lifespan=lifespan)
-shared_queue = asyncio.Queue()
+
 @dataclass
 class UserQueue:
     queue: asyncio.Queue
@@ -32,6 +32,7 @@ class UserQueue:
 
 websockets: dict[str, WebSocket] = {}  # Maps user_id to websocket
 user_queues: dict[str, UserQueue] = {}  # Maps user_id to asyncio.Queue
+shared_queue: dict[str, asyncio.Queue] = {}
 
 origins = [
     "https://testsmanager.com",
@@ -186,6 +187,7 @@ async def websocket_endpoint(websocket: WebSocket, user_id: str):
         print(f"Client {user_id} disconnected")
         websockets.pop(user_id, None)
         user_queues.pop(user_id, None)
+        shared_queue.pop(user_id, None)
 
 @app.get("/send_message")
 async def send_message(user_id: str, msg: str = "Hello from FastAPI!"):
@@ -203,42 +205,25 @@ async def send_message(user_id: str, msg: str = "Hello from FastAPI!"):
     else:
         return {"error": f"No WebSocket client connected for user_id {user_id}"}
 
-async def loop2(user_id, prompt, main_loop: AbstractEventLoop):
-    loop2_loop = asyncio.get_running_loop()
-    print(f"loop2 is using loop: {id(loop2_loop)}")
-
-    chat_auto = user_queues.get(user_id).chat_sesion
-    # stream = await chat_auto.send_message_async("user_id: "+user_id + ", query: "+prompt)
-    async for chunk in await chat_auto.send_message_async("user_id: "+user_id + ", query: "+prompt):
-        # yield chunk.text
-        main_loop.call_soon_threadsafe(shared_queue.put_nowait, chunk.text)
-    main_loop.call_soon_threadsafe(shared_queue.put_nowait, None)
-
 def run_stream_loop2_in_thread(user_id, prompt, main_loop):
-    loop: AbstractEventLoop = None
-    if app.state.chat_loop:
-        loop = app.state.chat_loop
-    else:
-        loop = asyncio.new_event_loop()
-        app.state.chat_loop = loop
     if not user_queues[user_id].chat_sesion: # not hasattr(user_queues[user_id], 'chat_sesion'):
         user_queues[user_id].chat_sesion = app.state.model.start_chat(enable_automatic_function_calling=True)
-    asyncio.set_event_loop(loop)
-    while loop.is_running():
-        time.sleep(0.1)
-    loop.run_until_complete(loop2(user_id, prompt, main_loop))
+    msg = user_queues[user_id].chat_sesion.send_message("user_id: "+user_id + ", query: "+prompt)
+    main_loop.call_soon_threadsafe(shared_queue[user_id].put_nowait, msg.text)
+    main_loop.call_soon_threadsafe(shared_queue[user_id].put_nowait, None)
     # new_loop.close()
 
 async def generate_stream_chat(user_id: str, prompt: str):
     loop1_loop = asyncio.get_running_loop()
     # print(f"loop1 is using loop: {id(loop1_loop)}")
-
+    # if user_id not in shared_queue:
+    shared_queue[user_id] = asyncio.Queue()
     # Start producer in a separate thread with its own loop
     t = threading.Thread(target=run_stream_loop2_in_thread, args=(user_id, prompt, loop1_loop))
     t.start()
 
     while True:
-        item = await shared_queue.get()
+        item = await shared_queue[user_id].get()
         if item is None:
             break
         yield item
