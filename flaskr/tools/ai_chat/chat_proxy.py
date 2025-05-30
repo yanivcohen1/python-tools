@@ -169,7 +169,7 @@ def call_async_send_message_from_none_async_in_concurncy_way(user_id: str, msg: 
     # Use the main loop to run the coroutine thread-safely
     print(f"call_async_send_message_from_none_async_in_concurncy_way: {user_id}, {msg}")
     future = asyncio.run_coroutine_threadsafe(send_message(user_id, msg), app.state.loop)
-    result = future.result()  # This blocks until result is ready
+    result = future.result(timeout=10)  # This blocks until result is ready
     return result
 
 @app.websocket("/ws/{user_id}")
