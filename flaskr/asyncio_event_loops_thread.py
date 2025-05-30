@@ -6,8 +6,7 @@ from asyncio import AbstractEventLoop
 shared_queue = asyncio.Queue()
 
 def call_async_send_message_from_none_async_in_concurncy_way(n: int, main_loop: AbstractEventLoop):
-    # Use the main loop to run the coroutine thread-safely
-    # print(f"call_async_send_message_from_none_async_in_concurncy_way: {user_id}, {msg}")
+    # run event fun (coroutine fun) that run in main_loop from thread
     future = asyncio.run_coroutine_threadsafe(loop2(n), main_loop)
     try: result = future.result(timeout=10)
     except: result = None
@@ -15,11 +14,13 @@ def call_async_send_message_from_none_async_in_concurncy_way(n: int, main_loop: 
 
 def run_stream_loop2_in_thread(n: int, main_loop: AbstractEventLoop):
     msg = call_async_send_message_from_none_async_in_concurncy_way(n, main_loop)
+    # thread safe put in queue for main_loop
     main_loop.call_soon_threadsafe(shared_queue.put_nowait, msg)
     main_loop.call_soon_threadsafe(shared_queue.put_nowait, None)
 
 # Producer function running in its own event loop/thread
 async def loop2(n):
+    # get current event loop (coroutine loop)
     loop2_loop = asyncio.get_running_loop()
     print(f"loop2 is using loop: {id(loop2_loop)}")
 
@@ -30,7 +31,7 @@ async def loop2(n):
 
 # Consumer function (main loop)
 async def loop1():
-    # coroutine loop
+    # get current event loop (coroutine loop)
     main_loop = asyncio.get_running_loop()
     print(f"loop1 is using loop: {id(main_loop)}")
 
@@ -46,7 +47,7 @@ async def loop1():
         yield item
 
     t.join()
-    # print("loop1: done")
+    print("loop1: done")
 
 async def main():
     for i in range(2):
