@@ -123,7 +123,7 @@ def calculator(expr: str) -> str:
         return f"Calculation Error: {e}, expr: {expr}"
 
 # list me the tools you have
-# calculate 14+4 and send the result to the user
+# calculate 14+4/2 and send the result to the user
 tools = [greeting, send_user, calculator] # Using a model expected to support tool use
 app.state.model = genai.GenerativeModel(
     model_name=("gemini-2.0-flash-thinking-exp"),
@@ -205,7 +205,7 @@ async def send_message(user_id: str, msg: str = "Hello from FastAPI!"):
     else:
         return {"error": f"No WebSocket client connected for user_id {user_id}"}
 
-def run_stream_loop2_in_thread(user_id, prompt, main_loop):
+def run_stream_loop2_in_thread(user_id, prompt, main_loop: AbstractEventLoop):
     if not user_queues[user_id].chat_sesion: # not hasattr(user_queues[user_id], 'chat_sesion'):
         user_queues[user_id].chat_sesion = app.state.model.start_chat(enable_automatic_function_calling=True)
     msg = user_queues[user_id].chat_sesion.send_message("user_id: "+user_id + ", query: "+prompt)
