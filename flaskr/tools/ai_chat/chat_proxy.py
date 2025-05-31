@@ -1,7 +1,7 @@
 import asyncio
 from asyncio import AbstractEventLoop
 import threading
-import time
+import os
 from dataclasses import dataclass
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request, Body
@@ -21,7 +21,17 @@ async def lifespan(app: FastAPI):
     yield
     # Shutdown code (if needed)
 
-app = FastAPI(lifespan=lifespan)
+SHOW_DOCS = os.getenv("SHOW_DOCS", "true").lower() == "true"
+
+app = FastAPI(
+    lifespan=lifespan,
+    title="AI Chat Proxy",
+    description="A FastAPI application that serves as a proxy for AI chat models, including Gemini and Ollama.",
+    version="1.0.0",
+    openapi_url=None if not SHOW_DOCS else "/openapi.json",
+    docs_url=None if not SHOW_DOCS else "/docs",
+    redoc_url=None if not SHOW_DOCS else "/redoc"
+)
 
 @dataclass
 class UserQueue:
