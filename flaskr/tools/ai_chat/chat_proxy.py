@@ -67,7 +67,7 @@ def live():
 
 # gemini proxy ---------------------------------------------------------
 system_instructions = 'use in your answer this url content: https://testsmanager.com'
-system_instructions_lools = "for all calculations use the tool also befor you run any tool, please ask user for permission, can I run this tool {tool}? \
+system_instructions_lools = "for all calculations use the tool also befor you run any tool, please ask user for permission, can I run this tool {tool_name}? \
     with the following parameters: {parameters}? (yes or no)"
 genai.configure(api_key="AIzaSyB2GXiEd1eV95qPkFMUaz8vndME1cYFByk") #replace with your api key
 # genai_model = genai.GenerativeModel('gemini-2.0-flash-thinking-exp', system_instruction=system_instructions) # gemini-2.0-flash
