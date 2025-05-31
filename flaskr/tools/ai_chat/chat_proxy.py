@@ -353,4 +353,10 @@ if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=7000) # host="0.0.0.0" listning to all interfaces
 
 # for swagger API http://127.0.0.1:7000/docs#/
+# in production https://testsmanager.com:12443/docs#/
+
 # for fastAPI http://127.0.0.1:7000/redoc
+# in production https://testsmanager.com:12443/redoc
+
+# for schema http://127.0.0.1:7000/openapi.json
+# in production https://testsmanager.com:12443/openapi.json

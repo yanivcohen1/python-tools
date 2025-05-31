@@ -16,3 +16,13 @@ pip install 'uvicorn[standard]'
 
 // create requirements.txt
 pip freeze > requirements.txt
+
+// docs
+# in production swagger https://testsmanager.com:12443/docs#
+# in dev swagger http://127.0.0.1:7000/docs#
+
+# in production fastAPI https://testsmanager.com:12443/redoc
+# in dev http://127.0.0.1:7000/redoc
+
+# in production schema https://testsmanager.com:12443/openapi.json
+# in dev schema http://127.0.0.1:7000/openapi.json
