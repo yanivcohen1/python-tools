@@ -16,6 +16,7 @@ pipenv install Flask
 pipenv install flask flask-jsonpify flask-sqlalchemy flask-restful
 pipenv install flask-cors
 pipenv run python server.py
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
 
 ## Development server
 Run python server using `python server.py` command
