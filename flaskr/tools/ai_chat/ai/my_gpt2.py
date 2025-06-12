@@ -3,7 +3,7 @@ import math
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
-from transformers import BertTokenizerFast, BertConfig, BertModel
+from transformers import BertTokenizerFast
 from torch.optim import AdamW
 
 # ---------- Custom Output Class ----------
