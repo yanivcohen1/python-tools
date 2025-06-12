@@ -3,12 +3,13 @@ import math
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
-from transformers import BertTokenizerFast
+from transformers import BertTokenizerFast, BertConfig, BertModel
 from torch.optim import AdamW
 
 # ---------- Custom Output Class ----------
 class QuestionAnsweringModelOutput:
-    def __init__(self, loss=None, start_logits=None, end_logits=None, hidden_states=None, attentions=None):
+    def __init__(self, loss=None, start_logits=None, end_logits=None, hidden_states=None, attentions=None, reasoning_logits=None):
+        self.reasoning_logits = reasoning_logits
         self.loss = loss
         self.start_logits = start_logits
         self.end_logits = end_logits
@@ -26,7 +27,9 @@ class BertConfigCustom:
                  hidden_dropout_prob=0.1,
                  attention_probs_dropout_prob=0.1,
                  max_position_embeddings=512,
-                 type_vocab_size=2):
+                 type_vocab_size=2,
+                 reasoning_vocab_size=3):
+        self.reasoning_vocab_size = reasoning_vocab_size
         self.vocab_size = vocab_size
         self.hidden_size = hidden_size
         self.num_hidden_layers = num_hidden_layers
@@ -334,6 +337,114 @@ def evaluate(model, tokenizer, question, context, device):
         answer = tokenizer.decode(input_ids[0][start:end])
     return answer
 
+# ---------- Chain-of-Thought Reasoning Modification ----------
+class BertForQuestionAnsweringWithReasoning(nn.Module):
+    def __init__(self, config):
+        super(BertForQuestionAnsweringWithReasoning, self).__init__()
+        self.bert = BertModelCustom(config)  # Replaced with custom model
+        self.qa_outputs = nn.Linear(config.hidden_size, 2)
+        self.reasoning_output = nn.Linear(config.hidden_size, config.reasoning_vocab_size)
+
+    def forward(self, input_ids, attention_mask=None, token_type_ids=None,
+                start_positions=None, end_positions=None, reasoning_labels=None):
+        outputs = self.bert(input_ids, attention_mask=attention_mask, token_type_ids=token_type_ids)
+        sequence_output = outputs[0]
+        hidden_states = outputs[1] if len(outputs) > 1 else None
+        attentions = outputs[2] if len(outputs) > 2 else None
+
+        logits = self.qa_outputs(sequence_output)
+        start_logits, end_logits = logits.split(1, dim=-1)
+        start_logits = start_logits.squeeze(-1)
+        end_logits = end_logits.squeeze(-1)
+
+        # Reasoning prediction (optional label)
+        reasoning_logits = self.reasoning_output(sequence_output[:, 0])  # Use [CLS] token
+
+        total_loss = None
+        if start_positions is not None and end_positions is not None:
+            loss_fct = nn.CrossEntropyLoss()
+            start_loss = loss_fct(start_logits, start_positions)
+            end_loss = loss_fct(end_logits, end_positions)
+            total_loss = (start_loss + end_loss) / 2
+
+            if reasoning_labels is not None:
+                reasoning_loss = loss_fct(reasoning_logits, reasoning_labels)
+                total_loss += reasoning_loss
+
+        return QuestionAnsweringModelOutput(
+            loss=total_loss,
+            start_logits=start_logits,
+            end_logits=end_logits,
+            hidden_states=hidden_states,
+            attentions=attentions,
+            reasoning_logits=reasoning_logits
+        )
+
+# ---------- Dataset Class with Reasoning Support ----------
+# from torch.utils.data import Dataset
+class QADatasetWithReasoning(Dataset):
+    def __init__(self, data, tokenizer, reasoning_vocab, max_length=512):
+        self.data = data
+        self.tokenizer = tokenizer
+        self.reasoning_vocab = reasoning_vocab
+        self.max_length = max_length
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        item = self.data[idx]
+        context = item['context']
+        question = item['question']
+        answer = item['answers']['text'][0]
+        start_char = item['answers']['answer_start'][0]
+        end_char = start_char + len(answer)
+        reasoning_label = self.reasoning_vocab.get(item.get('reasoning_label', 'factual'), 0)
+
+        encoding = self.tokenizer(
+            question,
+            context,
+            truncation="only_second",
+            max_length=self.max_length,
+            stride=128,
+            return_overflowing_tokens=False,
+            return_offsets_mapping=True,
+            padding="max_length",
+            return_tensors="pt"
+        )
+
+        offset_mapping = encoding.pop("offset_mapping")[0]
+        input_ids = encoding["input_ids"][0]
+        start_positions = end_positions = 0
+
+        for i, (start, end) in enumerate(offset_mapping):
+            if start <= start_char < end:
+                start_positions = i
+            if start < end_char <= end:
+                end_positions = i
+                break
+
+        encoding = {k: v.squeeze(0) for k, v in encoding.items()}
+        encoding["start_positions"] = torch.tensor(start_positions)
+        encoding["end_positions"] = torch.tensor(end_positions)
+        encoding["reasoning_labels"] = torch.tensor(reasoning_label)
+
+        return encoding
+
+# ---------- Sample Reasoning Data Entry ----------
+# Add to train_data.json
+# {
+#   "context": "Alan Turing created the Turing Machine. The Turing Machine inspired computer science.",
+#   "question": "Why is Alan Turing important in computer science?",
+#   "answers": {"text": ["The Turing Machine inspired computer science"], "answer_start": [41]},
+#   "reasoning_label": "causal"
+# }
+
+# Reasoning types example:
+# "reasoning_vocab_size": 3
+# 0 = factual, 1 = causal, 2 = comparative
+
+# You would need to encode these reasoning types numerically when building your dataset.
 # ---------- Entry Point ----------
 if __name__ == "__main__":
     import os
@@ -342,7 +453,7 @@ if __name__ == "__main__":
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
     # Load data
-    with open(current_dir + "/datasets/train_data.json") as f:
+    with open(current_dir + "/datasets/train_resening_data.json") as f:
         data = json.load(f)
 
     # Tokenizer and Config
@@ -355,21 +466,28 @@ if __name__ == "__main__":
 
     # Model and Optimizer
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = BertForQuestionAnsweringCustom(config).to(device)
+    model = BertForQuestionAnsweringWithReasoning(config).to(device)
     optimizer = AdamW(model.parameters(), lr=3e-5)
 
     # Train
-    for epoch in range(3):
+    for epoch in range(20):
         loss = train(model, dataloader, optimizer, device)
         print(f"Epoch {epoch+1}: loss = {loss:.4f}")
 
     # Save model
-    os.makedirs("models/qa_model", exist_ok=True)
-    torch.save(model.state_dict(), current_dir + "/models/pytorch_model.bin")
-    tokenizer.save_pretrained("models/qa_model")
+    # os.makedirs("models/qa_model", exist_ok=True)
+    torch.save(model.state_dict(), current_dir + "/models/gpt_resening_model.pth")
+    tokenizer.save_pretrained(current_dir + "/models/qa_model")
 
-    # Inference example
-    question = "Who wrote the Harry Potter books?"
-    context = "J.K. Rowling is the author of the Harry Potter book series."
+
+    # Example of reasoning
+    question = "Where is the Eiffel Tower?"
+    context = "The Eiffel Tower is in Paris. It is one of the most visited landmarks in the world."
+    answer = evaluate(model, tokenizer, question, context, device)
+    print(f"Q: {question}\nA: {answer} \n\n")
+
+    # Example of reasoning
+    question = "Where is the most visited landmarks in the world?"
+    context = "The Eiffel Tower is in Paris. It is one of the most visited landmarks in the world."
     answer = evaluate(model, tokenizer, question, context, device)
     print(f"Q: {question}\nA: {answer}")

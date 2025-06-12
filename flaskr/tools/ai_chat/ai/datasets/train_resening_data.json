@@ -1,0 +1,38 @@
+[
+  {
+    "context": "Alan Turing created the Turing Machine. The Turing Machine inspired computer science.",
+    "question": "Why is Alan Turing important in computer science?",
+    "answers": {
+      "text": ["The Turing Machine inspired computer science"],
+      "answer_start": [41]
+    },
+    "reasoning_label": "causal"
+  },
+  {
+    "context": "Photosynthesis is how plants make food. This process uses sunlight and carbon dioxide.",
+    "question": "Why do plants need sunlight?",
+    "answers": {
+      "text": ["This process uses sunlight"],
+      "answer_start": [50]
+    },
+    "reasoning_label": "causal"
+  },
+  {
+    "context": "Whales are mammals. Fish are not mammals.",
+    "question": "What makes whales different from fish?",
+    "answers": {
+      "text": ["Whales are mammals"],
+      "answer_start": [0]
+    },
+    "reasoning_label": "comparative"
+  },
+  {
+    "context": "The Eiffel Tower is in Paris. It is one of the most visited landmarks in the world.",
+    "question": "Where is the Eiffel Tower?",
+    "answers": {
+      "text": ["Paris"],
+      "answer_start": [25]
+    },
+    "reasoning_label": "factual"
+  }
+]
