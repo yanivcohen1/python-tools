@@ -1,0 +1,652 @@
+[
+  {
+    "context": "The Project Gutenberg eBook of Alice's Adventures in Wonderland\nThis ebook is for the use of anyone anywhere in the United States and\nmost other parts of the world at no cost and with almost no \nrestrictions\nwhatsoever. You may copy it, give it away or re-use it under the terms\nof the Project Gutenberg License included with this ebook or online\nat www.gutenberg.org. If you are not located in the United States,\nyou will have to check the laws of the country where you are located\nbefore using this eBook. Title: Alice's Adventures in Wonderland\nAuthor: Lewis Carroll\nRelease date: June 27, 2008 [eBook #11]\nMost recently updated: March 30, 2021\nLanguage: English\nCredits: Arthur DiBianca and David Widger\n**_ START OF THE PROJECT GUTENBERG EBOOK ALICE'S ADVENTURES IN \nWONDERLAND _**\n[Illustration]\nAlice\u2019s Adventures in Wonderland\nby Lewis Carroll\nTHE MILLENNIUM FULCRUM EDITION 3.0\nContents\nCHAPTER I. Down the Rabbit-Hole\nCHAPTER II.",
+    "question": "What is the main idea in passage 0?",
+    "answers": {
+      "text": [
+        "The Project Gutenberg eBook of Alice's Adventures in Wonderland\nThis ebook is for the use of anyone anywhere in the United States and\nmost other parts of the world at no cost and with almost no \nrestrictions\nwhatsoever."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "The Pool of Tears\nCHAPTER III. A Caucus-Race and a Long Tale\nCHAPTER IV. The Rabbit Sends in a Little Bill\nCHAPTER V. Advice from a Caterpillar\nCHAPTER VI. Pig and Pepper\nCHAPTER VII. A Mad Tea-Party\nCHAPTER VIII.",
+    "question": "What is the main idea in passage 1?",
+    "answers": {
+      "text": [
+        "The Pool of Tears\nCHAPTER III."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "The Queen\u2019s Croquet-Ground\nCHAPTER IX. The Mock Turtle\u2019s Story\nCHAPTER X. The Lobster Quadrille\nCHAPTER XI. Who Stole the Tarts? CHAPTER XII.",
+    "question": "What is the main idea in passage 2?",
+    "answers": {
+      "text": [
+        "The Queen\u2019s Croquet-Ground\nCHAPTER IX."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "Alice\u2019s Evidence\nCHAPTER I. Down the Rabbit-Hole\nAlice was beginning to get very tired of sitting by her sister on the\nbank, and of having nothing to do: once or twice she had peeped into\nthe book her sister was reading, but it had no pictures or\nconversations in it, \u201cand what is the use of a book,\u201d thought Alice\n\u201cwithout pictures or conversations?\u201d\nSo she was considering in her own mind (as well as she could, for the\nhot day made her feel very sleepy and stupid), whether the pleasure of\nmaking a daisy-chain would be worth the trouble of getting up and\npicking the daisies, when suddenly a White Rabbit with pink eyes ran\nclose by her. There was nothing so _very_ remarkable in that; nor did Alice think it\nso _very_ much out of the way to hear the Rabbit say to itself, \u201cOh\ndear! Oh dear! I shall be late!\u201d (when she thought it over afterwards,\nit occurred to her that she ought to have wondered at this, but at the\ntime it all seemed quite natural); but when the Rabbit actually _took \na\nwatch out of its waistcoat-pocket_, and looked at it, and then hurried\non, Alice started to her feet, for it flashed across her mind that she\nhad never before seen a rabbit with either a waistcoat-pocket, or a\nwatch to take out of it, and burning with curiosity, she ran across \nthe\nfield after it, and fortunately was just in time to see it pop down a\nlarge rabbit-hole under the hedge.",
+    "question": "What is the main idea in passage 3?",
+    "answers": {
+      "text": [
+        "Alice\u2019s Evidence\nCHAPTER I."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "In another moment down went Alice after it, never once considering how\nin the world she was to get out again. The rabbit-hole went straight on like a tunnel for some way, and then\ndipped suddenly down, so suddenly that Alice had not a moment to think\nabout stopping herself before she found herself falling down a very\ndeep well. Either the well was very deep, or she fell very slowly, for she had\nplenty of time as she went down to look about her and to wonder what\nwas going to happen next. First, she tried to look down and make out\nwhat she was coming to, but it was too dark to see anything; then she\nlooked at the sides of the well, and noticed that they were filled \nwith\ncupboards and book-shelves; here and there she saw maps and pictures\nhung upon pegs. She took down a jar from one of the shelves as she\npassed; it was labelled \u201cORANGE MARMALADE\u201d, but to her great\ndisappointment it was empty: she did not like to drop the jar for fear\nof killing somebody underneath, so managed to put it into one of the\ncupboards as she fell past it.",
+    "question": "What is the main idea in passage 4?",
+    "answers": {
+      "text": [
+        "In another moment down went Alice after it, never once considering how\nin the world she was to get out again."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "\u201cWell!\u201d thought Alice to herself, \u201cafter such a fall as this, I shall\nthink nothing of tumbling down stairs! How brave they\u2019ll all think me\nat home! Why, I wouldn\u2019t say anything about it, even if I fell off the\ntop of the house!\u201d (Which was very likely true.) Down, down, down. Would the fall _never_ come to an end?",
+    "question": "What is the main idea in passage 5?",
+    "answers": {
+      "text": [
+        "\u201cWell!\u201d thought Alice to herself, \u201cafter such a fall as this, I shall\nthink nothing of tumbling down stairs!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "\u201cI wonder how\nmany miles I\u2019ve fallen by this time?\u201d she said aloud. \u201cI must be\ngetting somewhere near the centre of the earth. Let me see: that would\nbe four thousand miles down, I think\u2014\u201d (for, you see, Alice had learnt\nseveral things of this sort in her lessons in the schoolroom, and\nthough this was not a _very_ good opportunity for showing off her\nknowledge, as there was no one to listen to her, still it was good\npractice to say it over) \u201c\u2014yes, that\u2019s about the right distance\u2014but\nthen I wonder what Latitude or Longitude I\u2019ve got to?\u201d (Alice had no\nidea what Latitude was, or Longitude either, but thought they were \nnice\ngrand words to say.) Presently she began again. \u201cI wonder if I shall fall right _through_\nthe earth!",
+    "question": "What is the main idea in passage 6?",
+    "answers": {
+      "text": [
+        "\u201cI wonder how\nmany miles I\u2019ve fallen by this time?\u201d she said aloud."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "How funny it\u2019ll seem to come out among the people that walk\nwith their heads downward! The Antipathies, I think\u2014\u201d (she was rather\nglad there _was_ no one listening, this time, as it didn\u2019t sound at \nall\nthe right word) \u201c\u2014but I shall have to ask them what the name of the\ncountry is, you know. Please, Ma\u2019am, is this New Zealand or \nAustralia?\u201d\n(and she tried to curtsey as she spoke\u2014fancy _curtseying_ as you\u2019re\nfalling through the air! Do you think you could manage it?) \u201cAnd what\nan ignorant little girl she\u2019ll think me for asking!",
+    "question": "What is the main idea in passage 7?",
+    "answers": {
+      "text": [
+        "How funny it\u2019ll seem to come out among the people that walk\nwith their heads downward!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "No, it\u2019ll never do\nto ask: perhaps I shall see it written up somewhere.\u201d\nDown, down, down. There was nothing else to do, so Alice soon began\ntalking again. \u201cDinah\u2019ll miss me very much to-night, I should think!\u201d\n(Dinah was the cat.) \u201cI hope they\u2019ll remember her saucer of milk at\ntea-time. Dinah my dear!",
+    "question": "What is the main idea in passage 8?",
+    "answers": {
+      "text": [
+        "No, it\u2019ll never do\nto ask: perhaps I shall see it written up somewhere.\u201d\nDown, down, down."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "I wish you were down here with me! There are\nno mice in the air, I\u2019m afraid, but you might catch a bat, and that\u2019s\nvery like a mouse, you know. But do cats eat bats, I wonder?\u201d And here\nAlice began to get rather sleepy, and went on saying to herself, in a\ndreamy sort of way, \u201cDo cats eat bats? Do cats eat bats?\u201d and\nsometimes, \u201cDo bats eat cats?\u201d for, you see, as she couldn\u2019t answer\neither question, it didn\u2019t much matter which way she put it. She felt\nthat she was dozing off, and had just begun to dream that she was\nwalking hand in hand with Dinah, and saying to her very earnestly,\n\u201cNow, Dinah, tell me the truth: did you ever eat a bat?\u201d when \nsuddenly,\nthump!",
+    "question": "What is the main idea in passage 9?",
+    "answers": {
+      "text": [
+        "I wish you were down here with me!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "thump! down she came upon a heap of sticks and dry leaves, and\nthe fall was over. Alice was not a bit hurt, and she jumped up on to her feet in a \nmoment:\nshe looked up, but it was all dark overhead; before her was another\nlong passage, and the White Rabbit was still in sight, hurrying down\nit. There was not a moment to be lost: away went Alice like the wind,\nand was just in time to hear it say, as it turned a corner, \u201cOh my \nears\nand whiskers, how late it\u2019s getting!\u201d She was close behind it when she\nturned the corner, but the Rabbit was no longer to be seen: she found\nherself in a long, low hall, which was lit up by a row of lamps \nhanging\nfrom the roof. There were doors all round the hall, but they were all locked; and \nwhen\nAlice had been all the way down one side and up the other, trying \nevery\ndoor, she walked sadly down the middle, wondering how she was ever to\nget out again.",
+    "question": "What is the main idea in passage 10?",
+    "answers": {
+      "text": [
+        "thump!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "Suddenly she came upon a little three-legged table, all made of solid\nglass; there was nothing on it except a tiny golden key, and Alice\u2019s\nfirst thought was that it might belong to one of the doors of the \nhall;\nbut, alas! either the locks were too large, or the key was too small,\nbut at any rate it would not open any of them. However, on the second\ntime round, she came upon a low curtain she had not noticed before, \nand\nbehind it was a little door about fifteen inches high: she tried the\nlittle golden key in the lock, and to her great delight it fitted! Alice opened the door and found that it led into a small passage, not\nmuch larger than a rat-hole: she knelt down and looked along the\npassage into the loveliest garden you ever saw. How she longed to get\nout of that dark hall, and wander about among those beds of bright\nflowers and those cool fountains, but she could not even get her head\nthrough the doorway; \u201cand even if my head would go through,\u201d thought\npoor Alice, \u201cit would be of very little use without my shoulders.",
+    "question": "What is the main idea in passage 11?",
+    "answers": {
+      "text": [
+        "Suddenly she came upon a little three-legged table, all made of solid\nglass; there was nothing on it except a tiny golden key, and Alice\u2019s\nfirst thought was that it might belong to one of the doors of the \nhall;\nbut, alas!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "Oh,\nhow I wish I could shut up like a telescope! I think I could, if I \nonly\nknew how to begin.\u201d For, you see, so many out-of-the-way things had\nhappened lately, that Alice had begun to think that very few things\nindeed were really impossible. There seemed to be no use in waiting by the little door, so she went\nback to the table, half hoping she might find another key on it, or at\nany rate a book of rules for shutting people up like telescopes: this\ntime she found a little bottle on it, (\u201cwhich certainly was not here\nbefore,\u201d said Alice,) and round the neck of the bottle was a paper\nlabel, with the words \u201cDRINK ME,\u201d beautifully printed on it in large\nletters. It was all very well to say \u201cDrink me,\u201d but the wise little Alice was\nnot going to do _that_ in a hurry. \u201cNo, I\u2019ll look first,\u201d she said,\n\u201cand see whether it\u2019s marked \u2018_poison_\u2019 or not\u201d; for she had read\nseveral nice little histories about children who had got burnt, and\neaten up by wild beasts and other unpleasant things, all because they\n_would_ not remember the simple rules their friends had taught them:\nsuch as, that a red-hot poker will burn you if you hold it too long;\nand that if you cut your finger _very_ deeply with a knife, it usually\nbleeds; and she had never forgotten that, if you drink much from a\nbottle marked \u201cpoison,\u201d it is almost certain to disagree with you,\nsooner or later.",
+    "question": "What is the main idea in passage 12?",
+    "answers": {
+      "text": [
+        "Oh,\nhow I wish I could shut up like a telescope!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "However, this bottle was _not_ marked \u201cpoison,\u201d so Alice ventured to\ntaste it, and finding it very nice, (it had, in fact, a sort of mixed\nflavour of cherry-tart, custard, pine-apple, roast turkey, toffee, and\nhot buttered toast,) she very soon finished it off. ---\n    *      *      *      *      *      *\n---\n\u201cWhat a curious feeling!\u201d said Alice; \u201cI must be shutting up like a\ntelescope.\u201d\nAnd so it was indeed: she was now only ten inches high, and her face\nbrightened up at the thought that she was now the right size for going\nthrough the little door into that lovely garden. First, however, she\nwaited for a few minutes to see if she was going to shrink any \nfurther:\nshe felt a little nervous about this; \u201cfor it might end, you know,\u201d\nsaid Alice to herself, \u201cin my going out altogether, like a candle. I\nwonder what I should be like then?\u201d And she tried to fancy what the\nflame of a candle is like after the candle is blown out, for she could\nnot remember ever having seen such a thing. After a while, finding that nothing more happened, she decided on \ngoing\ninto the garden at once; but, alas for poor Alice!",
+    "question": "What is the main idea in passage 13?",
+    "answers": {
+      "text": [
+        "However, this bottle was _not_ marked \u201cpoison,\u201d so Alice ventured to\ntaste it, and finding it very nice, (it had, in fact, a sort of mixed\nflavour of cherry-tart, custard, pine-apple, roast turkey, toffee, and\nhot buttered toast,) she very soon finished it off."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "when she got to the\ndoor, she found she had forgotten the little golden key, and when she\nwent back to the table for it, she found she could not possibly reach\nit: she could see it quite plainly through the glass, and she tried \nher\nbest to climb up one of the legs of the table, but it was too \nslippery;\nand when she had tired herself out with trying, the poor little thing\nsat down and cried. \u201cCome, there\u2019s no use in crying like that!\u201d said Alice to herself,\nrather sharply; \u201cI advise you to leave off this minute!\u201d She generally\ngave herself very good advice, (though she very seldom followed it),\nand sometimes she scolded herself so severely as to bring tears into\nher eyes; and once she remembered trying to box her own ears for \nhaving\ncheated herself in a game of croquet she was playing against herself,\nfor this curious child was very fond of pretending to be two people. \u201cBut it\u2019s no use now,\u201d thought poor Alice, \u201cto pretend to be two\npeople! Why, there\u2019s hardly enough of me left to make _one_ \nrespectable\nperson!\u201d\nSoon her eye fell on a little glass box that was lying under the \ntable:\nshe opened it, and found in it a very small cake, on which the words\n\u201cEAT ME\u201d were beautifully marked in currants. \u201cWell, I\u2019ll eat it,\u201d \nsaid\nAlice, \u201cand if it makes me grow larger, I can reach the key; and if it\nmakes me grow smaller, I can creep under the door; so either way I\u2019ll\nget into the garden, and I don\u2019t care which happens!\u201d\nShe ate a little bit, and said anxiously to herself, \u201cWhich way?",
+    "question": "What is the main idea in passage 14?",
+    "answers": {
+      "text": [
+        "when she got to the\ndoor, she found she had forgotten the little golden key, and when she\nwent back to the table for it, she found she could not possibly reach\nit: she could see it quite plainly through the glass, and she tried \nher\nbest to climb up one of the legs of the table, but it was too \nslippery;\nand when she had tired herself out with trying, the poor little thing\nsat down and cried."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "Which\nway?\u201d, holding her hand on the top of her head to feel which way it \nwas\ngrowing, and she was quite surprised to find that she remained the \nsame\nsize: to be sure, this generally happens when one eats cake, but Alice\nhad got so much into the way of expecting nothing but out-of-the-way\nthings to happen, that it seemed quite dull and stupid for life to go\non in the common way. So she set to work, and very soon finished off the cake. ---\n    *      *      *      *      *      *\n---\nCHAPTER II. The Pool of Tears\n\u201cCuriouser and curiouser!\u201d cried Alice (she was so much surprised, \nthat\nfor the moment she quite forgot how to speak good English); \u201cnow I\u2019m\nopening out like the largest telescope that ever was! Good-bye, feet!\u201d\n(for when she looked down at her feet, they seemed to be almost out of\nsight, they were getting so far off).",
+    "question": "What is the main idea in passage 15?",
+    "answers": {
+      "text": [
+        "Which\nway?\u201d, holding her hand on the top of her head to feel which way it \nwas\ngrowing, and she was quite surprised to find that she remained the \nsame\nsize: to be sure, this generally happens when one eats cake, but Alice\nhad got so much into the way of expecting nothing but out-of-the-way\nthings to happen, that it seemed quite dull and stupid for life to go\non in the common way."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "\u201cOh, my poor little feet, I\nwonder who will put on your shoes and stockings for you now, dears? I\u2019m\nsure _I_ shan\u2019t be able! I shall be a great deal too far off to \ntrouble\nmyself about you: you must manage the best way you can;\u2014but I must be\nkind to them,\u201d thought Alice, \u201cor perhaps they won\u2019t walk the way I\nwant to go! Let me see: I\u2019ll give them a new pair of boots every\nChristmas.\u201d\nAnd she went on planning to herself how she would manage it. \u201cThey \nmust\ngo by the carrier,\u201d she thought; \u201cand how funny it\u2019ll seem, sending\npresents to one\u2019s own feet!",
+    "question": "What is the main idea in passage 16?",
+    "answers": {
+      "text": [
+        "\u201cOh, my poor little feet, I\nwonder who will put on your shoes and stockings for you now, dears?"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "And how odd the directions will look! _Alice\u2019s Right Foot, Esq., Hearthrug, near the Fender,_ (_with\n     Alice\u2019s love_). Oh dear, what nonsense I\u2019m talking!\u201d\nJust then her head struck against the roof of the hall: in fact she \nwas\nnow more than nine feet high, and she at once took up the little \ngolden\nkey and hurried off to the garden door. Poor Alice! It was as much as she could do, lying down on one side, to\nlook through into the garden with one eye; but to get through was more\nhopeless than ever: she sat down and began to cry again.",
+    "question": "What is the main idea in passage 17?",
+    "answers": {
+      "text": [
+        "And how odd the directions will look!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "\u201cYou ought to be ashamed of yourself,\u201d said Alice, \u201ca great girl like\nyou,\u201d (she might well say this), \u201cto go on crying in this way! Stop\nthis moment, I tell you!\u201d But she went on all the same, shedding\ngallons of tears, until there was a large pool all round her, about\nfour inches deep and reaching half down the hall. After a time she heard a little pattering of feet in the distance, and\nshe hastily dried her eyes to see what was coming. It was the White\nRabbit returning, splendidly dressed, with a pair of white kid gloves\nin one hand and a large fan in the other: he came trotting along in a\ngreat hurry, muttering to himself as he came, \u201cOh! the Duchess, the\nDuchess!",
+    "question": "What is the main idea in passage 18?",
+    "answers": {
+      "text": [
+        "\u201cYou ought to be ashamed of yourself,\u201d said Alice, \u201ca great girl like\nyou,\u201d (she might well say this), \u201cto go on crying in this way!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "Oh! won\u2019t she be savage if I\u2019ve kept her waiting!\u201d Alice felt\nso desperate that she was ready to ask help of any one; so, when the\nRabbit came near her, she began, in a low, timid voice, \u201cIf you \nplease,\nsir\u2014\u201d The Rabbit started violently, dropped the white kid gloves and\nthe fan, and skurried away into the darkness as hard as he could go. Alice took up the fan and gloves, and, as the hall was very hot, she\nkept fanning herself all the time she went on talking: \u201cDear, dear! How\nqueer everything is to-day! And yesterday things went on just as \nusual.",
+    "question": "What is the main idea in passage 19?",
+    "answers": {
+      "text": [
+        "Oh!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "I wonder if I\u2019ve been changed in the night? Let me think: was I the\nsame when I got up this morning? I almost think I can remember feeling\na little different. But if I\u2019m not the same, the next question is, Who\nin the world am I? Ah, _that\u2019s_ the great puzzle!\u201d And she began\nthinking over all the children she knew that were of the same age as\nherself, to see if she could have been changed for any of them.",
+    "question": "What is the main idea in passage 20?",
+    "answers": {
+      "text": [
+        "I wonder if I\u2019ve been changed in the night?"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "\u201cI\u2019m sure I\u2019m not Ada,\u201d she said, \u201cfor her hair goes in such long\nringlets, and mine doesn\u2019t go in ringlets at all; and I\u2019m sure I can\u2019t\nbe Mabel, for I know all sorts of things, and she, oh! she knows such \na\nvery little! Besides, _she\u2019s_ she, and _I\u2019m_ I, and\u2014oh dear, how\npuzzling it all is! I\u2019ll try if I know all the things I used to know. Let me see: four times five is twelve, and four times six is thirteen,\nand four times seven is\u2014oh dear!",
+    "question": "What is the main idea in passage 21?",
+    "answers": {
+      "text": [
+        "\u201cI\u2019m sure I\u2019m not Ada,\u201d she said, \u201cfor her hair goes in such long\nringlets, and mine doesn\u2019t go in ringlets at all; and I\u2019m sure I can\u2019t\nbe Mabel, for I know all sorts of things, and she, oh!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "I shall never get to twenty at that\nrate! However, the Multiplication Table doesn\u2019t signify: let\u2019s try\nGeography. London is the capital of Paris, and Paris is the capital of\nRome, and Rome\u2014no, _that\u2019s_ all wrong, I\u2019m certain! I must have been\nchanged for Mabel! I\u2019ll try and say \u2018_How doth the little_\u2014\u2019\u201d and she\ncrossed her hands on her lap as if she were saying lessons, and began\nto repeat it, but her voice sounded hoarse and strange, and the words\ndid not come the same as they used to do:\u2014\n\u201cHow doth the little crocodile\nImprove his shining tail,\nAnd pour the waters of the Nile\nOn every golden scale!",
+    "question": "What is the main idea in passage 22?",
+    "answers": {
+      "text": [
+        "I shall never get to twenty at that\nrate!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "\u201cHow cheerfully he seems to grin,\nHow neatly spread his claws,\nAnd welcome little fishes in\nWith gently smiling jaws!\u201d\n\u201cI\u2019m sure those are not the right words,\u201d said poor Alice, and her \neyes\nfilled with tears again as she went on, \u201cI must be Mabel after all, \nand\nI shall have to go and live in that poky little house, and have next \nto\nno toys to play with, and oh! ever so many lessons to learn! No, I\u2019ve\nmade up my mind about it; if I\u2019m Mabel, I\u2019ll stay down here! It\u2019ll be\nno use their putting their heads down and saying \u2018Come up again, \ndear!\u2019\nI shall only look up and say \u2018Who am I then? Tell me that first, and\nthen, if I like being that person, I\u2019ll come up: if not, I\u2019ll stay \ndown\nhere till I\u2019m somebody else\u2019\u2014but, oh dear!\u201d cried Alice, with a sudden\nburst of tears, \u201cI do wish they _would_ put their heads down!",
+    "question": "What is the main idea in passage 23?",
+    "answers": {
+      "text": [
+        "\u201cHow cheerfully he seems to grin,\nHow neatly spread his claws,\nAnd welcome little fishes in\nWith gently smiling jaws!\u201d\n\u201cI\u2019m sure those are not the right words,\u201d said poor Alice, and her \neyes\nfilled with tears again as she went on, \u201cI must be Mabel after all, \nand\nI shall have to go and live in that poky little house, and have next \nto\nno toys to play with, and oh!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "I am so\n_very_ tired of being all alone here!\u201d\nAs she said this she looked down at her hands, and was surprised to \nsee\nthat she had put on one of the Rabbit\u2019s little white kid gloves while\nshe was talking. \u201cHow _can_ I have done that?\u201d she thought. \u201cI must be\ngrowing small again.\u201d She got up and went to the table to measure\nherself by it, and found that, as nearly as she could guess, she was\nnow about two feet high, and was going on shrinking rapidly: she soon\nfound out that the cause of this was the fan she was holding, and she\ndropped it hastily, just in time to avoid shrinking away altogether. \u201cThat _was_ a narrow escape!\u201d said Alice, a good deal frightened at \nthe\nsudden change, but very glad to find herself still in existence; \u201cand\nnow for the garden!\u201d and she ran with all speed back to the little\ndoor: but, alas! the little door was shut again, and the little golden\nkey was lying on the glass table as before, \u201cand things are worse than\never,\u201d thought the poor child, \u201cfor I never was so small as this\nbefore, never!",
+    "question": "What is the main idea in passage 24?",
+    "answers": {
+      "text": [
+        "I am so\n_very_ tired of being all alone here!\u201d\nAs she said this she looked down at her hands, and was surprised to \nsee\nthat she had put on one of the Rabbit\u2019s little white kid gloves while\nshe was talking."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "And I declare it\u2019s too bad, that it is!\u201d\nAs she said these words her foot slipped, and in another moment,\nsplash! she was up to her chin in salt water. Her first idea was that\nshe had somehow fallen into the sea, \u201cand in that case I can go back \nby\nrailway,\u201d she said to herself. (Alice had been to the seaside once in\nher life, and had come to the general conclusion, that wherever you go\nto on the English coast you find a number of bathing machines in the\nsea, some children digging in the sand with wooden spades, then a row\nof lodging houses, and behind them a railway station.) However, she\nsoon made out that she was in the pool of tears which she had wept \nwhen\nshe was nine feet high.",
+    "question": "What is the main idea in passage 25?",
+    "answers": {
+      "text": [
+        "And I declare it\u2019s too bad, that it is!\u201d\nAs she said these words her foot slipped, and in another moment,\nsplash!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "\u201cI wish I hadn\u2019t cried so much!\u201d said Alice, as she swam about, trying\nto find her way out. \u201cI shall be punished for it now, I suppose, by\nbeing drowned in my own tears! That _will_ be a queer thing, to be\nsure! However, everything is queer to-day.\u201d\nJust then she heard something splashing about in the pool a little way\noff, and she swam nearer to make out what it was: at first she thought\nit must be a walrus or hippopotamus, but then she remembered how small\nshe was now, and she soon made out that it was only a mouse that had\nslipped in like herself. \u201cWould it be of any use, now,\u201d thought Alice, \u201cto speak to this mouse?",
+    "question": "What is the main idea in passage 26?",
+    "answers": {
+      "text": [
+        "\u201cI wish I hadn\u2019t cried so much!\u201d said Alice, as she swam about, trying\nto find her way out."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "Everything is so out-of-the-way down here, that I should think very\nlikely it can talk: at any rate, there\u2019s no harm in trying.\u201d So she\nbegan: \u201cO Mouse, do you know the way out of this pool? I am very tired\nof swimming about here, O Mouse!\u201d (Alice thought this must be the \nright\nway of speaking to a mouse: she had never done such a thing before, \nbut\nshe remembered having seen in her brother\u2019s Latin Grammar, \u201cA mouse\u2014of\na mouse\u2014to a mouse\u2014a mouse\u2014O mouse!\u201d) The Mouse looked at her rather\ninquisitively, and seemed to her to wink with one of its little eyes,\nbut it said nothing. \u201cPerhaps it doesn\u2019t understand English,\u201d thought Alice; \u201cI daresay \nit\u2019s\na French mouse, come over with William the Conqueror.\u201d (For, with all\nher knowledge of history, Alice had no very clear notion how long ago\nanything had happened.) So she began again: \u201cO\u00f9 est ma chatte?\u201d which\nwas the first sentence in her French lesson-book. The Mouse gave a\nsudden leap out of the water, and seemed to quiver all over with\nfright.",
+    "question": "What is the main idea in passage 27?",
+    "answers": {
+      "text": [
+        "Everything is so out-of-the-way down here, that I should think very\nlikely it can talk: at any rate, there\u2019s no harm in trying.\u201d So she\nbegan: \u201cO Mouse, do you know the way out of this pool?"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "\u201cOh, I beg your pardon!\u201d cried Alice hastily, afraid that she\nhad hurt the poor animal\u2019s feelings. \u201cI quite forgot you didn\u2019t like\ncats.\u201d\n\u201cNot like cats!\u201d cried the Mouse, in a shrill, passionate voice. \u201cWould\n_you_ like cats if you were me?\u201d\n\u201cWell, perhaps not,\u201d said Alice in a soothing tone: \u201cdon\u2019t be angry\nabout it. And yet I wish I could show you our cat Dinah: I think you\u2019d\ntake a fancy to cats if you could only see her. She is such a dear\nquiet thing,\u201d Alice went on, half to herself, as she swam lazily about\nin the pool, \u201cand she sits purring so nicely by the fire, licking her\npaws and washing her face\u2014and she is such a nice soft thing to\nnurse\u2014and she\u2019s such a capital one for catching mice\u2014oh, I beg your\npardon!\u201d cried Alice again, for this time the Mouse was bristling all\nover, and she felt certain it must be really offended.",
+    "question": "What is the main idea in passage 28?",
+    "answers": {
+      "text": [
+        "\u201cOh, I beg your pardon!\u201d cried Alice hastily, afraid that she\nhad hurt the poor animal\u2019s feelings."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "\u201cWe won\u2019t talk\nabout her any more if you\u2019d rather not.\u201d\n\u201cWe indeed!\u201d cried the Mouse, who was trembling down to the end of his\ntail. \u201cAs if _I_ would talk on such a subject! Our family always\n_hated_ cats: nasty, low, vulgar things! Don\u2019t let me hear the name\nagain!\u201d\n\u201cI won\u2019t indeed!\u201d said Alice, in a great hurry to change the subject \nof\nconversation. \u201cAre you\u2014are you fond\u2014of\u2014of dogs?\u201d The Mouse did not\nanswer, so Alice went on eagerly: \u201cThere is such a nice little dog \nnear\nour house I should like to show you!",
+    "question": "What is the main idea in passage 29?",
+    "answers": {
+      "text": [
+        "\u201cWe won\u2019t talk\nabout her any more if you\u2019d rather not.\u201d\n\u201cWe indeed!\u201d cried the Mouse, who was trembling down to the end of his\ntail."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "A little bright-eyed terrier, you\nknow, with oh, such long curly brown hair! And it\u2019ll fetch things when\nyou throw them, and it\u2019ll sit up and beg for its dinner, and all sorts\nof things\u2014I can\u2019t remember half of them\u2014and it belongs to a farmer, \nyou\nknow, and he says it\u2019s so useful, it\u2019s worth a hundred pounds! He says\nit kills all the rats and\u2014oh dear!\u201d cried Alice in a sorrowful tone,\n\u201cI\u2019m afraid I\u2019ve offended it again!\u201d For the Mouse was swimming away\nfrom her as hard as it could go, and making quite a commotion in the\npool as it went. So she called softly after it, \u201cMouse dear! Do come back again, and we\nwon\u2019t talk about cats or dogs either, if you don\u2019t like them!\u201d When \nthe\nMouse heard this, it turned round and swam slowly back to her: its \nface\nwas quite pale (with passion, Alice thought), and it said in a low\ntrembling voice, \u201cLet us get to the shore, and then I\u2019ll tell you my\nhistory, and you\u2019ll understand why it is I hate cats and dogs.\u201d\nIt was high time to go, for the pool was getting quite crowded with \nthe\nbirds and animals that had fallen into it: there were a Duck and a\nDodo, a Lory and an Eaglet, and several other curious creatures.",
+    "question": "What is the main idea in passage 30?",
+    "answers": {
+      "text": [
+        "A little bright-eyed terrier, you\nknow, with oh, such long curly brown hair!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "Alice\nled the way, and the whole party swam to the shore. CHAPTER III. A Caucus-Race and a Long Tale\nThey were indeed a queer-looking party that assembled on the bank\u2014the\nbirds with draggled feathers, the animals with their fur clinging \nclose\nto them, and all dripping wet, cross, and uncomfortable. The first question of course was, how to get dry again: they had a\nconsultation about this, and after a few minutes it seemed quite\nnatural to Alice to find herself talking familiarly with them, as if\nshe had known them all her life. Indeed, she had quite a long argument\nwith the Lory, who at last turned sulky, and would only say, \u201cI am\nolder than you, and must know better;\u201d and this Alice would not allow\nwithout knowing how old it was, and, as the Lory positively refused to\ntell its age, there was no more to be said.",
+    "question": "What is the main idea in passage 31?",
+    "answers": {
+      "text": [
+        "Alice\nled the way, and the whole party swam to the shore."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "At last the Mouse, who seemed to be a person of authority among them,\ncalled out, \u201cSit down, all of you, and listen to me! _I\u2019ll_ soon make\nyou dry enough!\u201d They all sat down at once, in a large ring, with the\nMouse in the middle. Alice kept her eyes anxiously fixed on it, for \nshe\nfelt sure she would catch a bad cold if she did not get dry very soon. \u201cAhem!\u201d said the Mouse with an important air, \u201care you all ready? This\nis the driest thing I know.",
+    "question": "What is the main idea in passage 32?",
+    "answers": {
+      "text": [
+        "At last the Mouse, who seemed to be a person of authority among them,\ncalled out, \u201cSit down, all of you, and listen to me!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "Silence all round, if you please! \u2018William\nthe Conqueror, whose cause was favoured by the pope, was soon \nsubmitted\nto by the English, who wanted leaders, and had been of late much\naccustomed to usurpation and conquest. Edwin and Morcar, the earls of\nMercia and Northumbria\u2014\u2019\u201d\n\u201cUgh!\u201d said the Lory, with a shiver. \u201cI beg your pardon!\u201d said the Mouse, frowning, but very politely: \u201cDid\nyou speak?\u201d\n\u201cNot I!\u201d said the Lory hastily. \u201cI thought you did,\u201d said the Mouse.",
+    "question": "What is the main idea in passage 33?",
+    "answers": {
+      "text": [
+        "Silence all round, if you please!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "\u201c\u2014I proceed. \u2018Edwin and Morcar,\nthe earls of Mercia and Northumbria, declared for him: and even\nStigand, the patriotic archbishop of Canterbury, found it advisable\u2014\u2019\u201d\n\u201cFound _what_?\u201d said the Duck. \u201cFound _it_,\u201d the Mouse replied rather crossly: \u201cof course you know\nwhat \u2018it\u2019 means.\u201d\n\u201cI know what \u2018it\u2019 means well enough, when _I_ find a thing,\u201d said the\nDuck: \u201cit\u2019s generally a frog or a worm. The question is, what did the\narchbishop find?\u201d\nThe Mouse did not notice this question, but hurriedly went on, \u201c\u2018\u2014\nfound\nit advisable to go with Edgar Atheling to meet William and offer him\nthe crown. William\u2019s conduct at first was moderate.",
+    "question": "What is the main idea in passage 34?",
+    "answers": {
+      "text": [
+        "\u201c\u2014I proceed."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "But the insolence\nof his Normans\u2014\u2019 How are you getting on now, my dear?\u201d it continued,\nturning to Alice as it spoke. \u201cAs wet as ever,\u201d said Alice in a melancholy tone: \u201cit doesn\u2019t seem to\ndry me at all.\u201d\n\u201cIn that case,\u201d said the Dodo solemnly, rising to its feet, \u201cI move\nthat the meeting adjourn, for the immediate adoption of more energetic\nremedies\u2014\u201d\n\u201cSpeak English!\u201d said the Eaglet. \u201cI don\u2019t know the meaning of half\nthose long words, and, what\u2019s more, I don\u2019t believe you do either!\u201d \nAnd\nthe Eaglet bent down its head to hide a smile: some of the other birds\ntittered audibly. \u201cWhat I was going to say,\u201d said the Dodo in an offended tone, \u201cwas,\nthat the best thing to get us dry would be a Caucus-race.\u201d\n\u201cWhat _is_ a Caucus-race?\u201d said Alice; not that she wanted much to\nknow, but the Dodo had paused as if it thought that _somebody_ ought \nto\nspeak, and no one else seemed inclined to say anything. \u201cWhy,\u201d said the Dodo, \u201cthe best way to explain it is to do it.\u201d (And,\nas you might like to try the thing yourself, some winter day, I will\ntell you how the Dodo managed it.)",
+    "question": "What is the main idea in passage 35?",
+    "answers": {
+      "text": [
+        "But the insolence\nof his Normans\u2014\u2019 How are you getting on now, my dear?\u201d it continued,\nturning to Alice as it spoke."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "First it marked out a race-course, in a sort of circle, (\u201cthe exact\nshape doesn\u2019t matter,\u201d it said,) and then all the party were placed\nalong the course, here and there. There was no \u201cOne, two, three, and\naway,\u201d but they began running when they liked, and left off when they\nliked, so that it was not easy to know when the race was over. However,\nwhen they had been running half an hour or so, and were quite dry\nagain, the Dodo suddenly called out \u201cThe race is over!\u201d and they all\ncrowded round it, panting, and asking, \u201cBut who has won?\u201d\nThis question the Dodo could not answer without a great deal of\nthought, and it sat for a long time with one finger pressed upon its\nforehead (the position in which you usually see Shakespeare, in the\npictures of him), while the rest waited in silence. At last the Dodo\nsaid, \u201c_Everybody_ has won, and all must have prizes.\u201d\n\u201cBut who is to give the prizes?\u201d quite a chorus of voices asked. \u201cWhy, _she_, of course,\u201d said the Dodo, pointing to Alice with one\nfinger; and the whole party at once crowded round her, calling out in \na\nconfused way, \u201cPrizes!",
+    "question": "What is the main idea in passage 36?",
+    "answers": {
+      "text": [
+        "First it marked out a race-course, in a sort of circle, (\u201cthe exact\nshape doesn\u2019t matter,\u201d it said,) and then all the party were placed\nalong the course, here and there."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "Prizes!\u201d\nAlice had no idea what to do, and in despair she put her hand in her\npocket, and pulled out a box of comfits, (luckily the salt water had\nnot got into it), and handed them round as prizes. There was exactly\none a-piece, all round. \u201cBut she must have a prize herself, you know,\u201d said the Mouse. \u201cOf course,\u201d the Dodo replied very gravely. \u201cWhat else have you got in\nyour pocket?\u201d he went on, turning to Alice.",
+    "question": "What is the main idea in passage 37?",
+    "answers": {
+      "text": [
+        "Prizes!\u201d\nAlice had no idea what to do, and in despair she put her hand in her\npocket, and pulled out a box of comfits, (luckily the salt water had\nnot got into it), and handed them round as prizes."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "\u201cOnly a thimble,\u201d said Alice sadly. \u201cHand it over here,\u201d said the Dodo. Then they all crowded round her once more, while the Dodo solemnly\npresented the thimble, saying \u201cWe beg your acceptance of this elegant\nthimble;\u201d and, when it had finished this short speech, they all\ncheered. Alice thought the whole thing very absurd, but they all looked so \ngrave\nthat she did not dare to laugh; and, as she could not think of \nanything\nto say, she simply bowed, and took the thimble, looking as solemn as\nshe could. The next thing was to eat the comfits: this caused some noise and\nconfusion, as the large birds complained that they could not taste\ntheirs, and the small ones choked and had to be patted on the back.",
+    "question": "What is the main idea in passage 38?",
+    "answers": {
+      "text": [
+        "\u201cOnly a thimble,\u201d said Alice sadly."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "However, it was over at last, and they sat down again in a ring, and\nbegged the Mouse to tell them something more. \u201cYou promised to tell me your history, you know,\u201d said Alice, \u201cand why\nit is you hate\u2014C and D,\u201d she added in a whisper, half afraid that it\nwould be offended again. \u201cMine is a long and a sad tale!\u201d said the Mouse, turning to Alice, and\nsighing. \u201cIt _is_ a long tail, certainly,\u201d said Alice, looking down with wonder\nat the Mouse\u2019s tail; \u201cbut why do you call it sad?\u201d And she kept on\npuzzling about it while the Mouse was speaking, so that her idea of \nthe\ntale was something like this:\u2014\n         \u201cFury said to a mouse, That he met in the house, \u2018Let us both\n         go to law: _I_ will prosecute _you_.\u2014Come, I\u2019ll take no\n         denial; We must have a trial: For really this morning I\u2019ve\n         nothing to do.\u2019 Said the mouse to the cur, \u2018Such a trial, \ndear\n         sir, With no jury or judge, would be wasting our breath.\u2019\n         \u2018I\u2019ll be judge, I\u2019ll be jury,\u2019 Said cunning old Fury: \u2018I\u2019ll\n         try the whole cause, and condemn you to death.\u2019\u201d\n\u201cYou are not attending!\u201d said the Mouse to Alice severely. \u201cWhat are\nyou thinking of?\u201d\n\u201cI beg your pardon,\u201d said Alice very humbly: \u201cyou had got to the fifth\nbend, I think?\u201d\n\u201cI had _not!_\u201d cried the Mouse, sharply and very angrily.",
+    "question": "What is the main idea in passage 39?",
+    "answers": {
+      "text": [
+        "However, it was over at last, and they sat down again in a ring, and\nbegged the Mouse to tell them something more."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "\u201cA knot!\u201d said Alice, always ready to make herself useful, and looking\nanxiously about her. \u201cOh, do let me help to undo it!\u201d\n\u201cI shall do nothing of the sort,\u201d said the Mouse, getting up and\nwalking away. \u201cYou insult me by talking such nonsense!\u201d\n\u201cI didn\u2019t mean it!\u201d pleaded poor Alice. \u201cBut you\u2019re so easily \noffended,\nyou know!\u201d\nThe Mouse only growled in reply. \u201cPlease come back and finish your story!\u201d Alice called after it; and\nthe others all joined in chorus, \u201cYes, please do!\u201d but the Mouse only\nshook its head impatiently, and walked a little quicker.",
+    "question": "What is the main idea in passage 40?",
+    "answers": {
+      "text": [
+        "\u201cA knot!\u201d said Alice, always ready to make herself useful, and looking\nanxiously about her."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "\u201cWhat a pity it wouldn\u2019t stay!\u201d sighed the Lory, as soon as it was\nquite out of sight; and an old Crab took the opportunity of saying to\nher daughter \u201cAh, my dear! Let this be a lesson to you never to lose\n_your_ temper!\u201d \u201cHold your tongue, Ma!\u201d said the young Crab, a little\nsnappishly. \u201cYou\u2019re enough to try the patience of an oyster!\u201d\n\u201cI wish I had our Dinah here, I know I do!\u201d said Alice aloud,\naddressing nobody in particular. \u201cShe\u2019d soon fetch it back!\u201d\n\u201cAnd who is Dinah, if I might venture to ask the question?\u201d said the\nLory. Alice replied eagerly, for she was always ready to talk about her pet:\n\u201cDinah\u2019s our cat.",
+    "question": "What is the main idea in passage 41?",
+    "answers": {
+      "text": [
+        "\u201cWhat a pity it wouldn\u2019t stay!\u201d sighed the Lory, as soon as it was\nquite out of sight; and an old Crab took the opportunity of saying to\nher daughter \u201cAh, my dear!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "And she\u2019s such a capital one for catching mice you\ncan\u2019t think! And oh, I wish you could see her after the birds! Why,\nshe\u2019ll eat a little bird as soon as look at it!\u201d\nThis speech caused a remarkable sensation among the party. Some of the\nbirds hurried off at once: one old Magpie began wrapping itself up \nvery\ncarefully, remarking, \u201cI really must be getting home; the night-air\ndoesn\u2019t suit my throat!\u201d and a Canary called out in a trembling voice\nto its children, \u201cCome away, my dears! It\u2019s high time you were all in\nbed!\u201d On various pretexts they all moved off, and Alice was soon left\nalone.",
+    "question": "What is the main idea in passage 42?",
+    "answers": {
+      "text": [
+        "And she\u2019s such a capital one for catching mice you\ncan\u2019t think!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "\u201cI wish I hadn\u2019t mentioned Dinah!\u201d she said to herself in a melancholy\ntone. \u201cNobody seems to like her, down here, and I\u2019m sure she\u2019s the \nbest\ncat in the world! Oh, my dear Dinah! I wonder if I shall ever see you\nany more!\u201d And here poor Alice began to cry again, for she felt very\nlonely and low-spirited. In a little while, however, she again heard a\nlittle pattering of footsteps in the distance, and she looked up\neagerly, half hoping that the Mouse had changed his mind, and was\ncoming back to finish his story.",
+    "question": "What is the main idea in passage 43?",
+    "answers": {
+      "text": [
+        "\u201cI wish I hadn\u2019t mentioned Dinah!\u201d she said to herself in a melancholy\ntone."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "CHAPTER IV. The Rabbit Sends in a Little Bill\nIt was the White Rabbit, trotting slowly back again, and looking\nanxiously about as it went, as if it had lost something; and she heard\nit muttering to itself \u201cThe Duchess! The Duchess! Oh my dear paws! Oh\nmy fur and whiskers!",
+    "question": "What is the main idea in passage 44?",
+    "answers": {
+      "text": [
+        "CHAPTER IV."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "She\u2019ll get me executed, as sure as ferrets are\nferrets! Where _can_ I have dropped them, I wonder?\u201d Alice guessed in \na\nmoment that it was looking for the fan and the pair of white kid\ngloves, and she very good-naturedly began hunting about for them, but\nthey were nowhere to be seen\u2014everything seemed to have changed since\nher swim in the pool, and the great hall, with the glass table and the\nlittle door, had vanished completely. Very soon the Rabbit noticed Alice, as she went hunting about, and\ncalled out to her in an angry tone, \u201cWhy, Mary Ann, what _are_ you\ndoing out here? Run home this moment, and fetch me a pair of gloves \nand\na fan! Quick, now!\u201d And Alice was so much frightened that she ran off\nat once in the direction it pointed to, without trying to explain the\nmistake it had made.",
+    "question": "What is the main idea in passage 45?",
+    "answers": {
+      "text": [
+        "She\u2019ll get me executed, as sure as ferrets are\nferrets!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "\u201cHe took me for his housemaid,\u201d she said to herself as she ran. \u201cHow\nsurprised he\u2019ll be when he finds out who I am! But I\u2019d better take him\nhis fan and gloves\u2014that is, if I can find them.\u201d As she said this, she\ncame upon a neat little house, on the door of which was a bright brass\nplate with the name \u201cW. RABBIT,\u201d engraved upon it. She went in without\nknocking, and hurried upstairs, in great fear lest she should meet the\nreal Mary Ann, and be turned out of the house before she had found the\nfan and gloves.",
+    "question": "What is the main idea in passage 46?",
+    "answers": {
+      "text": [
+        "\u201cHe took me for his housemaid,\u201d she said to herself as she ran."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "\u201cHow queer it seems,\u201d Alice said to herself, \u201cto be going messages for\na rabbit! I suppose Dinah\u2019ll be sending me on messages next!\u201d And she\nbegan fancying the sort of thing that would happen: \u201c\u2018Miss Alice! Come\nhere directly, and get ready for your walk!\u2019 \u2018Coming in a minute,\nnurse! But I\u2019ve got to see that the mouse doesn\u2019t get out.\u2019 Only I\ndon\u2019t think,\u201d Alice went on, \u201cthat they\u2019d let Dinah stop in the house\nif it began ordering people about like that!\u201d\nBy this time she had found her way into a tidy little room with a \ntable\nin the window, and on it (as she had hoped) a fan and two or three\npairs of tiny white kid gloves: she took up the fan and a pair of the\ngloves, and was just going to leave the room, when her eye fell upon a\nlittle bottle that stood near the looking-glass. There was no label\nthis time with the words \u201cDRINK ME,\u201d but nevertheless she uncorked it\nand put it to her lips.",
+    "question": "What is the main idea in passage 47?",
+    "answers": {
+      "text": [
+        "\u201cHow queer it seems,\u201d Alice said to herself, \u201cto be going messages for\na rabbit!"
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "\u201cI know _something_ interesting is sure to\nhappen,\u201d she said to herself, \u201cwhenever I eat or drink anything; so\nI\u2019ll just see what this bottle does. I do hope it\u2019ll make me grow \nlarge\nagain, for really I\u2019m quite tired of being such a tiny little thing!\u201d\nIt did so indeed, and much sooner than she had expected: before she \nhad\ndrunk half the bottle, she found her head pressing against the \nceiling,\nand had to stoop to save her neck from being broken. She hastily put\ndown the bottle, saying to herself \u201cThat\u2019s quite enough\u2014I hope I \nshan\u2019t\ngrow any more\u2014As it is, I can\u2019t get out at the door\u2014I do wish I hadn\u2019t\ndrunk quite so much!\u201d\nAlas! it was too late to wish that! She went on growing, and growing,\nand very soon had to kneel down on the floor: in another minute there\nwas not even room for this, and she tried the effect of lying down \nwith\none elbow against the door, and the other arm curled round her head.",
+    "question": "What is the main idea in passage 48?",
+    "answers": {
+      "text": [
+        "\u201cI know _something_ interesting is sure to\nhappen,\u201d she said to herself, \u201cwhenever I eat or drink anything; so\nI\u2019ll just see what this bottle does."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  },
+  {
+    "context": "Still she went on growing, and, as a last resource, she put one arm \nout\nof the window, and one foot up the chimney, and said to herself \u201cNow I\ncan do no more, whatever happens. What _will_ become of me?\u201d\nLuckily for Alice, the little magic bottle had now had its full \neffect,\nand she grew no larger: still it was very uncomfortable, and, as there\nseemed to be no sort of chance of her ever getting out of the room\nagain, no wonder she felt unhappy. \u201cIt was much pleasanter at home,\u201d thought poor Alice, \u201cwhen one wasn\u2019t\nalways growing larger and smaller, and being ordered about by mice and\nrabbits. I almost wish I hadn\u2019t gone down that rabbit-hole\u2014and yet\u2014and\nyet\u2014it\u2019s rather curious, you know, this sort of life! I do wonder what\n_can_ have happened to me!",
+    "question": "What is the main idea in passage 49?",
+    "answers": {
+      "text": [
+        "Still she went on growing, and, as a last resource, she put one arm \nout\nof the window, and one foot up the chimney, and said to herself \u201cNow I\ncan do no more, whatever happens."
+      ],
+      "answer_start": [
+        0
+      ]
+    },
+    "reasoning_label": "factual"
+  }
+]
