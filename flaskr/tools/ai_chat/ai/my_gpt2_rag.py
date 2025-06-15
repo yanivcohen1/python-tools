@@ -5,8 +5,9 @@ import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from transformers import BertTokenizerFast
 from torch.optim import AdamW
+import torch.nn.functional as F
 
-# ---------- Custom Output Class ----------
+# ---------- Custom Output Class -----------
 class QuestionAnsweringModelOutput:
     def __init__(self, loss=None, start_logits=None, end_logits=None, hidden_states=None, attentions=None, reasoning_logits=None):
         self.loss = loss
@@ -177,6 +178,7 @@ class BertPooler(nn.Module):
         cls_token = hidden_states[:, 0]
         return self.activation(self.dense(cls_token))
 
+# Placeholder for full BertModelCustom implementation
 class BertModelCustom(nn.Module):
     def __init__(self, config: BertConfigCustom):
         super().__init__()
@@ -197,135 +199,7 @@ class BertModelCustom(nn.Module):
         pooled = self.pooler(seq_out)
         return seq_out, pooled, all_hidden
 
-class QADataset(Dataset):
-    """
-    Dataset wrapper for SQuAD-style QA data.
-    Expects data as a list of dicts: {"context": ..., "question": ..., "answers": {...}}
-    """
-    def __init__(self, data, tokenizer, max_length=384, doc_stride=128):
-        self.examples = []
-        self.tokenizer = tokenizer
-        self.max_length = max_length
-        self.doc_stride = doc_stride
-
-        for entry in data:
-            inputs = tokenizer(
-                entry['question'], entry['context'],
-                truncation="only_second",
-                max_length=self.max_length,
-                stride=self.doc_stride,
-                return_overflowing_tokens=True,
-                return_offsets_mapping=True,
-                padding="max_length"
-            )
-            for i, offset in enumerate(inputs['offset_mapping']):
-                sample = {
-                    'input_ids': torch.tensor(inputs['input_ids'][i]),
-                    'attention_mask': torch.tensor(inputs['attention_mask'][i]),
-                }
-                answer = entry['answers']['text'][0]
-                start_char = entry['answers']['answer_start'][0]
-                end_char = start_char + len(answer)
-
-                sequence_ids = inputs.sequence_ids(i)
-                token_start = 0
-                while sequence_ids[token_start] != 1:
-                    token_start += 1
-                token_end = len(inputs['input_ids'][i]) - 1
-                while sequence_ids[token_end] != 1:
-                    token_end -= 1
-
-                if not (offset[token_start][0] <= start_char and offset[token_end][1] >= end_char):
-                    sample['start_positions'] = torch.tensor(0)
-                    sample['end_positions'] = torch.tensor(0)
-                else:
-                    while token_start < len(offset) and offset[token_start][0] <= start_char:
-                        token_start += 1
-                    sample['start_positions'] = torch.tensor(token_start - 1)
-                    while token_end >= 0 and offset[token_end][1] >= end_char:
-                        token_end -= 1
-                    sample['end_positions'] = torch.tensor(token_end + 1)
-
-                self.examples.append(sample)
-
-    def __len__(self):
-        return len(self.examples)
-
-    def __getitem__(self, idx):
-        return self.examples[idx]
-
-class BertForQuestionAnsweringCustom(nn.Module):
-    def __init__(self, config: BertConfigCustom):
-        super().__init__()
-        self.bert = BertModelCustom(config)
-        hidden_size = config.hidden_size
-        self.qa_outputs = nn.Linear(hidden_size, 2)
-        self.dropout = nn.Dropout(config.hidden_dropout_prob)
-
-    def forward(self,
-                input_ids=None,
-                attention_mask=None,
-                token_type_ids=None,
-                start_positions=None,
-                end_positions=None):
-        seq_out, _, _ = self.bert(input_ids, attention_mask, token_type_ids)
-        sequence_output = self.dropout(seq_out)
-        logits = self.qa_outputs(sequence_output)
-        start_logits, end_logits = logits.split(1, dim=-1)
-        start_logits = start_logits.squeeze(-1)
-        end_logits   = end_logits.squeeze(-1)
-
-        loss = None
-        if start_positions is not None and end_positions is not None:
-            loss_fct = nn.CrossEntropyLoss()
-            loss_start = loss_fct(start_logits, start_positions)
-            loss_end   = loss_fct(end_logits,   end_positions)
-            loss = (loss_start + loss_end) / 2
-
-        return QuestionAnsweringModelOutput(
-            loss=loss,
-            start_logits=start_logits,
-            end_logits=end_logits,
-            hidden_states=None,
-            attentions=None
-        )
-
-# ---------- Training & Evaluation Continued ----------
-def train(model, dataloader, optimizer, device):
-    model.train()
-    total_loss = 0
-    for batch in dataloader:
-        optimizer.zero_grad()
-        input_ids = batch['input_ids'].to(device)
-        attention_mask = batch['attention_mask'].to(device)
-        start_positions = batch['start_positions'].to(device)
-        end_positions = batch['end_positions'].to(device)
-
-        outputs = model(
-            input_ids=input_ids,
-            attention_mask=attention_mask,
-            start_positions=start_positions,
-            end_positions=end_positions
-        )
-        loss = outputs.loss
-        loss.backward()
-        optimizer.step()
-        total_loss += loss.item()
-
-    return total_loss / len(dataloader)
-
-# ---------- Inference Function ----------
-def evaluate(model, tokenizer, question, context, device):
-    model.eval()
-    enc = tokenizer(question, context, return_tensors='pt', padding=True, truncation=True, max_length=256)
-    for k in enc: enc[k] = enc[k].to(device)
-    outputs = model(enc['input_ids'], enc['attention_mask'], enc.get('token_type_ids', None))
-    start = torch.argmax(outputs.start_logits, dim=1).item()
-    end = torch.argmax(outputs.end_logits, dim=1).item() + 1
-    answer = tokenizer.decode(enc['input_ids'][0][start:end])
-    return answer
-
-# ---------- Chain-of-Thought Reasoning Modification ----------
+# ---------- QA Head with Reasoning ----------
 class BertForQuestionAnsweringWithReasoning(nn.Module):
     def __init__(self, config: BertConfigCustom):
         super().__init__()
@@ -335,13 +209,13 @@ class BertForQuestionAnsweringWithReasoning(nn.Module):
 
     def forward(self, input_ids, attention_mask=None, token_type_ids=None,
                 start_positions=None, end_positions=None, reasoning_labels=None):
-        seq_out, hidden_states, attentions = self.bert(input_ids, attention_mask, token_type_ids)
+        seq_out, pooled, _ = self.bert(input_ids, attention_mask, token_type_ids)
         logits = self.qa_outputs(seq_out)
         start_logits, end_logits = logits.split(1, dim=-1)
         start_logits = start_logits.squeeze(-1)
         end_logits = end_logits.squeeze(-1)
 
-        reasoning_logits = self.reasoning_output(seq_out[:, 0])  # [CLS]
+        reasoning_logits = self.reasoning_output(pooled)
 
         loss = None
         if start_positions is not None and end_positions is not None:
@@ -357,12 +231,12 @@ class BertForQuestionAnsweringWithReasoning(nn.Module):
             loss=loss,
             start_logits=start_logits,
             end_logits=end_logits,
-            hidden_states=hidden_states,
-            attentions=attentions,
+            hidden_states=None,
+            attentions=None,
             reasoning_logits=reasoning_logits
         )
 
-# ---------- Dataset Class with Reasoning Support ----------
+# ---------- Dataset with Reasoning ----------
 class QADatasetWithReasoning(Dataset):
     def __init__(self, data, tokenizer, reasoning_vocab, max_length=256):
         self.data = data
@@ -411,42 +285,55 @@ class QADatasetWithReasoning(Dataset):
             'reasoning_labels': torch.tensor(reasoning_label)
         }
 
-# ---------- Sample Reasoning Data Entry ----------
-# Add to train_data.json
-# {
-#   "context": "Alan Turing created the Turing Machine. The Turing Machine inspired computer science.",
-#   "question": "Why is Alan Turing important in computer science?",
-#   "answers": {"text": ["The Turing Machine inspired computer science"], "answer_start": [41]},
-#   "reasoning_label": "causal"
-# }
+# ---------- Inference with Retrieval ----------
+CONTEXTS = []
+CONTEXT_EMB = None
 
-# Reasoning types example:
-# "reasoning_vocab_size": 3
-# 0 = factual, 1 = causal, 2 = comparative
+def build_context_embeddings(model, tokenizer, contexts, device):
+    model.eval()
+    embs = []
+    for ctx in contexts:
+        enc = tokenizer(ctx, return_tensors='pt', truncation=True, padding=True, max_length=256).to(device)
+        with torch.no_grad():
+            _, pooled, _ = model.bert(enc['input_ids'], enc['attention_mask'], enc.get('token_type_ids', None))
+        embs.append(pooled.squeeze(0))
+    return torch.stack(embs)  # (num_ctx, hidden_size)
 
-# You would need to encode these reasoning types numerically when building your dataset.
-# ---------- Entry Point ----------
-if __name__ == "__main__":
-    import os
-    import random
-    from tqdm import tqdm
 
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    # Load data
+def evaluate(question, model, tokenizer, device):
+    # Compute question embedding
+    enc = tokenizer(question, return_tensors='pt', truncation=True, padding=True, max_length=256).to(device)
+    with torch.no_grad():
+        _, q_emb, _ = model.bert(enc['input_ids'], enc['attention_mask'], enc.get('token_type_ids', None))
+    q_emb = q_emb.squeeze(0)  # (hidden_size)
+
+    # Compute similarities and select best context
+    sims = F.cosine_similarity(q_emb.unsqueeze(0), CONTEXT_EMB, dim=1) # pylint: disable=not-callable
+    best_idx = torch.argmax(sims).item()
+    context = CONTEXTS[best_idx]
+
+    # Perform QA on selected context
+    enc2 = tokenizer(question, context, return_tensors='pt', truncation=True, padding=True, max_length=256).to(device)
+    outputs = model(enc2['input_ids'], enc2['attention_mask'], enc2.get('token_type_ids', None))
+    start = torch.argmax(outputs.start_logits, dim=1).item()
+    end = torch.argmax(outputs.end_logits, dim=1).item() + 1
+    answer = tokenizer.decode(enc2['input_ids'][0][start:end])
+    return answer, best_idx
+
+# ---------- Main for Document QA with Reasoning ----------
+if __name__ == '__main__':
     import fitz
-    import nltk
-    # nltk.download('punkt_tab')
     from nltk.tokenize import sent_tokenize
 
-    # Extract text
-    doc = fitz.open(current_dir + '/datasets/alice.pdf')
+    # 1. Extract passages
+    doc = fitz.open('Alice_in_Wonderland.pdf')
     text = ''.join([p.get_text() for p in doc])
     sentences = sent_tokenize(text)
-    passages = [' '.join(sentences[i:i+5]) for i in range(0, len(sentences), 5)]
+    CONTEXTS = [' '.join(sentences[i:i+5]) for i in range(0, len(sentences), 5)]
 
-    # Build QA examples
+    # 2. Generate QA examples and save
     qa_examples = []
-    for i, p in enumerate(passages[:50]):
+    for i, p in enumerate(CONTEXTS[:10]):
         question = f"What is the main idea in passage {i}?"
         answer = sentences[i*5] if i*5 < len(sentences) else ''
         start_idx = p.find(answer)
@@ -456,56 +343,39 @@ if __name__ == "__main__":
             'answers': {'text': [answer], 'answer_start': [start_idx]},
             'reasoning_label': 'factual'
         })
-
-    # Save
-    with open(current_dir + '/datasets/alice_qa.json', 'w') as f:
+    with open('alice_qa.json', 'w') as f:
         json.dump(qa_examples, f, indent=2)
 
-    # Load and prepare
-    with open(current_dir + '/datasets/alice_qa.json') as f:
-        data = json.load(f)
-
+    # 3. Prepare dataset
     vocab = {'factual': 0, 'causal': 1, 'comparative': 2}
     tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
-    dataset = QADatasetWithReasoning(data, tokenizer, vocab)
+    dataset = QADatasetWithReasoning(qa_examples, tokenizer, vocab)
     loader = DataLoader(dataset, batch_size=2, shuffle=True)
 
-    # Model setup
+    # 4. Initialize model and context embeddings
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     config = BertConfigCustom(reasoning_vocab_size=len(vocab))
     model = BertForQuestionAnsweringWithReasoning(config).to(device)
-    opt = AdamW(model.parameters(), lr=3e-5)
+    CONTEXT_EMB = build_context_embeddings(model, tokenizer, CONTEXTS, device)
+    optimizer = AdamW(model.parameters(), lr=3e-5)
 
-    # Training loop
-    for epoch in range(10):
+    # 5. Train
+    for epoch in range(2):
         model.train()
         total_loss = 0
         for batch in loader:
-            opt.zero_grad()
-            out = model(
-                batch['input_ids'].to(device),
-                batch['attention_mask'].to(device),
-                batch.get('token_type_ids', None),
-                batch['start_positions'].to(device),
-                batch['end_positions'].to(device),
-                batch['reasoning_labels'].to(device)
-            )
+            optimizer.zero_grad()
+            out = model(batch['input_ids'].to(device), batch['attention_mask'].to(device), None,
+                        batch['start_positions'].to(device), batch['end_positions'].to(device),
+                        batch['reasoning_labels'].to(device))
             out.loss.backward()
-            opt.step()
+            optimizer.step()
             total_loss += out.loss.item()
         print(f'Epoch {epoch+1} Loss: {total_loss/len(loader):.4f}')
 
+    # 6. Inference automatic retrieval
+    question = "Why did villagers come to the well?"
+    answer, idx = evaluate(question, model, tokenizer, device)
+    print(f"Selected passage idx: {idx}\nAnswer: {answer}")
 
-    # Save model
-    model_path = current_dir + '/models/my_gpt2_rag_model.pth'
-    torch.save(model.state_dict(), model_path)
-    print(f"Model saved to {model_path}")
-
-    # Inference
-    for i in range(5):
-        idx = random.randint(0, len(data) - 1)
-        q = data[idx]['question']
-        c = data[idx]['context']
-        expected = data[idx]['answers']['text'][0]
-        ans = evaluate(model, tokenizer, q, c, device)
-        print(f"Q: {q}\n\nA: {ans}\n\nExpected: {expected}\n\n is equal:{ans==expected} {'-'*50}\n")
+# ---------- End of Code ----------
