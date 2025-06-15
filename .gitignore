@@ -51,3 +51,6 @@ media/
 package-lock.json
 yarn.lock
 chrome_langchain_db/
+flaskr/tools/ai_chat/ai/train.bin
+flaskr/tools/ai_chat/ai/validation.bin
+flaskr/tools/ai_chat/ai/models/qa_model/
