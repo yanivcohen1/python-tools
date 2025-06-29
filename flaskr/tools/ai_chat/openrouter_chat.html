@@ -220,7 +220,7 @@ and also write py that plot the solved equation and the solutions using scipy ro
 
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
-    let think = true;
+    let think = false;
 
     intervalID = setInterval(() => {
       update_display();
@@ -242,12 +242,17 @@ and also write py that plot the solved equation and the solutions using scipy ro
               const delta = jsonData['choices'][0]['delta'];
               if ('content' in delta) {
                 let contents = delta['content'];
-                if (contents.includes("<think>")) {
-                  contents = "\n<div class='think'>\n<br>------thinking-------<hr>\n"
-                }
-                if (contents.includes("</think>")) {
+                if (contents != "" && think == true) {
                   contents = "\n<br><hr>\n</div>\n" // "\n</think>\n <hr />\n "
                   think = false;
+                }
+                if ('reasoning' in delta && delta['reasoning'] != null && think == false) {
+                  contents = "\n<div class='think'>\n<br>------thinking-------<hr>\n"
+                  content += contents;
+                  think = true;
+                }
+                if ('reasoning' in delta && delta['reasoning'] != null) {
+                  contents = delta['reasoning'];
                 }
                 // if (contents.includes("</think>")) {
                 //  contents = "\n</think>\n" // "\n</think>\n <hr />\n "
