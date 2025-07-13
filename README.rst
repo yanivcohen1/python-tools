@@ -16,7 +16,8 @@ Remove from git path/to/folder/ or path/to/file.extention
 ===========
 pip install git-filter-repo
 git filter-repo --path examples/folder/ --invert-paths
-git push origin --force --all
+git push --force
+git push [origin] --force --all
 
 Install
 -------
