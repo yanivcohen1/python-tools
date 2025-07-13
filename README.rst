@@ -12,6 +12,12 @@ The basic blog app built in the Flask `tutorial`_.
 
 To add dependencys lib in file "setup.py"in setup(install_requires=["dependencyslibName"])
 
+Remove from git path/to/folder/ or path/to/file.extention
+===========
+pip install git-filter-repo
+git filter-repo --path examples/folder/ --invert-paths
+git push origin --force --all
+
 Install
 -------
 
