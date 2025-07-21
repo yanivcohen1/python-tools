@@ -108,3 +108,10 @@ if __name__ == "__main__":
             pass  # Keep the main thread alive
     except KeyboardInterrupt:
         print("Stopped monitoring.")
+
+# prints:
+# Action: Modified - log.txt
+# Action: Created - New Text Document.txt
+# Action: Renamed (old name) - New Text Document.txt
+# Action: Renamed (new name) - log1.txt
+# Action: Modified - log1.txt
