@@ -78,8 +78,7 @@ def watch_directory(path):
                 ctypes.POINTER(FILE_NOTIFY_INFORMATION)
             ).contents
 
-            filename_ptr = ctypes.addressof(info) + ctypes.sizeof(FILE_NOTIFY_INFORMATION) - ctypes.sizeof(ctypes.c_wchar * 1)
-            filename = ctypes.wstring_at(filename_ptr, info.FileNameLength // 2)
+            filename = ''.join(info.FileName[:info.FileNameLength // 2])
             action = info.Action
 
             actions = {
