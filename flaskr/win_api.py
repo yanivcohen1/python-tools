@@ -104,9 +104,10 @@ if __name__ == "__main__":
     watch_thread.start()
 
     try:
-        while True:
-            pass  # Keep the main thread alive
-    except KeyboardInterrupt:
+        # will block in 1s increments instead of burning CPU
+        while watch_thread.is_alive():
+            watch_thread.join(timeout=1)
+    except KeyboardInterrupt: # Ctrl+C’s
         print("Stopped monitoring.")
 
 # prints:
