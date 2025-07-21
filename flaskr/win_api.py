@@ -107,6 +107,7 @@ if __name__ == "__main__":
         # will block in 1s increments instead of burning CPU
         while watch_thread.is_alive():
             watch_thread.join(timeout=1)
+        # watch_thread.join() # Ctrl+C’s not working will block until the thread is done
     except KeyboardInterrupt: # Ctrl+C’s
         print("Stopped monitoring.")
 
