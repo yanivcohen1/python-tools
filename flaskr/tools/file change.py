@@ -39,6 +39,12 @@ class Handler(FileSystemEventHandler):
         elif event.event_type == 'modified':
             # Event is modified, you can process it now
             print("Watchdog received modified event - % s." % event.src_path)
+        elif event.event_type == 'deleted':
+            # Event is modified, you can process it now
+            print("Watchdog received deleted event - % s." % event.src_path)
+        elif event.event_type == 'moved':
+            # Event is modified, you can process it now
+            print("Watchdog received moved event - % s." % event.src_path)
 
 
 if __name__ == '__main__':
