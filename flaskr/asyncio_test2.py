@@ -2,7 +2,7 @@ import asyncio
 import time
 
 def blocking_function():
-    time.sleep(3)
+    time.sleep(20)
     return time.time()
 
 async def unblock_function():
@@ -17,4 +17,8 @@ async def main():
     print(f'run 1 fun took {end1-start1:.2f} seconds')
     print(f'run 2 funs took {end2-end1:.2f} seconds')
 
-asyncio.run(main())
+try:
+    asyncio.run(main())
+except KeyboardInterrupt: # Handle Ctrl+C gracefully
+    print("\nKeyboardInterrupt caught. Exiting gracefully...")
+# asyncio.run(main())
