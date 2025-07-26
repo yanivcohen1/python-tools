@@ -147,11 +147,11 @@ if __name__ == "__main__":
     # db_path = "chroma_db_gemini"
     collection_name = "text_collection_gemini"
     # Create the sample text file
-    create_sample_file(sample_file)
     collection_exist = is_collection_exist(collection_name)
     # Initialize the ChromaDB manager with Gemini embeddings
     db_manager = ChromaDBManager(path=db_path, collection_name=collection_name)
     if not collection_exist:
+        create_sample_file(sample_file)
         # Populate the database from the sample file
         db_manager.populate_from_file(sample_file)
     else:
