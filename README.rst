@@ -14,8 +14,12 @@ To add dependencys lib in file "setup.py"in setup(install_requires=["dependencys
 
 Remove from git path/to/folder/ or path/to/file.extention
 ===========
+git clone --mirror https://github.com/yanivcohen1/python.git
+cd python.git
 pip install git-filter-repo
-git filter-repo --path examples/folder/ --invert-paths
+git filter-repo --path internal/git/path/to/folder/ --invert-paths
+git remote add origin https://github.com/yanivcohen1/python.git
+git push origin --force --all
 git push --force
 git push [origin] --force --all
 
