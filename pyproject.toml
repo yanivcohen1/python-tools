@@ -9,11 +9,12 @@ license = {text = "MIT"}
 # pyscript 0.2.5 requires typer<0.5.0,>=0.4.1, but you have typer 0.15.2 which is incompatible.
 # flask-mongoengine==1.0.0 for mongo 3.6 need also flask==2.2.5
 # pymongo==4.1.1 for mongo 3.6 and motor==3.0.0 (for asnyc mongo)
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
 dependencies = [
   "flask==2.2.5", "marshmallow", "marshmallow_dataclass", "marshmallow-sqlalchemy", "flask_sqlalchemy", "pymysql", "sqlalchemy", "flask-login",
   "flask-mongoengine==1.0.0", "flask-bcrypt", "flask-cors", "flask-restful", "flask-jwt-extended", "flask-socketio", "flask-migrate", "flask-mail", "flask_jsonpify",
   "scapy", "psutil", "keyboard", "sortedcontainers", "numpy", "matplotlib", "pandas", "pandas_datareader",
-  "plotly==5.24", "cufflinks", "ipykernel", "selenium", "webdriver-manager", "sympy==1.6.2", "scipy", "pycryptodome",
+  "plotly==5.24", "cufflinks", "ipykernel", "selenium", "webdriver-manager", "sympy==1.13.3", "scipy", "pycryptodome",
   "ipywidgets", "IPython", "anywidget", "seaborn", "nbformat", "openpyxl", "jupyterlab-mathjax3", "google-generativeai",
   "pint", "scikit-image", "streamlit", "vpython", "pygame", "numba", "pymunk", "opencv-python", "pyautogui",
   "yfinance", "openai", "igraph", "wget", "pyhid-usb-relay", "pywin32", "pynput",
@@ -21,8 +22,13 @@ dependencies = [
   "fastapi", "fastapi_sqlalchemy", "sqlmodel", "passlib", "uvicorn", "locust", "textblob", "flask-swagger-ui",
   "pytest" , "coverage", "python-multipart", "pyshark", "motor==3.0.0", "pymongo==4.1.1", "manim==0.18.1",
   "langchain", "langchain-ollama", "langchain-chroma", "langchain-openai", "langchain-community", "fastembed", "pdfplumber", "duckduckgo-search",
-  "python-docx", "docxtpl", "xltpl", "openpyxl", "pypandoc","janus","torch","datasets", "reportlab"
-  # "pyscript"
+  "python-docx", "docxtpl", "xltpl", "openpyxl", "pypandoc","janus","datasets", "reportlab",
+  # Core PyTorch
+  "torch @ https://download.pytorch.org/whl/cu128/torch-2.7.1%2Bcu128-cp312-cp312-win_amd64.whl",
+  # TorchVision (matches torch 2.7.1)
+  "torchvision @ https://download.pytorch.org/whl/cu128/torchvision-0.22.1%2Bcu128-cp312-cp312-win_amd64.whl",
+  # TorchAudio (matches torch 2.7.1)
+  "torchaudio @ https://download.pytorch.org/whl/cu128/torchaudio-2.7.1%2Bcu128-cp312-cp312-win_amd64.whl",
   ]
 
 [project.urls]
