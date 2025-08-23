@@ -33,4 +33,15 @@ class User(db.Document):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
+
+# Define Models for Many-to-Many relationship
+class Course(Document):
+    name = StringField(required=True, unique=True)
+    students = ListField(ReferenceField("Student"))  # many-to-many backref
+
+
+class Student(Document):
+    name = StringField(required=True, unique=True)
+    courses = ListField(ReferenceField(Course))       # many-to-many
+
 User.register_delete_rule(Movie, 'added_by', CASCADE)

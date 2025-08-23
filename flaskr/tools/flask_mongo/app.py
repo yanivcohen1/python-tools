@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
@@ -7,9 +8,12 @@ from flask_cors import CORS, cross_origin
 from flask_restful import Api
 from flaskr.tools.flask_mongo.resources.errors import errors
 from flaskr.tools.flask_mongo.database.db import initialize_db
+from flaskr.tools.flask_mongo.database.models import Course, Student
 
 app = Flask(__name__)
-app.config.from_envvar('ENV_FILE_LOCATION') # read from config file
+# app.config.from_envvar('ENV_FILE_LOCATION') # read from config file
+current_location = os.path.dirname(os.path.abspath(__file__))
+app.config.from_pyfile(current_location + '/.env') # read from config file
 print("SECRET_KEY:" + app.config["JWT_SECRET_KEY"]) # read from config file a key
 print("config read all keys:")
 print(app.config) # read from config file all keys
@@ -41,7 +45,7 @@ def testApp():
     return movies.to_json()
 
 if __name__ == "__main__":
-    # with app.app_context():
+    with app.app_context():
     #     # Create the tables
     #     db.create_all()
 
@@ -69,5 +73,26 @@ if __name__ == "__main__":
 
     #     db.session.add_all([book1, book2, book3])
     #     db.session.commit()
+
+    #   # for meny to meny
+        # course1: Course = Course(name="Math").save()
+        # course2: Course = Course(name="Science").save()
+        # student1: Student = Student(name="Alice", courses=[course1, course2]).save()
+        # student2: Student = Student(name="Bob", courses=[course1]).save()
+        # course1.update(push_all__students=[student1, student2])
+        # course2.update(push__students=student2)
+
+        # course1.students = [student1, student2]
+        # course2.students = [student1]
+        # course1.save()
+        # course2.save()
+
+        # Get Anna’s courses
+        anna: Student = Student.objects(name="Alice").first() # pylint: disable=no-member
+        print(f"Alice's courses: {[course.name for course in anna.courses]}")
+
+        # Get all students in Math
+        math: Course = Course.objects(name="Math").first() # pylint: disable=no-member
+        print(f"Students in Math: {[student.name for student in math.students]}")
 
     app.run(debug=True, port=5000)
