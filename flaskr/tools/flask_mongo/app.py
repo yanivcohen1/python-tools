@@ -11,7 +11,7 @@ from flaskr.tools.flask_mongo.database.db import initialize_db
 from flaskr.tools.flask_mongo.database.models import Course, Student
 
 app = Flask(__name__)
-# app.config.from_envvar('ENV_FILE_LOCATION') # read from config file
+# app.config.from_envvar('ENV_FILE_LOCATION') # variable from (run.bat) // read from config file
 current_location = os.path.dirname(os.path.abspath(__file__))
 app.config.from_pyfile(current_location + '/.env.test') # read from config file
 print("SECRET_KEY:" + app.config["JWT_SECRET_KEY"]) # read from config file a key
@@ -75,12 +75,12 @@ if __name__ == "__main__":
     #     db.session.commit()
 
     #   # for meny to meny
-        course1: Course = Course(name="Math").save()
-        course2: Course = Course(name="Science").save()
-        student1: Student = Student(name="Alice", courses=[course1, course2]).save()
-        student2: Student = Student(name="Bob", courses=[course1]).save()
-        course1.update(push_all__students=[student1, student2])
-        course2.update(push__students=student2)
+    #     course1: Course = Course(name="Math").save()
+    #     course2: Course = Course(name="Science").save()
+    #     student1: Student = Student(name="Alice", courses=[course1, course2]).save()
+    #     student2: Student = Student(name="Bob", courses=[course1]).save()
+    #     course1.update(push_all__students=[student1, student2])
+    #     course2.update(push__students=student2)
 
         # Get Anna’s courses
         anna: Student = Student.objects(name="Alice").first() # pylint: disable=no-member
