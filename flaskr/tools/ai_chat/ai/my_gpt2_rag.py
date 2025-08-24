@@ -75,6 +75,9 @@ class BertSelfAttention(nn.Module):
         self.num_heads = config.num_attention_heads
         self.head_dim = config.hidden_size // self.num_heads
 
+        # Query (Q) – represents what this token is looking for.
+        # Key (K) – represents what this token contains.
+        # Value (V) – represents the actual content or information of the token.
         self.query = nn.Linear(config.hidden_size, config.hidden_size)
         self.key   = nn.Linear(config.hidden_size, config.hidden_size)
         self.value = nn.Linear(config.hidden_size, config.hidden_size)
@@ -238,7 +241,7 @@ class BertForQuestionAnsweringWithReasoning(nn.Module):
 
 # ---------- Dataset with Reasoning ----------
 class QADatasetWithReasoning(Dataset):
-    def __init__(self, data, tokenizer, reasoning_vocab, max_length=256):
+    def __init__(self, data, tokenizer: BertTokenizerFast, reasoning_vocab, max_length=256):
         self.data = data
         self.tokenizer = tokenizer
         self.reasoning_vocab = reasoning_vocab
@@ -308,7 +311,7 @@ def evaluate(question, model, tokenizer, device):
     q_emb = q_emb.squeeze(0)  # (hidden_size)
 
     # Compute similarities and select best context
-    sims = F.cosine_similarity(q_emb.unsqueeze(0), CONTEXT_EMB, dim=1) # pylint: disable=not-callable
+    sims = nn.functional.cosine_similarity(q_emb.unsqueeze(0), CONTEXT_EMB, dim=1) # pylint: disable=not-callable
     best_idx = torch.argmax(sims).item()
     context = CONTEXTS[best_idx]
 
