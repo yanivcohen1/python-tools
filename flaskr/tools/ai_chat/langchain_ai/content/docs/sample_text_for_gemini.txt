@@ -1,0 +1,5 @@
+The sky is blue and the sun is bright.
+Artificial intelligence is transforming many industries.
+Python is a versatile programming language.
+Vector databases are used for similarity searches.
+Gemini is a large language model from Google.
