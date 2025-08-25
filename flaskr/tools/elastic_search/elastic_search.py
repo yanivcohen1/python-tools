@@ -1,4 +1,5 @@
 from datetime import datetime, date
+import json
 from math import ceil
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
@@ -39,8 +40,28 @@ def find_query(string_query, page_request, from_date, to_date, group_name, index
     page_size = page_request["size"]
     s = s[page_number * page_size : (page_number + 1) * page_size]
 
+    # For debugging: print the generated query
+    # query_body = s.to_dict()
+    # print("Elasticsearch POST JSON body:")
+    # print(json.dumps(query_body, indent=2))
+
+        # Add pretty=true to the URL
+    s = s.params(pretty=True)
+
+    # manually build & print the URL
+    # host = es.transport.hosts[0].get('host', 'localhost')
+    # port = es.transport.hosts[0].get('port', 9200)
+    # path = f"/{index_name}/_search"
+    # print("Full Elasticsearch request URL:")
+    # print(f"http://{host}:{port}{path}?pretty=true")
+
     # Execute the search
     response = s.execute()
+
+    # Print the actual request URL (with pretty=true)
+    if hasattr(response, 'meta'):
+        print("Elasticsearch request URL:")
+        print(response.meta.request_url)
 
     # Calculate total pages
     total_hits = response.hits.total
@@ -60,5 +81,5 @@ if __name__ == '__main__':
     string_query = "productName:(*) AND stepUpdateStatus:('failed')" # test the query in Kibana before using it here
     results = find_query(string_query, page_request, from_date, to_date, group_name, index_name=index_name)
     for hit in results:
-        print(hit)  # Do something with the hit
+        # print(hit)  # Do something with the hit
         print(hit.stepName)  # Do something with the hit
