@@ -45,8 +45,8 @@ def find_query(string_query, page_request, from_date, to_date, group_name, index
     # print("Elasticsearch POST JSON body:")
     # print(json.dumps(query_body, indent=2))
 
-        # Add pretty=true to the URL
-    s = s.params(pretty=True)
+    # Add pretty=true to the URL
+    # s = s.params(pretty=True)
 
     # manually build & print the URL
     # host = es.transport.hosts[0].get('host', 'localhost')
@@ -57,11 +57,6 @@ def find_query(string_query, page_request, from_date, to_date, group_name, index
 
     # Execute the search
     response = s.execute()
-
-    # Print the actual request URL (with pretty=true)
-    if hasattr(response, 'meta'):
-        print("Elasticsearch request URL:")
-        print(response.meta.request_url)
 
     # Calculate total pages
     total_hits = response.hits.total
