@@ -33,7 +33,7 @@ def find_query(string_query, page_request, from_date, to_date, group_name, index
     combined_query = Q('query_string', query=f'groupName:{group_name} AND {string_query}')
 
     # Combine filter and query
-    s = Search(using=es, index=index_name).query(combined_query).filter(date_range_filter)
+    s = Search(using=es, index=index_name).query(combined_query).filter(date_range_filter).sort({ 'buildName': { 'order': 'asc' } })
 
     # Apply pagination
     page_number = page_request["page"]
@@ -75,6 +75,10 @@ if __name__ == '__main__':
     group_name = 'group1_agrs2f5sa2'
     string_query = "productName:(*) AND stepUpdateStatus:('failed')" # test the query in Kibana before using it here
     results = find_query(string_query, page_request, from_date, to_date, group_name, index_name=index_name)
+    build_name = ""
     for hit in results:
+        if build_name != hit.buildName:
+            build_name = hit.buildName
+            print(f"\nBuild Name: {build_name}")
         # print(hit)  # Do something with the hit
         print(hit.stepName)  # Do something with the hit
