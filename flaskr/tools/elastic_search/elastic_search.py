@@ -5,7 +5,7 @@ from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
 
 # Initialize Elasticsearch client
-es = Elasticsearch() # host='localhost', port=9200
+es = Elasticsearch( host='localhost', port=9200)
 try:
     info = es.info()
     print("Elasticsearch Cluster Info:")
