@@ -83,8 +83,15 @@ if __name__ == "__main__":
     #     course2.update(push__students=student2)
 
         # Get Anna’s courses
-        anna: Student = Student.objects(name="Alice").first() # pylint: disable=no-member
-        print(f"Alice's courses: {[course.name for course in anna.courses]}")
+        # Paginate Student query instead of fetching first
+        # Set pagination parameters
+        page_number = 1  # example page number
+        page_size = 10   # example page size
+        student_pages = Student.objects(name="Alice").skip((page_number - 1) * page_size).limit(page_size)  # pylint: disable=no-member
+        print(f"Retrieved {student_pages.count()} student(s) on page {page_number}")
+        # Iterate through the page of students and print their courses
+        for student in student_pages:
+            print(f"{student.name} courses: {[course.name for course in student.courses]}")
 
         # Get all students in Math
         math: Course = Course.objects(name="Math").first() # pylint: disable=no-member
