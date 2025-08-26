@@ -87,7 +87,7 @@ if __name__ == "__main__":
         # Set pagination parameters
         page_number = 1  # example page number
         page_size = 10   # example page size
-        student_pages = Student.objects(name="Alice").skip((page_number - 1) * page_size).limit(page_size)  # pylint: disable=no-member
+        student_pages = Student.objects(name="Alice").skip((page_number - 1) * page_size).limit(page_size).order_by('-name')  # pylint: disable=no-member
         print(f"Retrieved {student_pages.count()} student(s) on page {page_number}")
         # Iterate through the page of students and print their courses
         for student in student_pages:
