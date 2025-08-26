@@ -118,7 +118,7 @@ if __name__ == '__main__':
         }
     ]
     for i, doc in enumerate(docs, start=1):
-        es.index(index=index_to_create, doc_type=doc_type, id=i, body=doc)
+        es.index(index=index_to_create, doc_type=doc_type, body=doc)
         print(f"Inserted document {i}: {doc}")
 
     es.indices.refresh(index=index_to_create)
