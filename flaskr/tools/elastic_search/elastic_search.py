@@ -1,7 +1,6 @@
 from datetime import datetime, date
-import json
 from math import ceil
-from elasticsearch import Elasticsearch
+from elasticsearch import Elasticsearch, ElasticsearchException
 from elasticsearch_dsl import Search, Q
 
 # Initialize Elasticsearch client
@@ -10,7 +9,7 @@ try:
     info = es.info()
     print("Elasticsearch Cluster Info:")
     # print(info)
-except Exception as e:
+except ElasticsearchException as e:
     print("Failed to connect to Elasticsearch.")
     print(f"Error: {e}")
 
@@ -82,3 +81,55 @@ if __name__ == '__main__':
             print(f"\nBuild Name: {build_name}")
         # print(hit)  # Do something with the hit
         print(hit.stepName)  # Do something with the hit
+
+
+# --- NEW: create index 'yaniv' with @timestamp in the mapping and insert two docs ---
+    # --- NEW: create index 'yaniv' with a custom type and insert two docs ---
+    index_to_create = 'yaniv'
+    # Use a type name that doesn't begin with underscore for older clusters
+    doc_type = 'doc'
+    # Define only the properties mapping
+    mapping_props = {
+        "properties": {
+            "buildName":   {"type": "string", "index": "not_analyzed"},
+            "groupName":   {"type": "string", "index": "not_analyzed"},
+            "@timestamp":  {"type": "date"}
+        }
+    }
+    if not es.indices.exists(index=index_to_create):
+        # Create the index with type-based mapping
+        es.indices.create(
+            index=index_to_create,
+            body={"mappings": {doc_type: mapping_props}}
+        )
+        print(f"Index '{index_to_create}' created with mapping for type '{doc_type}'.")
+
+    # Insert two sample documents, each with a timestamp
+    docs = [
+        {
+            "buildName":  "build1",
+            "groupName":  "groupA",
+            "@timestamp": datetime.utcnow().isoformat()
+        },
+        {
+            "buildName":  "build2",
+            "groupName":  "groupB",
+            "@timestamp": datetime.utcnow().isoformat()
+        }
+    ]
+    for i, doc in enumerate(docs, start=1):
+        es.index(index=index_to_create, doc_type=doc_type, id=i, body=doc)
+        print(f"Inserted document {i}: {doc}")
+
+    es.indices.refresh(index=index_to_create)
+    print(f"Index '{index_to_create}' refreshed. Documents are now searchable.")
+
+    # --- Example: search 'yaniv' between two datetimes ---
+    from_dt = datetime(2025, 1, 1, 0, 0, 0)
+    to_dt   = datetime(2025, 12, 31, 23, 59, 59)
+    page_req = {'page': 0, 'size': 10}
+    # use wildcard string_query if you just want all docs
+    results = find_query("*", page_req, from_dt, to_dt, group_name="*", index_name=index_to_create)
+    for hit in results:
+        print(hit.buildName, hit.groupName, hit["@timestamp"])
+# --- END NEW ---
