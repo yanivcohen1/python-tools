@@ -1,9 +1,10 @@
 # ES 2.4.6 compatibility: use direct client and DocType
+from datetime import datetime, timezone
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import DocType, String  # pylint: disable=import-error,no-name-in-module
 from elasticsearch_dsl.field import Integer  # pylint: disable=import-error,no-name-in-module
 from elasticsearch_dsl.field import Date     # add timestamp field support
-from datetime import datetime, timezone
+from elasticsearch_dsl import Search, Q
 
 # 1. Establish a connection to your Elasticsearch cluster
 es = Elasticsearch(hosts=['localhost:9200'], port=9200)
@@ -51,9 +52,10 @@ delete_name = 'Banana'
 from_date = datetime(2025, 1, 1)
 to_date   = datetime(2025, 12, 31)
 # Build search with timestamp range filter and name match
+combined_query = Q('query_string', query=f'name:{delete_name}')
 delete_search = Product.search(using=es) \
     .filter('range', timestamp={'gte': from_date, 'lte': to_date}) \
-    .query('match', name=delete_name)
+    .query(combined_query)
 # Execute search to preview hits
 hits: list[Product] = delete_search.execute()
 print(f"Products to delete: {[(hit.name, hit.meta.id) for hit in hits]}")
