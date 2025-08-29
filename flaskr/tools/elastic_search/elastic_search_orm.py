@@ -52,10 +52,10 @@ delete_name = 'Banana'
 from_date = datetime(2025, 1, 1)
 to_date   = datetime(2025, 12, 31)
 # Build search with timestamp range filter and name match
-combined_query = Q('query_string', query=f'name:{delete_name}')
+query_string = Q('query_string', query=f'name:{delete_name}')
 delete_search = Product.search(using=es) \
     .filter('range', timestamp={'gte': from_date, 'lte': to_date}) \
-    .query(combined_query)
+    .query(query_string)
 # Execute search to preview hits
 hits: list[Product] = delete_search.execute()
 print(f"Products to delete: {[(hit.name, hit.meta.id) for hit in hits]}")
