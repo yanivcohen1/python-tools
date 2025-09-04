@@ -1,7 +1,7 @@
 # ES 2.4.6 compatibility: use direct client and DocType
 from datetime import datetime, timezone
 from elasticsearch import Elasticsearch
-from elasticsearch_dsl import DocType, String  # pylint: disable=import-error,no-name-in-module
+from elasticsearch_dsl import DocType, String
 from elasticsearch_dsl.field import Integer  # pylint: disable=import-error,no-name-in-module
 from elasticsearch_dsl.field import Date     # add timestamp field support
 from elasticsearch_dsl import Search, Q
