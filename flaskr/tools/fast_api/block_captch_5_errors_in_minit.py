@@ -48,6 +48,22 @@ async def clear_failed_login(ip: str):
     await r.delete(f"fail:{ip}")
 
 
+async def _failed_login_response(ip: str, status_code: int, message: str, count: int | None = None):
+    """Build a consistent failed-login JSON response."""
+
+    if count is None:
+        count = await record_failed_login(ip)
+    remaining = max(0, MAX_FAILED_ATTEMPTS - count)
+    return JSONResponse(
+        status_code=status_code,
+        content={
+            "error": message,
+            "remaining_attempts": remaining,
+            "blocked_after": BLOCK_WINDOW_SECONDS,
+        },
+    )
+
+
 @app.post("/login")
 async def login(request: Request, username: str = Form(...), password: str = Form(...)):
     ip = request.client.host
@@ -67,17 +83,23 @@ async def login(request: Request, username: str = Form(...), password: str = For
 
     # Verify credentials
     user_hash = USER_DB.get(username)
-    if not user_hash or not pwd_context.verify(password, user_hash):
-        count = await record_failed_login(ip)
-        remaining = max(0, MAX_FAILED_ATTEMPTS - count)
-        return JSONResponse(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            content={
-                "error": "Invalid credentials.",
-                "remaining_attempts": remaining,
-                "blocked_after": BLOCK_WINDOW_SECONDS,
-            },
+    if not user_hash:
+        return await _failed_login_response(ip, status.HTTP_401_UNAUTHORIZED, "Invalid credentials.")
+
+    if len(password.encode("utf-8")) > 72:
+        return await _failed_login_response(
+            ip,
+            status.HTTP_400_BAD_REQUEST,
+            "Password exceeds bcrypt 72-byte limit.",
         )
+
+    try:
+        valid_credentials = pwd_context.verify(password, user_hash)
+    except ValueError:
+        return await _failed_login_response(ip, status.HTTP_401_UNAUTHORIZED, "Invalid credentials.")
+
+    if not valid_credentials:
+        return await _failed_login_response(ip, status.HTTP_401_UNAUTHORIZED, "Invalid credentials.")
 
     # Successful login: clear failures
     await clear_failed_login(ip)

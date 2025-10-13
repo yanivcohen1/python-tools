@@ -88,3 +88,18 @@ def test_sixth_failed_attempt_is_blocked(fastapi_client):
 
     assert blocked_response.status_code == 429
     assert "Too many failed attempts" in blocked_response.json()["detail"]
+
+
+def test_long_password_returns_bad_request(fastapi_client):
+    response = fastapi_client.post(
+        "/login",
+        data={"username": "alice", "password": "x" * 100},
+    )
+
+    assert response.status_code == 400
+    body = response.json()
+    assert body["error"] == "Password exceeds bcrypt 72-byte limit."
+    assert body["remaining_attempts"] == captcha_module.MAX_FAILED_ATTEMPTS - 1
+
+if __name__ == "__main__":
+    raise SystemExit(pytest.main([__file__]))

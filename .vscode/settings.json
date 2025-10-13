@@ -13,7 +13,8 @@
   "python.testing.pytestEnabled": true,
   "python.testing.unittestEnabled": false,
   "python.testing.pytestArgs": [
-    "flaskr/tools/tests"
+    "flaskr/tools/tests",
+    "tests"
   ],
   "python.linting.pylintArgs": [
     "--load-plugins=pylint_flask_sqlalchemy,pylint_flask"
