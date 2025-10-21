@@ -20,7 +20,7 @@ connection = pymysql.connect(
 
 cursor = connection.cursor()
 
-# SQL query with f-string formatting
+# First filter users by date do it before run query
 query = f"""
 SELECT u.id, u.name, a.city
 FROM (
