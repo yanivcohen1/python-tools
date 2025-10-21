@@ -95,6 +95,14 @@ class Enrollment(NamedTuple):
     courseId: ObjectId
     grade: str = None
 
+class EnrollmentResult(NamedTuple):
+    id: ObjectId
+    studentId: ObjectId
+    courseId: ObjectId
+    grade: str
+    courseName: str
+    studentName: str
+
 # Assuming enrollments collection
 enrollments = db["enrollments"]
 courses = db["courses"]
@@ -132,6 +140,7 @@ pipeline = [
     {"$unwind": "$student"},  # added unwind for student
     {
         "$project": {
+            "_id": 0,  # exclude original _id
             "id": "$_id",
             "studentId": "$studentId",
             "courseId": "$courseId",
@@ -141,9 +150,9 @@ pipeline = [
         }
     }
 ]
-enrollments_docs_list = list(enrollments.aggregate(pipeline))
+enrollments_docs_list: list[EnrollmentResult] = [EnrollmentResult(**doc) for doc in enrollments.aggregate(pipeline)]
 for edl in enrollments_docs_list:
-    print(f"Student {edl['studentName']} enrolled in course: {edl['courseName']}")
+    print(f"Student {edl.studentName} enrolled in course: {edl.courseName}")
 
 # Remove
 enrollments.delete_one({"studentId": student_id, "courseId": course_id})
