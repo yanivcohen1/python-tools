@@ -77,3 +77,36 @@ else:
 # 4️⃣ Print results
 for doc in results:
     print(doc)
+
+
+# For many-to-many relationships
+# from bson import ObjectId
+
+# class Enrollment(NamedTuple):
+#     _id: str
+#     studentId: str
+#     courseId: str
+#     grade: str = None  # optional
+
+# # Assuming enrollments collection
+# enrollments = db["enrollments"]
+
+# # Insert
+# student_id = ObjectId()  # replace with actual student ObjectId
+# course_id = ObjectId()   # replace with actual course ObjectId
+
+# enrollment = {
+#     "studentId": student_id,
+#     "courseId": course_id
+# }
+# enrollments.insert_one(enrollment)
+
+# # Read
+# enrollments_docs = list(enrollments.find({"studentId": student_id}))
+# results: list[Enrollment] = [Enrollment(**doc) for doc in enrollments_docs]
+# print("grade:", results[0].grade)
+# for enrollment in results:
+#     print(enrollment)
+
+# # Remove
+# enrollments.delete_one({"studentId": student_id, "courseId": course_id})
