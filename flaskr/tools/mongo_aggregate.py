@@ -37,7 +37,9 @@ pipeline = [
 ]
 
 # 3️⃣ Run aggregation
-results = users_collection.aggregate(pipeline)
+results = list(users_collection.aggregate(pipeline))
+
+print("user name:", results[0]["userName"])
 
 # 4️⃣ Print results
 for doc in results:
