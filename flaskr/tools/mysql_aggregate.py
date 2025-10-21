@@ -2,7 +2,7 @@ import pymysql
 from typing import NamedTuple
 
 # Constants for dates
-START_DATE = '2025-10-01'
+START_DATE = '2025-08-01'
 END_DATE = '2025-10-31'
 
 class Result(NamedTuple):
@@ -13,23 +13,24 @@ class Result(NamedTuple):
 # Connect to MySQL
 connection = pymysql.connect(
     host="localhost",
-    user="your_username",
-    password="your_password",
-    database="your_database"
+    port=3306,
+    user="root",
+    password="yanivc77",
+    database="testdb"
 )
 
 cursor = connection.cursor()
 
 # First filter users by date do it before run query
 query = f"""
-SELECT u.id, u.name, a.city
+SELECT u.Id, u.Name, a.City
 FROM (
   SELECT *
   FROM users
-  WHERE created_at BETWEEN '{START_DATE}' AND '{END_DATE}'
+  WHERE CreatedAt BETWEEN '{START_DATE}' AND '{END_DATE}'
 ) AS u
-JOIN addresses a ON a.id = u.address_id
-WHERE a.city = 'LA'
+JOIN addresses a ON a.UserId = u.Id
+WHERE a.city = 'Los Angeles'
   AND u.name = 'David';
 """
 
