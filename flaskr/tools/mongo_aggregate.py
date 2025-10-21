@@ -8,13 +8,16 @@ db = client["testdb"]
 users_collection = db["users"]
 addresses_collection = db["addresses"]
 
+startDate = datetime(2025, 10, 1, 0, 0, 0, tzinfo=timezone.utc)
+endDate = datetime(2025, 10, 31, 23, 59, 59, tzinfo=timezone.utc)
+
 # 2️⃣ Build aggregation pipeline
 pipeline = [
     { # First filter by date first before run query
         "$match": {
           "createdAt": {
-              "$gte": datetime(2025, 10, 1, 0, 0, 0, tzinfo=timezone.utc),
-              "$lte": datetime(2025, 10, 31, 23, 59, 59, tzinfo=timezone.utc)
+              "$gte": startDate,
+              "$lte": endDate
           }
         }
     },
