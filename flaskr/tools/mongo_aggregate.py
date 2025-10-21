@@ -83,20 +83,33 @@ for doc in results:
 # For many-to-many relationships
 from bson import ObjectId
 
+class Student(NamedTuple):
+    name: str
+
+class Course(NamedTuple):
+    name: str
+
+class Enrollment(NamedTuple):
+    studentId: ObjectId
+    courseId: ObjectId
+    grade: str = None
+
 # Assuming enrollments collection
 enrollments = db["enrollments"]
 courses = db["courses"]
 students = db["students"]
 
+# insert sample data
+student = Student("John Doe 2")
+student_id = students.insert_one(student._asdict()).inserted_id
+course = Course("Math 102")
+course_id = courses.insert_one(course._asdict()).inserted_id
+
+enrollment = Enrollment(student_id, course_id, "A")
+enrollments.insert_one(enrollment._asdict())
+
 # find_student_courses
-student_id = students.find_one()["_id"]  # replace with actual student ObjectId
-course_id = students.find_one()["_id"]   # replace with actual course ObjectId
-# enrollment = {
-#     "studentId": student_id,
-#     "courseId": course_id,
-#     "grade": "A"  # optional
-# }
-# enrollments.insert_one(enrollment)
+# student_id and course_id are set above from insertions
 
 # read_student_courses
 pipeline = [
@@ -134,5 +147,5 @@ enrollments_docs_list = list(enrollments.aggregate(pipeline))
 for edl in enrollments_docs_list:
     print(f"Student {edl['studentName']} enrolled in course: {edl['courseName']}")
 
-# # Remove
-# enrollments.delete_one({"studentId": student_id, "courseId": course_id})
+# Remove
+enrollments.delete_one({"studentId": student_id, "courseId": course_id})
