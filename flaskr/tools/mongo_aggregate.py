@@ -156,3 +156,5 @@ for edl in enrollments_docs_list:
 
 # Remove
 enrollments.delete_one({"studentId": student_id, "courseId": course_id})
+students.delete_one({"_id": student_id})
+courses.delete_one({"_id": course_id})
