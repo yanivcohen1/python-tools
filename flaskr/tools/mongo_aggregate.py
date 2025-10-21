@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 from pymongo import MongoClient
+from typing import NamedTuple
 
 # 1️⃣ Connect to MongoDB
 client = MongoClient("mongodb://localhost:27017")
@@ -10,6 +11,12 @@ addresses_collection = db["addresses"]
 
 startDate = datetime(2025, 10, 1, 0, 0, 0, tzinfo=timezone.utc)
 endDate = datetime(2025, 10, 31, 23, 59, 59, tzinfo=timezone.utc)
+
+class Result(NamedTuple):
+    id: str
+    addressId: str
+    userName: str
+    city: str
 
 # 2️⃣ Build aggregation pipeline
 pipeline = [
@@ -40,7 +47,8 @@ pipeline = [
     },
     {
         "$project": {
-            "_id": 1, # include user _id
+            "_id": 0,  # exclude original _id
+            "id": "$_id",  # alias _id to id
             "addressId": "$addressesList._id", # include address _id
             "userName": "$name",
             "city": "$addressesList.city"
@@ -49,9 +57,9 @@ pipeline = [
 ]
 
 # 3️⃣ Run aggregation
-results = list(users_collection.aggregate(pipeline))
+results: list[Result] = [Result(**doc) for doc in users_collection.aggregate(pipeline)]
 
-print("user name:", results[0]["userName"])
+print("user name:", results[0].userName)
 
 # 4️⃣ Print results
 for doc in results:
