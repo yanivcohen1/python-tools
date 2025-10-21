@@ -130,7 +130,6 @@ for doc in results:
 #     }
 # ]
 # enrollments_docs_list = list(enrollments.aggregate(pipeline))
-# # add print statement name from student_id
 # for edl in enrollments_docs_list:
 #     print(f"Student {edl['studentName']} enrolled in course: {edl['courseName']}")
 
