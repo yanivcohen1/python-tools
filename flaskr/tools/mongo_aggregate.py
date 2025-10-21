@@ -19,6 +19,7 @@ class Result(NamedTuple):
     city: str
 
 # 2️⃣ Build aggregation pipeline
+# project = select in sql; lookup = join in sql; unwind = as in SQL; match = where in sql
 pipeline = [
     { # First filter by date do it before run query
         "$match": {
