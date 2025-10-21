@@ -81,58 +81,58 @@ for doc in results:
 
 
 # For many-to-many relationships
-# from bson import ObjectId
+from bson import ObjectId
 
-# # Assuming enrollments collection
-# enrollments = db["enrollments"]
-# courses = db["courses"]
-# students = db["students"]
+# Assuming enrollments collection
+enrollments = db["enrollments"]
+courses = db["courses"]
+students = db["students"]
 
-# # Insert
-# student_id = ObjectId()  # replace with actual student ObjectId
-# course_id = ObjectId()   # replace with actual course ObjectId
+# find_student_courses
+student_id = students.find_one()["_id"]  # replace with actual student ObjectId
+course_id = students.find_one()["_id"]   # replace with actual course ObjectId
 # enrollment = {
 #     "studentId": student_id,
-#     "courseId": course_id
+#     "courseId": course_id,
 #     "grade": "A"  # optional
 # }
 # enrollments.insert_one(enrollment)
 
-# # read_student_courses
-# pipeline = [
-#     {"$match": {"studentId": student_id}},
-#     {
-#         "$lookup": {
-#             "from": "courses",
-#             "localField": "courseId",
-#             "foreignField": "_id",
-#             "as": "course"
-#         }
-#     },
-#     {"$unwind": "$course"},
-#     {
-#         "$lookup": {  # added lookup for student name
-#             "from": "students",
-#             "localField": "studentId",
-#             "foreignField": "_id",
-#             "as": "student"
-#         }
-#     },
-#     {"$unwind": "$student"},  # added unwind for student
-#     {
-#         "$project": {
-#             "id": {"$toString": "$_id"},
-#             "studentId": {"$toString": "$studentId"},
-#             "courseId": {"$toString": "$courseId"},
-#             "grade": 1,
-#             "courseName": "$course.name",
-#             "studentName": "$student.name"  # added student name
-#         }
-#     }
-# ]
-# enrollments_docs_list = list(enrollments.aggregate(pipeline))
-# for edl in enrollments_docs_list:
-#     print(f"Student {edl['studentName']} enrolled in course: {edl['courseName']}")
+# read_student_courses
+pipeline = [
+    {"$match": {"studentId": student_id}},
+    {
+        "$lookup": {
+            "from": "courses",
+            "localField": "courseId",
+            "foreignField": "_id",
+            "as": "course"
+        }
+    },
+    {"$unwind": "$course"},
+    {
+        "$lookup": {  # added lookup for student name
+            "from": "students",
+            "localField": "studentId",
+            "foreignField": "_id",
+            "as": "student"
+        }
+    },
+    {"$unwind": "$student"},  # added unwind for student
+    {
+        "$project": {
+            "id": "$_id",
+            "studentId": "$studentId",
+            "courseId": "$courseId",
+            "grade": 1,
+            "courseName": "$course.name",
+            "studentName": "$student.name"  # added student name
+        }
+    }
+]
+enrollments_docs_list = list(enrollments.aggregate(pipeline))
+for edl in enrollments_docs_list:
+    print(f"Student {edl['studentName']} enrolled in course: {edl['courseName']}")
 
 # # Remove
 # enrollments.delete_one({"studentId": student_id, "courseId": course_id})
