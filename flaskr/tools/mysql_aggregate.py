@@ -1,8 +1,14 @@
 import pymysql
+from typing import NamedTuple
 
 # Constants for dates
 START_DATE = '2025-10-01'
 END_DATE = '2025-10-31'
+
+class Result(NamedTuple):
+    id: str
+    name: str
+    city: str
 
 # Connect to MySQL
 connection = pymysql.connect(
@@ -30,8 +36,16 @@ WHERE a.city = 'LA'
 # Execute the query
 cursor.execute(query)
 
-# Fetch and print results
-results = cursor.fetchall()
+# Fetch and cast results to Result[]
+results: list[Result] = [Result(id=row[0], name=row[1], city=row[2]) for row in cursor.fetchall()]
+
+# Print the first user name
+if results:
+    print("First user name:", results[0].name)
+else:
+    print("No results found")
+
+# Print all results
 for row in results:
     print(row)
 
