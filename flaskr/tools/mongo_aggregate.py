@@ -59,7 +59,10 @@ pipeline = [
 # 3️⃣ Run aggregation
 results: list[Result] = [Result(**doc) for doc in users_collection.aggregate(pipeline)]
 
-print("user name:", results[0].userName)
+if results:
+    print("user name:", results[0].userName)
+else:
+    print("No results found")
 
 # 4️⃣ Print results
 for doc in results:
