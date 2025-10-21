@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from pymongo import MongoClient
 
 # 1️⃣ Connect to MongoDB
@@ -9,6 +10,14 @@ addresses_collection = db["addresses"]
 
 # 2️⃣ Build aggregation pipeline
 pipeline = [
+    { # First filter by date first before run query
+        "$match": {
+          "createdAt": {
+              "$gte": datetime(2025, 10, 1, 0, 0, 0, tzinfo=timezone.utc),
+              "$lte": datetime(2025, 10, 31, 23, 59, 59, tzinfo=timezone.utc)
+          }
+        }
+    },
     {
         "$lookup": {
             "from": "addresses", # collection to join
