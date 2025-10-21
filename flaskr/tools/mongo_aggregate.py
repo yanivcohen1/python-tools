@@ -13,7 +13,7 @@ endDate = datetime(2025, 10, 31, 23, 59, 59, tzinfo=timezone.utc)
 
 # 2️⃣ Build aggregation pipeline
 pipeline = [
-    { # First filter by date first before run query
+    { # First filter by date do it before run query
         "$match": {
           "createdAt": {
               "$gte": startDate,
