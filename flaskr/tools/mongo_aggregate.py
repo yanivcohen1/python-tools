@@ -20,10 +20,10 @@ pipeline = [
     { "$unwind": "$addressesList" },  # flatten addresses array
     {
         "$match": {
-          "$and": [
-            {"addressesList.city": "Los Angeles"},
-            {"name": "David"}
-          ]
+            "$and": [
+                {"addressesList.city": "Los Angeles"},
+                {"name": "David"}
+            ]
         }
     },
     {
