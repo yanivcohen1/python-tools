@@ -80,6 +80,7 @@ for doc in results:
     print(doc)
 
 
+# ==================================================================================
 # For many-to-many relationships
 from bson import ObjectId
 
@@ -107,9 +108,6 @@ course_id = courses.insert_one(course._asdict()).inserted_id
 
 enrollment = Enrollment(student_id, course_id, "A")
 enrollments.insert_one(enrollment._asdict())
-
-# find_student_courses
-# student_id and course_id are set above from insertions
 
 # read_student_courses
 pipeline = [
