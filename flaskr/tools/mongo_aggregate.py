@@ -82,31 +82,57 @@ for doc in results:
 # For many-to-many relationships
 # from bson import ObjectId
 
-# class Enrollment(NamedTuple):
-#     _id: str
-#     studentId: str
-#     courseId: str
-#     grade: str = None  # optional
-
 # # Assuming enrollments collection
 # enrollments = db["enrollments"]
+# courses = db["courses"]
+# students = db["students"]
 
 # # Insert
 # student_id = ObjectId()  # replace with actual student ObjectId
 # course_id = ObjectId()   # replace with actual course ObjectId
-
 # enrollment = {
 #     "studentId": student_id,
 #     "courseId": course_id
+#     "grade": "A"  # optional
 # }
 # enrollments.insert_one(enrollment)
 
-# # Read
-# enrollments_docs = list(enrollments.find({"studentId": student_id}))
-# results: list[Enrollment] = [Enrollment(**doc) for doc in enrollments_docs]
-# print("grade:", results[0].grade)
-# for enrollment in results:
-#     print(enrollment)
+# # read_student_courses
+# pipeline = [
+#     {"$match": {"studentId": student_id}},
+#     {
+#         "$lookup": {
+#             "from": "courses",
+#             "localField": "courseId",
+#             "foreignField": "_id",
+#             "as": "course"
+#         }
+#     },
+#     {"$unwind": "$course"},
+#     {
+#         "$lookup": {  # added lookup for student name
+#             "from": "students",
+#             "localField": "studentId",
+#             "foreignField": "_id",
+#             "as": "student"
+#         }
+#     },
+#     {"$unwind": "$student"},  # added unwind for student
+#     {
+#         "$project": {
+#             "id": {"$toString": "$_id"},
+#             "studentId": {"$toString": "$studentId"},
+#             "courseId": {"$toString": "$courseId"},
+#             "grade": 1,
+#             "courseName": "$course.name",
+#             "studentName": "$student.name"  # added student name
+#         }
+#     }
+# ]
+# enrollments_docs_list = list(enrollments.aggregate(pipeline))
+# # add print statement name from student_id
+# for edl in enrollments_docs_list:
+#     print(f"Student {edl['studentName']} enrolled in course: {edl['courseName']}")
 
 # # Remove
 # enrollments.delete_one({"studentId": student_id, "courseId": course_id})
