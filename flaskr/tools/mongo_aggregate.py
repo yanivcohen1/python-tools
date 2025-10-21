@@ -29,7 +29,7 @@ pipeline = [
         }
     },
     {
-        "$lookup": {
+        "$lookup": { #
             "from": "addresses", # collection to join
             "localField": "addressIds", # field from users collection
             "foreignField": "_id", # field from addresses collection
@@ -37,6 +37,15 @@ pipeline = [
         }
     },
     { "$unwind": "$addressesList" },  # flatten addresses array
+    # {
+    #     "$lookup": {  # New lookup for kids
+    #         "from": "kids",  # collection to join
+    #         "localField": "kidIds",  # field from users collection (assuming it exists)
+    #         "foreignField": "_id",  # field from kids collection
+    #         "as": "kidsList"  # output array field
+    #     }
+    # },
+    # { "$unwind": "$kidsList" },  # flatten kids array
     {
         "$match": {
             "$and": [
@@ -52,6 +61,7 @@ pipeline = [
             "addressId": "$addressesList._id", # include address _id
             "userName": "$name",
             "city": "$addressesList.city"
+          # "kidName": "$kidsList.name"
         }
     }
 ]
