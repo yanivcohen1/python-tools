@@ -49,7 +49,7 @@ def nameof(obj):
         return obj.__name__
     return type(obj).__name__
 
-print(nameof(Result2))  # Output: Result2
+print(nameof(Result))  # Output: Result
 print(nameof(r))        # Output: Result2
 print(nameof(42))       # Output: int
 print(nameof("hello"))  # Output: str
