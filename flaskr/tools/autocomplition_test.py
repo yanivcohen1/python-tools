@@ -21,7 +21,7 @@ print(Result4().id) # print "id"
 print(Result4().addressId) # print "addressId"
 
 
-# ====== NamedTuple ======
+# ====== NamedTuple for existing class ======
 class Result3(NamedTuple):
     id: str
     addressId: str
@@ -31,7 +31,7 @@ print(r.id) # print "id"
 print(r.addressId) # print "addressId"
 
 
-# ====== no need setters/getters with dataclass ======
+# ====== dataclass for existing class ======
 @dataclass
 class Result2:
     id: str
