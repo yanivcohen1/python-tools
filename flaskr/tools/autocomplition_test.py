@@ -40,3 +40,17 @@ class Result2:
 r = Result2("123", "456")
 print(r.id) # print "123"
 print(r.address_id) # print "456"
+
+
+# ====== for getting the name of class, function, module, or instance ======
+def nameof(obj):
+    """Return a reasonable name for classes, functions, modules or instances."""
+    if hasattr(obj, "__name__"):
+        return obj.__name__
+    return type(obj).__name__
+
+print(nameof(Result2))  # Output: Result2
+print(nameof(r))        # Output: Result2
+print(nameof(42))       # Output: int
+print(nameof("hello"))  # Output: str
+print(nameof(nameof))   # Output: nameof
