@@ -12,32 +12,29 @@ addresses_collection = db["addresses"]
 startDate = datetime(2025, 10, 1, 0, 0, 0, tzinfo=timezone.utc)
 endDate = datetime(2025, 10, 31, 23, 59, 59, tzinfo=timezone.utc)
 
+
 class Result(NamedTuple):
     id: str
     addressId: str
     userName: str
     city: str
 
+
 # 2️⃣ Build aggregation pipeline
 # project = select in sql; lookup = join in sql; unwind = as in SQL; match = where in sql
 pipeline = [
-    { # First filter by date do it before run query
-        "$match": {
-          "createdAt": {
-              "$gte": startDate,
-              "$lte": endDate
-          }
-        }
+    {  # First filter by date do it before run query
+        "$match": {"createdAt": {"$gte": startDate, "$lte": endDate}}
     },
     {
-        "$lookup": { #
-            "from": "addresses", # collection to join
-            "localField": "addressIds", # field from users collection
-            "foreignField": "_id", # field from addresses collection
-            "as": "addressesList" # output array field alieass
+        "$lookup": {  #
+            "from": "addresses",  # collection to join
+            "localField": "addressIds",  # field from users collection
+            "foreignField": "_id",  # field from addresses collection
+            "as": "addressesList",  # output array field alieass
         }
     },
-    { "$unwind": "$addressesList" },  # flatten addresses array
+    {"$unwind": "$addressesList"},  # flatten addresses array
     # {
     #     "$lookup": {  # New lookup for kids
     #         "from": "kids",  # collection to join
@@ -47,24 +44,17 @@ pipeline = [
     #     }
     # },
     # { "$unwind": "$kidsList" },  # flatten kids array
-    {
-        "$match": {
-            "$and": [
-                {"addressesList.city": "Los Angeles"},
-                {"name": "David"}
-            ]
-        }
-    },
+    {"$match": {"$and": [{"addressesList.city": "Los Angeles"}, {"name": "David"}]}},
     {
         "$project": {
             "_id": 0,  # exclude original _id
             "id": "$_id",  # alias _id to id
-            "addressId": "$addressesList._id", # include address _id
+            "addressId": "$addressesList._id",  # include address _id
             "userName": "$name",
-            "city": "$addressesList.city"
-          # "kidName": "$kidsList.name"
+            "city": "$addressesList.city",
+            # "kidName": "$kidsList.name"
         }
-    }
+    },
 ]
 
 # 3️⃣ Run aggregation
@@ -84,16 +74,20 @@ for doc in results:
 # For many-to-many relationships
 from bson import ObjectId
 
+
 class Student(NamedTuple):
     name: str
 
+
 class Course(NamedTuple):
     name: str
+
 
 class Enrollment(NamedTuple):
     studentId: ObjectId
     courseId: ObjectId
     grade: str = None
+
 
 class EnrollmentResult(NamedTuple):
     id: ObjectId
@@ -102,6 +96,7 @@ class EnrollmentResult(NamedTuple):
     grade: str
     courseName: str
     studentName: str
+
 
 # Assuming enrollments collection
 enrollments = db["enrollments"]
@@ -120,43 +115,43 @@ enrollments.insert_one(enrollment._asdict())
 # read_student_courses
 pipeline = [
     {"$match": {"studentId": student_id}},
-    {
-        "$lookup": {
+    {"$lookup": {
             "from": "courses",
             "localField": "courseId",
             "foreignField": "_id",
-            "as": "course"
-        }
+            "as": "course",
+      }
     },
     {"$unwind": "$course"},
-    {
-        "$lookup": {  # added lookup for student name
+    {"$lookup": {  # added lookup for student name
             "from": "students",
             "localField": "studentId",
             "foreignField": "_id",
-            "as": "student"
-        }
+            "as": "student",
+      }
     },
     {"$unwind": "$student"},  # added unwind for student
     {"$match": {
-            "$and": [
-                {"course.name": "Math 102"},
-                {"student.name": "John Doe 2"}
-            ]}
+        "$and": [
+            {"course.name": "Math 102"},
+            {"student.name": "John Doe 2"}
+        ]
+      }
     },
-    {
-        "$project": {
+    {"$project": {
             "_id": 0,  # exclude original _id
             "id": "$_id",
             "studentId": "$studentId",
             "courseId": "$courseId",
             "grade": 1,
             "courseName": "$course.name",
-            "studentName": "$student.name"  # added student name
-        }
-    }
+            "studentName": "$student.name",  # added student name
+      }
+    },
 ]
-enrollments_docs_list: list[EnrollmentResult] = [EnrollmentResult(**doc) for doc in enrollments.aggregate(pipeline)]
+enrollments_docs_list: list[EnrollmentResult] = [
+    EnrollmentResult(**doc) for doc in enrollments.aggregate(pipeline)
+]
 for edl in enrollments_docs_list:
     print(f"Student {edl.studentName} enrolled in course: {edl.courseName}")
 
