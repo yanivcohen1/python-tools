@@ -138,6 +138,12 @@ pipeline = [
         }
     },
     {"$unwind": "$student"},  # added unwind for student
+    {"$match": {
+            "$and": [
+                {"course.name": "Math 102"},
+                {"student.name": "John Doe 2"}
+            ]}
+    },
     {
         "$project": {
             "_id": 0,  # exclude original _id
