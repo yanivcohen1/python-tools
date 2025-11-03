@@ -53,6 +53,6 @@ def multinomial_expansion(vars_list, n, values=None):
         print(values)
         print(f"➡️  Numeric result: {total_value}")
 
-# Example run
+# https://he.wikipedia.org/wiki/%D7%9E%D7%A9%D7%A4%D7%98_%D7%94%D7%9E%D7%95%D7%9C%D7%98%D7%99%D7%A0%D7%95%D7%9D
 # Try changing n, variables, or substitution values
-multinomial_expansion(['x', 'y', 'z'], 3, {'x': 1, 'y': 2, 'z': 3})
+multinomial_expansion(['x', 'y', 'z'], 4, {'x': 1, 'y': 2, 'z': 3})
