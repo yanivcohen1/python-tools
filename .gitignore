@@ -57,3 +57,4 @@ flaskr/tools/ai_chat/ai/models/qa_model/
 flaskr/tools/ai_chat/ai/lightning_logs/
 lightning_logs/
 flaskr/tools/ai_chat/ai/models/
+allfiles.txt
